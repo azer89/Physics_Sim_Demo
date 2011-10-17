@@ -92,8 +92,6 @@ public:
 
     void setDebugText(const Ogre::String &debugText){mDebugText = debugText;}
 
-protected:
-
     void initWorld (const Ogre::Vector3 &gravityVector = Ogre::Vector3 (0,-9.81,0), 
                     const Ogre::AxisAlignedBox &bounds = Ogre::AxisAlignedBox (Ogre::Vector3 (-10000, -10000, -10000),
                                                                                Ogre::Vector3 (10000,  10000,  10000)));
