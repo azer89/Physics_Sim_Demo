@@ -75,7 +75,7 @@ AZBullet::~AZBullet(void)
 void AZBullet::createScene(void)
 {	
 	/*
-    Ogre::Entity* mEntity = mSceneMgr->createEntity("Head", "chassis.mesh");
+    Ogre::Entity* mEntity = mSceneMgr->createEntity("Head", "wheel.mesh");
 
     Ogre::SceneNode* mNode = mSceneMgr->getRootSceneNode()->createChildSceneNode();
     mNode->attachObject(mEntity);
@@ -88,24 +88,19 @@ void AZBullet::createScene(void)
     Ogre::Light* l = mSceneMgr->createLight("MainLight");
     l->setPosition(20,80,50);
 	*/
+
+	this->bulletInit();
 }
 
 // -------------------------------------------------------------------------
-void AZBullet::bulletInit(Ogre::Root *root, Ogre::RenderWindow *win, OgreBulletApplication *application)
-{
+void AZBullet::bulletInit()
+{	
+	mBulletCamera = mCamera;		// OgreBulletListener's camera
+	mBulletWindow = mWindow;		// OgreBulletListener's window
+	mBulletRoot = mRoot;			// OgreBulletListener's root
+	mBulletSceneMgr = mSceneMgr;	// OgreBulletListener's scene manager
 
-	std::cout << "HNGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG";
 	mBulletCameraMove = 1;
-
-	mHelpKeys.clear();
-	mHelpKeys.push_back (BASIC_HELP_INFO0);
-	mHelpKeys.push_back (BASIC_HELP_INFO1);
-	mHelpKeys.push_back (BASIC_HELP_INFO2);
-	mHelpKeys.push_back (BASIC_HELP_INFO3);
-	mHelpKeys.push_back (BASIC_HELP_INFO4);
-	mHelpKeys.push_back (BASIC_HELP_INFO5);
-	mHelpKeys.push_back (BASIC_HELP_INFO6);
-	mHelpKeys.push_back ("Use Arrow Key to move Car.");
 
 	// reset
 	for (int i = 0; i < 4; i++)
@@ -113,6 +108,7 @@ void AZBullet::bulletInit(Ogre::Root *root, Ogre::RenderWindow *win, OgreBulletA
 		mWheelsEngine[i] = 0;
 		mWheelsSteerable[i] = 0;
 	}
+
 	mWheelsEngineCount = 2;
 	mWheelsEngine[0] = 0;
 	mWheelsEngine[1] = 1;
@@ -122,8 +118,6 @@ void AZBullet::bulletInit(Ogre::Root *root, Ogre::RenderWindow *win, OgreBulletA
 	mWheelsSteerableCount = 2;
 	mWheelsSteerable[0] = 0;
 	mWheelsSteerable[1] = 1;
-	//mWheelsSteerable[2] = 2;
-	//mWheelsSteerable[3] = 3;
 
 	mWheelEngineStyle = 0;
 	mWheelSteeringStyle = 0;
@@ -134,102 +128,71 @@ void AZBullet::bulletInit(Ogre::Root *root, Ogre::RenderWindow *win, OgreBulletA
 	mEngineForce = 0;
 	mSteering = 0;
 
-	// ------------------------
-	// Start OgreScene
-	mSceneMgr = root->createSceneManager( "TerrainSceneManager", "BulletTerrain");
-
-	mCamera = mSceneMgr->createCamera("Cam");
-	//mCamera->setFOVy(Degree(90));
-	mCamera->setNearClipDistance(0.1);
-	mCamera->setFarClipDistance(1000);
-	Viewport *vp = win->addViewport(mCamera);
+	Viewport *vp = this->mCamera->getViewport();
 	vp->setBackgroundColour(ColourValue(0,0,0));
+
 	// Alter the camera aspect ratio to match the viewport
-	mCamera->setAspectRatio(
-		Real(vp->getActualWidth()) / Real(vp->getActualHeight()));
+	mCamera->setAspectRatio(Real(vp->getActualWidth()) / Real(vp->getActualHeight()));
 	mCamera->setPosition(CameraStart + terrain_Shift);
 	mCamera->lookAt(CarPosition + terrain_Shift);
 
-
-	// Create a terrain
-	std::string terrain_cfg("terrain.cfg");
-	mSceneMgr->setWorldGeometry(terrain_cfg);
-
-	OgreBulletListener::bulletInit(root, win, application);
-
-	// ------------------------
 	// add lights
 	setBulletBasicLight();
 
-	// ------------------------
-	// Add the Gui
-	setBulletPhysicGUI();
-	// ------------------------
 	// Start Bullet
 	initWorld();
 
-	// ------------------------
-	// Add the ground
+	// Create a terrain
+	mSceneMgr->setWorldGeometry("terrain.cfg");
 
-	// 0.1, 0.8
-	//addStaticPlane(0.3, 0.8);
+	Ogre::ConfigFile config;
 
+	config.loadFromResourceSystem("terrain.cfg", ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME, "=", true);
+
+	unsigned page_size = Ogre::StringConverter::parseUnsignedInt(config.getSetting( "PageSize" ));
+
+	Ogre::Vector3 terrainScale(Ogre::StringConverter::parseReal( config.getSetting( "PageWorldX" ) ) / (page_size-1),
+		Ogre::StringConverter::parseReal( config.getSetting( "MaxHeight" ) ),
+		Ogre::StringConverter::parseReal( config.getSetting( "PageWorldZ" ) ) / (page_size-1));
+
+	Ogre::String terrainfileName = config.getSetting( "Heightmap.image" );
+	float *heights = new float [page_size*page_size];
+
+	Ogre::Image terrainHeightMap;
+	terrainHeightMap.load(terrainfileName, Ogre::ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME);
+
+	for(unsigned y = 0; y < page_size; ++y)
 	{
-		Ogre::ConfigFile config;
-
-		config.loadFromResourceSystem(terrain_cfg, ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME, "=", true);
-
-		unsigned page_size = Ogre::StringConverter::parseUnsignedInt(config.getSetting( "PageSize" ));
-
-		Ogre::Vector3 terrainScale(Ogre::StringConverter::parseReal( config.getSetting( "PageWorldX" ) ) / (page_size-1),
-			Ogre::StringConverter::parseReal( config.getSetting( "MaxHeight" ) ),
-			Ogre::StringConverter::parseReal( config.getSetting( "PageWorldZ" ) ) / (page_size-1));
-
-		Ogre::String terrainfileName = config.getSetting( "Heightmap.image" );
-
-		float *heights = new float [page_size*page_size];
-
-		Ogre::Image terrainHeightMap;
-		terrainHeightMap.load(terrainfileName, Ogre::ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME);
-
-		for(unsigned y = 0; y < page_size; ++y)
+		for(unsigned x = 0; x < page_size; ++x)
 		{
-			for(unsigned x = 0; x < page_size; ++x)
-			{
-				Ogre::ColourValue color = terrainHeightMap.getColourAt(x, y, 0);
-				heights[x + y * page_size] = color.r;
-			}
+			Ogre::ColourValue color = terrainHeightMap.getColourAt(x, y, 0);
+			heights[x + y * page_size] = color.r;
 		}
-
-		mTerrainShape = new HeightmapCollisionShape (
-			page_size, 
-			page_size, 
-			terrainScale, 
-			heights, 
-			true);
-
-		RigidBody *defaultTerrainBody = new RigidBody(
-			"Terrain", 
-			mBulletWorld);
-
-		const float      terrainBodyRestitution  = 0.1f;
-		const float      terrainBodyFriction     = 0.8f;
-
-		Ogre::Vector3 terrainShiftPos( (terrainScale.x * (page_size - 1) / 2), \
-			0,
-			(terrainScale.z * (page_size - 1) / 2));
-
-		terrainShiftPos.y = terrainScale.y / 2 * terrainScale.y;
-
-		Ogre::SceneNode* pTerrainNode = mSceneMgr->getRootSceneNode ()->createChildSceneNode ();
-		defaultTerrainBody->setStaticShape (pTerrainNode, mTerrainShape, terrainBodyRestitution, terrainBodyFriction, terrainShiftPos);
-
-		mBodies.push_back(defaultTerrainBody);
-		mShapes.push_back(mTerrainShape);
 	}
 
+	mTerrainShape = new HeightmapCollisionShape (
+		page_size, 
+		page_size, 
+		terrainScale, 
+		heights, 
+		true);
 
+	RigidBody *defaultTerrainBody = new RigidBody(
+		"Terrain", 
+		mBulletWorld);
 
+	const float      terrainBodyRestitution  = 0.1f;
+	const float      terrainBodyFriction     = 0.8f;
+
+	Ogre::Vector3 terrainShiftPos( (terrainScale.x * (page_size - 1) / 2), 0, (terrainScale.z * (page_size - 1) / 2));
+
+	terrainShiftPos.y = terrainScale.y / 2 * terrainScale.y;
+
+	Ogre::SceneNode* pTerrainNode = mSceneMgr->getRootSceneNode ()->createChildSceneNode ();
+	defaultTerrainBody->setStaticShape (pTerrainNode, mTerrainShape, terrainBodyRestitution, terrainBodyFriction, terrainShiftPos);
+
+	mBodies.push_back(defaultTerrainBody);
+	mShapes.push_back(mTerrainShape);
 
 	// create obstacle in front of car
 	addCube("obstacle", Ogre::Vector3(13,  -5.25, -5) + terrain_Shift ,  Quaternion(Radian(Degree(22.5)), Ogre::Vector3::UNIT_X), Ogre::Vector3(1, 1, 1), 0.3, 0.8, 0);
@@ -254,157 +217,176 @@ void AZBullet::bulletInit(Ogre::Root *root, Ogre::RenderWindow *win, OgreBulletA
 	addCube("obstacle", Ogre::Vector3(25, -10, -27) + terrain_Shift , Quaternion(Radian(Degree(45.0)), Ogre::Vector3::UNIT_Z), Ogre::Vector3(1, 1, 1), 0.3, 0.8, 0);
 	addCube("obstacle", Ogre::Vector3(25, -10, -29) + terrain_Shift , Quaternion(Radian(Degree(45.0)), Ogre::Vector3::UNIT_Z), Ogre::Vector3(1, 1, 1), 0.3, 0.8, 0);
 
+	const Ogre::Vector3 chassisShift(0, 1.0, 0);
+	float connectionHeight = 0.7f;
 
+	mChassis = mSceneMgr->createEntity(
+		"chassis" + StringConverter::toString(mNumEntitiesInstanced++),
+		"chassis.mesh");
 
+	SceneNode *node = mSceneMgr->getRootSceneNode ()->createChildSceneNode ();
 
-	/// create vehicle
+	SceneNode *chassisnode = node->createChildSceneNode ();
+	chassisnode->attachObject (mChassis);
+	chassisnode->setPosition (chassisShift);
+
+	mChassis->setCastShadows(true);
+
+	CompoundCollisionShape* compound = new CompoundCollisionShape();
+
+	BoxCollisionShape* chassisShape = new BoxCollisionShape(Ogre::Vector3(1.f,0.75f,2.1f));
+	compound->addChildShape(chassisShape, chassisShift); 
+
+	mCarChassis = new WheeledRigidBody("carChassis", mBulletWorld);
+
+	mCarChassis->setShape (node, 
+		compound, 
+		0.6, //restitution
+		0.6, //friction
+		800, //bodyMass
+		CarPosition +  terrain_Shift , 
+		Quaternion::IDENTITY);
+	mCarChassis->setDamping(0.2, 0.2);
+
+	mCarChassis->disableDeactivation ();
+	mTuning = new VehicleTuning(
+		gSuspensionStiffness,
+		gSuspensionCompression,
+		gSuspensionDamping,
+		gMaxSuspensionTravelCm,
+		gFrictionSlip);
+
+	mVehicleRayCaster = new VehicleRayCaster(mBulletWorld);
+	mVehicle = new RaycastVehicle(mCarChassis, mTuning, mVehicleRayCaster);
+
+	int rightIndex = 0;
+	int upIndex = 1;
+	int forwardIndex = 2;
+
+	mVehicle->setCoordinateSystem(rightIndex, upIndex, forwardIndex);
+
+	Ogre::Vector3 wheelDirectionCS0(0,-1,0);
+	Ogre::Vector3 wheelAxleCS(-1,0,0);
+
+	for (size_t i = 0; i < 4; i++)
 	{
-		const Ogre::Vector3 chassisShift(0, 1.0, 0);
-		float connectionHeight = 0.7f;
+		mWheels[i] = mSceneMgr->createEntity(
+			"wheel" + StringConverter::toString(mNumEntitiesInstanced++),
+			"wheel.mesh");
 
-		mChassis = mSceneMgr->createEntity(
-			"chassis" + StringConverter::toString(mNumEntitiesInstanced++),
-			"chassis.mesh");
+		mWheels[i]->setQueryFlags (GEOMETRY_QUERY_MASK);
 
-		SceneNode *node = mSceneMgr->getRootSceneNode ()->createChildSceneNode ();
+		mWheels[i]->setCastShadows(true);
 
-		SceneNode *chassisnode = node->createChildSceneNode ();
-		chassisnode->attachObject (mChassis);
-		chassisnode->setPosition (chassisShift);
+		mWheelNodes[i] = mSceneMgr->getRootSceneNode ()->createChildSceneNode ();
+		mWheelNodes[i]->attachObject (mWheels[i]);
 
-
-		mChassis->setQueryFlags (GEOMETRY_QUERY_MASK);
-#if (OGRE_VERSION < ((1 << 16) | (5 << 8) | 0)) // only applicable before shoggoth (1.5.0)
-		mChassis->setNormaliseNormals(true);
-#endif
-		mChassis->setCastShadows(true);
-
-
-
-		CompoundCollisionShape* compound = new CompoundCollisionShape();
-
-		BoxCollisionShape* chassisShape = new BoxCollisionShape(Ogre::Vector3(1.f,0.75f,2.1f));
-		compound->addChildShape(chassisShape, chassisShift); 
-
-		mCarChassis = new WheeledRigidBody("carChassis", mBulletWorld);
-
-		mCarChassis->setShape (node, 
-			compound, 
-			0.6, //restitution
-			0.6, //friction
-			800, //bodyMass
-			CarPosition +  terrain_Shift , 
-			Quaternion::IDENTITY);
-		mCarChassis->setDamping(0.2, 0.2);
-
-		mCarChassis->disableDeactivation ();
-		mTuning = new VehicleTuning(
-			gSuspensionStiffness,
-			gSuspensionCompression,
-			gSuspensionDamping,
-			gMaxSuspensionTravelCm,
-			gFrictionSlip);
-
-		mVehicleRayCaster = new VehicleRayCaster(mBulletWorld);
-		mVehicle = new RaycastVehicle(mCarChassis, mTuning, mVehicleRayCaster);
-
-		{
-			int rightIndex = 0;
-			int upIndex = 1;
-			int forwardIndex = 2;
-
-			mVehicle->setCoordinateSystem(rightIndex, upIndex, forwardIndex);
-
-			Ogre::Vector3 wheelDirectionCS0(0,-1,0);
-			Ogre::Vector3 wheelAxleCS(-1,0,0);
-
-			for (size_t i = 0; i < 4; i++)
-			{
-				mWheels[i] = mSceneMgr->createEntity(
-					"wheel" + StringConverter::toString(mNumEntitiesInstanced++),
-					"wheel.mesh");
-
-				mWheels[i]->setQueryFlags (GEOMETRY_QUERY_MASK);
-#if (OGRE_VERSION < ((1 << 16) | (5 << 8) | 0)) // only applicable before shoggoth (1.5.0)
-				mWheels[i]->setNormaliseNormals(true);
-#endif
-				mWheels[i]->setCastShadows(true);
-
-				mWheelNodes[i] = mSceneMgr->getRootSceneNode ()->createChildSceneNode ();
-				mWheelNodes[i]->attachObject (mWheels[i]);
-
-			}
-
-			{
-				bool isFrontWheel = true;
-
-				Ogre::Vector3 connectionPointCS0 (
-					CUBE_HALF_EXTENTS-(0.3*gWheelWidth),
-					connectionHeight,
-					2*CUBE_HALF_EXTENTS-gWheelRadius);
-
-
-				mVehicle->addWheel(
-					mWheelNodes[0],
-					connectionPointCS0,
-					wheelDirectionCS0,
-					wheelAxleCS,
-					gSuspensionRestLength,
-					gWheelRadius,
-					isFrontWheel, gWheelFriction, gRollInfluence);
-
-				connectionPointCS0 = Ogre::Vector3(
-					-CUBE_HALF_EXTENTS+(0.3*gWheelWidth),
-					connectionHeight,
-					2*CUBE_HALF_EXTENTS-gWheelRadius);
-
-
-				mVehicle->addWheel(
-					mWheelNodes[1],
-					connectionPointCS0,
-					wheelDirectionCS0,
-					wheelAxleCS,
-					gSuspensionRestLength,
-					gWheelRadius,
-					isFrontWheel, gWheelFriction, gRollInfluence);
-
-
-				connectionPointCS0 = Ogre::Vector3(
-					-CUBE_HALF_EXTENTS+(0.3*gWheelWidth),
-					connectionHeight,
-					-2*CUBE_HALF_EXTENTS+gWheelRadius);
-
-				isFrontWheel = false;
-				mVehicle->addWheel(
-					mWheelNodes[2],
-					connectionPointCS0,
-					wheelDirectionCS0,
-					wheelAxleCS,
-					gSuspensionRestLength,
-					gWheelRadius,
-					isFrontWheel, gWheelFriction, gRollInfluence);
-
-				connectionPointCS0 = Ogre::Vector3(
-					CUBE_HALF_EXTENTS-(0.3*gWheelWidth),
-					connectionHeight,
-					-2*CUBE_HALF_EXTENTS+gWheelRadius);
-
-				mVehicle->addWheel(
-					mWheelNodes[3],
-					connectionPointCS0,
-					wheelDirectionCS0,
-					wheelAxleCS,
-					gSuspensionRestLength,
-					gWheelRadius,
-					isFrontWheel, gWheelFriction, gRollInfluence);
-
-				//mVehicle->setWheelsAttached();
-
-			}
-
-		}
 	}
 
+	bool isFrontWheel = true;
+
+	Ogre::Vector3 connectionPointCS0 (
+		CUBE_HALF_EXTENTS-(0.3*gWheelWidth),
+		connectionHeight,
+		2*CUBE_HALF_EXTENTS-gWheelRadius);
+
+
+	mVehicle->addWheel(
+		mWheelNodes[0],
+		connectionPointCS0,
+		wheelDirectionCS0,
+		wheelAxleCS,
+		gSuspensionRestLength,
+		gWheelRadius,
+		isFrontWheel, gWheelFriction, gRollInfluence);
+
+	connectionPointCS0 = Ogre::Vector3(
+		-CUBE_HALF_EXTENTS+(0.3*gWheelWidth),
+		connectionHeight,
+		2*CUBE_HALF_EXTENTS-gWheelRadius);
+
+
+	mVehicle->addWheel(
+		mWheelNodes[1],
+		connectionPointCS0,
+		wheelDirectionCS0,
+		wheelAxleCS,
+		gSuspensionRestLength,
+		gWheelRadius,
+		isFrontWheel, gWheelFriction, gRollInfluence);
+
+
+	connectionPointCS0 = Ogre::Vector3(
+		-CUBE_HALF_EXTENTS+(0.3*gWheelWidth),
+		connectionHeight,
+		-2*CUBE_HALF_EXTENTS+gWheelRadius);
+
+	isFrontWheel = false;
+	mVehicle->addWheel(
+		mWheelNodes[2],
+		connectionPointCS0,
+		wheelDirectionCS0,
+		wheelAxleCS,
+		gSuspensionRestLength,
+		gWheelRadius,
+		isFrontWheel, gWheelFriction, gRollInfluence);
+
+	connectionPointCS0 = Ogre::Vector3(
+		CUBE_HALF_EXTENTS-(0.3*gWheelWidth),
+		connectionHeight,
+		-2*CUBE_HALF_EXTENTS+gWheelRadius);
+
+	mVehicle->addWheel(
+		mWheelNodes[3],
+		connectionPointCS0,
+		wheelDirectionCS0,
+		wheelAxleCS,
+		gSuspensionRestLength,
+		gWheelRadius,
+		isFrontWheel, gWheelFriction, gRollInfluence);
+
+}
+
+//-------------------------------------------------------------------------------------
+bool AZBullet::frameRenderingQueued(const Ogre::FrameEvent& arg)
+{
+	if(!BaseApplication::frameRenderingQueued(arg))
+	{
+		return false;
+	}
+
+	Real elapsedTime = arg.timeSinceLastFrame;
+	
+	mBulletWorld->stepSimulation(elapsedTime);
+
+	return true;
+
+}
+
+// -------------------------------------------------------------------------
+bool AZBullet::frameStarted(const FrameEvent& evt)
+{
+	Real elapsedTime = evt.timeSinceLastFrame;
+	/*
+	if(!OgreBulletListener::bulletFrameStarted(elapsedTime))
+	{
+		return false;
+	}
+	*/
+	return true;
+}
+
+// -------------------------------------------------------------------------
+bool AZBullet::frameEnded(const FrameEvent& evt)
+{
+	/*
+	Real elapsedTime = evt.timeSinceLastFrame;
+	if(!OgreBulletListener::bulletFrameEnded(elapsedTime))
+	{
+		return false;
+	}
+	*/
+	return true; 
 }
 
 

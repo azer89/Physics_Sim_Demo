@@ -30,19 +30,23 @@ class AZBullet : public BaseApplication,
 	public OgreBulletListener 
 {
 public:
-	AZBullet::AZBullet(void) : OgreBulletListener()
+	AZBullet::AZBullet(void) :
+	  OgreBulletListener()
 	{
 		this->mName = "AZBullet";	
 	}
     virtual ~AZBullet(void);
 	
 
-	void bulletInit(Ogre::Root *root, Ogre::RenderWindow *win, OgreBulletApplication *application);
+	void bulletInit();
 
 	// void bulletKeyPressed(BULLET_KEY_CODE key);
 	// void bulletKeyReleased(BULLET_KEY_CODE key);
 
-	// bool bulletFrameStarted(Ogre::Real elapsedTime);
+	//bool bulletFrameStarted(Ogre::Real elapsedTime);
+	virtual bool frameStarted(const Ogre::FrameEvent& evt);
+	virtual bool frameEnded(const Ogre::FrameEvent& evt);
+	virtual bool frameRenderingQueued(const Ogre::FrameEvent& arg);
 
 protected:
      virtual void createScene(void);
@@ -69,7 +73,6 @@ private:
 
 	int mWheelEngineStyle;
 	int mWheelSteeringStyle;
-
 
 	bool mSteeringLeft;
 	bool mSteeringRight;

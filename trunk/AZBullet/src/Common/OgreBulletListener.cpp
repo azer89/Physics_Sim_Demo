@@ -374,7 +374,7 @@ void OgreBulletListener::getDebugLines()
     }
 }
 // -------------------------------------------------------------------------
-void OgreBulletListener::bulletShutdown ()
+void OgreBulletListener::bulletShutdown()
 {
     delete mInputListener;
     delete mGuiListener;
