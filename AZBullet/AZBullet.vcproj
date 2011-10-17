@@ -41,7 +41,7 @@
 				Name="VCCLCompilerTool"
 				AdditionalOptions="-Zm256"
 				Optimization="0"
-				AdditionalIncludeDirectories="include;include\Collisions;include\Dynamics;&quot;$(OGRE_HOME)\include&quot;;&quot;$(OGRE_HOME)\include\OIS&quot;;&quot;$(OGRE_HOME)\include\OGRE&quot;;&quot;$(OGRE_HOME)\Samples\Common\include&quot;;&quot;$(OGRE_HOME)\boost_1_44&quot;;&quot;$(BULLET_ROOT)\src&quot;;&quot;$(BULLET_ROOT)\Extras\GIMPACTUtils\include&quot;"
+				AdditionalIncludeDirectories="include;include\Collisions;include\Dynamics;include\Common;&quot;$(OGRE_HOME)\include&quot;;&quot;$(OGRE_HOME)\include\OIS&quot;;&quot;$(OGRE_HOME)\include\OGRE&quot;;&quot;$(OGRE_HOME)\Samples\Common\include&quot;;&quot;$(OGRE_HOME)\boost_1_44&quot;;&quot;$(BULLET_ROOT)\src&quot;;&quot;$(BULLET_ROOT)\Extras\GIMPACTUtils\include&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS"
 				MinimalRebuild="true"
 				ExceptionHandling="1"
@@ -72,7 +72,7 @@
 				AdditionalLibraryDirectories="&quot;$(OGRE_HOME)\lib\debug&quot;;&quot;$(OGRE_HOME)\boost_1_44\lib&quot;;&quot;lib\$(ConfigurationName)&quot;;&quot;$(BULLET_ROOT)\lib\&quot;"
 				GenerateDebugInformation="true"
 				ProgramDatabaseFile="$(OutDir)/AZBullet.pdb"
-				SubSystem="2"
+				SubSystem="1"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -129,7 +129,7 @@
 				EnableIntrinsicFunctions="true"
 				FavorSizeOrSpeed="1"
 				OmitFramePointers="true"
-				AdditionalIncludeDirectories="include;include\Collisions;include\Dynamics;&quot;$(OGRE_HOME)\include&quot;;&quot;$(OGRE_HOME)\include\OIS&quot;;&quot;$(OGRE_HOME)\include\OGRE&quot;;&quot;$(OGRE_HOME)\Samples\Common\include&quot;;&quot;$(OGRE_HOME)\boost_1_44&quot;;&quot;$(BULLET_ROOT)\src&quot;;&quot;$(BULLET_ROOT)\Extras\GIMPACTUtils\include&quot;"
+				AdditionalIncludeDirectories="include;include\Collisions;include\Dynamics;include\Common;&quot;$(OGRE_HOME)\include&quot;;&quot;$(OGRE_HOME)\include\OIS&quot;;&quot;$(OGRE_HOME)\include\OGRE&quot;;&quot;$(OGRE_HOME)\Samples\Common\include&quot;;&quot;$(OGRE_HOME)\boost_1_44&quot;;&quot;$(BULLET_ROOT)\src&quot;;&quot;$(BULLET_ROOT)\Extras\GIMPACTUtils\include&quot;"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS"
 				StringPooling="true"
 				MinimalRebuild="true"
@@ -205,6 +205,30 @@
 				RelativePath=".\src\BaseApplication.cpp"
 				>
 			</File>
+			<Filter
+				Name="Common"
+				>
+				<File
+					RelativePath=".\src\Common\BetaGUI.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\Common\OgreBulletApplication.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\Common\OgreBulletGuiListener.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\Common\OgreBulletInputListener.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\Common\OgreBulletListener.cpp"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -227,6 +251,30 @@
 				RelativePath=".\include\Stdafx.h"
 				>
 			</File>
+			<Filter
+				Name="Common"
+				>
+				<File
+					RelativePath=".\include\Common\BetaGUI.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\Common\OgreBulletApplication.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\Common\OgreBulletGuiListener.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\Common\OgreBulletInputListener.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\Common\OgreBulletListener.h"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Resource Files"
