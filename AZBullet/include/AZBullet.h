@@ -35,8 +35,7 @@ public:
 	{
 		this->mName = "AZBullet";	
 	}
-    virtual ~AZBullet(void);
-	
+    virtual ~AZBullet(void);	
 
 	void bulletInit();
 
@@ -51,9 +50,8 @@ public:
 protected:
      virtual void createScene(void);
 
-private:
-	OgreBulletCollisions::HeightmapCollisionShape       *mTerrainShape;
-
+//private:
+	/*
 	OgreBulletDynamics::WheeledRigidBody        *mCarChassis;
 	OgreBulletDynamics::VehicleTuning	        *mTuning;
 	OgreBulletDynamics::VehicleRayCaster	    *mVehicleRayCaster;
@@ -76,6 +74,7 @@ private:
 
 	bool mSteeringLeft;
 	bool mSteeringRight;
+	*/
 };
 
 #endif // #ifndef __AZBullet_h_
