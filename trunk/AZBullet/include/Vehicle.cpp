@@ -87,7 +87,7 @@ void Vehicle::createVehicle(SceneManager* mSceneMgr,
 
 	mChassis = mSceneMgr->createEntity(
 		"chassis" + StringConverter::toString(mNumEntitiesInstanced++),
-		"chassis.mesh");
+		"Nissan_1400_Bakkie.mesh");
 
 	SceneNode *node = mSceneMgr->getRootSceneNode ()->createChildSceneNode ();
 
