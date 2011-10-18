@@ -205,6 +205,18 @@
 				RelativePath=".\src\BaseApplication.cpp"
 				>
 			</File>
+			<File
+				RelativePath=".\src\ObstacleForFun.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\TerrainManager.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\include\Vehicle.cpp"
+				>
+			</File>
 			<Filter
 				Name="Common"
 				>
@@ -244,11 +256,23 @@
 				>
 			</File>
 			<File
+				RelativePath=".\include\ObstacleForFun.h"
+				>
+			</File>
+			<File
 				RelativePath=".\res\Resource.h"
 				>
 			</File>
 			<File
 				RelativePath=".\include\Stdafx.h"
+				>
+			</File>
+			<File
+				RelativePath=".\include\TerrainManager.h"
+				>
+			</File>
+			<File
+				RelativePath=".\include\Vehicle.h"
 				>
 			</File>
 			<Filter

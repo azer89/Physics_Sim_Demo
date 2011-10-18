@@ -18,6 +18,3 @@
 
 #include <SdkTrays.h>
 #include <SdkCameraMan.h>
-
-#include <Terrain/OgreTerrain.h>
-#include <Terrain/OgreTerrainGroup.h>
