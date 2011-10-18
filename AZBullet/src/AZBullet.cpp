@@ -39,33 +39,7 @@ using namespace Ogre;
 using namespace OgreBulletCollisions;
 using namespace OgreBulletDynamics;
 
-/*
-static float	gMaxEngineForce = 3000.f;
-
-static float	gSteeringIncrement = 0.04f;
-static float	gSteeringClamp = 0.8f;
-
-static float	gWheelRadius = 0.5f;
-static float	gWheelWidth = 0.4f;
-
-static float	gWheelFriction = 1e30f;//1000;//1e30f;
-static float	gSuspensionStiffness = 20.f;
-static float	gSuspensionDamping = 2.3f;
-static float	gSuspensionCompression = 4.4f;
-
-static float	gRollInfluence = 
-//0.1f;
-1.0f;
-static float   gSuspensionRestLength = 0.6;
-static float   gMaxSuspensionTravelCm = 500.0;
-static float   gFrictionSlip = 10.5;
-*/
-
 static const Ogre::Vector3    CameraStart            = Ogre::Vector3(0, 25, 0);
-// -------------------------------------------------------------------------
-//static const Ogre::Vector3   CarPosition             = Ogre::Vector3(15, 3,-15);
-
-// #define CUBE_HALF_EXTENTS 1
 
 //-------------------------------------------------------------------------------------
 AZBullet::~AZBullet(void)
@@ -90,6 +64,8 @@ void AZBullet::createScene(void)
     Ogre::Light* l = mSceneMgr->createLight("MainLight");
     l->setPosition(20,80,50);
 	*/
+
+	hViewPort = mCamera->getViewport();
 
 	this->bulletInit();
 }
@@ -130,162 +106,6 @@ void AZBullet::bulletInit()
 	ObstacleForFun* obs = new ObstacleForFun();
 	obs->createObstacle(this, tManager->terrain_Shift);
 
-	
-	/*
-	// reset
-	for (int i = 0; i < 4; i++)
-	{
-		mWheelsEngine[i] = 0;
-		mWheelsSteerable[i] = 0;
-	}
-
-	mWheelsEngineCount = 2;
-	mWheelsEngine[0] = 0;
-	mWheelsEngine[1] = 1;
-	mWheelsEngine[2] = 2;
-	mWheelsEngine[3] = 3;
-
-	mWheelsSteerableCount = 2;
-	mWheelsSteerable[0] = 0;
-	mWheelsSteerable[1] = 1;
-
-	mWheelEngineStyle = 0;
-	mWheelSteeringStyle = 0;
-
-	mSteeringLeft = false;
-	mSteeringRight = false;
-
-	mEngineForce = 0;
-	mSteering = 0;
-
-	const Ogre::Vector3 chassisShift(0, 1.0, 0);
-	float connectionHeight = 0.7f;
-
-	mChassis = mSceneMgr->createEntity(
-		"chassis" + StringConverter::toString(mNumEntitiesInstanced++),
-		"chassis.mesh");
-
-	SceneNode *node = mSceneMgr->getRootSceneNode ()->createChildSceneNode ();
-
-	SceneNode *chassisnode = node->createChildSceneNode ();
-	chassisnode->attachObject (mChassis);
-	chassisnode->setPosition (chassisShift);
-
-	mChassis->setCastShadows(true);
-
-	CompoundCollisionShape* compound = new CompoundCollisionShape();
-
-	BoxCollisionShape* chassisShape = new BoxCollisionShape(Ogre::Vector3(1.f,0.75f,2.1f));
-	compound->addChildShape(chassisShape, chassisShift); 
-
-	mCarChassis = new WheeledRigidBody("carChassis", mBulletWorld);
-
-	mCarChassis->setShape (node, 
-		compound, 
-		0.6, //restitution
-		0.6, //friction
-		800, //bodyMass
-		CarPosition +  tManager->terrain_Shift , 
-		Quaternion::IDENTITY);
-	mCarChassis->setDamping(0.2, 0.2);
-
-	mCarChassis->disableDeactivation ();
-	mTuning = new VehicleTuning(
-		gSuspensionStiffness,
-		gSuspensionCompression,
-		gSuspensionDamping,
-		gMaxSuspensionTravelCm,
-		gFrictionSlip);
-
-	mVehicleRayCaster = new VehicleRayCaster(mBulletWorld);
-	mVehicle = new RaycastVehicle(mCarChassis, mTuning, mVehicleRayCaster);
-
-	int rightIndex = 0;
-	int upIndex = 1;
-	int forwardIndex = 2;
-
-	mVehicle->setCoordinateSystem(rightIndex, upIndex, forwardIndex);
-
-	Ogre::Vector3 wheelDirectionCS0(0,-1,0);
-	Ogre::Vector3 wheelAxleCS(-1,0,0);
-
-	for (size_t i = 0; i < 4; i++)
-	{
-		mWheels[i] = mSceneMgr->createEntity(
-			"wheel" + StringConverter::toString(mNumEntitiesInstanced++),
-			"wheel.mesh");
-
-		mWheels[i]->setQueryFlags (GEOMETRY_QUERY_MASK);
-
-		mWheels[i]->setCastShadows(true);
-
-		mWheelNodes[i] = mSceneMgr->getRootSceneNode ()->createChildSceneNode ();
-		mWheelNodes[i]->attachObject (mWheels[i]);
-
-	}
-
-	bool isFrontWheel = true;
-
-	Ogre::Vector3 connectionPointCS0 (
-		CUBE_HALF_EXTENTS-(0.3*gWheelWidth),
-		connectionHeight,
-		2*CUBE_HALF_EXTENTS-gWheelRadius);
-
-
-	mVehicle->addWheel(
-		mWheelNodes[0],
-		connectionPointCS0,
-		wheelDirectionCS0,
-		wheelAxleCS,
-		gSuspensionRestLength,
-		gWheelRadius,
-		isFrontWheel, gWheelFriction, gRollInfluence);
-
-	connectionPointCS0 = Ogre::Vector3(
-		-CUBE_HALF_EXTENTS+(0.3*gWheelWidth),
-		connectionHeight,
-		2*CUBE_HALF_EXTENTS-gWheelRadius);
-
-
-	mVehicle->addWheel(
-		mWheelNodes[1],
-		connectionPointCS0,
-		wheelDirectionCS0,
-		wheelAxleCS,
-		gSuspensionRestLength,
-		gWheelRadius,
-		isFrontWheel, gWheelFriction, gRollInfluence);
-
-
-	connectionPointCS0 = Ogre::Vector3(
-		-CUBE_HALF_EXTENTS+(0.3*gWheelWidth),
-		connectionHeight,
-		-2*CUBE_HALF_EXTENTS+gWheelRadius);
-
-	isFrontWheel = false;
-	mVehicle->addWheel(
-		mWheelNodes[2],
-		connectionPointCS0,
-		wheelDirectionCS0,
-		wheelAxleCS,
-		gSuspensionRestLength,
-		gWheelRadius,
-		isFrontWheel, gWheelFriction, gRollInfluence);
-
-	connectionPointCS0 = Ogre::Vector3(
-		CUBE_HALF_EXTENTS-(0.3*gWheelWidth),
-		connectionHeight,
-		-2*CUBE_HALF_EXTENTS+gWheelRadius);
-
-	mVehicle->addWheel(
-		mWheelNodes[3],
-		connectionPointCS0,
-		wheelDirectionCS0,
-		wheelAxleCS,
-		gSuspensionRestLength,
-		gWheelRadius,
-		isFrontWheel, gWheelFriction, gRollInfluence);
-	*/
 	// delete all pointers
 	delete vehicle;
 	delete tManager;
@@ -303,6 +123,7 @@ bool AZBullet::frameRenderingQueued(const Ogre::FrameEvent& arg)
 	Real elapsedTime = arg.timeSinceLastFrame;
 	
 	mBulletWorld->stepSimulation(elapsedTime);
+	this->repositionCamera();
 
 	return true;
 
@@ -324,14 +145,125 @@ bool AZBullet::frameStarted(const FrameEvent& evt)
 // -------------------------------------------------------------------------
 bool AZBullet::frameEnded(const FrameEvent& evt)
 {
-	/*
 	Real elapsedTime = evt.timeSinceLastFrame;
+	/*	
 	if(!OgreBulletListener::bulletFrameEnded(elapsedTime))
 	{
 		return false;
 	}
 	*/
 	return true; 
+}
+
+//-------------------------------------------------------------------------------------
+// when mouse dragged
+bool AZBullet::mouseMoved(const OIS::MouseEvent& arg)
+{
+	if(!BaseApplication::mouseMoved(arg)) { return false; }
+
+	Ogre::Real screenWidth = hViewPort->getWidth();
+	Ogre::Real screenHeight = hViewPort->getHeight();
+
+	Ogre::Real offsetX = (float)arg.state.X.abs / (float)arg.state.width;
+	Ogre::Real offsetY = (float)arg.state.Y.abs / (float)arg.state.height;
+
+	//using namespace Hikari;
+	//bool val = menu->hikariMgr->injectMouseMove(arg.state.X.abs, arg.state.Y.abs) ||  menu->hikariMgr->injectMouseWheel(arg.state.Z.rel);
+
+	//if the left mouse button is held down
+	if(bLMouseDown)
+	{
+		
+	}
+	else if(bRMouseDown)	//if the right mouse button is held down, be rotate the camera with the mouse
+	{
+		mCamera->yaw(Ogre::Degree(-arg.state.X.rel * mRotateSpeed));
+		mCamera->pitch(Ogre::Degree(-arg.state.Y.rel * mRotateSpeed));
+	}
+
+	return true;
+}
+
+//-------------------------------------------------------------------------------------
+// when a mouse button is pressed
+bool AZBullet::mousePressed(const OIS::MouseEvent& arg, OIS::MouseButtonID id)
+{	
+	if(id == OIS::MB_Left)
+	{
+		bLMouseDown = true;		
+	}
+	else if(id == OIS::MB_Right)
+	{
+		bRMouseDown = true;
+
+	}
+	
+	return true;
+	//return  menu->hikariMgr->injectMouseDown(id); 
+}
+
+//-------------------------------------------------------------------------------------
+// when a mouse button is released
+bool AZBullet::mouseReleased(const OIS::MouseEvent& arg, OIS::MouseButtonID id)
+{
+	if(id  == OIS::MB_Left)
+	{
+		bLMouseDown = false;
+	}
+	else if(id == OIS::MB_Right)
+	{
+		bRMouseDown = false;
+	}
+
+	//return  menu->hikariMgr->injectMouseUp(id);
+
+	return true;
+}
+
+//------------------------------------------------------------------------------------- 
+// when keyboard pressed
+bool AZBullet::keyPressed(const OIS::KeyEvent& arg)
+{
+	if(!BaseApplication::keyPressed(arg))
+	{
+		return false;
+	}
+
+	return true;
+}
+
+//-------------------------------------------------------------------------------------
+void AZBullet::repositionCamera()
+{
+	// Setup the scene query
+	Ogre::Vector3 camPos = mCamera->getPosition();
+	Ogre::Ray cameraRay(Ogre::Vector3(camPos.x, 5000.0f, camPos.z), Ogre::Vector3::NEGATIVE_UNIT_Y);
+	mRayScnQuery->setRay(cameraRay);
+
+	// Perform the scene query
+	Ogre::RaySceneQueryResult &result = mRayScnQuery->execute();
+	Ogre::RaySceneQueryResult::iterator itr = result.begin();
+	// Get the results, set the camera height
+	if (itr != result.end() && itr->worldFragment)
+	{
+		Ogre::Real terrainHeight = itr->worldFragment->singleIntersection.y;
+		if ((terrainHeight + 10.0f) > camPos.y)
+			mCamera->setPosition( camPos.x, terrainHeight + 10.0f, camPos.z );
+	}
+}
+
+//-------------------------------------------------------------------------------------
+void AZBullet::createFrameListener(void)
+{
+	BaseApplication::createFrameListener();
+
+	this->bLMouseDown = false;
+	this->bRMouseDown = false;
+	this->mRotateSpeed = 0.1f;
+	this->mName = "AZBullet";	
+
+	mRayScnQuery = mSceneMgr->createRayQuery(Ogre::Ray());
+
 }
 
 

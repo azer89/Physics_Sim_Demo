@@ -33,48 +33,43 @@ public:
 	AZBullet::AZBullet(void) :
 	  OgreBulletListener()
 	{
-		this->mName = "AZBullet";	
+		
 	}
     virtual ~AZBullet(void);	
 
 	void bulletInit();
 
+	virtual void createFrameListener(void);
+
 	// void bulletKeyPressed(BULLET_KEY_CODE key);
 	// void bulletKeyReleased(BULLET_KEY_CODE key);
+	// bool bulletFrameStarted(Ogre::Real elapsedTime);
 
-	//bool bulletFrameStarted(Ogre::Real elapsedTime);
 	virtual bool frameStarted(const Ogre::FrameEvent& evt);
 	virtual bool frameEnded(const Ogre::FrameEvent& evt);
 	virtual bool frameRenderingQueued(const Ogre::FrameEvent& arg);
 
+public:
+	Ogre::Viewport* hViewPort;
+
 protected:
      virtual void createScene(void);
+	 void repositionCamera(void);
 
-//private:
-	/*
-	OgreBulletDynamics::WheeledRigidBody        *mCarChassis;
-	OgreBulletDynamics::VehicleTuning	        *mTuning;
-	OgreBulletDynamics::VehicleRayCaster	    *mVehicleRayCaster;
-	OgreBulletDynamics::RaycastVehicle	        *mVehicle;
+	 // OIS::MouseListener
+	 virtual bool mouseMoved(const OIS::MouseEvent& arg);
+	 virtual bool mousePressed(const OIS::MouseEvent& arg, OIS::MouseButtonID id);
+	 virtual bool mouseReleased(const OIS::MouseEvent& arg, OIS::MouseButtonID id);
 
-	Ogre::Entity    *mChassis;
-	Ogre::Entity    *mWheels[4];
-	Ogre::SceneNode *mWheelNodes[4];
+	 // OIS::KeyListener
+	 virtual bool keyPressed(const OIS::KeyEvent& arg);
 
-	int mWheelsEngine[4];
-	int mWheelsEngineCount;
-	int mWheelsSteerable[4];
-	int mWheelsSteerableCount;
+protected:
+	Ogre::SceneNode *mCurrentObject;	// pointer to our currently selected object
+	Ogre::RaySceneQuery* mRayScnQuery;	// pointer to our ray scene query	
 
-	float mEngineForce;
-	float mSteering;
-
-	int mWheelEngineStyle;
-	int mWheelSteeringStyle;
-
-	bool mSteeringLeft;
-	bool mSteeringRight;
-	*/
+	bool bLMouseDown, bRMouseDown;		// true if mouse buttons are held down
+	float mRotateSpeed;					// the rotation speed for the camera
 };
 
 #endif // #ifndef __AZBullet_h_
