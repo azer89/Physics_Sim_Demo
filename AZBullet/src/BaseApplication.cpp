@@ -389,13 +389,26 @@ bool BaseApplication::keyPressed( const OIS::KeyEvent &arg )
 		mShutDown = true;
 	}
 
-	mCameraMan->injectKeyDown(arg);
+	if(arg.key == OIS::KC_UP || arg.key == OIS::KC_RIGHT || arg.key == OIS::KC_LEFT || arg.key == OIS::KC_DOWN )
+	{
+	}
+	else
+	{
+		mCameraMan->injectKeyDown(arg);
+	}
+	
 	return true;
 }
 
 bool BaseApplication::keyReleased( const OIS::KeyEvent &arg )
 {
-	mCameraMan->injectKeyUp(arg);
+	if(arg.key == OIS::KC_UP || arg.key == OIS::KC_RIGHT || arg.key == OIS::KC_LEFT || arg.key == OIS::KC_DOWN )
+	{
+	}
+	else
+	{
+		mCameraMan->injectKeyUp(arg);
+	}
 	return true;
 }
 

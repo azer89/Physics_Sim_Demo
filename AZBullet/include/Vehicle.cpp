@@ -211,3 +211,168 @@ void Vehicle::createVehicle(SceneManager* mSceneMgr,
 		isFrontWheel, gWheelFriction, gRollInfluence);
 }
 
+
+//-------------------------------------------------------------------------------------
+// update per frame
+void Vehicle::updatePerFrame(Real elapsedTime)
+{
+	// apply engine Force on relevant wheels
+	for (int i = mWheelsEngine[0]; i < mWheelsEngineCount; i++)
+	{
+		mVehicle->applyEngineForce (mEngineForce, mWheelsEngine[i]);
+	}
+
+	if (mSteeringLeft)
+	{
+		mSteering += gSteeringIncrement;
+		if (mSteering > gSteeringClamp)
+			mSteering = gSteeringClamp;
+	}
+	else if (mSteeringRight)
+	{
+		mSteering -= gSteeringIncrement;
+		if (mSteering < -gSteeringClamp)
+			mSteering = -gSteeringClamp;
+	}
+
+	// apply Steering on relevant wheels
+	for (int i = mWheelsSteerable[0]; i < mWheelsSteerableCount; i++)
+	{
+		if (i < 2) mVehicle->setSteeringValue (mSteering, mWheelsSteerable[i]);
+		else mVehicle->setSteeringValue (-mSteering, mWheelsSteerable[i]);
+	}
+
+}
+
+//-------------------------------------------------------------------------------------
+// when key pressed
+void Vehicle::keyPressed(const OIS::KeyEvent& arg)
+{
+	bool wheel_engine_style_change = false;
+	bool wheel_steering_style_change = false;
+
+	if(arg.key == OIS::KC_PGUP)
+	{
+		wheel_engine_style_change = true;
+		mWheelEngineStyle = (mWheelEngineStyle + 1) % 3;
+	}
+	else if(arg.key == OIS::KC_PGDOWN)
+	{
+		wheel_engine_style_change = true;
+		mWheelEngineStyle = (mWheelEngineStyle - 1) % 3;
+	}
+	else if(arg.key == OIS::KC_HOME)
+	{
+		wheel_steering_style_change = true;
+		mWheelSteeringStyle = (mWheelSteeringStyle + 1) % 3;
+	}
+	else if(arg.key == OIS::KC_END)
+	{
+		wheel_steering_style_change = true;
+		mWheelSteeringStyle = (mWheelSteeringStyle - 1) % 3;;
+	}
+	else if(arg.key == OIS::KC_LEFT)
+	{
+		mSteeringLeft = true;
+	}
+	else if(arg.key == OIS::KC_RIGHT)
+	{
+		mSteeringRight = true;
+	}
+	else if(arg.key == OIS::KC_DOWN)
+	{
+		mEngineForce = -gMaxEngineForce;
+	}
+	else if(arg.key == OIS::KC_UP)
+	{
+		mEngineForce = gMaxEngineForce;
+	}
+
+	if (wheel_engine_style_change)
+	{
+		for (int i = 0; i < 4; i++)
+			mWheelsEngine[i] = 0;
+
+		if (mWheelEngineStyle < 0)
+			mWheelEngineStyle = 2;
+
+		switch (mWheelEngineStyle)
+		{
+		case 0://front
+			mWheelsSteerableCount = 2;
+			mWheelsSteerable[0] = 0;
+			mWheelsSteerable[1] = 1;  
+			break;
+		case 1://back
+			mWheelsSteerableCount = 2;
+			mWheelsSteerable[0] = 2;
+			mWheelsSteerable[1] = 3;  
+			break;
+		case 2://4x4
+			mWheelsSteerableCount = 4;
+			mWheelsSteerable[0] = 0;
+			mWheelsSteerable[1] = 1;  
+			mWheelsSteerable[2] = 2;
+			mWheelsSteerable[3] = 3; 
+			break;
+		default:
+			assert(0);
+			break;
+		}
+	}
+
+	if (wheel_steering_style_change)
+	{
+		for (int i = 0; i < 4; i++)
+			mWheelsSteerable[i] = 0;
+
+		if (mWheelSteeringStyle < 0)
+			mWheelSteeringStyle = 2;
+
+		switch (mWheelSteeringStyle)
+		{
+		case 0://front
+			mWheelsEngineCount = 2;
+			mWheelsEngine[0] = 0;
+			mWheelsEngine[1] = 1;  
+			break;
+		case 1://back
+			mWheelsEngineCount = 2;
+			mWheelsEngine[0] = 2;
+			mWheelsEngine[1] = 3;  
+			break;
+		case 2://4x4
+			mWheelsEngineCount = 4;
+			mWheelsEngine[0] = 0;
+			mWheelsEngine[1] = 1;  
+			mWheelsEngine[2] = 2;
+			mWheelsEngine[3] = 3; 
+			break;
+		default:
+			assert(0);
+			break;
+		}
+	}
+}
+
+//-------------------------------------------------------------------------------------
+// when key released
+void Vehicle::keyReleased(const OIS::KeyEvent& arg)
+{
+	if(arg.key == OIS::KC_LEFT) 
+	{
+		mSteeringLeft = false;
+	}
+	else if(arg.key == OIS::KC_RIGHT)
+	{
+		mSteeringRight = false;
+	}
+	else if(arg.key == OIS::KC_DOWN)
+	{
+		mEngineForce = 0;
+	}
+	else if(arg.key == OIS::KC_UP)
+	{
+		mEngineForce = 0;
+	}
+}
