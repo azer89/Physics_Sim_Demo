@@ -1,4 +1,5 @@
 #include "Stdafx.h"
+#include "ClassDefine.h"
 
 #include "Shapes/OgreBulletCollisionsBoxShape.h"
 #include "Shapes/OgreBulletCollisionsCompoundShape.h"

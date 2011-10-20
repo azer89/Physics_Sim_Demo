@@ -1,5 +1,7 @@
 #include "Stdafx.h"
 
+#include "ClassDefine.h"
+
 #include "Shapes/OgreBulletCollisionsBoxShape.h"
 #include "Shapes/OgreBulletCollisionsCompoundShape.h"
 
@@ -23,6 +25,10 @@ public:
 		OgreBulletDynamics::DynamicsWorld *mBulletWorld,
 		size_t &mNumEntitiesInstanced,
 		Ogre::Vector3 terrain_Shift);
+
+	void updatePerFrame(Real elapsedTime);
+	void keyPressed(const OIS::KeyEvent& arg);
+	void keyReleased(const OIS::KeyEvent& arg);
 
 public:
 	Vector3 CarPosition;
