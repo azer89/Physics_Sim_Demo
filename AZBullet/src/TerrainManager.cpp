@@ -2,16 +2,6 @@
 #include "Stdafx.h"
 #include "TerrainManager.h"
 
-#include "Shapes/OgreBulletCollisionsBoxShape.h"
-#include "Shapes/OgreBulletCollisionsCompoundShape.h"
-#include "Shapes/OgreBulletCollisionsTerrainShape.h"
-
-#include "OgreBulletDynamicsWorld.h"
-#include "OgreBulletDynamicsRigidBody.h"
-#include "Debug/OgreBulletCollisionsDebugDrawer.h"
-
-#include "Constraints/OgreBulletDynamicsRaycastVehicle.h"
-
 using namespace Ogre;
 using namespace OgreBulletCollisions;
 using namespace OgreBulletDynamics;

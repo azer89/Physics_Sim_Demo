@@ -1,6 +1,5 @@
 
 #include "Stdafx.h"
-#include "OgreBulletListener.h"
 #include "ObstacleForFun.h"
 
 using namespace Ogre;

@@ -1,10 +1,13 @@
 
 #include "Stdafx.h"
 #include "CameraListener.h"
-#include "Character.h"
-#include "Vehicle.h"
-#include "ThirdPersonCamera.h"
-#include "ExampleFrameListener.h"
+
+CameraListener::CameraListener(RenderWindow* win, Camera* cam) : ExampleFrameListener(win, cam)
+{
+	mChar = 0;
+	mExCamera = 0;
+	mMode = 0;
+}
 
 
 void CameraListener::setCharacter (Character *character) 
@@ -30,20 +33,20 @@ bool CameraListener::frameStarted(const FrameEvent& evt)
 			if(mMode == 0) // 3rd person chase
 			{
 				mExCamera->update (evt.timeSinceLastFrame, 
-					mChar->getCameraNode()->getWorldPosition(), 
-					mChar->getSightNode()->getWorldPosition());
+					mChar->getCameraNode()->_getDerivedPosition(), 
+					mChar->getSightNode()->_getDerivedPosition());
 			}
 			else if(mMode == 0) // 3rd person fixed
 			{
 				mExCamera->update (evt.timeSinceLastFrame, 
 					Vector3 (0, 200, 0), 
-					mChar->getSightNode()->getWorldPosition());
+					mChar->getSightNode()->_getDerivedPosition());
 			}
 			else if(mMode == 2) // 1st person
 			{
 				mExCamera->update (evt.timeSinceLastFrame, 
 					mChar->getWorldPosition(), 
-					mChar->getSightNode()->getWorldPosition());
+					mChar->getSightNode()->_getDerivedPosition());
 				
 			}
 		}
@@ -56,7 +59,7 @@ bool CameraListener::frameStarted(const FrameEvent& evt)
 			static_cast<Vehicle *>(mChar)->setVisible(true);
 		if (mExCamera) {
 			if (mChar)
-				mExCamera->instantUpdate (mChar->getCameraNode ()->getWorldPosition (), mChar->getSightNode ()->getWorldPosition ());
+				mExCamera->instantUpdate (mChar->getCameraNode ()->_getDerivedPosition(), mChar->getSightNode ()->_getDerivedPosition());
 			mExCamera->setTightness (0.01f);
 		}
 	}
@@ -67,7 +70,7 @@ bool CameraListener::frameStarted(const FrameEvent& evt)
 			static_cast<Vehicle *>(mChar)->setVisible(true);
 		if (mExCamera) {
 			if (mChar)
-				mExCamera->instantUpdate (Vector3 (0, 200, 0), mChar->getSightNode ()->getWorldPosition ());
+				mExCamera->instantUpdate (Vector3 (0, 200, 0), mChar->getSightNode ()->_getDerivedPosition());
 			mExCamera->setTightness (0.01f);
 		}
 	}
@@ -78,7 +81,7 @@ bool CameraListener::frameStarted(const FrameEvent& evt)
 			static_cast<Vehicle *>(mChar)->setVisible(false);
 		if (mExCamera) {
 			if (mChar)
-				mExCamera->instantUpdate (mChar->getWorldPosition (), mChar->getSightNode ()->getWorldPosition ());
+				mExCamera->instantUpdate (mChar->getWorldPosition (), mChar->getSightNode ()->_getDerivedPosition());
 			mExCamera->setTightness (1.0f);
 		}
 	}
