@@ -89,9 +89,9 @@ void Vehicle::createVehicle(SceneManager* mSceneMgr,
 		"chassis" + StringConverter::toString(mNumEntitiesInstanced++),
 		"Nissan_1400_Bakkie.mesh");
 
-	SceneNode *node = mSceneMgr->getRootSceneNode ()->createChildSceneNode ();
+	vehicleNode = mSceneMgr->getRootSceneNode ()->createChildSceneNode ();
 
-	SceneNode *chassisnode = node->createChildSceneNode ();
+	SceneNode *chassisnode = vehicleNode->createChildSceneNode ();
 	chassisnode->attachObject (mChassis);
 	chassisnode->setPosition (chassisShift);
 
@@ -104,7 +104,7 @@ void Vehicle::createVehicle(SceneManager* mSceneMgr,
 
 	mCarChassis = new WheeledRigidBody("carChassis", mBulletWorld);
 
-	mCarChassis->setShape (node, 
+	mCarChassis->setShape (vehicleNode, 
 		compound, 
 		0.6, //restitution
 		0.6, //friction
