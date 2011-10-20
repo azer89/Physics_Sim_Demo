@@ -1,15 +1,17 @@
-#include "Stdafx.h"
 
-#include "ClassDefine.h"
 
-#include "Shapes/OgreBulletCollisionsBoxShape.h"
-#include "Shapes/OgreBulletCollisionsCompoundShape.h"
+#ifndef __Vehicle_h_
+#define __Vehicle_h_
 
-#include "OgreBulletDynamicsWorld.h"
-#include "OgreBulletDynamicsRigidBody.h"
-#include "Debug/OgreBulletCollisionsDebugDrawer.h"
+//#include "Stdafx.h"
+//#include "ClassDefine.h"
 
-#include "Constraints/OgreBulletDynamicsRaycastVehicle.h"
+
+#include <Ogre.h>
+#include <OgreEntity.h>
+
+#include "OgreBulletListener.h"
+#include "Character.h"
 
 using namespace Ogre;
 using namespace OgreBulletCollisions;
@@ -25,6 +27,8 @@ public:
 		OgreBulletDynamics::DynamicsWorld *mBulletWorld,
 		size_t &mNumEntitiesInstanced,
 		Ogre::Vector3 terrain_Shift);
+
+	void setVisible (bool visible);
 
 	void updatePerFrame(Real elapsedTime);
 	void keyPressed(const OIS::KeyEvent& arg);
@@ -61,3 +65,5 @@ private:
 	bool mSteeringRight;
 	
 };
+
+#endif

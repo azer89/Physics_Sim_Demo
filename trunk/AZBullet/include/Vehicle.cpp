@@ -2,17 +2,6 @@
 #include "Stdafx.h"
 #include "Vehicle.h"
 
-#include "OgreBulletListener.h"
-
-#include "Shapes/OgreBulletCollisionsBoxShape.h"
-#include "Shapes/OgreBulletCollisionsCompoundShape.h"
-
-#include "OgreBulletDynamicsWorld.h"
-#include "OgreBulletDynamicsRigidBody.h"
-#include "Debug/OgreBulletCollisionsDebugDrawer.h"
-
-#include "Constraints/OgreBulletDynamicsRaycastVehicle.h"
-
 using namespace Ogre;
 using namespace OgreBulletCollisions;
 using namespace OgreBulletDynamics;
@@ -94,8 +83,8 @@ void Vehicle::createVehicle(SceneManager* mSceneMgr,
 	// set up sight node
 	this->mMainNode = vehicleNode;
 	Vector3 pos = this->mMainNode->getPosition();
-	mSightNode = mMainNode->createChildSceneNode ("sightNode", Vector3 (pos.x, pos.y, pos.z + 100));
-	mCameraNode = mMainNode->createChildSceneNode ("cameraNode", Vector3 (pos.x, pos.y + 50, pos.z - 100));
+	mSightNode = this->mMainNode->createChildSceneNode ("sightNode", Vector3 (pos.x, pos.y, pos.z + 100));
+	mCameraNode = this->mMainNode->createChildSceneNode ("cameraNode", Vector3 (pos.x, pos.y + 50, pos.z - 100));
 	
 	SceneNode *chassisnode = vehicleNode->createChildSceneNode ();
 	chassisnode->attachObject (mChassis);
@@ -146,6 +135,7 @@ void Vehicle::createVehicle(SceneManager* mSceneMgr,
 			"wheel.mesh");
 
 		mWheels[i]->setQueryFlags (GEOMETRY_QUERY_MASK);
+		//mWheels[i]->setQueryFlags (1<<2);
 
 		mWheels[i]->setCastShadows(true);
 
@@ -381,4 +371,11 @@ void Vehicle::keyReleased(const OIS::KeyEvent& arg)
 	{
 		mEngineForce = 0;
 	}
+}
+
+//-------------------------------------------------------------------------------------
+// Change visibility
+void Vehicle::setVisible (bool visible) 
+{
+	mMainNode->setVisible (visible);
 }

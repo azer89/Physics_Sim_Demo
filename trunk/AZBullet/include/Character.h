@@ -4,8 +4,13 @@
 	http://www.ogre3d.org/tikiwiki/3rd+person+camera+system+tutorial
 */
 
-#include "Stdafx.h"
-#include "ClassDefine.h"
+#ifndef __Character_h_
+#define __Character_h_
+
+
+#include <Ogre.h>
+//#include "Stdafx.h"
+//#include "ClassDefine.h"
 
 using namespace Ogre;
 
@@ -21,20 +26,9 @@ public:
 	// Updates the character (movement...)
 	//virtual void update (Real elapsedTime, OIS::Keyboard *input) = 0;
 
-	// The three methods below returns the two camera-related nodes, 
-	// and the current position of the character (for the 1st person camera)
-	SceneNode *getSightNode () 
-	{
-		return mSightNode;
-	}
-
-	SceneNode *getCameraNode () 
-	{
-		return mCameraNode;
-	}
-
-	Vector3 getWorldPosition () 
-	{
-		return mMainNode->_getDerivedPosition ();
-	}
+	SceneNode *getSightNode() { return mSightNode; }
+	SceneNode *getCameraNode() { return mCameraNode; }
+	Vector3 getWorldPosition() { return mMainNode->_getDerivedPosition (); }
 };
+
+#endif

@@ -1,6 +1,9 @@
 
-#include "Stdafx.h"
-#include "ClassDefine.h"
+#ifndef __ObstacleForFun_h_
+#define __ObstacleForFun_h_
+
+//#include "Stdafx.h"
+//#include "ClassDefine.h"
 #include "OgreBulletListener.h"
 
 class ObstacleForFun
@@ -11,3 +14,5 @@ public:
 
 	void createObstacle(OgreBulletListener* listener, Ogre::Vector3 shift);
 };
+
+#endif

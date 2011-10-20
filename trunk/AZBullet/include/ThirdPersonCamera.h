@@ -4,8 +4,14 @@
 	http://www.ogre3d.org/tikiwiki/3rd+person+camera+system+tutorial
 */
 
-#include "Stdafx.h"
-#include "ClassDefine.h"
+#ifndef __ThirdPersonCamera_h_
+#define __ThirdPersonCamera_h_
+
+
+//#include "Stdafx.h"
+//#include "ClassDefine.h"
+
+#include <Ogre.h>
 
 using namespace Ogre;
 
@@ -32,3 +38,5 @@ public:
 	void instantUpdate (Vector3 cameraPosition, Vector3 targetPosition);
 	void update (Real elapsedTime, Vector3 cameraPosition, Vector3 targetPosition);
 };
+
+#endif

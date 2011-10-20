@@ -1,15 +1,11 @@
-#include "Stdafx.h"
-#include "ClassDefine.h"
 
-#include "Shapes/OgreBulletCollisionsBoxShape.h"
-#include "Shapes/OgreBulletCollisionsCompoundShape.h"
-#include "Shapes/OgreBulletCollisionsTerrainShape.h"
+#ifndef __TerrainManager_h_
+#define __TerrainManager_h_
 
-#include "OgreBulletDynamicsWorld.h"
-#include "OgreBulletDynamicsRigidBody.h"
-#include "Debug/OgreBulletCollisionsDebugDrawer.h"
+//#include "Stdafx.h"
+//#include "ClassDefine.h"
 
-#include "Constraints/OgreBulletDynamicsRaycastVehicle.h"
+#include <Ogre.h>
 
 using namespace Ogre;
 using namespace OgreBulletCollisions;
@@ -33,3 +29,5 @@ public:
 private:
 	OgreBulletCollisions::HeightmapCollisionShape *mTerrainShape;
 };
+
+#endif
