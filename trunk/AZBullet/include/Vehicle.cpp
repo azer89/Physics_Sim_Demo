@@ -91,6 +91,12 @@ void Vehicle::createVehicle(SceneManager* mSceneMgr,
 
 	vehicleNode = mSceneMgr->getRootSceneNode ()->createChildSceneNode ();
 
+	// set up sight node
+	this->mMainNode = vehicleNode;
+	Vector3 pos = this->mMainNode->getPosition();
+	mSightNode = mMainNode->createChildSceneNode ("sightNode", Vector3 (pos.x, pos.y, pos.z + 100));
+	mCameraNode = mMainNode->createChildSceneNode ("cameraNode", Vector3 (pos.x, pos.y + 50, pos.z - 100));
+	
 	SceneNode *chassisnode = vehicleNode->createChildSceneNode ();
 	chassisnode->attachObject (mChassis);
 	chassisnode->setPosition (chassisShift);

@@ -15,7 +15,7 @@ using namespace Ogre;
 using namespace OgreBulletCollisions;
 using namespace OgreBulletDynamics;
 
-class Vehicle
+class Vehicle : public Character
 {
 public:
 	Vehicle(void);
@@ -45,8 +45,6 @@ private:
 	Ogre::SceneNode *mWheelNodes[4];
 
 	SceneNode *vehicleNode;
-	SceneNode *mSightNode;		// "Sight" node - The character is supposed to be looking here
-	SceneNode *mCameraNode;		// Node for the chase camera
 
 	int mWheelsEngine[4];
 	int mWheelsEngineCount;

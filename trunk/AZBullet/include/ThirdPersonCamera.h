@@ -5,6 +5,7 @@
 */
 
 #include "Stdafx.h"
+#include "ClassDefine.h"
 
 using namespace Ogre;
 
