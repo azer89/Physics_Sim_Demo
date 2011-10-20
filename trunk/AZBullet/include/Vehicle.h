@@ -44,6 +44,10 @@ private:
 	Ogre::Entity    *mWheels[4];
 	Ogre::SceneNode *mWheelNodes[4];
 
+	SceneNode *vehicleNode;
+	SceneNode *mSightNode;		// "Sight" node - The character is supposed to be looking here
+	SceneNode *mCameraNode;		// Node for the chase camera
+
 	int mWheelsEngine[4];
 	int mWheelsEngineCount;
 	int mWheelsSteerable[4];
