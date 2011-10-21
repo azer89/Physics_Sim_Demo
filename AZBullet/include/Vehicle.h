@@ -7,10 +7,7 @@
 //#include "ClassDefine.h"
 
 
-#include <Ogre.h>
-#include <OgreEntity.h>
-
-#include "OgreBulletListener.h"
+#include "Ogre.h"
 #include "Character.h"
 
 using namespace Ogre;

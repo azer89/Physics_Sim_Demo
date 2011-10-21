@@ -50,7 +50,7 @@
 				EnableFunctionLevelLinking="true"
 				FloatingPointModel="2"
 				RuntimeTypeInfo="true"
-				UsePrecompiledHeader="1"
+				UsePrecompiledHeader="0"
 				PrecompiledHeaderThrough="Stdafx.h"
 				WarningLevel="3"
 				DebugInformationFormat="4"
@@ -206,11 +206,19 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\CameraListener.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\ObstacleForFun.cpp"
 				>
 			</File>
 			<File
 				RelativePath=".\src\TerrainManager.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\ThirdPersonCamera.cpp"
 				>
 			</File>
 			<File
@@ -256,6 +264,18 @@
 				>
 			</File>
 			<File
+				RelativePath=".\include\CameraListener.h"
+				>
+			</File>
+			<File
+				RelativePath=".\include\Character.h"
+				>
+			</File>
+			<File
+				RelativePath=".\include\ClassDefine.h"
+				>
+			</File>
+			<File
 				RelativePath=".\include\ObstacleForFun.h"
 				>
 			</File>
@@ -269,6 +289,10 @@
 			</File>
 			<File
 				RelativePath=".\include\TerrainManager.h"
+				>
+			</File>
+			<File
+				RelativePath=".\include\ThirdPersonCamera.h"
 				>
 			</File>
 			<File

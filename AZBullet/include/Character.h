@@ -8,7 +8,8 @@
 #define __Character_h_
 
 
-#include <Ogre.h>
+#include "Ogre.h"
+#include "OgreBulletListener.h"
 //#include "Stdafx.h"
 //#include "ClassDefine.h"
 
