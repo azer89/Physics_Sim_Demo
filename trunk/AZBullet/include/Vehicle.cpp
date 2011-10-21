@@ -2,10 +2,11 @@
 #include "Stdafx.h"
 #include "Vehicle.h"
 
+/*
 using namespace Ogre;
 using namespace OgreBulletCollisions;
 using namespace OgreBulletDynamics;
-
+*/
 static float gMaxEngineForce = 3000.f;
 
 static float gSteeringIncrement = 0.04f;

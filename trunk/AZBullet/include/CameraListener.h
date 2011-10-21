@@ -5,7 +5,7 @@
 
 //#include "Stdafx.h"
 //#include "ClassDefine.h"
-#include "Character.h"
+//#include "Character.h"
 #include "Vehicle.h"
 #include "ThirdPersonCamera.h"
 #include "ExampleFrameListener.h"
