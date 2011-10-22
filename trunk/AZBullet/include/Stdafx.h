@@ -18,13 +18,3 @@
 
 #include "SdkTrays.h"
 #include "SdkCameraMan.h"
-
-#include "Shapes/OgreBulletCollisionsBoxShape.h"
-#include "Shapes/OgreBulletCollisionsCompoundShape.h"
-#include "Shapes/OgreBulletCollisionsTerrainShape.h"
-
-#include "OgreBulletDynamicsWorld.h"
-#include "OgreBulletDynamicsRigidBody.h"
-#include "Debug/OgreBulletCollisionsDebugDrawer.h"
-
-#include "Constraints/OgreBulletDynamicsRaycastVehicle.h"

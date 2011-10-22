@@ -5,6 +5,8 @@
 //#include "Stdafx.h"
 //#include "ClassDefine.h"
 
+#include "OgreBulletDynamicsWorld.h"
+
 #include "Ogre.h"
 
 using namespace Ogre;
