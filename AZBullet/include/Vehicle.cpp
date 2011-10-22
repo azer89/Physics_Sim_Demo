@@ -2,6 +2,11 @@
 #include "Stdafx.h"
 #include "Vehicle.h"
 
+#include "Shapes/OgreBulletCollisionsBoxShape.h"
+#include "Shapes/OgreBulletCollisionsCompoundShape.h"
+#include "Constraints/OgreBulletDynamicsRaycastVehicle.h"
+#include "OgreBulletDynamicsRigidBody.h"
+
 /*
 using namespace Ogre;
 using namespace OgreBulletCollisions;

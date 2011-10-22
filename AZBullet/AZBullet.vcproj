@@ -50,7 +50,7 @@
 				EnableFunctionLevelLinking="true"
 				FloatingPointModel="2"
 				RuntimeTypeInfo="true"
-				UsePrecompiledHeader="0"
+				UsePrecompiledHeader="1"
 				PrecompiledHeaderThrough="Stdafx.h"
 				WarningLevel="3"
 				DebugInformationFormat="4"
