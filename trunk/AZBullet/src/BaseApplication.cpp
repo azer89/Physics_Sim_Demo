@@ -95,9 +95,9 @@ void BaseApplication::createCamera(void)
 	mCamera = mSceneMgr->createCamera("PlayerCam");
 
 	// Position it at 500 in Z direction
-	mCamera->setPosition(Ogre::Vector3(0,0,80));
+	//mCamera->setPosition(Ogre::Vector3(0,0,80));
 	// Look back along -Z
-	mCamera->lookAt(Ogre::Vector3(0,0,-300));
+	//mCamera->lookAt(Ogre::Vector3(0,0,-300));
 	mCamera->setNearClipDistance(5);
 
 	mCameraMan = new OgreBites::SdkCameraMan(mCamera);   // create a default camera controller
@@ -105,11 +105,12 @@ void BaseApplication::createCamera(void)
 //-------------------------------------------------------------------------------------
 void BaseApplication::createFrameListener(void)
 {
+	
 	Ogre::LogManager::getSingletonPtr()->logMessage("*** Initializing OIS ***");
 	OIS::ParamList pl;
 	size_t windowHnd = 0;
 	std::ostringstream windowHndStr;
-
+	
 	mWindow->getCustomAttribute("WINDOW", &windowHnd);
 	windowHndStr << windowHnd;
 	pl.insert(std::make_pair(std::string("WINDOW"), windowHndStr.str()));
@@ -219,8 +220,7 @@ void BaseApplication::go()
 	mPluginsCfg = "plugins.cfg";
 #endif
 
-	if (!setup())
-		return;
+	if (!setup()) return;
 
 	mRoot->startRendering();
 
