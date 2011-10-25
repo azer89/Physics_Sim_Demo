@@ -39,7 +39,7 @@ ThirdPersonCamera::ThirdPersonCamera (String name, SceneManager *sceneMgr, Camer
 	mCameraNode->attachObject (mCamera);
 
 	// Default tightness
-	mTightness = 0.01f;
+	mTightness = 0.005f;
 }
 
 ThirdPersonCamera::~ThirdPersonCamera () 

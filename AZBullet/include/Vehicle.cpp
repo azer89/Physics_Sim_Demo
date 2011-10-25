@@ -7,11 +7,6 @@
 #include "Constraints/OgreBulletDynamicsRaycastVehicle.h"
 #include "OgreBulletDynamicsRigidBody.h"
 
-/*
-using namespace Ogre;
-using namespace OgreBulletCollisions;
-using namespace OgreBulletDynamics;
-*/
 static float gMaxEngineForce = 3000.f;
 
 static float gSteeringIncrement = 0.04f;
@@ -21,7 +16,7 @@ static float gWheelRadius = 0.5f;
 static float gWheelWidth = 0.4f;
 
 static float gWheelFriction = 1e30f;//1000;//1e30f;
-static float gSuspensionStiffness = 20.f;
+static float gSuspensionStiffness = 5.f;
 static float gSuspensionDamping = 2.3f;
 static float gSuspensionCompression = 4.4f;
 
@@ -49,7 +44,8 @@ Vehicle::~Vehicle(void)
 void Vehicle::createVehicle(SceneManager* mSceneMgr,
 							OgreBulletDynamics::DynamicsWorld *mBulletWorld,
 							size_t &mNumEntitiesInstanced,
-							Ogre::Vector3 terrain_Shift)
+							Ogre::Vector3 terrain_Shift, 
+							Camera* mCamera)
 {
 	// reset
 	for (int i = 0; i < 4; i++)
@@ -85,12 +81,15 @@ void Vehicle::createVehicle(SceneManager* mSceneMgr,
 		"Nissan_1400_Bakkie.mesh");
 
 	vehicleNode = mSceneMgr->getRootSceneNode ()->createChildSceneNode ();
-
-	// set up sight node
+	
 	this->mMainNode = vehicleNode;
-	Vector3 pos = this->mMainNode->getPosition();
-	mSightNode = this->mMainNode->createChildSceneNode ("sightNode", Vector3 (pos.x, pos.y, pos.z + 100));
-	mCameraNode = this->mMainNode->createChildSceneNode ("cameraNode", Vector3 (pos.x, pos.y + 50, pos.z - 100));
+	Vector3 pos = this->mMainNode->_getDerivedPosition();
+	Vector3 sight = pos + vehicleNode->_getDerivedOrientation() * Vector3(0, -25, 50);
+	Vector3 cam = pos + vehicleNode->_getDerivedOrientation() * Vector3(0, -15, -20);
+
+	// set up sight node	
+	mSightNode = this->mMainNode->createChildSceneNode ("sightNode", sight);
+	mCameraNode = this->mMainNode->createChildSceneNode ("cameraNode", cam);
 	
 	SceneNode *chassisnode = vehicleNode->createChildSceneNode ();
 	chassisnode->attachObject (mChassis);

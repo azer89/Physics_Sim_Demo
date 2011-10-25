@@ -2,7 +2,8 @@
 #include "Stdafx.h"
 #include "CameraListener.h"
 
-CameraListener::CameraListener(RenderWindow* win, Camera* cam) : ExampleFrameListener(win, cam)
+CameraListener::CameraListener(RenderWindow* win, Camera* cam) : 
+	ExampleFrameListener(win, cam)
 {
 	mChar = 0;
 	mExCamera = 0;
