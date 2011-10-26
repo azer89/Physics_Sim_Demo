@@ -21,6 +21,16 @@ void CameraListener::setExtendedCamera (ThirdPersonCamera *cam)
 	mExCamera = cam;
 }
 
+void CameraListener::instantUpdate()
+{
+	if (mExCamera) 
+	{
+		if (mChar)
+			mExCamera->instantUpdate (mChar->getCameraNode ()->_getDerivedPosition(), mChar->getSightNode ()->_getDerivedPosition());
+		
+	}
+}
+
 bool CameraListener::frameStarted(const FrameEvent& evt)
 {
 	mKeyboard->capture();

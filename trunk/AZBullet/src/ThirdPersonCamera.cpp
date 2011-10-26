@@ -31,7 +31,7 @@ ThirdPersonCamera::ThirdPersonCamera (String name, SceneManager *sceneMgr, Camer
 	{
 		mCamera = camera;
 		// just to make sure that mCamera is set to 'origin' (same position as the mCameraNode)
-		mCamera->setPosition(0.0,0.0,0.0);
+		mCamera->setPosition(0.0, 0.0, 0.0);
 		mOwnCamera = false;
 	}
 
@@ -39,7 +39,7 @@ ThirdPersonCamera::ThirdPersonCamera (String name, SceneManager *sceneMgr, Camer
 	mCameraNode->attachObject (mCamera);
 
 	// Default tightness
-	mTightness = 0.005f;
+	mTightness = 0.01f;
 }
 
 ThirdPersonCamera::~ThirdPersonCamera () 
