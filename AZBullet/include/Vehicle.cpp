@@ -84,13 +84,15 @@ void Vehicle::createVehicle(SceneManager* mSceneMgr,
 	
 	this->mMainNode = vehicleNode;
 	Vector3 pos = this->mMainNode->_getDerivedPosition();
-	Vector3 sight = pos + vehicleNode->_getDerivedOrientation() * Vector3(0, -25, 50);
+	Vector3 sight = pos + vehicleNode->_getDerivedOrientation() * Vector3(0, -20, 0);
 	Vector3 cam = pos + vehicleNode->_getDerivedOrientation() * Vector3(0, -15, -20);
-
+	
 	// set up sight node	
 	mSightNode = this->mMainNode->createChildSceneNode ("sightNode", sight);
 	mCameraNode = this->mMainNode->createChildSceneNode ("cameraNode", cam);
-	
+	// mCamera->setPosition(cam);
+	// mCamera->lookAt(sight);
+
 	SceneNode *chassisnode = vehicleNode->createChildSceneNode ();
 	chassisnode->attachObject (mChassis);
 	chassisnode->setPosition (chassisShift);
@@ -235,6 +237,13 @@ void Vehicle::updatePerFrame(Real elapsedTime)
 		if (mSteering < -gSteeringClamp)
 			mSteering = -gSteeringClamp;
 	}
+	else if(!mSteeringLeft && !mSteeringRight)
+	{
+		if(mSteering > 0)mSteering -= 0.01f;
+		else if(mSteering < 0) mSteering += 0.01f;
+		
+		if(Math::Abs(mSteering) <= 0.1f) mSteering = 0.0f;
+	}
 
 	// apply Steering on relevant wheels
 	for (int i = mWheelsSteerable[0]; i < mWheelsSteerableCount; i++)
@@ -251,6 +260,7 @@ void Vehicle::keyPressed(const OIS::KeyEvent& arg)
 {
 	bool wheel_engine_style_change = false;
 	bool wheel_steering_style_change = false;
+	bool isChangeDirection = false;
 
 	if(arg.key == OIS::KC_PGUP)
 	{
@@ -270,15 +280,17 @@ void Vehicle::keyPressed(const OIS::KeyEvent& arg)
 	else if(arg.key == OIS::KC_END)
 	{
 		wheel_steering_style_change = true;
-		mWheelSteeringStyle = (mWheelSteeringStyle - 1) % 3;;
+		mWheelSteeringStyle = (mWheelSteeringStyle - 1) % 3;
 	}
 	else if(arg.key == OIS::KC_LEFT)
 	{
 		mSteeringLeft = true;
+		isChangeDirection = true;
 	}
 	else if(arg.key == OIS::KC_RIGHT)
 	{
 		mSteeringRight = true;
+		isChangeDirection = true;
 	}
 	else if(arg.key == OIS::KC_DOWN)
 	{
@@ -287,6 +299,12 @@ void Vehicle::keyPressed(const OIS::KeyEvent& arg)
 	else if(arg.key == OIS::KC_UP)
 	{
 		mEngineForce = gMaxEngineForce;
+	}
+
+	if(!isChangeDirection)
+	{
+		mSteeringRight = false;
+		mSteeringLeft = false;
 	}
 
 	if (wheel_engine_style_change)

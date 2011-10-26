@@ -34,6 +34,7 @@ public:
 
 public:
 	Vector3 CarPosition;
+	SceneNode *vehicleNode;
 
 private:
 	
@@ -46,7 +47,7 @@ private:
 	Ogre::Entity    *mWheels[4];
 	Ogre::SceneNode *mWheelNodes[4];
 
-	SceneNode *vehicleNode;
+	
 
 	int mWheelsEngine[4];
 	int mWheelsEngineCount;

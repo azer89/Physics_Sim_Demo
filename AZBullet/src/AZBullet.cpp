@@ -88,21 +88,25 @@ void AZBullet::bulletInit()
 
 	// create a vehicle
 	vehicle = new Vehicle();
-	vehicle->createVehicle(this->mSceneMgr, this->mBulletWorld, this->mNumEntitiesInstanced, tManager->terrain_Shift, this->mCamera);
+	vehicle->createVehicle(this->mSceneMgr, 
+		this->mBulletWorld, 
+		this->mNumEntitiesInstanced, 
+		tManager->terrain_Shift, 
+		this->mCamera);
+
+	// Alter the camera aspect ratio to match the viewport
+	mCamera->setAspectRatio(Real(vp->getActualWidth()) / Real(vp->getActualHeight()));
+	// mCamera->setPosition(CameraStart + tManager->terrain_Shift);
+	// mCamera->lookAt(vehicle->CarPosition + tManager->terrain_Shift);
 
 	// extended camera
 	ThirdPersonCamera* exCamera = new ThirdPersonCamera("Third Person Camera", mSceneMgr, mCamera);
-	exCamera->instantUpdate(vehicle->mCameraNode->getPosition(), vehicle->getSightNode()->getPosition());
 
 	// frame listener to manage camera
 	mCameraListener = new CameraListener(mWindow, mCamera);
 	static_cast<CameraListener*> (mCameraListener)->setCharacter(vehicle);
 	static_cast<CameraListener*> (mCameraListener)->setExtendedCamera(exCamera);
-
-	// Alter the camera aspect ratio to match the viewport
-	mCamera->setAspectRatio(Real(vp->getActualWidth()) / Real(vp->getActualHeight()));
-	//mCamera->setPosition(CameraStart + tManager->terrain_Shift);
-	//mCamera->lookAt(vehicle->CarPosition + tManager->terrain_Shift);
+	mCameraListener->instantUpdate();	
 
 	// create the obstacle
 	obs = new ObstacleForFun();

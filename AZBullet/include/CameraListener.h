@@ -20,6 +20,7 @@ public:
 	void setCharacter (Character *character);
 	void setExtendedCamera (ThirdPersonCamera *cam);
 	bool frameStarted(const FrameEvent& evt);
+	void instantUpdate();
 
 protected:	
 	Character *mChar;				// References to the main character and the camera
