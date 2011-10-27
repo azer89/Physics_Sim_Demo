@@ -2,6 +2,10 @@
 #include "Stdafx.h"
 #include "RayTerrain.h"
 
+#include <LinearMath/btVector3.h>
+#include "Shapes/OgreBulletCollisionsTerrainShape.h"
+#include "OgreBulletDynamicsRigidBody.h"
+
 //-------------------------------------------------------------------------------------
 // constructor
 RayTerrain::RayTerrain(void)
@@ -13,6 +17,88 @@ RayTerrain::~RayTerrain(void)
 {
 	OGRE_DELETE mTerrainGroup;
     OGRE_DELETE mTerrainGlobals;
+}
+
+//-------------------------------------------------------------------------------------
+void RayTerrain::integrateBullet(SceneManager* mSceneMgr, 
+								   OgreBulletDynamics::DynamicsWorld *mBulletWorld, 
+								   std::deque<OgreBulletDynamics::RigidBody *> mBodies,
+								   std::deque<OgreBulletCollisions::CollisionShape *>  mShapes
+								   )
+{
+	
+	Ogre::Terrain* pTerrain = mTerrainGroup->getTerrain(0, 0);
+
+	float * data = pTerrain->getHeightData();
+	Ogre::Vector3 tpos = pTerrain->getPosition(); 
+	btVector3 pos(tpos.x,tpos.y,tpos.z);
+
+	float * pDataConvert = new float[pTerrain->getSize() * pTerrain->getSize()];
+	for (int i = 0; i < pTerrain->getSize(); i++)
+		memcpy(pDataConvert+pTerrain->getSize()*i, 
+		data + pTerrain->getSize()*(pTerrain->getSize()-i-1),
+		sizeof(float)*(pTerrain->getSize()));
+
+	/*
+	pEngine->putTerrainData(
+		pTerrain->getSize(),
+		pTerrain->getSize(),
+		pDataConvert,
+		pTerrain->getMinHeight(),
+		pTerrain->getMaxHeight(),
+		pos,
+		pTerrain->getWorldSize()/(pTerrain->getSize()-1) );
+	*/
+
+	/*
+	unsigned page_size = terrain->getLayerBlendMapSize();
+
+	std::cout << page_size << "rrrrterrr=======\n";
+
+	float *heights = new float [page_size*page_size];
+	Ogre::TerrainLayerBlendMap* blendMap0 = terrain->getLayerBlendMap(1);
+
+	for (Ogre::uint16 y = 0; y < terrain->getLayerBlendMapSize(); ++y)
+	{
+		for (Ogre::uint16 x = 0; x < terrain->getLayerBlendMapSize(); ++x)
+		{
+			Ogre::Real tx, ty;
+
+			blendMap0->convertImageToTerrainSpace(x, y, &tx, &ty);
+			heights[x + y * page_size] = terrain->getHeightAtTerrainPosition(tx, ty);
+		}
+	}
+
+	
+	Ogre::Vector3 terrainScale(1000.0f / (page_size-1),
+		75,
+		1000.0f / (page_size-1));
+
+	mTerrainShape = new HeightmapCollisionShape (
+		page_size, 
+		page_size, 
+		terrainScale, 
+		heights, 
+		true);
+
+	RigidBody *defaultTerrainBody = new RigidBody(
+		"TerrainABC", 
+		mBulletWorld);
+
+	const float      terrainBodyRestitution  = 0.1f;
+	const float      terrainBodyFriction     = 0.8f;
+
+	Ogre::Vector3 terrainShiftPos( (terrainScale.x * (page_size - 1) / 2), 0, (terrainScale.z * (page_size - 1) / 2));
+
+	terrainShiftPos.y = terrainScale.y / 2 * terrainScale.y;
+
+	Ogre::SceneNode* pTerrainNode = mSceneMgr->getRootSceneNode ()->createChildSceneNode ();
+	defaultTerrainBody->setStaticShape (pTerrainNode, mTerrainShape, terrainBodyRestitution, terrainBodyFriction, terrainShiftPos);
+
+	mBodies.push_back(defaultTerrainBody);
+	mShapes.push_back(mTerrainShape);
+	*/
+
 }
 
 //-------------------------------------------------------------------------------------
@@ -121,8 +207,7 @@ void RayTerrain::defineTerrain(long x, long y)
 //-------------------------------------------------------------------------------------
 // init blend map
 void RayTerrain::initBlendMaps(Ogre::Terrain* terrain)
-{
-	
+{	
 	Ogre::TerrainLayerBlendMap* blendMap0 = terrain->getLayerBlendMap(1);
     Ogre::TerrainLayerBlendMap* blendMap1 = terrain->getLayerBlendMap(2);
     Ogre::Real minHeight0 = 40;
@@ -169,7 +254,7 @@ void RayTerrain::configureTerrainDefaults(Ogre::Light* light)
 	
     // Configure default import settings for if we use imported image
     Ogre::Terrain::ImportData& defaultimp = mTerrainGroup->getDefaultImportSettings();
-    defaultimp.terrainSize = 65;
+    defaultimp.terrainSize = 513;
     defaultimp.worldSize = 1000.0f;
 	defaultimp.inputScale = 75;
     defaultimp.minBatchSize = 33;
