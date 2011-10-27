@@ -44,7 +44,6 @@ Vehicle::~Vehicle(void)
 void Vehicle::createVehicle(SceneManager* mSceneMgr,
 							OgreBulletDynamics::DynamicsWorld *mBulletWorld,
 							size_t &mNumEntitiesInstanced,
-							Ogre::Vector3 terrain_Shift, 
 							Camera* mCamera)
 {
 	// reset
@@ -111,7 +110,7 @@ void Vehicle::createVehicle(SceneManager* mSceneMgr,
 		0.6, //restitution
 		0.6, //friction
 		800, //bodyMass
-		CarPosition +  terrain_Shift, 
+		CarPosition, 
 		Quaternion::IDENTITY);
 	mCarChassis->setDamping(0.2, 0.2);
 
@@ -258,7 +257,6 @@ void Vehicle::updatePerFrame(Real elapsedTime)
 // when key pressed
 void Vehicle::keyPressed(const OIS::KeyEvent& arg)
 {
-	/*
 	bool wheel_engine_style_change = false;
 	bool wheel_steering_style_change = false;
 	bool isChangeDirection = false;
@@ -373,7 +371,6 @@ void Vehicle::keyPressed(const OIS::KeyEvent& arg)
 			break;
 		}
 	}
-	*/
 }
 
 //-------------------------------------------------------------------------------------

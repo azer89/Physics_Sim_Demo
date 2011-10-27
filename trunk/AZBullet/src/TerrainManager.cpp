@@ -13,8 +13,6 @@ using namespace OgreBulletDynamics;
 // constructor
 TerrainManager::TerrainManager(void)
 {
-	terrainHeight = 0;
-	terrainShift = Ogre::Vector3(0, terrainHeight, 0);
 }
 //-------------------------------------------------------------------------------------
 // destructor

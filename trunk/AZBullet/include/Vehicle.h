@@ -23,7 +23,6 @@ public:
 	void createVehicle(SceneManager* mSceneMgr,
 		OgreBulletDynamics::DynamicsWorld *mBulletWorld,
 		size_t &mNumEntitiesInstanced,
-		Ogre::Vector3 terrain_Shift,
 		Camera* mCamera);
 
 	void setVisible (bool visible);

@@ -12,7 +12,7 @@ public:
 	ObstacleForFun(void);
 	virtual ~ObstacleForFun(void);
 
-	void createObstacle(OgreBulletListener* listener, Ogre::Vector3 shift);
+	void createObstacle(OgreBulletListener* listener);
 };
 
 #endif
