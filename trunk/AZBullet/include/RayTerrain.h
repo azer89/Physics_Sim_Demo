@@ -9,6 +9,9 @@
 
 #include "OgreBulletDynamicsWorld.h"
 
+#include <BulletCollision/CollisionShapes/btHeightfieldTerrainShape.h>
+#include "Shapes/OgreBulletCollisionsTerrainShape.h"
+
 using namespace Ogre;
 using namespace OgreBulletCollisions;
 using namespace OgreBulletDynamics;
@@ -31,8 +34,8 @@ public:
 	Ogre::TerrainGroup* getTerrainGroup(void);
 
 private:
-
 	OgreBulletCollisions::HeightmapCollisionShape *mTerrainShape;
+	btHeightfieldTerrainShape *groundShape;
 
 	Ogre::TerrainGlobalOptions* mTerrainGlobals;	// terrain options
 	Ogre::TerrainGroup* mTerrainGroup;				// terrain group

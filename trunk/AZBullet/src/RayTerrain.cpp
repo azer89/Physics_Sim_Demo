@@ -3,6 +3,9 @@
 #include "RayTerrain.h"
 
 #include <LinearMath/btVector3.h>
+#include <LinearMath/btDefaultMotionState.h>
+#include "BulletDynamics/Dynamics/btRigidBody.h"
+#include <BulletCollision/CollisionShapes/btHeightfieldTerrainShape.h>
 #include "Shapes/OgreBulletCollisionsTerrainShape.h"
 #include "OgreBulletDynamicsRigidBody.h"
 
@@ -27,30 +30,66 @@ void RayTerrain::integrateBullet(SceneManager* mSceneMgr,
 								   )
 {
 	
-	Ogre::Terrain* pTerrain = mTerrainGroup->getTerrain(0, 0);
+	Ogre::Terrain* pTerrain = mTerrainGroup->getTerrain(0, 0);	
+	float * hData = pTerrain->getHeightData(); 
+	Vector3 pos = pTerrain->getPosition();
 
-	float * data = pTerrain->getHeightData();
-	Ogre::Vector3 tpos = pTerrain->getPosition(); 
-	btVector3 pos(tpos.x,tpos.y,tpos.z);
-
-	float * pDataConvert = new float[pTerrain->getSize() * pTerrain->getSize()];
+	float *pDataConvert = new float[pTerrain->getSize() *pTerrain->getSize()];
 	for (int i = 0; i < pTerrain->getSize(); i++)
-		memcpy(pDataConvert+pTerrain->getSize()*i, 
-		data + pTerrain->getSize()*(pTerrain->getSize()-i-1),
-		sizeof(float)*(pTerrain->getSize()));
+		memcpy(pDataConvert + pTerrain->getSize() * i, 
+		hData + pTerrain->getSize() * (pTerrain->getSize() - i - 1),
+		sizeof(float) * (pTerrain->getSize()));
+
+	float w = pTerrain->getSize();
+	float h = pTerrain->getSize();
+	
+	float* data = pDataConvert;
+	float minH = pTerrain->getMinHeight();
+	float maxH = pTerrain->getMaxHeight();
+	float scale = pTerrain->getWorldSize() / (pTerrain->getSize() - 1);
+	float heightScale = (maxH - minH) / 2.0f;
+
+	Vector3 localScaling = Vector3(scale, heightScale, scale);
+
+	mTerrainShape = new HeightmapCollisionShape (
+		w, 
+		h, 
+		localScaling, 
+		pDataConvert, 
+		true);
+
+	RigidBody *defaultTerrainBody = new RigidBody(
+		"TerrainABC", 
+		mBulletWorld);
+
+	const float      terrainBodyRestitution  = 0.1f;
+	const float      terrainBodyFriction     = 0.8f;
+
+	Ogre::Vector3 terrainShiftPos( (localScaling.x * (w - 1) / 2), 0, (localScaling.z * (h - 1) / 2));
+	//terrainShiftPos.y = terrainScale.y / 2 * terrainScale.y;
+
+	Ogre::SceneNode* pTerrainNode = mSceneMgr->getRootSceneNode ()->createChildSceneNode ();
+	defaultTerrainBody->setStaticShape (pTerrainNode, mTerrainShape, terrainBodyRestitution, terrainBodyFriction, terrainShiftPos);
+
+	mBodies.push_back(defaultTerrainBody);
+	mShapes.push_back(mTerrainShape);
 
 	/*
-	pEngine->putTerrainData(
-		pTerrain->getSize(),
-		pTerrain->getSize(),
-		pDataConvert,
-		pTerrain->getMinHeight(),
-		pTerrain->getMaxHeight(),
-		pos,
-		pTerrain->getWorldSize()/(pTerrain->getSize()-1) );
+	groundShape = new btHeightfieldTerrainShape(w, h, data, 1, minH,maxH,1, PHY_FLOAT, true);
+	groundShape->setUseDiamondSubdivision(true);
+	groundShape->setLocalScaling(localScaling);
+	mShapes.push_back(groundShape);	
+
+	btDefaultMotionState* state = new btDefaultMotionState();
+	btRigidBody* rigidBody = new btRigidBody(0, state, groundShape);
+	rigidBody->getWorldTransform().setOrigin(btVector3(scale*(w-1) / 2, heightScale / 2 *heightScale,scale* (w-1) / 2));
+	Ogre::Quaternion q = Ogre::Quaternion::IDENTITY;
+	rigidBody->getWorldTransform().setRotation(btQuaternion(q.x, q.y, q.z, q.w) );
+	rigidBody->setCollisionFlags(rigidBody->getCollisionFlags() | btCollisionObject::CF_STATIC_OBJECT);
+	mBulletWorld->addRigidBody(rigidBody);
 	*/
-
 	/*
+	Ogre::Terrain* terrain = mTerrainGroup->getTerrain(0, 0);
 	unsigned page_size = terrain->getLayerBlendMapSize();
 
 	std::cout << page_size << "rrrrterrr=======\n";
@@ -98,7 +137,6 @@ void RayTerrain::integrateBullet(SceneManager* mSceneMgr,
 	mBodies.push_back(defaultTerrainBody);
 	mShapes.push_back(mTerrainShape);
 	*/
-
 }
 
 //-------------------------------------------------------------------------------------
