@@ -66,7 +66,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="OgreMain_d.lib OIS_d.lib OgreBulletCollisions_d.lib OgreBulletDynamics_d.lib BulletCollision.lib BulletDynamics.lib LinearMath.lib GIMPACTutils.lib ConvexDecomposition.lib"
+				AdditionalDependencies="OgreMain_d.lib OIS_d.lib OgreTerrain_d.lib OgreBulletCollisions_d.lib OgreBulletDynamics_d.lib BulletCollision.lib BulletDynamics.lib LinearMath.lib GIMPACTutils.lib ConvexDecomposition.lib"
 				OutputFile="$(OutDir)\$(ProjectName).exe"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="&quot;$(OGRE_HOME)\lib\debug&quot;;&quot;$(OGRE_HOME)\boost_1_44\lib&quot;;&quot;lib\$(ConfigurationName)&quot;;&quot;$(BULLET_ROOT)\lib\&quot;"
@@ -154,7 +154,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="OgreMain.lib OIS.lib OgreBulletCollisions.lib OgreBulletDynamics.lib BulletCollision.lib BulletDynamics.lib LinearMath.lib GIMPACTUtils.lib ConvexDecomposition.lib"
+				AdditionalDependencies="OgreMain.lib OIS.lib OgreTerrain.lib OgreBulletCollisions.lib OgreBulletDynamics.lib BulletCollision.lib BulletDynamics.lib LinearMath.lib GIMPACTUtils.lib ConvexDecomposition.lib"
 				OutputFile="$(OutDir)\$(ProjectName).exe"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="&quot;$(OGRE_HOME)\lib\release&quot;;&quot;$(OGRE_HOME)\boost_1_44\lib&quot;;&quot;lib\$(ConfigurationName)&quot;;&quot;$(BULLET_ROOT)\lib\&quot;"
@@ -211,6 +211,10 @@
 			</File>
 			<File
 				RelativePath=".\src\ObstacleForFun.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\RayTerrain.cpp"
 				>
 			</File>
 			<File
@@ -277,6 +281,10 @@
 			</File>
 			<File
 				RelativePath=".\include\ObstacleForFun.h"
+				>
+			</File>
+			<File
+				RelativePath=".\include\RayTerrain.h"
 				>
 			</File>
 			<File
