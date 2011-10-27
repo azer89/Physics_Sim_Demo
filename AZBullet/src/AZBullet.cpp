@@ -70,10 +70,10 @@ void AZBullet::bulletInit()
 	vp->setBackgroundColour(ColourValue(0, 0, 0.2f));
 	
 	// add lights
-	//setBulletBasicLight();
+	setBulletBasicLight();
 
 	// Start Bullet
-	//initWorld();
+	initWorld();
 
 	Ogre::Vector3 lightdir(0.55, -0.3, 0.75);
     lightdir.normalise();
@@ -88,7 +88,7 @@ void AZBullet::bulletInit()
 
 	rayTerrain = new RayTerrain();
 	rayTerrain->createTerrain(this->mSceneMgr, light);
-	/*
+	
 	// Create a terrain
 	tManager = new TerrainManager();
 	tManager->createTerrain(mSceneMgr, mBulletWorld, mBodies, mShapes);
@@ -97,8 +97,7 @@ void AZBullet::bulletInit()
 	vehicle = new Vehicle();
 	vehicle->createVehicle(this->mSceneMgr, 
 		this->mBulletWorld, 
-		this->mNumEntitiesInstanced, 
-		tManager->terrainShift, 
+		this->mNumEntitiesInstanced,
 		this->mCamera);
 
 	// Alter the camera aspect ratio to match the viewport
@@ -117,8 +116,8 @@ void AZBullet::bulletInit()
 
 	// create the obstacle
 	obs = new ObstacleForFun();
-	obs->createObstacle(this, tManager->terrainShift);
-	*/
+	obs->createObstacle(this);
+	
 	Ogre::Plane skyPlane;
 	skyPlane.d = 100;
 	skyPlane.normal = Ogre::Vector3::NEGATIVE_UNIT_Y;
@@ -142,10 +141,11 @@ bool AZBullet::frameRenderingQueued(const Ogre::FrameEvent& arg)
 
 	Ogre::Real elapsedTime = arg.timeSinceLastFrame;
 	
-	//this->repositionCamera();
-	//mBulletWorld->stepSimulation(elapsedTime);	
-	//this->vehicle->updatePerFrame(arg.timeSinceLastFrame);
+	this->repositionCamera();
+	mBulletWorld->stepSimulation(elapsedTime);	
+	this->vehicle->updatePerFrame(arg.timeSinceLastFrame);
 
+	/*
 	if (rayTerrain->getTerrainGroup()->isDerivedDataUpdateInProgress())
 	{
 
@@ -173,7 +173,7 @@ bool AZBullet::frameRenderingQueued(const Ogre::FrameEvent& arg)
 			rayTerrain->setTerrainsImported(false);
 		}		
 	}
-
+	*/
 	return true;
 
 }
@@ -188,7 +188,7 @@ bool AZBullet::frameStarted(const FrameEvent& evt)
 		return false;
 	}
 	*/
-	//mCameraListener->frameStarted(evt);
+	mCameraListener->frameStarted(evt);
 
 	return true;
 }
@@ -334,8 +334,8 @@ void AZBullet::createFrameListener(void)
 	mRayScnQuery = mSceneMgr->createRayQuery(Ogre::Ray());
 
 	// create text inf on top of window
-	mInfoLabel = mTrayMgr->createLabel(OgreBites::TL_TOP, "TInfo", "", 350);
-	mInfoLabel->hide();
+	//mInfoLabel = mTrayMgr->createLabel(OgreBites::TL_TOP, "TInfo", "", 350);
+	//mInfoLabel->hide();
 
 	//mRoot->addFrameListener(mCameraListener);
 }

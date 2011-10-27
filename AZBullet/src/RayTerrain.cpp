@@ -24,7 +24,7 @@ void RayTerrain::createTerrain(Ogre::SceneManager* mSceneMgr, Ogre::Light* light
 	mTerrainGlobals = OGRE_NEW Ogre::TerrainGlobalOptions();
 	//mTerrainGlobals->setCastsDynamicShadows(true);
 	//mTerrainGlobals->setLightMapDirection(light->getDirection());
-
+												// scene_manager	align				   size world_size
 	mTerrainGroup = OGRE_NEW Ogre::TerrainGroup(this->mSceneMgr, Ogre::Terrain::ALIGN_X_Z, 65, 1000.f);
 	
     mTerrainGroup->setFilenameConvention(Ogre::String("RayRayRay"), Ogre::String("dat"));

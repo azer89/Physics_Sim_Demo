@@ -16,10 +16,6 @@ using namespace OgreBulletDynamics;
 class TerrainManager
 {
 public:
-	Ogre::Real terrainHeight;
-	Ogre::Vector3 terrainShift;
-
-public:
 	TerrainManager(void);
 	virtual ~TerrainManager(void);
 
