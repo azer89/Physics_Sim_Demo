@@ -58,25 +58,21 @@ void AZBullet::bulletInit()
 
 	mCamera->setNearClipDistance(0.1);
 	mCamera->setFarClipDistance(50000);
-
-	if (mRoot->getRenderSystem()->getCapabilities()->hasCapability(Ogre::RSC_INFINITE_FAR_PLANE))
-	{
-		mCamera->setFarClipDistance(0);   // enable infinite far clip distance if we can
-	}
+	if (mRoot->getRenderSystem()->getCapabilities()->hasCapability(Ogre::RSC_INFINITE_FAR_PLANE)) { mCamera->setFarClipDistance(0);}   // enable infinite far clip distance if we can
 
 	mBulletCameraMove = 1;
 
 	Ogre::Viewport *vp = this->mCamera->getViewport();
 	vp->setBackgroundColour(ColourValue(0, 0, 0.2f));
 	
-	// add lights
-	setBulletBasicLight();
-
 	// Start Bullet
 	initWorld();
 
 	Ogre::Vector3 lightdir(0.55, -0.3, 0.75);
     lightdir.normalise();
+
+	// add lights
+	setBulletBasicLight();
 
 	Ogre::Light* light = mSceneMgr->createLight("tstLight");
 	light->setType(Ogre::Light::LT_DIRECTIONAL);
@@ -86,8 +82,10 @@ void AZBullet::bulletInit()
 	mSceneMgr->setAmbientLight(Ogre::ColourValue(0.4, 0.4, 0.4));
 	mSceneMgr->setShadowTechnique(Ogre::SHADOWTYPE_STENCIL_ADDITIVE);
 
+	// create terrain group
 	rayTerrain = new RayTerrain();
 	rayTerrain->createTerrain(this->mSceneMgr, light);
+	rayTerrain->integrateBullet(mSceneMgr, mBulletWorld, mBodies, mShapes);
 	
 	// Create a terrain
 	tManager = new TerrainManager();

@@ -4,8 +4,14 @@
 
 #include "Ogre.h"
 
-#include <Terrain/OgreTerrain.h>
-#include <Terrain/OgreTerrainGroup.h>
+#include "Terrain/OgreTerrain.h"
+#include "Terrain/OgreTerrainGroup.h"
+
+#include "OgreBulletDynamicsWorld.h"
+
+using namespace Ogre;
+using namespace OgreBulletCollisions;
+using namespace OgreBulletDynamics;
 
 class RayTerrain
 {
@@ -14,12 +20,19 @@ public:
 	virtual ~RayTerrain(void);
 
 	void createTerrain(Ogre::SceneManager* mSceneMgr, Ogre::Light* light);
+	void integrateBullet(Ogre::SceneManager* mSceneMgr, 
+		OgreBulletDynamics::DynamicsWorld *mBulletWorld, 
+		std::deque<OgreBulletDynamics::RigidBody *> mBodies,
+		std::deque<OgreBulletCollisions::CollisionShape *>  mShapes
+		);
 	bool getTerrainsImported(void);
 	void setTerrainsImported(bool val);
 	Ogre::TerrainGlobalOptions* getTerrainGlobals(void);
 	Ogre::TerrainGroup* getTerrainGroup(void);
 
 private:
+
+	OgreBulletCollisions::HeightmapCollisionShape *mTerrainShape;
 
 	Ogre::TerrainGlobalOptions* mTerrainGlobals;	// terrain options
 	Ogre::TerrainGroup* mTerrainGroup;				// terrain group
