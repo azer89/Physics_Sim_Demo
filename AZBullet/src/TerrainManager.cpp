@@ -13,8 +13,8 @@ using namespace OgreBulletDynamics;
 // constructor
 TerrainManager::TerrainManager(void)
 {
-	terrain_height = 45;
-	terrain_Shift = Ogre::Vector3(750, terrain_height, 750);
+	terrainHeight = 0;
+	terrainShift = Ogre::Vector3(0, terrainHeight, 0);
 }
 //-------------------------------------------------------------------------------------
 // destructor
@@ -31,9 +31,7 @@ void TerrainManager::createTerrain(SceneManager* mSceneMgr,
 								   )
 {
 	mSceneMgr->setWorldGeometry("terrain.cfg");
-
 	Ogre::ConfigFile config;
-
 	config.loadFromResourceSystem("terrain.cfg", ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME, "=", true);
 
 	unsigned page_size = Ogre::StringConverter::parseUnsignedInt(config.getSetting( "PageSize" ));
@@ -65,7 +63,7 @@ void TerrainManager::createTerrain(SceneManager* mSceneMgr,
 		true);
 
 	RigidBody *defaultTerrainBody = new RigidBody(
-		"Terrain", 
+		"TerrainXYZ", 
 		mBulletWorld);
 
 	const float      terrainBodyRestitution  = 0.1f;

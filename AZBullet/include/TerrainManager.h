@@ -16,8 +16,8 @@ using namespace OgreBulletDynamics;
 class TerrainManager
 {
 public:
-	float terrain_height;
-	Ogre::Vector3 terrain_Shift;
+	Ogre::Real terrainHeight;
+	Ogre::Vector3 terrainShift;
 
 public:
 	TerrainManager(void);

@@ -83,7 +83,12 @@ namespace OgreBulletCollisions
 	class HeightmapCollisionShape : public CollisionShape
 	{
 	public:
-		HeightmapCollisionShape(int width, int length, Ogre::Vector3& scale, Ogre::Real* pHeightData, bool bFlip)
+		HeightmapCollisionShape(int width, 
+			int length, 
+			Ogre::Vector3& scale, 
+			Ogre::Real* 
+			pHeightData, 
+			bool bFlip)
 		{
 			int upIndex = 1;
 			bool useFloatDatam=true;

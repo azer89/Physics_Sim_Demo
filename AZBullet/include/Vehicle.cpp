@@ -31,7 +31,7 @@ static float gFrictionSlip = 10.5;
 // constructor
 Vehicle::Vehicle(void)
 {
-	this->CarPosition =  Ogre::Vector3(15, 3,-15);
+	this->CarPosition =  Ogre::Vector3(250, 100, 250);
 }
 //-------------------------------------------------------------------------------------
 // destructor
@@ -258,6 +258,7 @@ void Vehicle::updatePerFrame(Real elapsedTime)
 // when key pressed
 void Vehicle::keyPressed(const OIS::KeyEvent& arg)
 {
+	/*
 	bool wheel_engine_style_change = false;
 	bool wheel_steering_style_change = false;
 	bool isChangeDirection = false;
@@ -372,6 +373,7 @@ void Vehicle::keyPressed(const OIS::KeyEvent& arg)
 			break;
 		}
 	}
+	*/
 }
 
 //-------------------------------------------------------------------------------------
