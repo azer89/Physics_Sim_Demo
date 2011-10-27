@@ -41,8 +41,6 @@ void TerrainManager::createTerrain(SceneManager* mSceneMgr,
 	Ogre::String terrainfileName = config.getSetting( "Heightmap.image" );
 	float *heights = new float [page_size*page_size];
 
-	std::cout << page_size << "cccccccterrr=======\n";
-
 	Ogre::Image terrainHeightMap;
 	terrainHeightMap.load(terrainfileName, Ogre::ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME);
 
