@@ -33,26 +33,25 @@ void RayTerrain::integrateBullet(SceneManager* mSceneMgr,
 	float * hData = pTerrain->getHeightData(); 
 	Vector3 pos = pTerrain->getPosition();
 
-	float *pDataConvert = new float[pTerrain->getSize() *pTerrain->getSize()];
-	for (int i = 0; i < pTerrain->getSize(); i++)
-		memcpy(pDataConvert + pTerrain->getSize() * i, 
-		hData + pTerrain->getSize() * (pTerrain->getSize() - i - 1),
-		sizeof(float) * (pTerrain->getSize()));
+	uint16 pSize = pTerrain->getSize();
 
-	float w = pTerrain->getSize();
-	float h = pTerrain->getSize();
+	float *pDataConvert = new float[pSize * pSize];
+	for (int i = 0; i < pSize; i++)
+		memcpy(pDataConvert + pSize * i, 
+		hData + pSize * (pSize - i - 1),
+		sizeof(float) * (pSize));
 	
 	float* data = pDataConvert;
 	float minH = pTerrain->getMinHeight();
 	float maxH = pTerrain->getMaxHeight();
 	float scale = pTerrain->getWorldSize() / (pTerrain->getSize() - 1);
-	float heightScale = (maxH - minH) / 2.0f;
+	float heightScale = (maxH - minH) / 2.0f / 40.0f;
 
 	Vector3 localScaling = Vector3(scale, heightScale, scale);
 
 	mTerrainShape = new HeightmapCollisionShape (
-		w, 
-		h, 
+		pSize, 
+		pSize, 
 		localScaling, 
 		pDataConvert, 
 		true);
@@ -64,9 +63,9 @@ void RayTerrain::integrateBullet(SceneManager* mSceneMgr,
 	const float      terrainBodyRestitution  = 0.1f;
 	const float      terrainBodyFriction     = 0.8f;
 
-	Ogre::SceneNode* pTerrainNode = mSceneMgr->getRootSceneNode ()->createChildSceneNode ();
+	Ogre::SceneNode* pTerrainNode = mSceneMgr->getRootSceneNode()->createChildSceneNode ();
 	defaultTerrainBody->setStaticShape (pTerrainNode, mTerrainShape, terrainBodyRestitution, terrainBodyFriction, Vector3.ZERO);
-
+	
 	mBodies.push_back(defaultTerrainBody);
 	mShapes.push_back(mTerrainShape);
 }
@@ -81,9 +80,9 @@ void RayTerrain::createTerrain(Ogre::SceneManager* mSceneMgr, Ogre::Light* light
 	//mTerrainGlobals->setCastsDynamicShadows(true);
 	//mTerrainGlobals->setLightMapDirection(light->getDirection());
 												// scene_manager	align				   size world_size
-	mTerrainGroup = OGRE_NEW Ogre::TerrainGroup(this->mSceneMgr, Ogre::Terrain::ALIGN_X_Z, 65, 1000.f);
+	mTerrainGroup = OGRE_NEW Ogre::TerrainGroup(this->mSceneMgr, Ogre::Terrain::ALIGN_X_Z, 129, 1000.f);
 	
-    mTerrainGroup->setFilenameConvention(Ogre::String("RayRayRay"), Ogre::String("dat"));
+    mTerrainGroup->setFilenameConvention(Ogre::String("AZ"), Ogre::String("dat"));
     mTerrainGroup->setOrigin(Ogre::Vector3::ZERO);
 	
     configureTerrainDefaults(light);
@@ -224,7 +223,7 @@ void RayTerrain::configureTerrainDefaults(Ogre::Light* light)
 	
     // Configure default import settings for if we use imported image
     Ogre::Terrain::ImportData& defaultimp = mTerrainGroup->getDefaultImportSettings();
-    defaultimp.terrainSize = 513;
+    defaultimp.terrainSize = 129;
     defaultimp.worldSize = 1000.0f;
 	defaultimp.inputScale = 75;
     defaultimp.minBatchSize = 33;
