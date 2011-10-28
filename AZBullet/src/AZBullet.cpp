@@ -83,9 +83,9 @@ void AZBullet::bulletInit()
 	mSceneMgr->setShadowTechnique(Ogre::SHADOWTYPE_STENCIL_ADDITIVE);
 
 	// create terrain group
-	//rayTerrain = new RayTerrain();
-	//rayTerrain->createTerrain(this->mSceneMgr, light);
-	//rayTerrain->integrateBullet(mSceneMgr, mBulletWorld, mBodies, mShapes);
+	rayTerrain = new RayTerrain();
+	rayTerrain->createTerrain(this->mSceneMgr, light);
+	rayTerrain->integrateBullet(mSceneMgr, mBulletWorld, mBodies, mShapes);
 	
 	// Create a terrain
 	tManager = new TerrainManager();
@@ -128,8 +128,8 @@ void AZBullet::bulletInit()
 	// delete tManager;
 	// delete obs;
 
-	//mBulletWorld->getDebugDrawer()->setDrawWireframe(true);
-	//mBulletWorld->setShowDebugShapes(true);
+	mBulletWorld->getDebugDrawer()->setDrawWireframe(true);
+	mBulletWorld->setShowDebugShapes(true);
 }
 
 //-------------------------------------------------------------------------------------
