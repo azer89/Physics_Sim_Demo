@@ -45,7 +45,7 @@ void RayTerrain::integrateBullet(SceneManager* mSceneMgr,
 	float minH = pTerrain->getMinHeight();
 	float maxH = pTerrain->getMaxHeight();
 	float scale = pTerrain->getWorldSize() / (pTerrain->getSize() - 1);
-	float heightScale = (maxH - minH) / 2.0f / 40.0f;
+	float heightScale = (maxH - minH) / 2.0f ;
 
 	Vector3 localScaling = Vector3(scale, heightScale, scale);
 
