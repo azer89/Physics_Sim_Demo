@@ -389,6 +389,7 @@ bool BaseApplication::keyPressed( const OIS::KeyEvent &arg )
 		mShutDown = true;
 	}
 
+	/*
 	if(arg.key == OIS::KC_UP || arg.key == OIS::KC_RIGHT || arg.key == OIS::KC_LEFT || arg.key == OIS::KC_DOWN )
 	{
 	}
@@ -396,12 +397,13 @@ bool BaseApplication::keyPressed( const OIS::KeyEvent &arg )
 	{
 		mCameraMan->injectKeyDown(arg);
 	}
-	
+	*/
 	return true;
 }
 
 bool BaseApplication::keyReleased( const OIS::KeyEvent &arg )
 {
+	/*
 	if(arg.key == OIS::KC_UP || arg.key == OIS::KC_RIGHT || arg.key == OIS::KC_LEFT || arg.key == OIS::KC_DOWN )
 	{
 	}
@@ -409,6 +411,7 @@ bool BaseApplication::keyReleased( const OIS::KeyEvent &arg )
 	{
 		mCameraMan->injectKeyUp(arg);
 	}
+	*/
 	return true;
 }
 

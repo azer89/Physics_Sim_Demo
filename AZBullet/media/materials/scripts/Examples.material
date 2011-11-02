@@ -525,6 +525,52 @@ material Examples/WaterStream
 	}
 }
 
+material Examples/WaterStream2
+{
+	technique
+	{
+		pass
+		{
+			ambient 0.5 0.5 0.6 0.9
+			scene_blend alpha_blend
+			depth_write off
+		
+			texture_unit
+			{
+				texture Water01.jpg
+			}
+		}
+	}
+}
+
+material Examples/WaterStream3
+{
+	technique
+	{
+		pass
+		{
+			lighting off
+			ambient 0.2 0.2 0.6 0.9
+			scene_blend add
+			depth_write off
+			cull_software none
+			cull_hardware none
+
+			texture_unit
+			{
+				texture Water01.jpg
+				scroll_anim 0.125 0
+			}
+
+			texture_unit
+			{
+				texture Water01.jpg
+				wave_xform scroll_y sine 0 0.1 0 0.25
+			}
+		}
+	}
+}
+
 material Examples/Flare
 {
 	technique

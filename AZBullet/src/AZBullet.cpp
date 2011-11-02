@@ -25,6 +25,10 @@ static const Ogre::Vector3 CameraStart = Ogre::Vector3(0, 25, 0);
 AZBullet::AZBullet(void):OgreBulletListener()
 {
 	this->mRotateSpeed = 0.1f;
+
+	vehicle = NULL;
+	tManager = NULL;
+	obs = NULL;
 }
 
 //-------------------------------------------------------------------------------------
@@ -47,9 +51,6 @@ void AZBullet::createScene(void)
 // -------------------------------------------------------------------------
 void AZBullet::bulletInit()
 {	
-	vehicle = NULL;
-	tManager = NULL;
-	obs = NULL;
 
 	mBulletCamera = mCamera;		// OgreBulletListener's camera
 	mBulletWindow = mWindow;		// OgreBulletListener's window
@@ -104,7 +105,7 @@ void AZBullet::bulletInit()
 	// mCamera->lookAt(vehicle->CarPosition + tManager->terrain_Shift);
 
 	// extended camera
-	ThirdPersonCamera* exCamera = new ThirdPersonCamera("Third Person Camera", mSceneMgr, mCamera);
+	exCamera = new ThirdPersonCamera("Third Person Camera", mSceneMgr, mCamera);
 
 	// frame listener to manage camera
 	mCameraListener = new CameraListener(mWindow, mCamera);
@@ -128,11 +129,54 @@ void AZBullet::bulletInit()
 	// delete tManager;
 	// delete obs;
 
-	mBulletWorld->getDebugDrawer()->setDrawWireframe(true);
-	mBulletWorld->setShowDebugShapes(true);
+	//mBulletWorld->getDebugDrawer()->setDrawWireframe(true);
+	//mBulletWorld->setShowDebugShapes(true);
+
+	createSimpleWater();
 }
 
 //-------------------------------------------------------------------------------------
+void AZBullet::createSimpleWater()
+{
+	
+	// this is to add water pond effect
+	Ogre::Plane plane01(Ogre::Vector3::UNIT_Y, 0);
+
+	Ogre::MeshManager::getSingleton().createPlane("ground", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
+		plane01, 1000, 1000, 20, 20, true, 1, 20, 20, Ogre::Vector3::UNIT_Z);
+
+	Ogre::Entity* entWater01 = mSceneMgr->createEntity("WaterPlane01", "ground");
+	mSceneMgr->getRootSceneNode()->createChildSceneNode("Water", Ogre::Vector3(500, 30, 500))->attachObject(entWater01);
+
+	entWater01->setMaterialName("Examples/WaterStream3");
+	entWater01->setCastShadows(false);	
+	
+	// this is to add water pond effect
+	Ogre::Plane plane02(Ogre::Vector3::UNIT_Y, 0);
+
+	/*	
+	Ogre::MeshManager::getSingleton().createPlane("ground", 
+		Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
+		plane02, 
+		1000, 
+		1000, 
+		1, 
+		1, 
+		true, 
+		1, 
+		5, 
+		5, 
+		Ogre::Vector3::UNIT_Z);
+
+	Ogre::Entity* entWater02 = mSceneMgr->createEntity("WaterPlane02", "ground");
+	mSceneMgr->getRootSceneNode()->createChildSceneNode("Water02", Ogre::Vector3(500, 5, 500))->attachObject(entWater02);
+
+	entWater02->setMaterialName("Examples/WaterStream2");
+	entWater02->setCastShadows(false);	
+	*/
+}
+
+
 bool AZBullet::frameRenderingQueued(const Ogre::FrameEvent& arg)
 {
 	if(!BaseApplication::frameRenderingQueued(arg))
@@ -228,7 +272,7 @@ bool AZBullet::mouseMoved(const OIS::MouseEvent& arg)
 		
 	}
 	else if(bRMouseDown)	//if the right mouse button is held down, be rotate the camera with the mouse
-	{
+	{		
 		mCamera->yaw(Ogre::Degree(-arg.state.X.rel * mRotateSpeed));
 		mCamera->pitch(Ogre::Degree(-arg.state.Y.rel * mRotateSpeed));
 	}
@@ -281,6 +325,30 @@ bool AZBullet::keyPressed(const OIS::KeyEvent& arg)
 		return false;
 	}
 
+	if(arg.key == OIS::KC_UP     || 
+		arg.key == OIS::KC_RIGHT || 
+		arg.key == OIS::KC_LEFT  || 
+		arg.key == OIS::KC_DOWN
+		)
+	{
+	}
+	/*else if(arg.key == OIS::KC_W)
+	{
+	}
+	else if(arg.key == OIS::KC_A)
+	{
+	}
+	else if(arg.key == OIS::KC_S)
+	{
+	}
+	else if(arg.key == OIS::KC_D)
+	{
+	}*/
+	else
+	{
+		mCameraMan->injectKeyDown(arg);
+	}
+
 	vehicle->keyPressed(arg);
 
 	return true;
@@ -295,16 +363,41 @@ bool AZBullet::keyReleased(const OIS::KeyEvent& arg)
 		return false;
 	}
 
-	vehicle->keyReleased(arg);
+	if(arg.key == OIS::KC_UP     || 
+		arg.key == OIS::KC_RIGHT || 
+		arg.key == OIS::KC_LEFT  || 
+		arg.key == OIS::KC_DOWN )
+	{
+	}
+	/*else if(arg.key == OIS::KC_W)
+	{
+	}
+	else if(arg.key == OIS::KC_A)
+	{
+	}
+	else if(arg.key == OIS::KC_S)
+	{
+	}
+	else if(arg.key == OIS::KC_D)
+	{
+	}*/
+	else
+	{
+		mCameraMan->injectKeyUp(arg);
+	}
 
+	vehicle->keyReleased(arg);
 	return true;
 }
 
 //-------------------------------------------------------------------------------------
 void AZBullet::repositionCamera()
 {
-	// Setup the scene query
-	Ogre::Vector3 camPos = mCamera->getPosition();
+	//Ogre::Vector3 camPos = mCamera->getRealPosition();
+	Ogre::Vector3 camPos = exCamera->getCameraPosition();
+	
+	//std::cout << camPos << "\n";
+	
 	Ogre::Ray cameraRay(Ogre::Vector3(camPos.x, 5000.0f, camPos.z), Ogre::Vector3::NEGATIVE_UNIT_Y);
 	mRayScnQuery->setRay(cameraRay);
 
@@ -315,11 +408,21 @@ void AZBullet::repositionCamera()
 	if (itr != result.end() && itr->worldFragment)
 	{
 		Ogre::Real terrainHeight = itr->worldFragment->singleIntersection.y;
-		if ((terrainHeight + 10.0f) > camPos.y)
+
+		
+
+		//if ((terrainHeight + 0.5f) > camPos.y)
+		if( Ogre::Math::Abs(terrainHeight - camPos.y) > 1.0f )
 		{
-			mCamera->setPosition( camPos.x, terrainHeight + 10.0f, camPos.z );
+			std::cout << itr->worldFragment->singleIntersection.y << "-";
+			std::cout << camPos.y << "\n";
+			//std::cout << "whoops\n";
+			//exCamera->instantUpdate(Ogre::Vector3(camPos.x, terrainHeight + 1.0f, camPos.z));
+			//mCamera->setPosition( camPos.x, terrainHeight + 0.5f, camPos.z );
 		}
 	}
+
+	
 }
 
 //-------------------------------------------------------------------------------------
@@ -333,6 +436,7 @@ void AZBullet::createFrameListener(void)
 	this->mName = "AZBullet";	
 
 	mRayScnQuery = mSceneMgr->createRayQuery(Ogre::Ray());
+	
 
 	// create text inf on top of window
 	//mInfoLabel = mTrayMgr->createLabel(OgreBites::TL_TOP, "TInfo", "", 350);

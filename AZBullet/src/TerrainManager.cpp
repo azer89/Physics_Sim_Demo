@@ -29,6 +29,7 @@ void TerrainManager::createTerrain(SceneManager* mSceneMgr,
 								   )
 {
 	mSceneMgr->setWorldGeometry("terrain.cfg");
+
 	Ogre::ConfigFile config;
 	config.loadFromResourceSystem("terrain.cfg", ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME, "=", true);
 
@@ -43,7 +44,7 @@ void TerrainManager::createTerrain(SceneManager* mSceneMgr,
 
 	Ogre::Image terrainHeightMap;
 	terrainHeightMap.load(terrainfileName, Ogre::ResourceGroupManager::AUTODETECT_RESOURCE_GROUP_NAME);
-
+	
 	for(unsigned y = 0; y < page_size; ++y)
 	{
 		for(unsigned x = 0; x < page_size; ++x)
