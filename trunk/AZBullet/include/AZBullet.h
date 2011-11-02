@@ -63,6 +63,7 @@ public:
 protected:
      virtual void createScene(void);
 	 void repositionCamera(void);
+	 void createSimpleWater();
 
 	 // OIS::MouseListener
 	 virtual bool mouseMoved(const OIS::MouseEvent& arg);
@@ -88,6 +89,7 @@ protected:
 	OgreBites::Label* mInfoLabel;	// message info
 
 	CameraListener* mCameraListener;
+	ThirdPersonCamera* exCamera;
 };
 
 #endif // #ifndef __AZBullet_h_

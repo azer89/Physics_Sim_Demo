@@ -83,14 +83,12 @@ void Vehicle::createVehicle(SceneManager* mSceneMgr,
 	
 	this->mMainNode = vehicleNode;
 	Vector3 pos = this->mMainNode->_getDerivedPosition();
-	Vector3 sight = pos + vehicleNode->_getDerivedOrientation() * Vector3(0, -20, 0);
-	Vector3 cam = pos + vehicleNode->_getDerivedOrientation() * Vector3(0, -15, -20);
+	Vector3 sight = pos + vehicleNode->_getDerivedOrientation() * Vector3(0, 0, 0);
+	Vector3 cam = pos + vehicleNode->_getDerivedOrientation() * Vector3(0, 7.5, -20);
 	
 	// set up sight node	
 	mSightNode = this->mMainNode->createChildSceneNode ("sightNode", sight);
 	mCameraNode = this->mMainNode->createChildSceneNode ("cameraNode", cam);
-	// mCamera->setPosition(cam);
-	// mCamera->lookAt(sight);
 
 	SceneNode *chassisnode = vehicleNode->createChildSceneNode ();
 	chassisnode->attachObject (mChassis);

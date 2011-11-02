@@ -71,7 +71,7 @@ bool CameraListener::frameStarted(const FrameEvent& evt)
 		if (mExCamera) {
 			if (mChar)
 				mExCamera->instantUpdate (mChar->getCameraNode ()->_getDerivedPosition(), mChar->getSightNode ()->_getDerivedPosition());
-			mExCamera->setTightness (0.01f);
+			mExCamera->setTightness (Ogre::Vector3(0.01f));
 		}
 	}
 	// 3rd Person - Fixed Camera
@@ -82,7 +82,7 @@ bool CameraListener::frameStarted(const FrameEvent& evt)
 		if (mExCamera) {
 			if (mChar)
 				mExCamera->instantUpdate (Vector3 (0, 200, 0), mChar->getSightNode ()->_getDerivedPosition());
-			mExCamera->setTightness (0.01f);
+			mExCamera->setTightness (Ogre::Vector3(0.01f));
 		}
 	}
 	// 1st Person
@@ -93,7 +93,7 @@ bool CameraListener::frameStarted(const FrameEvent& evt)
 		if (mExCamera) {
 			if (mChar)
 				mExCamera->instantUpdate (mChar->getWorldPosition (), mChar->getSightNode ()->_getDerivedPosition());
-			mExCamera->setTightness (1.0f);
+			mExCamera->setTightness (Ogre::Vector3(0.01f));
 		}
 	}
 

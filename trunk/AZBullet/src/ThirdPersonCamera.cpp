@@ -39,7 +39,7 @@ ThirdPersonCamera::ThirdPersonCamera (String name, SceneManager *sceneMgr, Camer
 	mCameraNode->attachObject (mCamera);
 
 	// Default tightness
-	mTightness = 0.01f;
+	mTightness = Ogre::Vector3(0.01f, 0.02f, 0.8f);
 }
 
 ThirdPersonCamera::~ThirdPersonCamera () 
@@ -51,12 +51,12 @@ ThirdPersonCamera::~ThirdPersonCamera ()
 	mSceneMgr->destroySceneNode (mName + "_target");
 }
 
-void ThirdPersonCamera::setTightness (Real tightness) 
+void ThirdPersonCamera::setTightness (Ogre::Vector3 tightness) 
 {
 	mTightness = tightness;
 }
 
-Real ThirdPersonCamera::getTightness () 
+Ogre::Vector3 ThirdPersonCamera::getTightness () 
 {
 	return mTightness;
 }
@@ -64,6 +64,11 @@ Real ThirdPersonCamera::getTightness ()
 Vector3 ThirdPersonCamera::getCameraPosition () 
 {
 	return mCameraNode->getPosition ();
+}
+
+void ThirdPersonCamera::instantUpdate (Vector3 cameraPosition) 
+{
+	mCameraNode->setPosition (cameraPosition);
 }
 
 void ThirdPersonCamera::instantUpdate (Vector3 cameraPosition, Vector3 targetPosition) 
@@ -77,9 +82,19 @@ void ThirdPersonCamera::update (Real elapsedTime, Vector3 cameraPosition, Vector
 	// Handle movement
 	Vector3 displacement;
 
-	displacement = (cameraPosition - mCameraNode->getPosition ()) * mTightness;
+	displacement = (cameraPosition - mCameraNode->getPosition ());
+
+	displacement.x *= mTightness.x;
+	displacement.y *= mTightness.y;
+	displacement.z *= mTightness.z;
+
 	mCameraNode->translate (displacement);
 
-	displacement = (targetPosition - mTargetNode->getPosition ()) * mTightness;
+	displacement = (targetPosition - mTargetNode->getPosition ());
+
+	displacement.x *= mTightness.x;
+	displacement.y *= mTightness.y;
+	displacement.z *= mTightness.z;
+
 	mTargetNode->translate (displacement);
 }
