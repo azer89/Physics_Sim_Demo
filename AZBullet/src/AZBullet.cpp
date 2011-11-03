@@ -29,6 +29,7 @@ AZBullet::AZBullet(void):OgreBulletListener()
 	vehicle = NULL;
 	tManager = NULL;
 	obs = NULL;
+	rayTerrain = NULL;
 }
 
 //-------------------------------------------------------------------------------------
@@ -37,6 +38,7 @@ AZBullet::~AZBullet(void)
 	if(vehicle != NULL) delete vehicle;
 	if(tManager != NULL) delete tManager;
 	if(obs != NULL) delete obs;
+	if (rayTerrain != NULL) delete rayTerrain;
 }
 
 //-------------------------------------------------------------------------------------
@@ -44,14 +46,12 @@ AZBullet::~AZBullet(void)
 void AZBullet::createScene(void)
 {		
 	hViewPort = mCamera->getViewport();
-
 	this->bulletInit();
 }
 
 // -------------------------------------------------------------------------
 void AZBullet::bulletInit()
 {	
-
 	mBulletCamera = mCamera;		// OgreBulletListener's camera
 	mBulletWindow = mWindow;		// OgreBulletListener's window
 	mBulletRoot = mRoot;			// OgreBulletListener's root
@@ -99,10 +99,7 @@ void AZBullet::bulletInit()
 		this->mNumEntitiesInstanced,
 		this->mCamera);
 
-	// Alter the camera aspect ratio to match the viewport
 	mCamera->setAspectRatio(Real(vp->getActualWidth()) / Real(vp->getActualHeight()));
-	// mCamera->setPosition(CameraStart + tManager->terrain_Shift);
-	// mCamera->lookAt(vehicle->CarPosition + tManager->terrain_Shift);
 
 	// extended camera
 	exCamera = new ThirdPersonCamera("Third Person Camera", mSceneMgr, mCamera);
@@ -121,13 +118,8 @@ void AZBullet::bulletInit()
 	skyPlane.d = 100;
 	skyPlane.normal = Ogre::Vector3::NEGATIVE_UNIT_Y;
 
-	//mSceneMgr->setSkyDome(true, "Examples/CloudySky", 5, 8, 500);
-	mSceneMgr->setSkyPlane(true, skyPlane, "Examples/CloudySky", 50, 10 , true, 0.7, 10, 10);
-
-	// delete all pointers
-	// delete vehicle;
-	// delete tManager;
-	// delete obs;
+	mSceneMgr->setSkyDome(true, "Examples/CloudySky", 5, 8, 1500);
+	//mSceneMgr->setSkyPlane(true, skyPlane, "Examples/CloudySky", 50, 10 , true, 0.7, 10, 10);
 
 	//mBulletWorld->getDebugDrawer()->setDrawWireframe(true);
 	//mBulletWorld->setShowDebugShapes(true);
@@ -137,8 +129,7 @@ void AZBullet::bulletInit()
 
 //-------------------------------------------------------------------------------------
 void AZBullet::createSimpleWater()
-{
-	
+{	
 	// this is to add water pond effect
 	Ogre::Plane plane01(Ogre::Vector3::UNIT_Y, 0);
 
@@ -409,13 +400,11 @@ void AZBullet::repositionCamera()
 	{
 		Ogre::Real terrainHeight = itr->worldFragment->singleIntersection.y;
 
-		
-
 		//if ((terrainHeight + 0.5f) > camPos.y)
 		if( Ogre::Math::Abs(terrainHeight - camPos.y) > 1.0f )
 		{
-			std::cout << itr->worldFragment->singleIntersection.y << "-";
-			std::cout << camPos.y << "\n";
+			//std::cout << itr->worldFragment->singleIntersection.y << "-";
+			//std::cout << camPos.y << "\n";
 			//std::cout << "whoops\n";
 			//exCamera->instantUpdate(Ogre::Vector3(camPos.x, terrainHeight + 1.0f, camPos.z));
 			//mCamera->setPosition( camPos.x, terrainHeight + 0.5f, camPos.z );
@@ -435,8 +424,7 @@ void AZBullet::createFrameListener(void)
 	this->mRotateSpeed = 0.1f;
 	this->mName = "AZBullet";	
 
-	mRayScnQuery = mSceneMgr->createRayQuery(Ogre::Ray());
-	
+	mRayScnQuery = mSceneMgr->createRayQuery(Ogre::Ray());	
 
 	// create text inf on top of window
 	//mInfoLabel = mTrayMgr->createLabel(OgreBites::TL_TOP, "TInfo", "", 350);

@@ -51,25 +51,10 @@ ThirdPersonCamera::~ThirdPersonCamera ()
 	mSceneMgr->destroySceneNode (mName + "_target");
 }
 
-void ThirdPersonCamera::setTightness (Ogre::Vector3 tightness) 
-{
-	mTightness = tightness;
-}
-
-Ogre::Vector3 ThirdPersonCamera::getTightness () 
-{
-	return mTightness;
-}
-
-Vector3 ThirdPersonCamera::getCameraPosition () 
-{
-	return mCameraNode->getPosition ();
-}
-
-void ThirdPersonCamera::instantUpdate (Vector3 cameraPosition) 
-{
-	mCameraNode->setPosition (cameraPosition);
-}
+void ThirdPersonCamera::setTightness (Ogre::Vector3 tightness) { mTightness = tightness; }
+Ogre::Vector3 ThirdPersonCamera::getTightness () { return mTightness; }
+Vector3 ThirdPersonCamera::getCameraPosition () { return mCameraNode->getPosition (); }
+void ThirdPersonCamera::instantUpdate (Vector3 cameraPosition) { mCameraNode->setPosition (cameraPosition); }
 
 void ThirdPersonCamera::instantUpdate (Vector3 cameraPosition, Vector3 targetPosition) 
 {

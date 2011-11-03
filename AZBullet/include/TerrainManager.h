@@ -2,9 +2,6 @@
 #ifndef __TerrainManager_h_
 #define __TerrainManager_h_
 
-//#include "Stdafx.h"
-//#include "ClassDefine.h"
-
 #include "OgreBulletDynamicsWorld.h"
 
 #include "Ogre.h"

@@ -10,8 +10,6 @@
 
 #include "Ogre.h"
 #include "OgreBulletListener.h"
-//#include "Stdafx.h"
-//#include "ClassDefine.h"
 
 using namespace Ogre;
 
