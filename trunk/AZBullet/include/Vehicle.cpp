@@ -339,11 +339,9 @@ void Vehicle::keyPressed(const OIS::KeyEvent& arg)
 
 	if (wheel_steering_style_change)
 	{
-		for (int i = 0; i < 4; i++)
-			mWheelsSteerable[i] = 0;
+		for (int i = 0; i < 4; i++) mWheelsSteerable[i] = 0;
 
-		if (mWheelSteeringStyle < 0)
-			mWheelSteeringStyle = 2;
+		if (mWheelSteeringStyle < 0) mWheelSteeringStyle = 2;
 
 		switch (mWheelSteeringStyle)
 		{
@@ -375,22 +373,10 @@ void Vehicle::keyPressed(const OIS::KeyEvent& arg)
 // when key released
 void Vehicle::keyReleased(const OIS::KeyEvent& arg)
 {
-	if(arg.key == OIS::KC_LEFT) 
-	{
-		mSteeringLeft = false;
-	}
-	else if(arg.key == OIS::KC_RIGHT)
-	{
-		mSteeringRight = false;
-	}
-	else if(arg.key == OIS::KC_DOWN)
-	{
-		mEngineForce = 0;
-	}
-	else if(arg.key == OIS::KC_UP)
-	{
-		mEngineForce = 0;
-	}
+	if(arg.key == OIS::KC_LEFT) { mSteeringLeft = false; }
+	else if(arg.key == OIS::KC_RIGHT) { mSteeringRight = false; }
+	else if(arg.key == OIS::KC_DOWN) { mEngineForce = 0; }
+	else if(arg.key == OIS::KC_UP) { mEngineForce = 0; }
 }
 
 //-------------------------------------------------------------------------------------

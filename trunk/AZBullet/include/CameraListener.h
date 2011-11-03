@@ -3,9 +3,6 @@
 #ifndef __CameraListener_h_
 #define __CameraListener_h_
 
-//#include "Stdafx.h"
-//#include "ClassDefine.h"
-//#include "Character.h"
 #include "Vehicle.h"
 #include "ThirdPersonCamera.h"
 #include "ExampleFrameListener.h"

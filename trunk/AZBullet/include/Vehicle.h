@@ -35,8 +35,7 @@ public:
 	Vector3 CarPosition;
 	SceneNode *vehicleNode;
 
-private:
-	
+private:	
 	OgreBulletDynamics::WheeledRigidBody        *mCarChassis;
 	OgreBulletDynamics::VehicleTuning	        *mTuning;
 	OgreBulletDynamics::VehicleRayCaster	    *mVehicleRayCaster;
@@ -44,9 +43,7 @@ private:
 
 	Ogre::Entity    *mChassis;
 	Ogre::Entity    *mWheels[4];
-	Ogre::SceneNode *mWheelNodes[4];
-
-	
+	Ogre::SceneNode *mWheelNodes[4];	
 
 	int mWheelsEngine[4];
 	int mWheelsEngineCount;

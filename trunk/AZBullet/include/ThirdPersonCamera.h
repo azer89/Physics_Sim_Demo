@@ -7,7 +7,6 @@
 #ifndef __ThirdPersonCamera_h_
 #define __ThirdPersonCamera_h_
 
-
 //#include "Stdafx.h"
 //#include "ClassDefine.h"
 
@@ -25,7 +24,7 @@ protected:
 	String mName;
 
 	bool mOwnCamera;			// To know if the ogre camera binded has been created outside or inside of this class
-	Ogre::Vector3 mTightness;			// Determines the movement of the camera - 1 means tight movement, while 0 means no movement
+	Ogre::Vector3 mTightness;	// Determines the movement of the camera - 1 means tight movement, while 0 means no movement
 
 public:
 	ThirdPersonCamera (String name, SceneManager *sceneMgr, Camera *camera = 0);
