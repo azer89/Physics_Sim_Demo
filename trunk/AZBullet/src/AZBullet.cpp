@@ -113,18 +113,22 @@ void AZBullet::bulletInit()
 	// create the obstacle
 	obs = new ObstacleForFun();
 	obs->createObstacle(this);
-	
+		
+	createSimpleSky();
+	createSimpleWater();
+}
+
+//-------------------------------------------------------------------------------------
+void AZBullet::createSimpleSky()
+{
 	Ogre::Plane skyPlane;
 	skyPlane.d = 100;
 	skyPlane.normal = Ogre::Vector3::NEGATIVE_UNIT_Y;
 
-	mSceneMgr->setSkyDome(true, "Examples/CloudySky", 5, 8, 1500);
-	//mSceneMgr->setSkyPlane(true, skyPlane, "Examples/CloudySky", 50, 10 , true, 0.7, 10, 10);
+	mSceneMgr->setSkyDome(true, "Examples/CloudySky02", 5, 8, 1500);
 
-	//mBulletWorld->getDebugDrawer()->setDrawWireframe(true);
-	//mBulletWorld->setShowDebugShapes(true);
-
-	createSimpleWater();
+	mBulletWorld->getDebugDrawer()->setDrawWireframe(true);
+	mBulletWorld->setShowDebugShapes(true);
 }
 
 //-------------------------------------------------------------------------------------
@@ -170,10 +174,7 @@ void AZBullet::createSimpleWater()
 
 bool AZBullet::frameRenderingQueued(const Ogre::FrameEvent& arg)
 {
-	if(!BaseApplication::frameRenderingQueued(arg))
-	{
-		return false;
-	}
+	if(!BaseApplication::frameRenderingQueued(arg)) { return false; }
 
 	Ogre::Real elapsedTime = arg.timeSinceLastFrame;
 	
@@ -275,15 +276,8 @@ bool AZBullet::mouseMoved(const OIS::MouseEvent& arg)
 // when a mouse button is pressed
 bool AZBullet::mousePressed(const OIS::MouseEvent& arg, OIS::MouseButtonID id)
 {	
-	if(id == OIS::MB_Left)
-	{
-		bLMouseDown = true;		
-	}
-	else if(id == OIS::MB_Right)
-	{
-		bRMouseDown = true;
-
-	}
+	if(id == OIS::MB_Left) { bLMouseDown = true; }
+	else if(id == OIS::MB_Right) { bRMouseDown = true; }
 	
 	return true;
 	//return  menu->hikariMgr->injectMouseDown(id); 
@@ -293,17 +287,10 @@ bool AZBullet::mousePressed(const OIS::MouseEvent& arg, OIS::MouseButtonID id)
 // when a mouse button is released
 bool AZBullet::mouseReleased(const OIS::MouseEvent& arg, OIS::MouseButtonID id)
 {
-	if(id  == OIS::MB_Left)
-	{
-		bLMouseDown = false;
-	}
-	else if(id == OIS::MB_Right)
-	{
-		bRMouseDown = false;
-	}
+	if(id  == OIS::MB_Left) { bLMouseDown = false; }
+	else if(id == OIS::MB_Right) { bRMouseDown = false; }
 
 	//return  menu->hikariMgr->injectMouseUp(id);
-
 	return true;
 }
 
@@ -311,10 +298,7 @@ bool AZBullet::mouseReleased(const OIS::MouseEvent& arg, OIS::MouseButtonID id)
 // when keyboard pressed
 bool AZBullet::keyPressed(const OIS::KeyEvent& arg)
 {
-	if(!BaseApplication::keyPressed(arg))
-	{
-		return false;
-	}
+	if(!BaseApplication::keyPressed(arg)) { return false; }
 
 	if(arg.key == OIS::KC_UP     || 
 		arg.key == OIS::KC_RIGHT || 
@@ -335,10 +319,7 @@ bool AZBullet::keyPressed(const OIS::KeyEvent& arg)
 	else if(arg.key == OIS::KC_D)
 	{
 	}*/
-	else
-	{
-		mCameraMan->injectKeyDown(arg);
-	}
+	else { mCameraMan->injectKeyDown(arg); }
 
 	vehicle->keyPressed(arg);
 
@@ -349,10 +330,7 @@ bool AZBullet::keyPressed(const OIS::KeyEvent& arg)
 // when keyboard pressed
 bool AZBullet::keyReleased(const OIS::KeyEvent& arg)
 {
-	if(!BaseApplication::keyReleased(arg))
-	{
-		return false;
-	}
+	if(!BaseApplication::keyReleased(arg)) { return false; }
 
 	if(arg.key == OIS::KC_UP     || 
 		arg.key == OIS::KC_RIGHT || 
@@ -372,10 +350,7 @@ bool AZBullet::keyReleased(const OIS::KeyEvent& arg)
 	else if(arg.key == OIS::KC_D)
 	{
 	}*/
-	else
-	{
-		mCameraMan->injectKeyUp(arg);
-	}
+	else { mCameraMan->injectKeyUp(arg); }
 
 	vehicle->keyReleased(arg);
 	return true;
@@ -429,7 +404,6 @@ void AZBullet::createFrameListener(void)
 	// create text inf on top of window
 	//mInfoLabel = mTrayMgr->createLabel(OgreBites::TL_TOP, "TInfo", "", 350);
 	//mInfoLabel->hide();
-
 	//mRoot->addFrameListener(mCameraListener);
 }
 
@@ -453,10 +427,7 @@ extern "C" {
         // Create application object
         AZBullet app;
 
-        try 
-		{
-            app.go();
-        } 
+        try { app.go(); } 
 		catch( Ogre::Exception& e ) 
 		{
 #if OGRE_PLATFORM == OGRE_PLATFORM_WIN32

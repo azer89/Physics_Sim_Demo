@@ -60,6 +60,7 @@ protected:
      virtual void createScene(void);
 	 void repositionCamera(void);
 	 void createSimpleWater();
+	 void createSimpleSky();
 
 	 // OIS::MouseListener
 	 virtual bool mouseMoved(const OIS::MouseEvent& arg);
