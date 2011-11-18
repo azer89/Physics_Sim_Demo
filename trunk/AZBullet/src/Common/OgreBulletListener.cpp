@@ -1180,6 +1180,7 @@ RigidBody *OgreBulletListener::addStaticTrimesh(const Ogre::String &instanceName
 {
     Entity *sceneEntity = mBulletSceneMgr->createEntity(instanceName + StringConverter::toString(mNumEntitiesInstanced), meshName);
     sceneEntity->setCastShadows (castShadow);
+	
 
     StaticMeshToShapeConverter *trimeshConverter = new StaticMeshToShapeConverter(sceneEntity);
     TriangleMeshCollisionShape *sceneTriMeshShape = trimeshConverter->createTrimesh();
@@ -1189,9 +1190,9 @@ RigidBody *OgreBulletListener::addStaticTrimesh(const Ogre::String &instanceName
         mBulletWorld);
 
     SceneNode *node = mBulletSceneMgr->getRootSceneNode ()->createChildSceneNode ();
-    node->attachObject (sceneEntity);
+    node->attachObject (sceneEntity);	
 
-    sceneRigid->setStaticShape(node, sceneTriMeshShape, bodyRestitution, bodyFriction, pos);
+    sceneRigid->setStaticShape(node, sceneTriMeshShape, bodyRestitution, bodyFriction, pos);	
 
     mEntities.push_back(sceneEntity);
     mBodies.push_back(sceneRigid);

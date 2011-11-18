@@ -88,6 +88,7 @@ void BaseApplication::createCamera(void)
 	// Create the camera
 	mCamera = mSceneMgr->createCamera("PlayerCam");
 	mCameraMan = new OgreBites::SdkCameraMan(mCamera);   // create a default camera controller
+	mCameraMan->setTopSpeed(4);
 }
 //-------------------------------------------------------------------------------------
 void BaseApplication::createFrameListener(void)

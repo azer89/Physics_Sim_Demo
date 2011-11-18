@@ -14,11 +14,8 @@ material blinn2
 			texture_unit
 			{
 				texture UV_Map_Gloss.jpg
-				tex_coord_set 0
-				colour_op modulate
-				scale 1 1
-				scroll 0 0
-				rotate 0
+				tex_address_mode wrap
+				filtering trilinear
 			}
 		}
 	}
@@ -39,11 +36,8 @@ material blinn5
 			texture_unit
 			{
 				texture UV_Map_Matt.jpg
-				tex_coord_set 0
-				colour_op modulate
-				scale 1 1
-				scroll 0 0
-				rotate 0
+				tex_address_mode wrap
+				filtering trilinear
 			}
 		}
 	}
@@ -64,11 +58,8 @@ material blinn6
 			texture_unit
 			{
 				texture UV_Map_Lights.jpg
-				tex_coord_set 0
-				colour_op modulate
-				scale 1 1
-				scroll 0 0
-				rotate 0
+				tex_address_mode wrap
+				filtering trilinear
 			}
 		}
 	}
