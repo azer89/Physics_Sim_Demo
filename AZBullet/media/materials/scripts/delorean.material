@@ -1,0 +1,153 @@
+material FBXASC0486FBXASC032FBXASC045FBXASC032Standard_ncl1_1
+{
+	technique
+	{
+		pass
+		{
+			shading phong
+			ambient 0.831373 0.831373 0.831373 1
+			diffuse 0.831373 0.831373 0.831373 1
+			specular 0 0 0 1.37187
+			emissive 0 0 0
+		}
+	}
+}
+material lambert2
+{
+	technique
+	{
+		pass
+		{
+			ambient 0 0 0 1
+			diffuse 0.122 0.122 0.122 1
+			specular 0 0 0 1
+			emissive 0 0 0
+		}
+	}
+}
+material FBXASC0483FBXASC032FBXASC045FBXASC032Standard
+{
+	technique
+	{
+		pass
+		{
+			shading phong
+			ambient 0.227451 0.227451 0.227451 1
+			diffuse 0.079 0.079 0.079 1
+			specular 0.234 0.234 0.234 2.56
+			emissive 0 0 0
+		}
+	}
+}
+material FBXASC0491FBXASC032FBXASC045FBXASC032Standard_ncl1_1
+{
+	technique
+	{
+		pass
+		{
+			shading phong
+			ambient 0 0 0 1
+			diffuse 0.309 0.309 0.302511 1
+			specular 0.18 0.18 0.18 7.24077
+			emissive 0 0 0
+
+			scene_blend alpha_blend
+			depth_write off
+		}
+	}
+}
+material FBXASC0490FBXASC032FBXASC045FBXASC032Standard_ncl1_1
+{
+	technique
+	{
+		pass
+		{
+			shading phong
+			ambient 0.164706 0.164706 0.164706 1
+			diffuse 0.545098 0.52549 0.47451 1
+			specular 0.054 0.054 0.054 3.62039
+			emissive 0 0 0
+		}
+	}
+}
+material FBXASC0498FBXASC032FBXASC045FBXASC032Standard_ncl1_2
+{
+	technique
+	{
+		pass
+		{
+			shading phong
+			ambient 0.89 0.89 0.89 1
+			diffuse 0.89 0.89 0.89 0.170733
+			specular 1 1 1 3.88023
+			emissive 0 0 0
+
+			scene_blend alpha_blend
+			depth_write off
+		}
+	}
+}
+material FBXASC0503FBXASC032FBXASC045FBXASC032Standard_ncl1_1
+{
+	technique
+	{
+		pass
+		{
+			shading phong
+			ambient 0.45098 0.14902 0.109804 1
+			diffuse 0.623529 0.207843 0.152941 1
+			specular 0.251451 0.142745 0.142745 7.76047
+			emissive 0 0 0
+
+			scene_blend alpha_blend
+			depth_write off
+		}
+	}
+}
+material FBXASC0498FBXASC032FBXASC045FBXASC032Standard_ncl1_1
+{
+	technique
+	{
+		pass
+		{
+			shading phong
+			ambient 0.941177 0.427451 0.0117647 1
+			diffuse 0.941177 0.427451 0.0117647 0.7
+			specular 0.75702 0.545412 0.274196 3.88023
+			emissive 0 0 0
+
+			scene_blend alpha_blend
+			depth_write off
+		}
+	}
+}
+material lambert1
+{
+	technique
+	{
+		pass
+		{
+			ambient 0 0 0 1
+			diffuse 0.5 0.5 0.5 1
+			specular 0 0 0 1
+			emissive 0 0 0
+		}
+	}
+}
+material FBXASC0503FBXASC032FBXASC045FBXASC032Standardhgf_ncl1_1
+{
+	technique
+	{
+		pass
+		{
+			shading phong
+			ambient 0.45098 0.14902 0.109804 1
+			diffuse 0.890196 0.545098 0.172549 1
+			specular 0.27451 0.248157 0.142745 7.76047
+			emissive 0 0 0
+
+			scene_blend alpha_blend
+			depth_write off
+		}
+	}
+}
