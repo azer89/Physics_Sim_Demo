@@ -66,7 +66,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="OgreMain_d.lib OIS_d.lib OgreTerrain_d.lib OgreBulletCollisions_d.lib OgreBulletDynamics_d.lib BulletCollision.lib BulletDynamics.lib LinearMath.lib GIMPACTutils.lib ConvexDecomposition.lib Hydrax.lib"
+				AdditionalDependencies="OgreMain_d.lib OIS_d.lib OgreTerrain_d.lib OgreBulletCollisions_d.lib OgreBulletDynamics_d.lib BulletCollision.lib BulletDynamics.lib LinearMath.lib GIMPACTutils.lib ConvexDecomposition.lib Hydrax_d.lib"
 				OutputFile="$(OutDir)\$(ProjectName).exe"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="&quot;$(OGRE_HOME)\lib\debug&quot;;&quot;$(OGRE_HOME)\boost_1_44\lib&quot;;&quot;lib\$(ConfigurationName)&quot;;&quot;$(BULLET_ROOT)\lib\&quot;"
@@ -124,6 +124,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
+				AdditionalOptions="-Zm256"
 				Optimization="2"
 				InlineFunctionExpansion="1"
 				EnableIntrinsicFunctions="true"
@@ -140,6 +141,7 @@
 				FloatingPointModel="2"
 				RuntimeTypeInfo="true"
 				UsePrecompiledHeader="0"
+				PrecompiledHeaderThrough="Stdafx.h"
 				WarningLevel="3"
 				DebugInformationFormat="3"
 			/>
@@ -154,7 +156,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="OgreMain.lib OIS.lib OgreTerrain.lib OgreBulletCollisions.lib OgreBulletDynamics.lib BulletCollision.lib BulletDynamics.lib LinearMath.lib GIMPACTUtils.lib ConvexDecomposition.lib"
+				AdditionalDependencies="OgreMain.lib OIS.lib OgreTerrain.lib OgreBulletCollisions.lib OgreBulletDynamics.lib BulletCollision.lib BulletDynamics.lib LinearMath.lib GIMPACTUtils.lib ConvexDecomposition.lib Hydrax.lib"
 				OutputFile="$(OutDir)\$(ProjectName).exe"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="&quot;$(OGRE_HOME)\lib\release&quot;;&quot;$(OGRE_HOME)\boost_1_44\lib&quot;;&quot;lib\$(ConfigurationName)&quot;;&quot;$(BULLET_ROOT)\lib\&quot;"
