@@ -10,7 +10,7 @@
 static float gMaxEngineForce = 5000.f;
 
 static float gSteeringIncrement = 0.04f;
-static float gSteeringClamp = 0.4f;
+static float gSteeringClamp = 0.2f;
 
 static float gWheelRadius = 0.5f;
 static float gWheelWidth = 0.4f;
@@ -31,7 +31,7 @@ static float gFrictionSlip = 10.5;
 // constructor
 Vehicle::Vehicle(void)
 {
-	this->CarPosition =  Ogre::Vector3(-360, 80, -460);
+	this->CarPosition =  Ogre::Vector3(-350, 100, -480);
 }
 //-------------------------------------------------------------------------------------
 // destructor
