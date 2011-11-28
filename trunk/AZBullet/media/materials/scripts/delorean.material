@@ -1,4 +1,4 @@
-material FBXASC0486FBXASC032FBXASC045FBXASC032Standard_ncl1_1
+material delorean_no_tires_FBXASC0486FBXASC032FBXASC045FBXASC032Standard_ncl1_1
 {
 	technique
 	{
@@ -8,33 +8,6 @@ material FBXASC0486FBXASC032FBXASC045FBXASC032Standard_ncl1_1
 			ambient 0.831373 0.831373 0.831373 1
 			diffuse 0.831373 0.831373 0.831373 1
 			specular 0 0 0 1.37187
-			emissive 0 0 0
-		}
-	}
-}
-material lambert2
-{
-	technique
-	{
-		pass
-		{
-			ambient 0 0 0 1
-			diffuse 0.122 0.122 0.122 1
-			specular 0 0 0 1
-			emissive 0 0 0
-		}
-	}
-}
-material FBXASC0483FBXASC032FBXASC045FBXASC032Standard
-{
-	technique
-	{
-		pass
-		{
-			shading phong
-			ambient 0.227451 0.227451 0.227451 1
-			diffuse 0.079 0.079 0.079 1
-			specular 0.234 0.234 0.234 2.56
 			emissive 0 0 0
 		}
 	}
@@ -56,21 +29,51 @@ material FBXASC0491FBXASC032FBXASC045FBXASC032Standard_ncl1_1
 		}
 	}
 }
-material FBXASC0490FBXASC032FBXASC045FBXASC032Standard_ncl1_1
+material delorean_no_tires_lambert2
+{
+	technique
+	{
+		pass
+		{
+			ambient 0 0 0 1
+			diffuse 0.122 0.122 0.122 1
+			specular 0 0 0 1
+			emissive 0 0 0
+		}
+	}
+}
+material delorean_no_tires_FBXASC0483FBXASC032FBXASC045FBXASC032Standard
 {
 	technique
 	{
 		pass
 		{
 			shading phong
-			ambient 0.164706 0.164706 0.164706 1
-			diffuse 0.545098 0.52549 0.47451 1
-			specular 0.054 0.054 0.054 3.62039
+			ambient 0.227451 0.227451 0.227451 1
+			diffuse 0.079 0.079 0.079 1
+			specular 0.234 0.234 0.234 2.56
 			emissive 0 0 0
 		}
 	}
 }
-material FBXASC0498FBXASC032FBXASC045FBXASC032Standard_ncl1_2
+material delorean_no_tires_FBXASC0491FBXASC032FBXASC045FBXASC032Standard_ncl1_1
+{
+	technique
+	{
+		pass
+		{
+			shading phong
+			ambient 0 0 0 1
+			diffuse 0.309 0.309 0.302511 1
+			specular 0.18 0.18 0.18 7.24077
+			emissive 0 0 0
+
+			scene_blend alpha_blend
+			depth_write off
+		}
+	}
+}
+material delorean_no_tires_FBXASC0498FBXASC032FBXASC045FBXASC032Standard_ncl1_2
 {
 	technique
 	{
@@ -87,7 +90,7 @@ material FBXASC0498FBXASC032FBXASC045FBXASC032Standard_ncl1_2
 		}
 	}
 }
-material FBXASC0503FBXASC032FBXASC045FBXASC032Standard_ncl1_1
+material delorean_no_tires_FBXASC0503FBXASC032FBXASC045FBXASC032Standard_ncl1_1
 {
 	technique
 	{
@@ -104,7 +107,7 @@ material FBXASC0503FBXASC032FBXASC045FBXASC032Standard_ncl1_1
 		}
 	}
 }
-material FBXASC0498FBXASC032FBXASC045FBXASC032Standard_ncl1_1
+material delorean_no_tires_FBXASC0498FBXASC032FBXASC045FBXASC032Standard_ncl1_1
 {
 	technique
 	{
@@ -121,20 +124,7 @@ material FBXASC0498FBXASC032FBXASC045FBXASC032Standard_ncl1_1
 		}
 	}
 }
-material lambert1
-{
-	technique
-	{
-		pass
-		{
-			ambient 0 0 0 1
-			diffuse 0.5 0.5 0.5 1
-			specular 0 0 0 1
-			emissive 0 0 0
-		}
-	}
-}
-material FBXASC0503FBXASC032FBXASC045FBXASC032Standardhgf_ncl1_1
+material delorean_no_tires_FBXASC0503FBXASC032FBXASC045FBXASC032Standardhgf_ncl1_1
 {
 	technique
 	{
