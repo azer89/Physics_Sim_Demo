@@ -12,11 +12,7 @@ material lambert8
 			texture_unit
 			{
 				texture brick.jpg
-				tex_coord_set 0
-				colour_op modulate
-				scale 1 1
-				scroll 0 0
-				rotate 0
+				tex_coord_set 0 
 			}
 		}
 	}
@@ -36,10 +32,6 @@ material lambert9
 			{
 				texture grass.jpg
 				tex_coord_set 0
-				colour_op modulate
-				scale 1 1
-				scroll 0 0
-				rotate 0
 			}
 		}
 	}
