@@ -6,20 +6,35 @@ Filename:    AZBullet.cpp
 
 #include "Stdafx.h"
 #include "AZBullet.h"
+#include "RayFlashInterface.h"
 
 #include "OgreBulletDynamicsWorld.h"
-
 #include "Hydrax/Noise/Perlin/Perlin.h"
 #include "Hydrax/Modules/ProjectedGrid/ProjectedGrid.h"
 
+/*
 #define _def_SkyBoxNum 3
 
 Ogre::String mSkyBoxes[_def_SkyBoxNum] = {"Sky/ClubTropicana", "Sky/EarlyMorning", "Sky/Clouds"};
 Ogre::Vector3 mSunPosition[_def_SkyBoxNum] = {Ogre::Vector3(0,10000,0), Ogre::Vector3(0,10000,90000), Ogre::Vector3(0,10000,0)};
 Ogre::Vector3 mSunColor[_def_SkyBoxNum] =  {Ogre::Vector3(1, 0.9, 0.6), Ogre::Vector3(1,0.6,0.4), Ogre::Vector3(0.45,0.45,0.45)};
+*/
 
 AZBullet::AZBullet(void):OgreBulletListener()
 {
+
+	_def_SkyBoxNum = 3;
+
+	mSkyBoxes[0] = "Sky/ClubTropicana";
+	mSkyBoxes[1] = "Sky/EarlyMorning";
+	mSkyBoxes[2] = "Sky/Clouds";
+	mSunPosition[0] = Ogre::Vector3(0,10000,0);
+	mSunPosition[1] = Ogre::Vector3(0,10000,90000);
+	mSunPosition[2] = Ogre::Vector3(0,10000,0);
+	mSunColor[0] =  Ogre::Vector3(1, 0.9, 0.6);
+	mSunColor[1] =  Ogre::Vector3(1,0.6,0.4);
+	mSunColor[2] =  Ogre::Vector3(0.45,0.45,0.45);
+
 	this->mRotateSpeed = 0.1f;
 	this->mCurrentSkyBox = 0;
 
@@ -28,6 +43,8 @@ AZBullet::AZBullet(void):OgreBulletListener()
 	obs = NULL;
 	rayTerrain = NULL;
 	mHydrax = NULL;
+	menu = NULL;
+	rocket = NULL;
 }
 
 //-------------------------------------------------------------------------------------
@@ -38,6 +55,8 @@ AZBullet::~AZBullet(void)
 	if (obs != NULL)		delete obs;
 	if (rayTerrain != NULL) delete rayTerrain;
 	if (mHydrax != NULL)	delete mHydrax;
+	if (menu != NULL)		delete menu;
+	if (rocket != NULL)		delete rocket;
 }
 
 //-------------------------------------------------------------------------------------
@@ -45,6 +64,9 @@ void AZBullet::createScene(void)
 {		
 	hViewPort = mCamera->getViewport();
 	this->bulletInit();
+
+	menu = new RayFlashInterface(this);
+	menu->setupHikari();
 }
 
 //------------------------------------------------------------------------------------
@@ -127,6 +149,10 @@ void AZBullet::bulletInit()
 		Quaternion::IDENTITY,
 		0.1f, 
 		0.8f);
+
+	rocket = new Rocket();
+	rocket->createRocket(mSceneMgr);
+	//rocket->rocketNode->translate(0, 300, 0);
 
 	//createSimpleSky();	
 	//createSimpleWater();
@@ -223,6 +249,9 @@ bool AZBullet::frameRenderingQueued(const Ogre::FrameEvent& arg)
 	//this->repositionCamera();	
 	this->vehicle->updatePerFrame(arg.timeSinceLastFrame);	
 
+	// update Hikari
+	menu->update(this->mWindow);
+
 	return true;
 }
 
@@ -253,8 +282,8 @@ bool AZBullet::mouseMoved(const OIS::MouseEvent& arg)
 	Ogre::Real offsetX = (float)arg.state.X.abs / (float)arg.state.width;
 	Ogre::Real offsetY = (float)arg.state.Y.abs / (float)arg.state.height;
 
-	//using namespace Hikari;
-	//bool val = menu->hikariMgr->injectMouseMove(arg.state.X.abs, arg.state.Y.abs) ||  menu->hikariMgr->injectMouseWheel(arg.state.Z.rel);
+	using namespace Hikari;
+	bool val = menu->hikariMgr->injectMouseMove(arg.state.X.abs, arg.state.Y.abs) ||  menu->hikariMgr->injectMouseWheel(arg.state.Z.rel);
 
 	//if the left mouse button is held down
 	if(bLMouseDown)
@@ -266,7 +295,8 @@ bool AZBullet::mouseMoved(const OIS::MouseEvent& arg)
 		mCamera->pitch(Ogre::Degree(-arg.state.Y.rel * mRotateSpeed));
 	}
 
-	return true;
+	return val;
+	//return true;
 }
 
 //-------------------------------------------------------------------------------------
@@ -276,8 +306,8 @@ bool AZBullet::mousePressed(const OIS::MouseEvent& arg, OIS::MouseButtonID id)
 	if(id == OIS::MB_Left) { bLMouseDown = true; }
 	else if(id == OIS::MB_Right) { bRMouseDown = true; }
 		
-	//return  menu->hikariMgr->injectMouseDown(id); 
-	return true;
+	return  menu->hikariMgr->injectMouseDown(id); 
+	//return true;
 }
 
 //-------------------------------------------------------------------------------------
@@ -287,8 +317,8 @@ bool AZBullet::mouseReleased(const OIS::MouseEvent& arg, OIS::MouseButtonID id)
 	if(id  == OIS::MB_Left) { bLMouseDown = false; }
 	else if(id == OIS::MB_Right) { bRMouseDown = false; }
 
-	//return  menu->hikariMgr->injectMouseUp(id);
-	return true;
+	return  menu->hikariMgr->injectMouseUp(id);
+	//return true;
 }
 
 //------------------------------------------------------------------------------------- 
@@ -385,6 +415,13 @@ void AZBullet::repositionCamera()
 }
 
 //-------------------------------------------------------------------------------------
+// End the application
+void AZBullet::shutdownApp(void)
+{
+	this->mShutDown = true;
+}
+
+//-------------------------------------------------------------------------------------
 void AZBullet::createFrameListener(void)
 {
 	BaseApplication::createFrameListener();
@@ -396,7 +433,6 @@ void AZBullet::createFrameListener(void)
 
 	mRayScnQuery = mSceneMgr->createRayQuery(Ogre::Ray());	
 }
-
 
 #if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
 #define WIN32_LEAN_AND_MEAN
