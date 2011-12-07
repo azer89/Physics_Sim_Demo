@@ -9,15 +9,6 @@
 #include "OgreSceneManager.h"
 #include "OgreRenderWindow.h"
 #include "OgreConfigFile.h"
-#include "OgreSimpleRenderable.h"
 
-#include "OISEvents.h"
-#include "OISInputManager.h"
-#include "OISKeyboard.h"
-#include "OISMouse.h"
-
-#include "SdkTrays.h"
-#include "SdkCameraMan.h"
-
-#include <Terrain/OgreTerrain.h>
-#include <Terrain/OgreTerrainGroup.h>
+// #include <Terrain/OgreTerrain.h>
+// #include <Terrain/OgreTerrainGroup.h>

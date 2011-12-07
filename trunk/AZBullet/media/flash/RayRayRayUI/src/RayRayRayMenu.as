@@ -15,8 +15,8 @@ package
 	 */
 	public class RayRayRayMenu  extends MovieClip
 	{
-		private var startButton:StartButton;
-		private var stopButton:StopButton;
+		//private var startButton:StartButton;
+		//private var stopButton:StopButton;
 		private var exitButton:ExitButton;
 		private var fpsInfo:FPSInfo;
 		private var fpsText:TextField;
@@ -24,24 +24,24 @@ package
 		private var gearIcon:GearIcon;
 		private var isDown:Boolean = true;
 		
-		private var curveOption:CurveOption;
-		private var prev:PrevButton;
-		private var next:NextButton;
-		private var curveText:TextField;
-		private var curveVal:int;
+		//private var curveOption:CurveOption;
+		//private var prev:PrevButton;
+		//private var next:NextButton;
+		//private var curveText:TextField;
+		//private var curveVal:int;
 		
-		private var numTrainOpt:NumTrainOption;
-		private var prevTrain:PrevButton;
-		private var nextTrain:NextButton;
-		private var trainText:TextField;
-		private var trainVal:int;
+		//private var numTrainOpt:NumTrainOption;
+		//private var prevTrain:PrevButton;
+		//private var nextTrain:NextButton;
+		//private var trainText:TextField;
+		//private var trainVal:int;
 		
 		public function RayRayRayMenu()
 		{
 			this.setButton();
 			this.setObjects();
-			curveVal = 0;
-			trainVal = 1;
+			//curveVal = 0;
+			//trainVal = 1;
 			ExternalInterface.addCallback("setFPS", setFPS);
 		}
 		
@@ -64,6 +64,7 @@ package
 			fpsInfo.y = 40;
 			menu.addChild(fpsInfo);
 			
+			/*
 			startButton = new StartButton();
 			startButton.x = 90;
 			startButton.y = 70;
@@ -85,26 +86,24 @@ package
 			numTrainOpt.x = 90;
 			numTrainOpt.y = 150;
 			menu.addChild(numTrainOpt);
-			
+			*/
 			exitButton = new ExitButton();
 			exitButton.x = 90;
-			exitButton.y = 190;
+			exitButton.y = 70;
 			exitButton.addEventListener(MouseEvent.CLICK, onExitClick, false, 0, true);
 			menu.addChild(exitButton);
 			
 			this.addChild(menu);
 			
-			this.startButton.enabled = true;
-			this.startButton.visible = true;
+			//this.startButton.enabled = true;
+			//this.startButton.visible = true;
 			
-			this.stopButton.enabled = false;
-			this.stopButton.visible = false;
+			//this.stopButton.enabled = false;
+			//this.stopButton.visible = false;
 		}
 		
 		private function onGearClick( event:MouseEvent ):void
-		{
-			
-			
+		{	
 			if (isDown)
 			{
 				TweenMax.to(gearIcon, 1, {shortRotation:{rotation:180}});
@@ -121,6 +120,7 @@ package
 			isDown = !isDown;
 		}
 		
+		/*
 		private function onStartClick( event:MouseEvent ):void
 		{
 			this.startButton.enabled = false;
@@ -129,7 +129,7 @@ package
 			this.stopButton.enabled = true;
 			this.stopButton.visible = true;
 			
-			ExternalInterface.call("Start", "start");
+			//ExternalInterface.call("Start", "start");
 		}
 		
 		private function onStopClick( event:MouseEvent ):void
@@ -140,7 +140,7 @@ package
 			this.stopButton.enabled = false;
 			this.stopButton.visible = false;
 			
-			ExternalInterface.call("Stop", "stop");
+			//ExternalInterface.call("Stop", "stop");
 		}
 		
 		private function onPrevClick( event:MouseEvent ):void
@@ -163,7 +163,7 @@ package
 				trainVal = 1;
 				return;
 			}
-			ExternalInterface.call("NumTrain", "deletetrain");
+			//ExternalInterface.call("NumTrain", "deletetrain");
 			trainText.text = "TRAIN: " + trainVal;
 		}
 		
@@ -175,7 +175,7 @@ package
 				trainVal = 10;
 				return;
 			}
-			ExternalInterface.call("NumTrain", "addtrain");
+			//ExternalInterface.call("NumTrain", "addtrain");
 			trainText.text = "TRAIN: " + trainVal;
 		}
 		
@@ -187,20 +187,20 @@ package
 			if (curveVal == 0) 
 			{
 				curveText.text = "BEZIER";
-				ExternalInterface.call("Curve", "bezier");
+				//ExternalInterface.call("Curve", "bezier");
 			}
 			else if (curveVal == 1) 
 			{
 				curveText.text = "B-SPLINE";
-				ExternalInterface.call("Curve", "bspline");
+				//ExternalInterface.call("Curve", "bspline");
 			}
 			else if (curveVal == 2) 
 			{
 				curveText.text = "LINEAR";
-				ExternalInterface.call("Curve", "linear");
+				//ExternalInterface.call("Curve", "linear");
 			}
 		}
-		
+		*/
 		private function onExitClick( event:MouseEvent ):void
 		{
 			ExternalInterface.call("Exit", "exit");
@@ -220,7 +220,7 @@ package
 					fpsText.text = "FPS: -";
 				}
 			}
-			
+			/*
 			for (var b:int = 0; b < this.curveOption.numChildren; b++ )
 			{
 				child = this.curveOption.getChildAt(b);
@@ -262,6 +262,7 @@ package
 					prevTrain.addEventListener(MouseEvent.CLICK, onPrevTrainClick, false, 0, true);
 				}
 			}
+			*/
 		}
 		
 		private function setFPS(fps:Number):void

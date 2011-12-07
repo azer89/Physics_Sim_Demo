@@ -6,7 +6,6 @@
 //#include "Stdafx.h"
 //#include "ClassDefine.h"
 
-
 #include "Ogre.h"
 #include "Character.h"
 
