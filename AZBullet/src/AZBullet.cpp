@@ -22,7 +22,6 @@ Ogre::Vector3 mSunColor[_def_SkyBoxNum] =  {Ogre::Vector3(1, 0.9, 0.6), Ogre::Ve
 
 AZBullet::AZBullet(void):OgreBulletListener()
 {
-
 	_def_SkyBoxNum = 3;
 
 	mSkyBoxes[0] = "Sky/ClubTropicana";
@@ -37,6 +36,7 @@ AZBullet::AZBullet(void):OgreBulletListener()
 
 	this->mRotateSpeed = 0.1f;
 	this->mCurrentSkyBox = 0;
+	this->isHydraxEnabled = false;
 
 	vehicle = NULL;
 	tManager = NULL;
@@ -45,6 +45,8 @@ AZBullet::AZBullet(void):OgreBulletListener()
 	mHydrax = NULL;
 	menu = NULL;
 	rocket = NULL;
+	robot = NULL;
+	ship = NULL;
 }
 
 //-------------------------------------------------------------------------------------
@@ -57,6 +59,8 @@ AZBullet::~AZBullet(void)
 	if (mHydrax != NULL)	delete mHydrax;
 	if (menu != NULL)		delete menu;
 	if (rocket != NULL)		delete rocket;
+	if (robot != NULL)		delete robot;
+	if (ship != NULL)		delete ship;
 }
 
 //-------------------------------------------------------------------------------------
@@ -96,7 +100,7 @@ void AZBullet::bulletInit()
 
 	mSceneMgr->setAmbientLight(ColourValue(1, 1, 1));
 	mSceneMgr->setSkyBox(true, mSkyBoxes[mCurrentSkyBox], 99999*3, true);
-	mCamera->setNearClipDistance(0.1);
+	mCamera->setNearClipDistance(5);
 	mCamera->setFarClipDistance(99999*6);
 	mCamera->pitch(Degree(0));
 	mCamera->yaw(Degree(0));
@@ -152,7 +156,12 @@ void AZBullet::bulletInit()
 
 	rocket = new Rocket();
 	rocket->createRocket(mSceneMgr);
-	//rocket->rocketNode->translate(0, 300, 0);
+
+	robot = new Robot();
+	robot->createRobot(mSceneMgr);
+
+	ship = new Ship();
+	ship->createShip(mSceneMgr);
 
 	//createSimpleSky();	
 	//createSimpleWater();
@@ -244,7 +253,7 @@ bool AZBullet::frameRenderingQueued(const Ogre::FrameEvent& arg)
 
 	Ogre::Real elapsedTime = arg.timeSinceLastFrame;
 	
-	mHydrax->update(elapsedTime);
+	if(this->isHydraxEnabled) mHydrax->update(elapsedTime);
 	mBulletWorld->stepSimulation(elapsedTime);	
 	//this->repositionCamera();	
 	this->vehicle->updatePerFrame(arg.timeSinceLastFrame);	
@@ -412,6 +421,15 @@ void AZBullet::repositionCamera()
 	}
 
 	
+}
+
+//-------------------------------------------------------------------------------------
+void AZBullet::toggleOceanSimulation()
+{
+	this->isHydraxEnabled = !this->isHydraxEnabled;
+	
+	if(this->isHydraxEnabled) this->mHydrax->setVisible(true);
+	else this->mHydrax->setVisible(false);
 }
 
 //-------------------------------------------------------------------------------------

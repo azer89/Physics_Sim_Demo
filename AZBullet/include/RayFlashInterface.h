@@ -36,13 +36,13 @@ private:
 	bool isMenuOpen;
 	Ogre::Vector2 oCPos;
 
-	Hikari::FlashValue onExitClick(Hikari::FlashControl* caller, const Hikari::Arguments& args);		// event listener to close app
-	Hikari::FlashValue onMenuStateChange(Hikari::FlashControl* caller, const Hikari::Arguments& args);	// event listener when menu opened/closed
-	//Hikari::FlashValue onStartClick(Hikari::FlashControl* caller, const Hikari::Arguments& args);		// event listener to startthe train
-	//Hikari::FlashValue onStopClick(Hikari::FlashControl* caller, const Hikari::Arguments& args);		// event listener to stop the train	
-	//Hikari::FlashValue onCurveChange(Hikari::FlashControl* caller, const Hikari::Arguments& args);	// event listener to change curve type	
-	//Hikari::FlashValue onNumTrainChange(Hikari::FlashControl* caller, const Hikari::Arguments& args);	// event listener to change number of train
-	//Hikari::FlashValue onHeightChange(Hikari::FlashControl* caller, const Hikari::Arguments& args);	// event listener to change pole's height
+	Hikari::FlashValue onExitClick(Hikari::FlashControl* caller, const Hikari::Arguments& args);				// event listener to close app
+	Hikari::FlashValue onMenuStateChange(Hikari::FlashControl* caller, const Hikari::Arguments& args);			// event listener when menu opened/closed
+	Hikari::FlashValue onOceanSimToogle(Hikari::FlashControl* caller, const Hikari::Arguments& args);
+
+	//Hikari::FlashValue onCurveChange(Hikari::FlashControl* caller, const Hikari::Arguments& args);			// event listener to change curve type	
+	//Hikari::FlashValue onNumTrainChange(Hikari::FlashControl* caller, const Hikari::Arguments& args);			// event listener to change number of train
+	//Hikari::FlashValue onHeightChange(Hikari::FlashControl* caller, const Hikari::Arguments& args);			// event listener to change pole's height
 };
 
 #endif
