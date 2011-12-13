@@ -30,18 +30,18 @@ package
 		//private var curveText:TextField;
 		//private var curveVal:int;
 		
-		//private var numTrainOpt:NumTrainOption;
-		//private var prevTrain:PrevButton;
-		//private var nextTrain:NextButton;
-		//private var trainText:TextField;
-		//private var trainVal:int;
+		private var oceanSimOption:OceanSimOption;
+		private var prevOceanSim:PrevButton;
+		private var nextOceanSim:NextButton;
+		private var oceanSimText:TextField;
+		private var oceanSimVal:Boolean;
 		
 		public function RayRayRayMenu()
 		{
 			this.setButton();
 			this.setObjects();
 			//curveVal = 0;
-			//trainVal = 1;
+			oceanSimVal = true;
 			ExternalInterface.addCallback("setFPS", setFPS);
 		}
 		
@@ -55,7 +55,6 @@ package
 			
 			menu = new MovieClip();
 			menu.x = 0;
-			//menu.y = 50;
 			menu.y = -200;
 			menu.alpha = 0;
 			
@@ -87,9 +86,15 @@ package
 			numTrainOpt.y = 150;
 			menu.addChild(numTrainOpt);
 			*/
+			
+			oceanSimOption = new OceanSimOption();
+			oceanSimOption.x = 90;
+			oceanSimOption.y = 70;
+			menu.addChild(oceanSimOption);
+			
 			exitButton = new ExitButton();
 			exitButton.x = 90;
-			exitButton.y = 70;
+			exitButton.y = 110;
 			exitButton.addEventListener(MouseEvent.CLICK, onExitClick, false, 0, true);
 			menu.addChild(exitButton);
 			
@@ -154,31 +159,34 @@ package
 			curveVal++;
 			setCurve();
 		}
-		
-		private function onPrevTrainClick( event:MouseEvent ):void
+		*/
+		private function onPrevOceanSimClick( event:MouseEvent ):void
 		{
-			trainVal--;
-			if (trainVal < 1) 
-			{
-				trainVal = 1;
-				return;
-			}
-			//ExternalInterface.call("NumTrain", "deletetrain");
-			trainText.text = "TRAIN: " + trainVal;
+			toggleOceanSim();
 		}
 		
-		private function onNextTrainClick( event:MouseEvent ):void
+		private function onNextOceanSimClick( event:MouseEvent ):void
 		{
-			trainVal++;
-			if (trainVal > 10) 
-			{
-				trainVal = 10;
-				return;
-			}
-			//ExternalInterface.call("NumTrain", "addtrain");
-			trainText.text = "TRAIN: " + trainVal;
+			toggleOceanSim();
 		}
 		
+		private function toggleOceanSim():void
+		{
+			this.oceanSimVal = !oceanSimVal;
+			
+			if (oceanSimVal) 
+			{
+				ExternalInterface.call("OceanSimToggle", "on");
+				oceanSimText.text = "HYDRAX ON";
+			}
+			else 
+			{				
+				ExternalInterface.call("OceanSimToggle", "off");
+				oceanSimText.text = "HYDRAX OFF";
+			}
+		}
+		
+		/*
 		private function setCurve():void
 		{	
 			if (curveVal > 2) curveVal = 0;
@@ -220,28 +228,27 @@ package
 					fpsText.text = "FPS: -";
 				}
 			}
-			/*
-			for (var b:int = 0; b < this.curveOption.numChildren; b++ )
+			
+			for (var b:int = 0; b < this.oceanSimOption.numChildren; b++ )
 			{
-				child = this.curveOption.getChildAt(b);
+				child = this.oceanSimOption.getChildAt(b);
 				
-				if (child.name == "curveText")
+				if (child.name == "oceanSimText")
 				{
-					curveText = (TextField)(child);
-					//curveText.text = "B-SPLINE";
+					oceanSimText = (TextField)(child);
 				}
-				else if (child.name == "next")
+				else if (child.name == "nextOceanSim")
 				{
-					next = (NextButton)(child);
-					next.addEventListener(MouseEvent.CLICK, onNextClick, false, 0, true);
+					nextOceanSim = (NextButton)(child);
+					nextOceanSim.addEventListener(MouseEvent.CLICK, onNextOceanSimClick, false, 0, true);
 				}
-				else if (child.name == "prev")
+				else if (child.name == "prevOceanSim")
 				{
-					prev = (PrevButton)(child);
-					prev.addEventListener(MouseEvent.CLICK, onPrevClick, false, 0, true);
+					prevOceanSim = (PrevButton)(child);
+					prevOceanSim.addEventListener(MouseEvent.CLICK, onPrevOceanSimClick, false, 0, true);
 				}
 			}
-			
+			/*
 			for (var c:int = 0; c < this.numTrainOpt.numChildren; c++ )
 			{
 				child = this.numTrainOpt.getChildAt(c);

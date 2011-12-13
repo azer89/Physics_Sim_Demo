@@ -30,6 +30,7 @@ void RayFlashInterface::setupHikari(void)
 
 	mainMenuControl->bind("Exit", FlashDelegate(this, &RayFlashInterface::onExitClick));
 	mainMenuControl->bind("MenuState", FlashDelegate(this, &RayFlashInterface::onMenuStateChange));
+	mainMenuControl->bind("OceanSimToggle", FlashDelegate(this, &RayFlashInterface::onOceanSimToogle));
 	//mainMenuControl->bind("Start", FlashDelegate(this, &RayFlashInterface::onStartClick));
 	//mainMenuControl->bind("Stop", FlashDelegate(this, &RayFlashInterface::onStopClick));	
 	//mainMenuControl->bind("Curve", FlashDelegate(this, &RayFlashInterface::onCurveChange));	
@@ -91,25 +92,16 @@ bool RayFlashInterface::isInsideMenu(int mouseX, int mouseY)
 	return false;
 }
 
-/*
-Hikari::FlashValue RayFlashInterface::onStartClick(Hikari::FlashControl* caller, const Hikari::Arguments& args)
+
+Hikari::FlashValue RayFlashInterface::onOceanSimToogle(Hikari::FlashControl* caller, const Hikari::Arguments& args)
 {
 	using namespace Hikari;
 	std::string text = args.at(0).getString();
-	this->rayApp->train->startTrain();
+	this->rayApp->toggleOceanSimulation();
 
 	return FLASH_VOID;
 }
 
-Hikari::FlashValue RayFlashInterface::onStopClick(Hikari::FlashControl* caller, const Hikari::Arguments& args)
-{
-	using namespace Hikari;
-	std::string text = args.at(0).getString();
-	this->rayApp->train->stopTrain();
-
-	return FLASH_VOID;
-}
-*/
 Hikari::FlashValue RayFlashInterface::onExitClick(Hikari::FlashControl* caller, const Hikari::Arguments& args)
 {
 	using namespace Hikari;

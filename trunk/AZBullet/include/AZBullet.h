@@ -16,6 +16,8 @@ Filename:    AZBullet.h
 #include "ThirdPersonCamera.h"
 #include "RayTerrain.h"
 #include "Rocket.h"
+#include "Robot.h"
+#include "Ship.h"
 
 #include "Hydrax/Hydrax.h"
 
@@ -34,6 +36,7 @@ public:
 	void bulletInit();
 	virtual void createFrameListener(void);
 	void shutdownApp(void);
+	void toggleOceanSimulation();
 
 	// void bulletKeyPressed(BULLET_KEY_CODE key);
 	// void bulletKeyReleased(BULLET_KEY_CODE key);
@@ -78,6 +81,9 @@ protected:
 	RayTerrain* rayTerrain;
 	Hydrax::Hydrax *mHydrax;
 	Rocket* rocket;
+	Robot* robot;
+	Ship* ship; 
+	bool isHydraxEnabled;
 
 	OgreBites::Label* mInfoLabel;	// message info
 
