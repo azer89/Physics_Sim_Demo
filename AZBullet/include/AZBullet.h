@@ -37,6 +37,7 @@ public:
 	virtual void createFrameListener(void);
 	void shutdownApp(void);
 	void toggleOceanSimulation();
+	void setWeather(int val);
 
 	// void bulletKeyPressed(BULLET_KEY_CODE key);
 	// void bulletKeyReleased(BULLET_KEY_CODE key);
@@ -57,6 +58,7 @@ protected:
 	 void createSimpleSky();
 	 void createHydraxSimulation();
 	 void changeSkyBox();
+	 void changeCameraPosition(int val);
 
 	 // OIS::MouseListener
 	 virtual bool mouseMoved(const OIS::MouseEvent& arg);
@@ -75,6 +77,7 @@ protected:
 	float mRotateSpeed;					// the rotation speed for the camera
 	int mCurrentSkyBox;
 
+	Ogre::SceneNode* waterNode;
 	TerrainManager* tManager;
 	Vehicle* vehicle;
 	ObstacleForFun* obs;

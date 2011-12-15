@@ -3,9 +3,6 @@
 #ifndef __Vehicle_h_
 #define __Vehicle_h_
 
-//#include "Stdafx.h"
-//#include "ClassDefine.h"
-
 #include "Ogre.h"
 #include "Character.h"
 

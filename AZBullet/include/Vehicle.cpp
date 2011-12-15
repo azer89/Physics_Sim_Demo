@@ -31,7 +31,7 @@ static float gFrictionSlip = 10.5;
 // constructor
 Vehicle::Vehicle(void)
 {
-	this->CarPosition =  Ogre::Vector3(-350, 65, -460);
+	this->CarPosition =  Ogre::Vector3(-350, 62, -460);
 }
 //-------------------------------------------------------------------------------------
 // destructor
@@ -77,7 +77,7 @@ void Vehicle::createVehicle(SceneManager* mSceneMgr,
 	float connectionHeight = 0.7f;
 
 	mChassis = mSceneMgr->createEntity( "chassis" + StringConverter::toString(mNumEntitiesInstanced++), "delorean.mesh");
-	vehicleNode = mSceneMgr->getRootSceneNode ()->createChildSceneNode ();
+	vehicleNode = mSceneMgr->getRootSceneNode ()->createChildSceneNode();
 
 	this->mMainNode = vehicleNode;
 	Vector3 pos = this->mMainNode->_getDerivedPosition();
@@ -88,7 +88,7 @@ void Vehicle::createVehicle(SceneManager* mSceneMgr,
 	mSightNode = this->mMainNode->createChildSceneNode ("sightNode", sight);
 	mCameraNode = this->mMainNode->createChildSceneNode ("cameraNode", cam);
 
-	SceneNode *chassisnode = vehicleNode->createChildSceneNode ();
+	SceneNode *chassisnode = vehicleNode->createChildSceneNode();
 	chassisnode->attachObject (mChassis);
 	chassisnode->setPosition (chassisShift);
 

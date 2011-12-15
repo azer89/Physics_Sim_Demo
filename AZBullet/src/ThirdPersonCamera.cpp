@@ -18,9 +18,9 @@ ThirdPersonCamera::ThirdPersonCamera (String name, SceneManager *sceneMgr, Camer
 	// Create the camera's node structure
 	mCameraNode = mSceneMgr->getRootSceneNode ()->createChildSceneNode (mName);
 	mTargetNode = mSceneMgr->getRootSceneNode ()->createChildSceneNode (mName + "_target");
-	mCameraNode->setAutoTracking (true, mTargetNode);			// The camera will always look at the camera target
-	mCameraNode->setFixedYawAxis (true);						// Needed because of auto tracking
-
+	mCameraNode->setAutoTracking (true, mTargetNode);	// The camera will always look at the camera target
+	mCameraNode->setFixedYawAxis (true);				// Needed because of auto tracking
+	
 	// Create our camera if it wasn't passed as a parameter
 	if (camera == 0) 
 	{
@@ -36,7 +36,7 @@ ThirdPersonCamera::ThirdPersonCamera (String name, SceneManager *sceneMgr, Camer
 	}
 
 	// and attach the Ogre camera to the camera node
-	mCameraNode->attachObject (mCamera);
+	mCameraNode->attachObject(mCamera);
 
 	// Default tightness
 	mTightness = Ogre::Vector3(0.05f, 0.02f, 0.05f);
@@ -45,8 +45,7 @@ ThirdPersonCamera::ThirdPersonCamera (String name, SceneManager *sceneMgr, Camer
 ThirdPersonCamera::~ThirdPersonCamera () 
 {
 	mCameraNode->detachAllObjects ();
-	if (mOwnCamera)
-		delete mCamera;
+	if (mOwnCamera) delete mCamera;
 	mSceneMgr->destroySceneNode (mName);
 	mSceneMgr->destroySceneNode (mName + "_target");
 }
@@ -73,7 +72,7 @@ void ThirdPersonCamera::update (Real elapsedTime, Vector3 cameraPosition, Vector
 	displacement.y *= mTightness.y;
 	displacement.z *= mTightness.z;
 
-	mCameraNode->translate (displacement);
+	mCameraNode->translate(displacement);
 
 	displacement = (targetPosition - mTargetNode->getPosition ());
 
@@ -81,5 +80,5 @@ void ThirdPersonCamera::update (Real elapsedTime, Vector3 cameraPosition, Vector
 	displacement.y *= mTightness.y;
 	displacement.z *= mTightness.z;
 
-	mTargetNode->translate (displacement);
+	mTargetNode->translate(displacement);
 }

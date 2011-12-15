@@ -24,23 +24,22 @@ package
 		private var gearIcon:GearIcon;
 		private var isDown:Boolean = true;
 		
-		//private var curveOption:CurveOption;
-		//private var prev:PrevButton;
-		//private var next:NextButton;
-		//private var curveText:TextField;
-		//private var curveVal:int;
-		
 		private var oceanSimOption:OceanSimOption;
 		private var prevOceanSim:PrevButton;
 		private var nextOceanSim:NextButton;
 		private var oceanSimText:TextField;
 		private var oceanSimVal:Boolean;
 		
+		private var weatherOption:WeatherOption;
+		private var prevWeather:PrevButton;
+		private var nextWeather:NextButton;
+		private var weatherText:TextField;
+		private var weatherVal:int;
+		
 		public function RayRayRayMenu()
 		{
 			this.setButton();
 			this.setObjects();
-			//curveVal = 0;
 			oceanSimVal = true;
 			ExternalInterface.addCallback("setFPS", setFPS);
 		}
@@ -63,38 +62,19 @@ package
 			fpsInfo.y = 40;
 			menu.addChild(fpsInfo);
 			
-			/*
-			startButton = new StartButton();
-			startButton.x = 90;
-			startButton.y = 70;
-			startButton.addEventListener(MouseEvent.CLICK, onStartClick, false, 0, true);
-			menu.addChild(startButton);
-			
-			stopButton = new StopButton();
-			stopButton.x = 90;
-			stopButton.y = 70;
-			stopButton.addEventListener(MouseEvent.CLICK, onStopClick, false, 0, true);
-			menu.addChild(stopButton);
-			
-			curveOption = new CurveOption();
-			curveOption.x = 90;
-			curveOption.y = 110;
-			menu.addChild(curveOption);
-			
-			numTrainOpt = new NumTrainOption();
-			numTrainOpt.x = 90;
-			numTrainOpt.y = 150;
-			menu.addChild(numTrainOpt);
-			*/
+			weatherOption = new WeatherOption();
+			weatherOption.x = 90;
+			weatherOption.y = 70;
+			menu.addChild(weatherOption);
 			
 			oceanSimOption = new OceanSimOption();
 			oceanSimOption.x = 90;
-			oceanSimOption.y = 70;
+			oceanSimOption.y = 110;
 			menu.addChild(oceanSimOption);
 			
 			exitButton = new ExitButton();
 			exitButton.x = 90;
-			exitButton.y = 110;
+			exitButton.y = 150;
 			exitButton.addEventListener(MouseEvent.CLICK, onExitClick, false, 0, true);
 			menu.addChild(exitButton);
 			
@@ -109,16 +89,16 @@ package
 		
 		private function onGearClick( event:MouseEvent ):void
 		{	
+			TweenLite.to(gearIcon, 1, {rotation:360});
+			
 			if (isDown)
-			{
-				TweenMax.to(gearIcon, 1, {shortRotation:{rotation:180}});
-				TweenMax.to(menu, 0.5, { x:0, y:50, ease:Circ.easeOut, alpha:1 } );
+			{				
+				TweenLite.to(menu, 0.5, { x:0, y:50, ease:Circ.easeOut, alpha:1 } );
 				ExternalInterface.call("MenuState", "open");
 			}
 			else
 			{
-				TweenMax.to(gearIcon, 1, {shortRotation:{rotation:0}});
-				TweenMax.to(menu, 0.5, { x:0, y: -200, ease:Circ.easeIn, alpha:0 } );
+				TweenLite.to(menu, 0.5, { x:0, y: -200, ease:Circ.easeIn, alpha:0 } );
 				ExternalInterface.call("MenuState", "close");
 			}
 				
@@ -147,18 +127,6 @@ package
 			
 			//ExternalInterface.call("Stop", "stop");
 		}
-		
-		private function onPrevClick( event:MouseEvent ):void
-		{
-			curveVal--;
-			setCurve();
-		}
-		
-		private function onNextClick( event:MouseEvent ):void
-		{
-			curveVal++;
-			setCurve();
-		}
 		*/
 		private function onPrevOceanSimClick( event:MouseEvent ):void
 		{
@@ -168,6 +136,39 @@ package
 		private function onNextOceanSimClick( event:MouseEvent ):void
 		{
 			toggleOceanSim();
+		}
+		
+		private function onPrevWeatherClick( event:MouseEvent ):void
+		{
+			changeWeather(-1);
+		}
+		
+		private function onNextWeatherClick( event:MouseEvent ):void
+		{
+			changeWeather(1);
+		}
+		
+		private function changeWeather(val:int):void
+		{
+			this.weatherVal += val;
+			if (this.weatherVal == 3) this.weatherVal = 0;
+			else if (this.weatherVal == -1) this.weatherVal = 2;
+			
+			if (this.weatherVal == 0) 
+			{
+				ExternalInterface.call("WeatherOption", "morning");
+				weatherText.text = "MORNING";
+			}
+			else if (this.weatherVal == 1) 
+			{
+				ExternalInterface.call("WeatherOption", "evening");
+				weatherText.text = "EVENING";
+			}
+			else if (this.weatherVal == 2) 
+			{
+				ExternalInterface.call("WeatherOption", "cloudy");
+				weatherText.text = "CLOUDY";
+			}
 		}
 		
 		private function toggleOceanSim():void
@@ -180,35 +181,12 @@ package
 				oceanSimText.text = "HYDRAX ON";
 			}
 			else 
-			{				
+			{	
 				ExternalInterface.call("OceanSimToggle", "off");
 				oceanSimText.text = "HYDRAX OFF";
 			}
 		}
 		
-		/*
-		private function setCurve():void
-		{	
-			if (curveVal > 2) curveVal = 0;
-			else if (curveVal < 0) curveVal = 2;
-			
-			if (curveVal == 0) 
-			{
-				curveText.text = "BEZIER";
-				//ExternalInterface.call("Curve", "bezier");
-			}
-			else if (curveVal == 1) 
-			{
-				curveText.text = "B-SPLINE";
-				//ExternalInterface.call("Curve", "bspline");
-			}
-			else if (curveVal == 2) 
-			{
-				curveText.text = "LINEAR";
-				//ExternalInterface.call("Curve", "linear");
-			}
-		}
-		*/
 		private function onExitClick( event:MouseEvent ):void
 		{
 			ExternalInterface.call("Exit", "exit");
@@ -248,28 +226,26 @@ package
 					prevOceanSim.addEventListener(MouseEvent.CLICK, onPrevOceanSimClick, false, 0, true);
 				}
 			}
-			/*
-			for (var c:int = 0; c < this.numTrainOpt.numChildren; c++ )
+			
+			for (var c:int = 0; c < this.oceanSimOption.numChildren; c++ )
 			{
-				child = this.numTrainOpt.getChildAt(c);
+				child = this.weatherOption.getChildAt(c);
 				
-				if (child.name == "trainText")
+				if (child.name == "weatherText")
 				{
-					trainText = (TextField)(child);
-					trainText.text = "TRAIN: 1";
+					weatherText = (TextField)(child);
 				}
-				else if (child.name == "nextTrain")
+				else if (child.name == "nextWeather")
 				{
-					nextTrain = (NextButton)(child);
-					nextTrain.addEventListener(MouseEvent.CLICK, onNextTrainClick, false, 0, true);
+					nextWeather = (NextButton)(child);
+					nextWeather.addEventListener(MouseEvent.CLICK, onNextWeatherClick, false, 0, true);
 				}
-				else if (child.name == "prevTrain")
+				else if (child.name == "prevWeather")
 				{
-					prevTrain = (PrevButton)(child);
-					prevTrain.addEventListener(MouseEvent.CLICK, onPrevTrainClick, false, 0, true);
+					prevWeather = (PrevButton)(child);
+					prevWeather.addEventListener(MouseEvent.CLICK, onPrevWeatherClick, false, 0, true);
 				}
 			}
-			*/
 		}
 		
 		private function setFPS(fps:Number):void
