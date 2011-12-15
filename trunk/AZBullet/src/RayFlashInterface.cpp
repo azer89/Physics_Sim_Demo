@@ -31,10 +31,10 @@ void RayFlashInterface::setupHikari(void)
 	mainMenuControl->bind("Exit", FlashDelegate(this, &RayFlashInterface::onExitClick));
 	mainMenuControl->bind("MenuState", FlashDelegate(this, &RayFlashInterface::onMenuStateChange));
 	mainMenuControl->bind("OceanSimToggle", FlashDelegate(this, &RayFlashInterface::onOceanSimToogle));
+	mainMenuControl->bind("WeatherOption", FlashDelegate(this, &RayFlashInterface::onWeatherOption));
 	//mainMenuControl->bind("Start", FlashDelegate(this, &RayFlashInterface::onStartClick));
 	//mainMenuControl->bind("Stop", FlashDelegate(this, &RayFlashInterface::onStopClick));	
-	//mainMenuControl->bind("Curve", FlashDelegate(this, &RayFlashInterface::onCurveChange));	
-	//mainMenuControl->bind("NumTrain", FlashDelegate(this, &RayFlashInterface::onNumTrainChange));
+	//mainMenuControl->bind("Curve", FlashDelegate(this, &RayFlashInterface::onCurveChange));
 
 	//objectControls = hikariMgr->createFlashOverlay("OControl", rayApp->hViewPort, 300, 100, Position(TopLeft));
 	//objectControls->load("ObjectUI.swf");
@@ -112,31 +112,27 @@ Hikari::FlashValue RayFlashInterface::onExitClick(Hikari::FlashControl* caller, 
 	return FLASH_VOID;
 }
 
-/*
-Hikari::FlashValue RayFlashInterface::onCurveChange(Hikari::FlashControl* caller, const Hikari::Arguments& args)
+Hikari::FlashValue RayFlashInterface::onWeatherOption(Hikari::FlashControl* caller, const Hikari::Arguments& args)
 {
 	using namespace Hikari;
 	std::string text = args.at(0).getString(); 
 
-	if(text == "bezier")
+	if(text == "morning")
 	{
-		//this->rayApp->rail->setCurve(0);
-		this->rayApp->setCurve(0);
+		this->rayApp->setWeather(0);
 	}
-	else if(text == "bspline")
+	else if(text == "evening")
 	{
-		//this->rayApp->rail->setCurve(1);
-		this->rayApp->setCurve(1);
+		this->rayApp->setWeather(1);
 	}
-	else if(text == "linear")
+	else if(text == "cloudy")
 	{
-		//this->rayApp->rail->setCurve(2);
-		this->rayApp->setCurve(2);
+		this->rayApp->setWeather(2);
 	}
 
 	return FLASH_VOID;
 }
-*/
+
 Hikari::FlashValue RayFlashInterface::onMenuStateChange(Hikari::FlashControl* caller, const Hikari::Arguments& args)
 {
 	using namespace Hikari;
@@ -155,23 +151,6 @@ Hikari::FlashValue RayFlashInterface::onMenuStateChange(Hikari::FlashControl* ca
 }
 
 /*
-Hikari::FlashValue RayFlashInterface::onNumTrainChange(Hikari::FlashControl* caller, const Hikari::Arguments& args)
-{
-	using namespace Hikari;
-	std::string text = args.at(0).getString(); 
-
-	if(text == "deletetrain")
-	{
-		this->rayApp->train->deleteTrain();
-	}
-	else if(text == "addtrain")
-	{
-		this->rayApp->train->addTrain();
-	}
-
-	return FLASH_VOID;
-}
-
 Hikari::FlashValue RayFlashInterface::onHeightChange(Hikari::FlashControl* caller, const Hikari::Arguments& args)
 {
 	using namespace Hikari;

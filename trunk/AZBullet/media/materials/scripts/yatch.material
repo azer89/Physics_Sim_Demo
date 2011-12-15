@@ -1,50 +1,42 @@
-material lambert3
+material phong_yatch_blue
 {
 	technique
 	{
 		pass
 		{
-			ambient 0 0 0.5 1
-			diffuse 0 0 0.5 1
-			specular 0 0 0 1
-			emissive 0 0 0
-		}
-	}
-}
-material phong2
-{
-	technique
-	{
-		pass
-		{
-			lighting off
-
 			shading phong
 			ambient 0 0 0 1
-			diffuse 1 1 0 1
+			diffuse 0 0.566667 1 1
 			specular 0.5 0.5 0.5 25.6
 			emissive 0 0 0
-
-			texture_unit
-			{
-				texture steel.jpg
-				tex_coord_set 0
-				colour_op modulate
-				scale 1 1
-				scroll 0 0
-				rotate 0
-			}
 		}
 	}
 }
-material lambert1
+material yatch_phong
+{
+	technique
+	{
+		pass
+		{
+			shading phong
+			ambient 0 0 0 1
+			diffuse 0.78 0.78 0.78 1
+			specular 0.5 0.5 0.5 25.6
+			emissive 0 0 0
+		}
+	}
+}
+material lambert_smile
 {
 	technique
 	{
 		pass
 		{
 			lighting off
-
+			
+			cull_hardware none
+			cull_software none
+		
 			ambient 0 0 0 1
 			diffuse 1 1 1 1
 			specular 0 0 0 1
@@ -52,7 +44,7 @@ material lambert1
 
 			texture_unit
 			{
-				texture yao-ming.jpg
+				texture smile.jpg
 				tex_coord_set 0
 				colour_op modulate
 				scale 1 1
@@ -62,14 +54,17 @@ material lambert1
 		}
 	}
 }
-material lambert2
+material yatch_cloth
 {
 	technique
 	{
 		pass
 		{
 			lighting off
-
+			
+			cull_hardware none
+			cull_software none
+		
 			ambient 0 0 0 1
 			diffuse 1 1 1 1
 			specular 0 0 0 1

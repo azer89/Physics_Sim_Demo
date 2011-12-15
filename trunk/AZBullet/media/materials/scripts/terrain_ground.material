@@ -1,4 +1,4 @@
-material lambert8
+material ground_pavement
 {
 	technique
 	{
@@ -21,7 +21,7 @@ material lambert8
 		}
 	}
 }
-material lambert9
+material ground_grass
 {
 	technique
 	{
@@ -44,7 +44,7 @@ material lambert9
 		}
 	}
 }
-material lambert14
+material ground_lambert_black
 {
 	technique
 	{
@@ -57,7 +57,7 @@ material lambert14
 		}
 	}
 }
-material lambert12
+material ground_wood_01
 {
 	technique
 	{
@@ -80,7 +80,7 @@ material lambert12
 		}
 	}
 }
-material lambert13
+material ground_wood02
 {
 	technique
 	{
@@ -103,15 +103,16 @@ material lambert13
 		}
 	}
 }
-material blinn2
+material ground_steel_pipe
 {
 	technique
 	{
 		pass
 		{
+			shading phong
 			ambient 0 0 0 1
 			diffuse 1 1 1 1
-			specular 0.5 0.5 0.5 89.6
+			specular 0.5 0.5 0.5 25.6
 			emissive 0 0 0
 
 			texture_unit

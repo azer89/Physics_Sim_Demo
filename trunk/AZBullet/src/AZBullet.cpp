@@ -12,13 +12,6 @@ Filename:    AZBullet.cpp
 #include "Hydrax/Noise/Perlin/Perlin.h"
 #include "Hydrax/Modules/ProjectedGrid/ProjectedGrid.h"
 
-/*
-#define _def_SkyBoxNum 3
-
-Ogre::String mSkyBoxes[_def_SkyBoxNum] = {"Sky/ClubTropicana", "Sky/EarlyMorning", "Sky/Clouds"};
-Ogre::Vector3 mSunPosition[_def_SkyBoxNum] = {Ogre::Vector3(0,10000,0), Ogre::Vector3(0,10000,90000), Ogre::Vector3(0,10000,0)};
-Ogre::Vector3 mSunColor[_def_SkyBoxNum] =  {Ogre::Vector3(1, 0.9, 0.6), Ogre::Vector3(1,0.6,0.4), Ogre::Vector3(0.45,0.45,0.45)};
-*/
 
 AZBullet::AZBullet(void):OgreBulletListener()
 {
@@ -104,11 +97,8 @@ void AZBullet::bulletInit()
 	mCamera->setFarClipDistance(99999*6);
 	mCamera->pitch(Degree(0));
 	mCamera->yaw(Degree(0));
-	//mBulletCameraMove = 1;
 
-	//Ogre::Viewport *vp = this->mCamera->getViewport();
-	//vp->setBackgroundColour(ColourValue(0, 0, 0.2f));	
-	initWorld();					// Start Bullet
+	initWorld();	// Start Bullet
 
 	// Light
 	Ogre::Light *mLight = mSceneMgr->createLight("Light0");
@@ -117,7 +107,6 @@ void AZBullet::bulletInit()
 	mLight->setSpecularColour(mSunColor[mCurrentSkyBox].x,
 							  mSunColor[mCurrentSkyBox].y,
 							  mSunColor[mCurrentSkyBox].z);
-
 	
 	//mSceneMgr->setShadowTechnique(Ogre::SHADOWTYPE_STENCIL_ADDITIVE);
 
@@ -132,17 +121,13 @@ void AZBullet::bulletInit()
 
 	// create a vehicle
 	vehicle = new Vehicle();
-	vehicle->createVehicle(this->mSceneMgr, 
-		this->mBulletWorld, 
-		this->mNumEntitiesInstanced,
-		this->mCamera);
+	vehicle->createVehicle(this->mSceneMgr, this->mBulletWorld, this->mNumEntitiesInstanced, this->mCamera);
 
 	exCamera = new ThirdPersonCamera("Third Person Camera", mSceneMgr, mCamera);
 	mCameraListener = new CameraListener(mWindow, mCamera);
-	static_cast<CameraListener*> (mCameraListener)->setCharacter(vehicle);
 	static_cast<CameraListener*> (mCameraListener)->setExtendedCamera(exCamera);
-	mCameraListener->instantUpdate();	
-	
+	changeCameraPosition(0);
+
 	// create the obstacle
 	//obs = new ObstacleForFun();
 	//obs->createObstacle(this);
@@ -160,12 +145,12 @@ void AZBullet::bulletInit()
 	robot = new Robot();
 	robot->createRobot(mSceneMgr);
 
-	ship = new Ship();
-	ship->createShip(mSceneMgr);
-
 	//createSimpleSky();	
-	//createSimpleWater();
+	createSimpleWater();
 	createHydraxSimulation();
+
+	ship = new Ship();
+	ship->createShip(mSceneMgr, mHydrax);
 	
 	//mBulletWorld->getDebugDrawer()->setDrawWireframe(true);
 	//mBulletWorld->setShowDebugShapes(true);
@@ -187,63 +172,39 @@ void AZBullet::createHydraxSimulation()
 		Hydrax::Module::ProjectedGrid::Options());	
 
 	
-	mHydrax->setModule(static_cast<Hydrax::Module::Module*>(mModule));		// Set our module
+	mHydrax->setModule(static_cast<Hydrax::Module::Module*>(mModule));
 
 	mHydrax->loadCfg("HydraxDemo.hdx");
 	mHydrax->create();
 
-	mHydrax->getMaterialManager()->addDepthTechnique(
-		static_cast<Ogre::MaterialPtr>(Ogre::MaterialManager::getSingleton().getByName("Island"))
-		->createTechnique());
+	//mHydrax->getMaterialManager()->addDepthTechnique(
+	//	static_cast<Ogre::MaterialPtr>(Ogre::MaterialManager::getSingleton().getByName("Island"))
+	//	->createTechnique());
 }
 
 //-------------------------------------------------------------------------------------
 void AZBullet::createSimpleSky()
 {
-	Ogre::Plane skyPlane;
-	skyPlane.d = 100;
-	skyPlane.normal = Ogre::Vector3::NEGATIVE_UNIT_Y;
+	//Ogre::Plane skyPlane;
+	//skyPlane.d = 100;
+	//skyPlane.normal = Ogre::Vector3::NEGATIVE_UNIT_Y;
 	//mSceneMgr->setSkyDome(true, "Sky/EarlyMorning", 5, 8, 1500);
 }
 
 //-------------------------------------------------------------------------------------
 void AZBullet::createSimpleWater()
-{	
-	// this is to add water pond effect
+{
 	Ogre::Plane plane01(Ogre::Vector3::UNIT_Y, 0);
 
 	Ogre::MeshManager::getSingleton().createPlane("ground", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
-		plane01, 1000, 1000, 20, 20, true, 1, 20, 20, Ogre::Vector3::UNIT_Z);
+		plane01, 1500, 1500, 20, 20, true, 1, 20, 20, Ogre::Vector3::UNIT_Z);
 
 	Ogre::Entity* entWater01 = mSceneMgr->createEntity("WaterPlane01", "ground");
-	mSceneMgr->getRootSceneNode()->createChildSceneNode("Water", Ogre::Vector3(500, 30, 500))->attachObject(entWater01);
+	waterNode = mSceneMgr->getRootSceneNode()->createChildSceneNode("Water", Ogre::Vector3(0, 45, 0));
+	waterNode->attachObject(entWater01);
 
-	entWater01->setMaterialName("Examples/WaterStream3");
+	entWater01->setMaterialName("Examples/Water2");
 	entWater01->setCastShadows(false);	
-	
-	// this is to add water pond effect
-	Ogre::Plane plane02(Ogre::Vector3::UNIT_Y, 0);
-
-	/*	
-	Ogre::MeshManager::getSingleton().createPlane("ground", 
-		Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
-		plane02, 
-		1000, 
-		1000, 
-		1, 
-		1, 
-		true, 
-		1, 
-		5, 
-		5, 
-		Ogre::Vector3::UNIT_Z);
-
-	Ogre::Entity* entWater02 = mSceneMgr->createEntity("WaterPlane02", "ground");
-	mSceneMgr->getRootSceneNode()->createChildSceneNode("Water02", Ogre::Vector3(500, 5, 500))->attachObject(entWater02);
-
-	entWater02->setMaterialName("Examples/WaterStream2");
-	entWater02->setCastShadows(false);	
-	*/
 }
 
 
@@ -256,10 +217,8 @@ bool AZBullet::frameRenderingQueued(const Ogre::FrameEvent& arg)
 	if(this->isHydraxEnabled) mHydrax->update(elapsedTime);
 	mBulletWorld->stepSimulation(elapsedTime);	
 	//this->repositionCamera();	
-	this->vehicle->updatePerFrame(arg.timeSinceLastFrame);	
-
-	// update Hikari
-	menu->update(this->mWindow);
+	this->vehicle->updatePerFrame(arg.timeSinceLastFrame);		
+	menu->update(this->mWindow);	// update Hikari
 
 	return true;
 }
@@ -343,18 +302,10 @@ bool AZBullet::keyPressed(const OIS::KeyEvent& arg)
 		)
 	{
 	}
-	/*else if(arg.key == OIS::KC_W)
-	{
-	}
-	else if(arg.key == OIS::KC_A)
-	{
-	}
-	else if(arg.key == OIS::KC_S)
-	{
-	}
-	else if(arg.key == OIS::KC_D)
-	{
-	}*/
+	else if(arg.key == OIS::KC_1) { changeCameraPosition(0); }
+	else if(arg.key == OIS::KC_2) { changeCameraPosition(1); }
+	else if(arg.key == OIS::KC_3) { changeCameraPosition(2); }
+	else if(arg.key == OIS::KC_4) { changeCameraPosition(3); }
 	else { mCameraMan->injectKeyDown(arg); }
 
 	vehicle->keyPressed(arg);
@@ -374,18 +325,6 @@ bool AZBullet::keyReleased(const OIS::KeyEvent& arg)
 		arg.key == OIS::KC_DOWN )
 	{
 	}
-	/*else if(arg.key == OIS::KC_W)
-	{
-	}
-	else if(arg.key == OIS::KC_A)
-	{
-	}
-	else if(arg.key == OIS::KC_S)
-	{
-	}
-	else if(arg.key == OIS::KC_D)
-	{
-	}*/
 	else { mCameraMan->injectKeyUp(arg); }
 
 	vehicle->keyReleased(arg);
@@ -395,6 +334,7 @@ bool AZBullet::keyReleased(const OIS::KeyEvent& arg)
 //-------------------------------------------------------------------------------------
 void AZBullet::repositionCamera()
 {
+	/*
 	//Ogre::Vector3 camPos = mCamera->getRealPosition();
 	//Ogre::Vector3 camPos = exCamera->getCameraPosition();
 	Ogre::Vector3 camPos = Ogre::Vector3::ZERO;
@@ -402,11 +342,9 @@ void AZBullet::repositionCamera()
 	Ogre::Ray cameraRay(Ogre::Vector3(camPos.x, 5000.0f, camPos.z), Ogre::Vector3::NEGATIVE_UNIT_Y);
 	mRayScnQuery->setRay(cameraRay);
 
-	// Perform the scene query
 	Ogre::RaySceneQueryResult &result = mRayScnQuery->execute();
 	Ogre::RaySceneQueryResult::iterator itr = result.begin();
 
-	// Get the results, set the camera height
 	if (itr != result.end() && itr->worldFragment)
 	{
 		Ogre::Real terrainHeight = itr->worldFragment->singleIntersection.y;
@@ -419,8 +357,7 @@ void AZBullet::repositionCamera()
 			//mCamera->setPosition( camPos.x, terrainHeight + 0.5f, camPos.z );
 		}
 	}
-
-	
+	*/
 }
 
 //-------------------------------------------------------------------------------------
@@ -428,8 +365,34 @@ void AZBullet::toggleOceanSimulation()
 {
 	this->isHydraxEnabled = !this->isHydraxEnabled;
 	
-	if(this->isHydraxEnabled) this->mHydrax->setVisible(true);
-	else this->mHydrax->setVisible(false);
+	if(this->isHydraxEnabled) 
+	{
+		this->mHydrax->setVisible(true);
+		waterNode->setVisible(false);
+	}
+	else 
+	{
+		this->mHydrax->setVisible(false);
+		waterNode->setVisible(true);
+	}
+}
+
+//-------------------------------------------------------------------------------------
+void AZBullet::setWeather(int val)
+{
+	this->mCurrentSkyBox = val;
+	this->changeSkyBox();
+}
+
+//-------------------------------------------------------------------------------------
+void AZBullet::changeCameraPosition(int val)
+{
+	if(val == 0) { static_cast<CameraListener*> (mCameraListener)->setCharacter(vehicle); }
+	else if(val == 1) { static_cast<CameraListener*> (mCameraListener)->setCharacter(robot); }
+	else if(val == 2) { static_cast<CameraListener*> (mCameraListener)->setCharacter(ship); }
+	else if(val == 3) { static_cast<CameraListener*> (mCameraListener)->setCharacter(rocket); }
+
+	mCameraListener->instantUpdate();
 }
 
 //-------------------------------------------------------------------------------------

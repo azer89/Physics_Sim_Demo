@@ -4,10 +4,11 @@
 #define __Robot_h_
 
 #include "Ogre.h"
+#include "Character.h"
 
 using namespace Ogre;
 
-class Robot 
+class Robot : public Character
 {
 protected:
 

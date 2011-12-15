@@ -4,10 +4,11 @@
 #define __Rocket_h_
 
 #include "Ogre.h"
+#include "Character.h"
 
 using namespace Ogre;
 
-class Rocket 
+class Rocket : public Character
 {
 protected:
 	

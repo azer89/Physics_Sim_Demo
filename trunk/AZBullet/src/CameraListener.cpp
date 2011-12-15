@@ -34,11 +34,12 @@ void CameraListener::instantUpdate()
 bool CameraListener::frameStarted(const FrameEvent& evt)
 {
 	mKeyboard->capture();
+	
+	//std::cout << mChar->getCameraNode()->_getDerivedPosition() << "\n";
 
 	if (mChar) 
 	{
 		//mChar->update (evt.timeSinceLastFrame, mKeyboard);
-
 		if (mExCamera) 
 		{
 			if(mMode == 0) // 3rd person chase
@@ -47,7 +48,7 @@ bool CameraListener::frameStarted(const FrameEvent& evt)
 					mChar->getCameraNode()->_getDerivedPosition(), 
 					mChar->getSightNode()->_getDerivedPosition());
 			}
-			else if(mMode == 0) // 3rd person fixed
+			else if(mMode == 1) // 3rd person fixed
 			{
 				mExCamera->update (evt.timeSinceLastFrame, 
 					Vector3 (0, 200, 0), 
