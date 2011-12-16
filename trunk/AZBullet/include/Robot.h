@@ -16,7 +16,7 @@ protected:
 public:
 	SceneNode *robotNode;
 
-	Robot::Robot(void);
+	Robot(void);
 	virtual ~Robot(void);
 
 	void createRobot(SceneManager* mSceneMgr);

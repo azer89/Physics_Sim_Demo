@@ -212,6 +212,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\FancyTerrain.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\ObstacleForFun.cpp"
 				>
 			</File>
@@ -291,6 +295,10 @@
 			</File>
 			<File
 				RelativePath=".\include\Character.h"
+				>
+			</File>
+			<File
+				RelativePath=".\include\FancyTerrain.h"
 				>
 			</File>
 			<File
