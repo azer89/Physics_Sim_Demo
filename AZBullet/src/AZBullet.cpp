@@ -29,7 +29,7 @@ AZBullet::AZBullet(void):OgreBulletListener()
 
 	this->mRotateSpeed = 0.1f;
 	this->mCurrentSkyBox = 0;
-	this->isHydraxEnabled = false;
+	this->isHydraxEnabled = true;
 
 	vehicle = NULL;
 	tManager = NULL;
@@ -40,20 +40,22 @@ AZBullet::AZBullet(void):OgreBulletListener()
 	rocket = NULL;
 	robot = NULL;
 	ship = NULL;
+	fancyTerrain = NULL;
 }
 
 //-------------------------------------------------------------------------------------
 AZBullet::~AZBullet(void)
 {	
-	if (vehicle != NULL)	delete vehicle;
-	if (tManager != NULL)	delete tManager;
-	if (obs != NULL)		delete obs;
-	if (rayTerrain != NULL) delete rayTerrain;
-	if (mHydrax != NULL)	delete mHydrax;
-	if (menu != NULL)		delete menu;
-	if (rocket != NULL)		delete rocket;
-	if (robot != NULL)		delete robot;
-	if (ship != NULL)		delete ship;
+	if (vehicle != NULL)		delete vehicle;
+	if (tManager != NULL)		delete tManager;
+	if (obs != NULL)			delete obs;
+	if (rayTerrain != NULL)		delete rayTerrain;
+	if (mHydrax != NULL)		delete mHydrax;
+	if (menu != NULL)			delete menu;
+	if (rocket != NULL)			delete rocket;
+	if (robot != NULL)			delete robot;
+	if (ship != NULL)			delete ship;
+	if (fancyTerrain != NULL)	delete fancyTerrain;
 }
 
 //-------------------------------------------------------------------------------------
@@ -145,9 +147,13 @@ void AZBullet::bulletInit()
 	robot = new Robot();
 	robot->createRobot(mSceneMgr);
 
+	fancyTerrain = new FancyTerrain();
+	fancyTerrain->createFancyTerrain(mSceneMgr);
+
 	//createSimpleSky();	
 	createSimpleWater();
 	createHydraxSimulation();
+	this->toggleOceanSimulation();
 
 	ship = new Ship();
 	ship->createShip(mSceneMgr, mHydrax);
@@ -205,6 +211,8 @@ void AZBullet::createSimpleWater()
 
 	entWater01->setMaterialName("Examples/Water2");
 	entWater01->setCastShadows(false);	
+
+	waterNode->setVisible(false);
 }
 
 
@@ -213,11 +221,14 @@ bool AZBullet::frameRenderingQueued(const Ogre::FrameEvent& arg)
 	if(!BaseApplication::frameRenderingQueued(arg)) { return false; }
 
 	Ogre::Real elapsedTime = arg.timeSinceLastFrame;
+
+	//std::cout << mCamera->getOrientation() << "\n";
 	
 	if(this->isHydraxEnabled) mHydrax->update(elapsedTime);
 	mBulletWorld->stepSimulation(elapsedTime);	
 	//this->repositionCamera();	
 	this->vehicle->updatePerFrame(arg.timeSinceLastFrame);		
+	this->ship->updatePerFrame(arg.timeSinceLastEvent);
 	menu->update(this->mWindow);	// update Hikari
 
 	return true;
@@ -306,6 +317,7 @@ bool AZBullet::keyPressed(const OIS::KeyEvent& arg)
 	else if(arg.key == OIS::KC_2) { changeCameraPosition(1); }
 	else if(arg.key == OIS::KC_3) { changeCameraPosition(2); }
 	else if(arg.key == OIS::KC_4) { changeCameraPosition(3); }
+	else if(arg.key == OIS::KC_5) { changeCameraPosition(4); }
 	else { mCameraMan->injectKeyDown(arg); }
 
 	vehicle->keyPressed(arg);
@@ -387,10 +399,15 @@ void AZBullet::setWeather(int val)
 //-------------------------------------------------------------------------------------
 void AZBullet::changeCameraPosition(int val)
 {
+	mCamera->setPosition(Ogre::Vector3::ZERO);
+	mCamera->setOrientation(Ogre::Quaternion(1, 0, 0));
+	//mCamera->lookAt(Ogre::Vector3(0, 0, -1));
+	
 	if(val == 0) { static_cast<CameraListener*> (mCameraListener)->setCharacter(vehicle); }
 	else if(val == 1) { static_cast<CameraListener*> (mCameraListener)->setCharacter(robot); }
 	else if(val == 2) { static_cast<CameraListener*> (mCameraListener)->setCharacter(ship); }
 	else if(val == 3) { static_cast<CameraListener*> (mCameraListener)->setCharacter(rocket); }
+	else if(val == 4) { static_cast<CameraListener*> (mCameraListener)->setCharacter(fancyTerrain); }
 
 	mCameraListener->instantUpdate();
 }

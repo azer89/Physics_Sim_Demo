@@ -18,6 +18,7 @@ Filename:    AZBullet.h
 #include "Rocket.h"
 #include "Robot.h"
 #include "Ship.h"
+#include "FancyTerrain.h"
 
 #include "Hydrax/Hydrax.h"
 
@@ -86,6 +87,7 @@ protected:
 	Rocket* rocket;
 	Robot* robot;
 	Ship* ship; 
+	FancyTerrain* fancyTerrain;
 	bool isHydraxEnabled;
 
 	OgreBites::Label* mInfoLabel;	// message info

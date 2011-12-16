@@ -12,15 +12,16 @@ using namespace Ogre;
 class Ship : public Character
 {
 protected:
-
+	Hydrax::Hydrax *mHydrax;
 
 public:
 	SceneNode *shipNode;
 
-	Ship::Ship(void);
+	Ship(void);
 	virtual ~Ship(void);
 
 	void createShip(SceneManager* mSceneMgr, Hydrax::Hydrax *mHydrax);
+	void updatePerFrame(Real elapsedTime);
 
 };
 

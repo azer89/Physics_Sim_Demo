@@ -96,7 +96,6 @@ void Vehicle::createVehicle(SceneManager* mSceneMgr,
 	mChassis->setQueryFlags (1<<2);
 	mChassis->setCastShadows(false);
 	
-
 	CompoundCollisionShape* compound = new CompoundCollisionShape();
 
 	BoxCollisionShape* chassisShape = new BoxCollisionShape(Ogre::Vector3(1.f,0.75f,2.1f));
