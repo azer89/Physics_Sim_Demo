@@ -71,7 +71,7 @@ public:
 
     bool checkIfEnoughPlaceToAddObject(float maxDist);
     void throwDynamicObject(BULLET_KEY_CODE key);
-    void dropDynamicObject(BULLET_KEY_CODE key);
+    void dropDynamicObject(int key, Ogre::Vector3 vec);
 
     OgreBulletInputListener *getBulletInputListener(){return mInputListener;}
 

@@ -46,7 +46,6 @@ void Vehicle::createVehicle(SceneManager* mSceneMgr,
 							size_t &mNumEntitiesInstanced,
 							Camera* mCamera)
 {
-
 	// reset
 	for (int i = 0; i < 4; i++)
 	{
