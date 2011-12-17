@@ -240,6 +240,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\SwitchLever.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\TerrainManager.cpp"
 				>
 			</File>
@@ -331,6 +335,10 @@
 			</File>
 			<File
 				RelativePath=".\include\Stdafx.h"
+				>
+			</File>
+			<File
+				RelativePath=".\include\SwitchLever.h"
 				>
 			</File>
 			<File

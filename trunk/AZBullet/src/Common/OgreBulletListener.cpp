@@ -941,55 +941,37 @@ void OgreBulletListener::throwDynamicObject(BULLET_KEY_CODE key)
     }
 }
 // -------------------------------------------------------------------------
-void OgreBulletListener::dropDynamicObject(BULLET_KEY_CODE key)
+void OgreBulletListener::dropDynamicObject(int key, Ogre::Vector3 vec)
 {
     const float dropDist = 10.0f;
-    switch(key)
-    {
-    case KC_J: 
-        if ( checkIfEnoughPlaceToAddObject(dropDist))
-        {
-            const Ogre::Vector3 vec (mBulletCamera->getDerivedPosition());
-            OgreBulletDynamics::RigidBody *body = addCube("cube", 
-                vec + mBulletCamera->getDerivedDirection().normalisedCopy() * 10, 
-                Quaternion(0,0,0,1), 
-                gCubeBodyBounds, gDynamicBodyRestitution, gDynamicBodyFriction, gDynamicBodyMass);
-
-        }
-        break;
-    case KC_K: 
-        if ( checkIfEnoughPlaceToAddObject(dropDist))
-        {
-            const Ogre::Vector3 vec (mBulletCamera->getDerivedPosition());
-            OgreBulletDynamics::RigidBody *body = addSphere("sphere", 
-                vec + mBulletCamera->getDerivedDirection().normalisedCopy() * 10, 
-                Quaternion(0,0,0,1), 
-                gSphereBodyBounds, 
-                gDynamicBodyRestitution, gDynamicBodyFriction, gDynamicBodyMass);
-
-        }
-        break;
-    case KC_U : 
-        if ( checkIfEnoughPlaceToAddObject(dropDist))
-        {
-            const Ogre::Vector3 vec (mBulletCamera->getDerivedPosition());
-            OgreBulletDynamics::RigidBody *body = addCylinder("Cylinder", vec, Quaternion(0,0,0,1), 
-                gCylinderBodyBounds, 
-                gDynamicBodyRestitution, gDynamicBodyFriction, gDynamicBodyMass);
-
-        }
-        break;
-    case KC_I: 
-        if ( checkIfEnoughPlaceToAddObject(dropDist))
-        {
-            const Ogre::Vector3 vec (mBulletCamera->getDerivedPosition());
-            OgreBulletDynamics::RigidBody *body = addCone("Cone", 
-                vec + mBulletCamera->getDerivedDirection().normalisedCopy() * 10, 
-                Quaternion(0,0,0,1), 
-                gConeBodyBounds, 
-                gDynamicBodyRestitution, gDynamicBodyFriction, gDynamicBodyMass);
-        }
-        break;
+    if(key == 0)
+	{
+        OgreBulletDynamics::RigidBody *body = addCube("cube", 
+            vec, 
+            Quaternion(0,0,0,1), 
+            gCubeBodyBounds, gDynamicBodyRestitution, gDynamicBodyFriction, gDynamicBodyMass);
+	}
+	else if(key == 1)
+	{
+        OgreBulletDynamics::RigidBody *body = addSphere("sphere", 
+            vec, 
+            Quaternion(0,0,0,1), 
+            gSphereBodyBounds, 
+            gDynamicBodyRestitution, gDynamicBodyFriction, gDynamicBodyMass);
+	}
+	else if (key == 2)
+	{
+        OgreBulletDynamics::RigidBody *body = addCylinder("Cylinder", vec, Quaternion(0,0,0,1), 
+            gCylinderBodyBounds, 
+            gDynamicBodyRestitution, gDynamicBodyFriction, gDynamicBodyMass);
+	}
+	else if (key == 3)
+	{
+        OgreBulletDynamics::RigidBody *body = addCone("Cone", 
+            vec, 
+            Quaternion(0,0,0,1), 
+            gConeBodyBounds, 
+            gDynamicBodyRestitution, gDynamicBodyFriction, gDynamicBodyMass);        
     }
 }
 // -------------------------------------------------------------------------

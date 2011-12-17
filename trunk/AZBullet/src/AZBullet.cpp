@@ -160,6 +160,15 @@ void AZBullet::bulletInit()
 	
 	//mBulletWorld->getDebugDrawer()->setDrawWireframe(true);
 	//mBulletWorld->setShowDebugShapes(true);
+
+	/*
+	Ogre::Vector3 initPos(-350, 80, -300);
+	for(int a = 0; a < 5; a++)
+	{
+		this->dropDynamicObject(0, initPos);
+		initPos += Ogre::Vector3(0, 2, 40);
+	}
+	*/
 }
 
 //-------------------------------------------------------------------------------------
