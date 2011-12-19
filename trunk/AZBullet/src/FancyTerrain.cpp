@@ -10,7 +10,7 @@ FancyTerrain::~FancyTerrain(void)
 {
 }
 
-void FancyTerrain::createFancyTerrain(SceneManager* mSceneMgr)
+void FancyTerrain::createObject(SceneManager* mSceneMgr)
 {
 	this->mMainNode = mSceneMgr->getRootSceneNode()->createChildSceneNode();
 	this->mMainNode->setPosition(Ogre::Vector3(0, 0, 0));

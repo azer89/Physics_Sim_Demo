@@ -10,7 +10,7 @@ Rocket::~Rocket(void)
 {
 }
 
-void Rocket::createRocket(SceneManager* mSceneMgr)
+void Rocket::createObject(SceneManager* mSceneMgr)
 {
 	Ogre::Entity* rocketEntity = mSceneMgr->createEntity("RocketNode", "rocket.mesh");
 	this->mMainNode = mSceneMgr->getRootSceneNode()->createChildSceneNode();

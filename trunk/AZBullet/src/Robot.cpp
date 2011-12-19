@@ -10,7 +10,7 @@ Robot::~Robot(void)
 {
 }
 
-void Robot::createRobot(SceneManager* mSceneMgr)
+void Robot::createObject(SceneManager* mSceneMgr)
 {
 	Ogre::Entity* robotEntity = mSceneMgr->createEntity("RobotEntity", "mechanimated.mesh");
 	this->mMainNode = mSceneMgr->getRootSceneNode()->createChildSceneNode();
@@ -29,4 +29,39 @@ void Robot::createRobot(SceneManager* mSceneMgr)
 	mSightNode = this->mMainNode->createChildSceneNode ("robotSightNode", sight);
 	mCameraNode = this->mMainNode->createChildSceneNode ("robotCameraNode", cam);
 	
+}
+
+//-------------------------------------------------------------------------------------
+// update per frame
+void Robot::updatePerFrame(Real elapsedTime)
+{
+}
+
+//-------------------------------------------------------------------------------------
+// when key pressed
+void Robot::keyPressed(const OIS::KeyEvent& arg)
+{
+	if(arg.key == OIS::KC_LEFT)
+	{
+	}
+	else if(arg.key == OIS::KC_RIGHT)
+	{
+	}
+	else if(arg.key == OIS::KC_DOWN)
+	{
+	}
+	else if(arg.key == OIS::KC_UP)
+	{
+	}
+
+}
+
+//-------------------------------------------------------------------------------------
+// when key released
+void Robot::keyReleased(const OIS::KeyEvent& arg)
+{
+	if(arg.key == OIS::KC_LEFT) {}
+	else if(arg.key == OIS::KC_RIGHT) {}
+	else if(arg.key == OIS::KC_DOWN) {}
+	else if(arg.key == OIS::KC_UP) {}
 }

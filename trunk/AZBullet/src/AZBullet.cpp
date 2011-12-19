@@ -1,6 +1,7 @@
 /*
 -----------------------------------------------------------------------------
 Filename:    AZBullet.cpp
+Reza Adhitya Saputra
 -----------------------------------------------------------------------------
 */
 
@@ -12,7 +13,7 @@ Filename:    AZBullet.cpp
 #include "Hydrax/Noise/Perlin/Perlin.h"
 #include "Hydrax/Modules/ProjectedGrid/ProjectedGrid.h"
 
-
+//-------------------------------------------------------------------------------------
 AZBullet::AZBullet(void):OgreBulletListener()
 {
 	_def_SkyBoxNum = 3;
@@ -41,6 +42,7 @@ AZBullet::AZBullet(void):OgreBulletListener()
 	robot = NULL;
 	ship = NULL;
 	fancyTerrain = NULL;
+	switchLever = NULL;
 }
 
 //-------------------------------------------------------------------------------------
@@ -56,6 +58,7 @@ AZBullet::~AZBullet(void)
 	if (robot != NULL)			delete robot;
 	if (ship != NULL)			delete ship;
 	if (fancyTerrain != NULL)	delete fancyTerrain;
+	if (switchLever != NULL)	delete switchLever;
 }
 
 //-------------------------------------------------------------------------------------
@@ -123,7 +126,7 @@ void AZBullet::bulletInit()
 
 	// create a vehicle
 	vehicle = new Vehicle();
-	vehicle->createVehicle(this->mSceneMgr, this->mBulletWorld, this->mNumEntitiesInstanced, this->mCamera);
+	vehicle->createObject(this->mSceneMgr, this->mBulletWorld, this->mNumEntitiesInstanced, this->mCamera);
 
 	exCamera = new ThirdPersonCamera("Third Person Camera", mSceneMgr, mCamera);
 	mCameraListener = new CameraListener(mWindow, mCamera);
@@ -142,21 +145,23 @@ void AZBullet::bulletInit()
 		0.8f);
 
 	rocket = new Rocket();
-	rocket->createRocket(mSceneMgr);
+	rocket->createObject(mSceneMgr);
 
 	robot = new Robot();
-	robot->createRobot(mSceneMgr);
+	robot->createObject(mSceneMgr);
 
 	fancyTerrain = new FancyTerrain();
-	fancyTerrain->createFancyTerrain(mSceneMgr);
+	fancyTerrain->createObject(mSceneMgr);
 
-	//createSimpleSky();	
 	createSimpleWater();
 	createHydraxSimulation();
 	this->toggleOceanSimulation();
 
 	ship = new Ship();
-	ship->createShip(mSceneMgr, mHydrax);
+	ship->createObject(mSceneMgr, mHydrax);
+
+	switchLever = new SwitchLever();
+	switchLever->createObject(mSceneMgr);
 	
 	//mBulletWorld->getDebugDrawer()->setDrawWireframe(true);
 	//mBulletWorld->setShowDebugShapes(true);
@@ -169,15 +174,22 @@ void AZBullet::bulletInit()
 		initPos += Ogre::Vector3(0, 2, 40);
 	}
 	*/
+
+	chars.push_back(vehicle);		// 00
+	chars.push_back(robot);			// 01
+	chars.push_back(ship);			// 02
+	chars.push_back(rocket);		// 03 
+	chars.push_back(fancyTerrain);	// 04
+	chars.push_back(switchLever);	// 06
+
+	this->changeCameraPosition(0);	// change it to vehicle
 }
 
 //-------------------------------------------------------------------------------------
 void AZBullet::createHydraxSimulation()
-{	
-	// Create Hydrax object
+{
 	mHydrax = new Hydrax::Hydrax(mSceneMgr, mCamera, mCamera->getViewport());
 
-	// Create our projected grid module  
 	Hydrax::Module::ProjectedGrid *mModule 
 		= new Hydrax::Module::ProjectedGrid(
 		mHydrax,	
@@ -185,7 +197,6 @@ void AZBullet::createHydraxSimulation()
 		Ogre::Plane(Ogre::Vector3(0,1,0), Ogre::Vector3(0,0,0)),	
 		Hydrax::MaterialManager::NM_VERTEX,	
 		Hydrax::Module::ProjectedGrid::Options());	
-
 	
 	mHydrax->setModule(static_cast<Hydrax::Module::Module*>(mModule));
 
@@ -224,20 +235,23 @@ void AZBullet::createSimpleWater()
 	waterNode->setVisible(false);
 }
 
-
+//-------------------------------------------------------------------------------------
 bool AZBullet::frameRenderingQueued(const Ogre::FrameEvent& arg)
 {
 	if(!BaseApplication::frameRenderingQueued(arg)) { return false; }
 
 	Ogre::Real elapsedTime = arg.timeSinceLastFrame;
-
-	//std::cout << mCamera->getOrientation() << "\n";
 	
 	if(this->isHydraxEnabled) mHydrax->update(elapsedTime);
 	mBulletWorld->stepSimulation(elapsedTime);	
 	//this->repositionCamera();	
-	this->vehicle->updatePerFrame(arg.timeSinceLastFrame);		
-	this->ship->updatePerFrame(arg.timeSinceLastEvent);
+
+	for(int a = 0; a < chars.size(); a++)
+	{
+		chars[a]->updatePerFrame(arg.timeSinceLastFrame);
+	}
+	//this->vehicle->updatePerFrame(arg.timeSinceLastFrame);		
+	//this->ship->updatePerFrame(arg.timeSinceLastEvent);
 	menu->update(this->mWindow);	// update Hikari
 
 	return true;
@@ -270,7 +284,6 @@ bool AZBullet::mouseMoved(const OIS::MouseEvent& arg)
 	Ogre::Real offsetX = (float)arg.state.X.abs / (float)arg.state.width;
 	Ogre::Real offsetY = (float)arg.state.Y.abs / (float)arg.state.height;
 
-	using namespace Hikari;
 	bool val = menu->hikariMgr->injectMouseMove(arg.state.X.abs, arg.state.Y.abs) ||  menu->hikariMgr->injectMouseWheel(arg.state.Z.rel);
 
 	//if the left mouse button is held down
@@ -410,13 +423,34 @@ void AZBullet::changeCameraPosition(int val)
 {
 	mCamera->setPosition(Ogre::Vector3::ZERO);
 	mCamera->setOrientation(Ogre::Quaternion(1, 0, 0));
-	//mCamera->lookAt(Ogre::Vector3(0, 0, -1));
+
+	for(int a = 0; a < chars.size(); a++) { chars[a]->isActive = false; }
 	
-	if(val == 0) { static_cast<CameraListener*> (mCameraListener)->setCharacter(vehicle); }
-	else if(val == 1) { static_cast<CameraListener*> (mCameraListener)->setCharacter(robot); }
-	else if(val == 2) { static_cast<CameraListener*> (mCameraListener)->setCharacter(ship); }
-	else if(val == 3) { static_cast<CameraListener*> (mCameraListener)->setCharacter(rocket); }
-	else if(val == 4) { static_cast<CameraListener*> (mCameraListener)->setCharacter(fancyTerrain); }
+	if(val == 0) 
+	{ 
+		static_cast<CameraListener*> (mCameraListener)->setCharacter(vehicle); 
+		vehicle->isActive = true;
+	}
+	else if(val == 1) 
+	{ 
+		static_cast<CameraListener*> (mCameraListener)->setCharacter(robot); 
+		robot->isActive = true;
+	}
+	else if(val == 2) 
+	{ 
+		static_cast<CameraListener*> (mCameraListener)->setCharacter(ship); 
+		ship->isActive = true;
+	}
+	else if(val == 3) 
+	{ 
+		static_cast<CameraListener*> (mCameraListener)->setCharacter(rocket); 
+		rocket->isActive = true;
+	}
+	else if(val == 4) 
+	{ 
+		static_cast<CameraListener*> (mCameraListener)->setCharacter(fancyTerrain); 
+		fancyTerrain->isActive = true;
+	}
 
 	mCameraListener->instantUpdate();
 }
@@ -441,42 +475,4 @@ void AZBullet::createFrameListener(void)
 	mRayScnQuery = mSceneMgr->createRayQuery(Ogre::Ray());	
 }
 
-#if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
-#define WIN32_LEAN_AND_MEAN
-#include "windows.h"
-#endif
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-#if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
-	#ifdef _DEBUG
-		int main()
-	#else
-		INT WINAPI WinMain( HINSTANCE hInst, HINSTANCE, LPSTR strCmdLine, INT )
-	#endif	
-#else
-    int main(int argc, char *argv[])
-#endif
-    {
-        // Create application object
-        AZBullet app;
-
-        try { app.go(); } 
-		catch( Ogre::Exception& e ) 
-		{
-#if OGRE_PLATFORM == OGRE_PLATFORM_WIN32
-            MessageBox( NULL, e.getFullDescription().c_str(), "An exception has occured!", MB_OK | MB_ICONERROR | MB_TASKMODAL);
-#else
-            std::cerr << "An exception has occured: " <<
-                e.getFullDescription().c_str() << std::endl;
-#endif
-        }
-
-        return 0;
-    }
-
-#ifdef __cplusplus
-}
-#endif

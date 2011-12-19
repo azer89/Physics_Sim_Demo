@@ -17,7 +17,7 @@ ObstacleForFun::~ObstacleForFun(void)
 
 //-------------------------------------------------------------------------------------
 // init function to create obstacle
-void ObstacleForFun::createObstacle(OgreBulletListener* listener)
+void ObstacleForFun::createObject(OgreBulletListener* listener)
 {	
 	/*
 	// create obstacle in front of car

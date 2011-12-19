@@ -19,8 +19,11 @@ public:
 	Robot(void);
 	virtual ~Robot(void);
 
-	void createRobot(SceneManager* mSceneMgr);
+	void createObject(SceneManager* mSceneMgr);
 
+	void updatePerFrame(Real elapsedTime);
+	void keyPressed(const OIS::KeyEvent& arg);
+	void keyReleased(const OIS::KeyEvent& arg);
 };
 
 #endif
