@@ -19,7 +19,19 @@ public:
 	Rocket::Rocket(void);
 	virtual ~Rocket(void);
 
-	void createRocket(SceneManager* mSceneMgr);
+	void createObject(SceneManager* mSceneMgr);
+
+	virtual void updatePerFrame(Real elapsedTime)
+	{
+	}
+
+	virtual void keyPressed(const OIS::KeyEvent& arg)
+	{
+	}
+
+	virtual void keyReleased(const OIS::KeyEvent& arg)
+	{
+	}
 	
 };
 

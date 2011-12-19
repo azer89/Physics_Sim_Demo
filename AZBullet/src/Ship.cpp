@@ -10,7 +10,7 @@ Ship::~Ship(void)
 {
 }
 
-void Ship::createShip(SceneManager* mSceneMgr, Hydrax::Hydrax *mHydrax)
+void Ship::createObject(SceneManager* mSceneMgr, Hydrax::Hydrax *mHydrax)
 {
 	this->mHydrax = mHydrax;
 
@@ -67,4 +67,12 @@ void Ship::updatePerFrame(Real elapsedTime)
 	{
 		this->mMainNode->setPosition(Ogre::Vector3(curPos.x, 50, curPos.z));
 	}
+}
+
+void Ship::keyPressed(const OIS::KeyEvent& arg)
+{
+}
+
+void Ship::keyReleased(const OIS::KeyEvent& arg)
+{
 }

@@ -20,8 +20,11 @@ public:
 	Ship(void);
 	virtual ~Ship(void);
 
-	void createShip(SceneManager* mSceneMgr, Hydrax::Hydrax *mHydrax);
-	void updatePerFrame(Real elapsedTime);
+	void createObject(SceneManager* mSceneMgr, Hydrax::Hydrax *mHydrax);
+	virtual void updatePerFrame(Real elapsedTime);
+	virtual void keyPressed(const OIS::KeyEvent& arg);
+	virtual void keyReleased(const OIS::KeyEvent& arg);
+
 
 };
 

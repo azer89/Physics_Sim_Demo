@@ -16,16 +16,16 @@ public:
 	Vehicle(void);
 	virtual ~Vehicle(void);
 
-	void createVehicle(SceneManager* mSceneMgr,
+	void createObject(SceneManager* mSceneMgr,
 		OgreBulletDynamics::DynamicsWorld *mBulletWorld,
 		size_t &mNumEntitiesInstanced,
 		Camera* mCamera);
 
 	void setVisible (bool visible);
 
-	void updatePerFrame(Real elapsedTime);
-	void keyPressed(const OIS::KeyEvent& arg);
-	void keyReleased(const OIS::KeyEvent& arg);
+	virtual void updatePerFrame(Real elapsedTime);
+	virtual void keyPressed(const OIS::KeyEvent& arg);
+	virtual void keyReleased(const OIS::KeyEvent& arg);
 
 public:
 	Vector3 CarPosition;

@@ -19,7 +19,19 @@ public:
 	FancyTerrain::FancyTerrain(void);
 	virtual ~FancyTerrain(void);
 
-	void createFancyTerrain(SceneManager* mSceneMgr);
+	void createObject(SceneManager* mSceneMgr);
+
+	virtual void updatePerFrame(Real elapsedTime)
+	{
+	}
+
+	virtual void keyPressed(const OIS::KeyEvent& arg)
+	{
+	}
+
+	virtual void keyReleased(const OIS::KeyEvent& arg)
+	{
+	}
 
 };
 
