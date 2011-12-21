@@ -33,7 +33,7 @@ public:
 	Vector3 getWorldPosition() { return mMainNode->_getDerivedPosition (); }
 
 public:
-	bool isActive;
+	bool isFocus;
 };
 
 #endif
