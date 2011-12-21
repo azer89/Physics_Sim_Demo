@@ -11,8 +11,11 @@ using namespace Ogre;
 class Robot : public Character
 {
 protected:
-
-
+	int robotState;
+	Ogre::AnimationState* ani;
+	Ogre::Vector3 direction;
+	Ogre::Real speed;
+	
 public:
 	SceneNode *robotNode;
 

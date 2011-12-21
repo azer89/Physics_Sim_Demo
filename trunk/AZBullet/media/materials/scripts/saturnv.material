@@ -1,0 +1,222 @@
+material blinn6SG
+{
+	technique
+	{
+		pass
+		{
+			shading phong
+			ambient 0.619608 0.619608 0.619608 1
+			diffuse 0.619608 0.619608 0.619608 1
+			specular 0.5 0.5 0.5 76.4341
+			emissive 0 0 0
+		}
+	}
+}
+material blinn1SG
+{
+	technique
+	{
+		pass
+		{
+			shading phong
+			ambient 1 1 1 1
+			diffuse 1 1 1 1
+			specular 0.5 0.5 0.5 76.4341
+			emissive 0 0 0
+		}
+	}
+}
+material blinn2SG
+{
+	technique
+	{
+		pass
+		{
+			shading phong
+			ambient 0 0 0 1
+			diffuse 0 0 0 1
+			specular 0.5 0.5 0.5 76.4341
+			emissive 0 0 0
+		}
+	}
+}
+material fin_blinn2SG
+{
+	technique
+	{
+		pass
+		{
+			shading phong
+			ambient 0 0 0 1
+			diffuse 0 0 0 1
+			specular 0.5 0.5 0.5 1.37187
+			emissive 0 0 0
+		}
+	}
+}
+material fin_blinn1SG
+{
+	technique
+	{
+		pass
+		{
+			shading phong
+			ambient 1 1 1 1
+			diffuse 1 1 1 1
+			specular 0.5 0.5 0.5 1.37187
+			emissive 0 0 0
+		}
+	}
+}
+material blinn5SG
+{
+	technique
+	{
+		pass
+		{
+			shading phong
+			ambient 0.8 0.8 0.8 1
+			diffuse 0.8 0.8 0.8 1
+			specular 0.5 0.5 0.5 76.4341
+			emissive 0 0 0
+		}
+	}
+}
+material blinn3SG
+{
+	technique
+	{
+		pass
+		{
+			shading phong
+			ambient 0.878431 0.788235 0.666667 1
+			diffuse 0.878431 0.788235 0.666667 1
+			specular 0.5 0.5 0.5 76.4341
+			emissive 0 0 0
+		}
+	}
+}
+material blinn4SG
+{
+	technique
+	{
+		pass
+		{
+			shading phong
+			ambient 0.839216 0.807843 0.776471 1
+			diffuse 0.839216 0.807843 0.776471 1
+			specular 0.5 0.5 0.5 76.4341
+			emissive 0 0 0
+		}
+	}
+}
+material blinn10SG
+{
+	technique
+	{
+		pass
+		{
+			shading phong
+			ambient 0 0 0 1
+			diffuse 1 1 1 1
+			specular 0.5 0.5 0.5 76.4341
+			emissive 0 0 0
+
+			texture_unit
+			{
+				texture SATURNVU.GIF
+				tex_coord_set 0
+				colour_op modulate
+				scale 1 1
+				scroll 0 0
+				rotate 0
+			}
+		}
+	}
+}
+material blinn9SG
+{
+	technique
+	{
+		pass
+		{
+			shading phong
+			ambient 0 0 0 1
+			diffuse 1 1 1 1
+			specular 0.5 0.5 0.5 76.4341
+			emissive 0 0 0
+
+			texture_unit
+			{
+				texture SATURNVA.GIF
+				tex_coord_set 0
+				colour_op modulate
+				scale 1 1
+				scroll 0 0
+				rotate 0
+			}
+		}
+	}
+}
+material blinn8SG
+{
+	technique
+	{
+		pass
+		{
+			shading phong
+			ambient 0 0 0 1
+			diffuse 1 1 1 1
+			specular 0.5 0.5 0.5 76.4341
+			emissive 0 0 0
+
+			texture_unit
+			{
+				texture SATURNVT.GIF
+				tex_coord_set 0
+				colour_op modulate
+				scale 1 1
+				scroll 0 0
+				rotate 0
+			}
+		}
+	}
+}
+material blinn11SG
+{
+	technique
+	{
+		pass
+		{
+			shading phong
+			ambient 0 0 0 1
+			diffuse 1 1 1 1
+			specular 0.5 0.5 0.5 76.4341
+			emissive 0 0 0
+
+			texture_unit
+			{
+				texture SATURNVW.BMP
+				tex_coord_set 0
+				colour_op modulate
+				scale 1 1
+				scroll 0 0
+				rotate 0
+			}
+		}
+	}
+}
+material initialShadingGr
+{
+	technique
+	{
+		pass
+		{
+			shading phong
+			ambient 0.498039 0.498039 0.498039 1
+			diffuse 0.498039 0.498039 0.498039 1
+			specular 0.69 0.69 0.69 76.4341
+			emissive 0 0 0
+		}
+	}
+}

@@ -4,6 +4,7 @@
 
 Ship::Ship(void)
 {
+	speed = 0.3f;
 }
 
 Ship::~Ship(void)
@@ -26,7 +27,7 @@ void Ship::createObject(SceneManager* mSceneMgr, Hydrax::Hydrax *mHydrax)
 	this->mMainNode->setPosition(Ogre::Vector3(-80, 50, -50));
 
 	Vector3 sight = Ogre::Vector3(0, 25, 0);
-	Vector3 cam = Ogre::Vector3(0, 30, -250);
+	Vector3 cam = Ogre::Vector3(-250, 100, 0);
 
 	// set up sight node	
 	mSightNode = this->mMainNode->createChildSceneNode ("shipSightNode", sight);
@@ -67,12 +68,70 @@ void Ship::updatePerFrame(Real elapsedTime)
 	{
 		this->mMainNode->setPosition(Ogre::Vector3(curPos.x, 50, curPos.z));
 	}
+
+	if(direction.x == -1)		// left
+	{
+		mMainNode->rotate(Ogre::Vector3::UNIT_Y, Ogre::Radian(Ogre::Degree(-speed).valueRadians()));
+	}
+	else if(direction.x == 1)	// right
+	{
+		mMainNode->rotate(Ogre::Vector3::UNIT_Y, Ogre::Radian(Ogre::Degree(speed).valueRadians()));
+	}
+
+	if(direction.z == -1)		// currently move forward
+	{
+		mMainNode->translate(
+			shipNode->_getDerivedOrientation() *
+			//Ogre::Quaternion(sqrt(0.5), 0, -sqrt(0.5), 0) *
+			Ogre::Vector3(0, 0, -speed));
+	}
+	else if (direction.z == 1)		// currently move backward
+	{
+		mMainNode->translate(
+			shipNode->_getDerivedOrientation() *
+			//Ogre::Quaternion(sqrt(0.5), 0, -sqrt(0.5), 0) *
+			Ogre::Vector3(0, 0, speed));
+	}
 }
 
 void Ship::keyPressed(const OIS::KeyEvent& arg)
 {
+	if(!isFocus) return;
+
+	if(arg.key == OIS::KC_LEFT) 
+	{ 
+		direction.x = -1; 
+	}
+	else if(arg.key == OIS::KC_RIGHT) 
+	{ 
+		direction.x = 1; 
+	}
+	else if(arg.key == OIS::KC_DOWN) 
+	{ 
+		direction.z = 1;
+	}
+	else if(arg.key == OIS::KC_UP) 
+	{ 
+		direction.z = -1; 
+	}
 }
 
 void Ship::keyReleased(const OIS::KeyEvent& arg)
 {
+	if(arg.key == OIS::KC_LEFT) 
+	{ 
+		direction.x = 0; 
+	}
+	else if(arg.key == OIS::KC_RIGHT) 
+	{ 
+		direction.x = 0; 
+	}
+	else if(arg.key == OIS::KC_DOWN) 
+	{ 
+		direction.z = 0; 
+	}
+	else if(arg.key == OIS::KC_UP) 
+	{ 
+		direction.z = 0; 
+	}
 }

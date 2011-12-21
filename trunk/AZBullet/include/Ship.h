@@ -13,6 +13,8 @@ class Ship : public Character
 {
 protected:
 	Hydrax::Hydrax *mHydrax;
+	Ogre::Real speed;
+	Ogre::Vector3 direction;
 
 public:
 	SceneNode *shipNode;

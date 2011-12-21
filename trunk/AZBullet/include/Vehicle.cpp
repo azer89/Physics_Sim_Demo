@@ -80,8 +80,11 @@ void Vehicle::createObject(SceneManager* mSceneMgr,
 
 	this->mMainNode = vehicleNode;
 	Vector3 pos = this->mMainNode->_getDerivedPosition();
-	Vector3 sight = pos + vehicleNode->_getDerivedOrientation() * Vector3(0, 2.5, 0);
-	Vector3 cam = pos + vehicleNode->_getDerivedOrientation() * Vector3(0, 5, -7.5);
+	//Vector3 sight = pos + vehicleNode->_getDerivedOrientation() * Vector3(0, 2.5, 0);
+	//Vector3 cam = pos + vehicleNode->_getDerivedOrientation() * Vector3(0, 5, -7.5);
+
+	Vector3 sight =  Vector3(0, 3, 0);
+	Vector3 cam = Vector3(0, 6, -10);
 	
 	// set up sight node	
 	mSightNode = this->mMainNode->createChildSceneNode ("sightNode", sight);
@@ -90,6 +93,7 @@ void Vehicle::createObject(SceneManager* mSceneMgr,
 	SceneNode *chassisnode = vehicleNode->createChildSceneNode();
 	chassisnode->attachObject (mChassis);
 	chassisnode->setPosition (chassisShift);
+	//chassisnode->rotate(Ogre::Quaternion(0, 0, 1, 0));
 
 	mChassis->setQueryFlags (GEOMETRY_QUERY_MASK);
 	mChassis->setQueryFlags (1<<2);
@@ -233,6 +237,8 @@ void Vehicle::updatePerFrame(Real elapsedTime)
 // when key pressed
 void Vehicle::keyPressed(const OIS::KeyEvent& arg)
 {
+	if(!isFocus)	return;
+
 	bool wheel_engine_style_change = false;
 	bool wheel_steering_style_change = false;
 	bool isChangeDirection = false;

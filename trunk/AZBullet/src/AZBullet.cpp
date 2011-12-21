@@ -240,7 +240,7 @@ bool AZBullet::frameRenderingQueued(const Ogre::FrameEvent& arg)
 {
 	if(!BaseApplication::frameRenderingQueued(arg)) { return false; }
 
-	Ogre::Real elapsedTime = arg.timeSinceLastFrame;
+	Ogre::Real elapsedTime = arg.timeSinceLastEvent;
 	
 	if(this->isHydraxEnabled) mHydrax->update(elapsedTime);
 	mBulletWorld->stepSimulation(elapsedTime);	
@@ -248,7 +248,7 @@ bool AZBullet::frameRenderingQueued(const Ogre::FrameEvent& arg)
 
 	for(int a = 0; a < chars.size(); a++)
 	{
-		chars[a]->updatePerFrame(arg.timeSinceLastFrame);
+		chars[a]->updatePerFrame(elapsedTime);
 	}
 	//this->vehicle->updatePerFrame(arg.timeSinceLastFrame);		
 	//this->ship->updatePerFrame(arg.timeSinceLastEvent);
@@ -342,7 +342,10 @@ bool AZBullet::keyPressed(const OIS::KeyEvent& arg)
 	else if(arg.key == OIS::KC_5) { changeCameraPosition(4); }
 	else { mCameraMan->injectKeyDown(arg); }
 
-	vehicle->keyPressed(arg);
+	for(int a = 0; a < chars.size(); a++)
+	{
+		chars[a]->keyPressed(arg);
+	}
 
 	return true;
 }
@@ -361,7 +364,11 @@ bool AZBullet::keyReleased(const OIS::KeyEvent& arg)
 	}
 	else { mCameraMan->injectKeyUp(arg); }
 
-	vehicle->keyReleased(arg);
+	for(int a = 0; a < chars.size(); a++)
+	{
+		chars[a]->keyReleased(arg);
+	}
+
 	return true;
 }
 
@@ -424,32 +431,32 @@ void AZBullet::changeCameraPosition(int val)
 	mCamera->setPosition(Ogre::Vector3::ZERO);
 	mCamera->setOrientation(Ogre::Quaternion(1, 0, 0));
 
-	for(int a = 0; a < chars.size(); a++) { chars[a]->isActive = false; }
+	for(int a = 0; a < chars.size(); a++) { chars[a]->isFocus = false; }
 	
 	if(val == 0) 
 	{ 
 		static_cast<CameraListener*> (mCameraListener)->setCharacter(vehicle); 
-		vehicle->isActive = true;
+		vehicle->isFocus = true;
 	}
 	else if(val == 1) 
 	{ 
 		static_cast<CameraListener*> (mCameraListener)->setCharacter(robot); 
-		robot->isActive = true;
+		robot->isFocus = true;
 	}
 	else if(val == 2) 
 	{ 
 		static_cast<CameraListener*> (mCameraListener)->setCharacter(ship); 
-		ship->isActive = true;
+		ship->isFocus = true;
 	}
 	else if(val == 3) 
 	{ 
 		static_cast<CameraListener*> (mCameraListener)->setCharacter(rocket); 
-		rocket->isActive = true;
+		rocket->isFocus = true;
 	}
 	else if(val == 4) 
 	{ 
 		static_cast<CameraListener*> (mCameraListener)->setCharacter(fancyTerrain); 
-		fancyTerrain->isActive = true;
+		fancyTerrain->isFocus = true;
 	}
 
 	mCameraListener->instantUpdate();
