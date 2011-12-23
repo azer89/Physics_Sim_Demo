@@ -6,7 +6,7 @@ Robot::Robot(void)
 {
 	direction = Ogre::Vector3::ZERO;
 	speed = 0.2f;
-	robotState = 0;
+	robotState = RobotState::NOT_MOVE;
 }
 
 Robot::~Robot(void)
@@ -75,7 +75,7 @@ void Robot::updatePerFrame(Real elapsedTime)
 	}
 	*/
 
-	if(robotState == 1)		// currently move forward
+	if(robotState == RobotState::MOVE_FORWARD)
 	{
 		mMainNode->translate(
 			robotNode->_getDerivedOrientation() *
@@ -84,7 +84,7 @@ void Robot::updatePerFrame(Real elapsedTime)
 
 		ani->addTime(elapsedTime * 1.1f);
 	}
-	else if (robotState == 2)		// currently move backward
+	else if (robotState == RobotState::MOVE_BACKWARD)
 	{
 		mMainNode->translate(
 			robotNode->_getDerivedOrientation() *
@@ -132,12 +132,12 @@ void Robot::keyPressed(const OIS::KeyEvent& arg)
 	else if(arg.key == OIS::KC_DOWN) 
 	{ 
 		direction.z = 1;
-		robotState = 2;
+		robotState = RobotState::MOVE_BACKWARD;
 	}
 	else if(arg.key == OIS::KC_UP) 
 	{ 
 		direction.z = -1; 
-		robotState = 1;
+		robotState = RobotState::MOVE_FORWARD;
 	}
 
 }
@@ -157,11 +157,11 @@ void Robot::keyReleased(const OIS::KeyEvent& arg)
 	else if(arg.key == OIS::KC_DOWN) 
 	{ 
 		direction.z = 0; 
-		robotState = 0;
+		robotState = RobotState::NOT_MOVE;
 	}
 	else if(arg.key == OIS::KC_UP) 
 	{ 
 		direction.z = 0; 
-		robotState = 0;
+		robotState = RobotState::NOT_MOVE;
 	}
 }
