@@ -8,10 +8,17 @@
 
 using namespace Ogre;
 
+enum RobotState
+{
+	MOVE_FORWARD,
+	MOVE_BACKWARD,
+	NOT_MOVE
+};
+
 class Robot : public Character
 {
 protected:
-	int robotState;
+	RobotState robotState;
 	Ogre::AnimationState* ani;
 	Ogre::Vector3 direction;
 	Ogre::Real speed;
