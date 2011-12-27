@@ -74,7 +74,7 @@ void AZBullet::createScene(void)
 	compSample->mCamera = this->mCamera;
 	compSample->mViewport = this->hViewPort;
 	compSample->setupCompositorContent();
-	compSample->setCompositorEnabled("Radial Blur", true);
+	compSample->setCompositorEnabled("HDR", true);
 
 }
 
