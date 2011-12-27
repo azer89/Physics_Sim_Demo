@@ -19,6 +19,7 @@ Filename:    AZBullet.h
 #include "Ship.h"
 #include "FancyTerrain.h"
 #include "SwitchLever.h"
+#include "CompositorSample.h"
 
 #include "Hydrax/Hydrax.h"
 
@@ -80,6 +81,7 @@ protected:
 	TerrainManager* tManager;			// not used
 	bool isHydraxEnabled;				// hydrax status
 	Hydrax::Hydrax *mHydrax;			// hydrax ocean simulation
+	CompositorSample* compSample;		// compositor implementation
 
 	std::vector<Character*> chars;
 	//int currentObject = 0;

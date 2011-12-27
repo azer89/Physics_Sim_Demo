@@ -69,6 +69,13 @@ void AZBullet::createScene(void)
 
 	menu = new RayFlashInterface(this);
 	menu->setupHikari();
+
+	compSample = new CompositorSample();
+	compSample->mCamera = this->mCamera;
+	compSample->mViewport = this->hViewPort;
+	compSample->setupCompositorContent();
+	compSample->setCompositorEnabled("Radial Blur", true);
+
 }
 
 //------------------------------------------------------------------------------------

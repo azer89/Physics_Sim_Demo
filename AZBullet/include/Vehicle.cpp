@@ -108,9 +108,9 @@ void Vehicle::createObject(SceneManager* mSceneMgr,
 
 	mCarChassis->setShape (vehicleNode, 
 		compound, 
-		0.6, // restitution
-		0.6, // friction
-		800, // bodyMass
+		0.6,				// restitution
+		0.6,				// friction
+		800,				// bodyMass
 		CarPosition, 
 		Quaternion::IDENTITY);
 	mCarChassis->setDamping(0.2, 0.2);
@@ -126,7 +126,6 @@ void Vehicle::createObject(SceneManager* mSceneMgr,
 	int forwardIndex = 2;
 
 	mVehicle->setCoordinateSystem(rightIndex, upIndex, forwardIndex);
-	
 
 	Ogre::Vector3 wheelDirectionCS0(0,-1,0);
 	Ogre::Vector3 wheelAxleCS(-1,0,0);
@@ -198,6 +197,17 @@ void Vehicle::createObject(SceneManager* mSceneMgr,
 // update per frame
 void Vehicle::updatePerFrame(Real elapsedTime)
 {
+	/*
+	Quaternion orient = this->mMainNode->_getDerivedOrientation();
+	orient.y = 0;
+	Vector3 sight =  orient * Vector3::UNIT_Y * Vector3(0, 3, 0);
+	Vector3 cam = orient * Vector3::UNIT_Y * Vector3(0, 6, -10);
+
+	// set up sight node	
+	mSightNode->setPosition(sight);
+	mCameraNode->setPosition(cam);
+	*/
+
 	// apply engine Force on relevant wheels
 	for (int i = mWheelsEngine[0]; i < mWheelsEngineCount; i++)
 	{
