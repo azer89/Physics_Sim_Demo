@@ -216,6 +216,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\src\Main.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\src\ObstacleForFun.cpp"
 				>
 			</File>
@@ -276,6 +280,18 @@
 				</File>
 				<File
 					RelativePath=".\src\Common\OgreBulletListener.cpp"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Compositor"
+				>
+				<File
+					RelativePath=".\src\CompositorSample.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\src\HelperLogics.cpp"
 					>
 				</File>
 			</Filter>
@@ -374,6 +390,18 @@
 				</File>
 				<File
 					RelativePath=".\include\Common\OgreBulletListener.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="Compositor"
+				>
+				<File
+					RelativePath=".\include\CompositorSample.h"
+					>
+				</File>
+				<File
+					RelativePath=".\include\HelperLogics.h"
 					>
 				</File>
 			</Filter>
