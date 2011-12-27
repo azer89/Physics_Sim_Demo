@@ -4,7 +4,7 @@ material ground_pavement
 	{
 		pass
 		{
-			ambient 0 0 0 1
+			ambient 0.1 0.1 0.1 1
 			diffuse 1 1 1 1
 			specular 0 0 0 1
 			emissive 0 0 0
@@ -27,7 +27,7 @@ material ground_grass
 	{
 		pass
 		{
-			ambient 0 0 0 1
+			ambient 0.1 0.1 0.1 1
 			diffuse 1 1 1 1
 			specular 0 0 0 1
 			emissive 0 0 0
@@ -50,7 +50,7 @@ material ground_lambert_black
 	{
 		pass
 		{
-			ambient 0 0 0 1
+			ambient 0.1 0.1 0.1 1
 			diffuse 0.122 0.122 0.122 1
 			specular 0 0 0 1
 			emissive 0 0 0
@@ -63,7 +63,7 @@ material ground_wood_01
 	{
 		pass
 		{
-			ambient 0 0 0 1
+			ambient 0.1 0.1 0.1 1
 			diffuse 1 1 1 1
 			specular 0 0 0 1
 			emissive 0 0 0
@@ -86,7 +86,7 @@ material ground_wood02
 	{
 		pass
 		{
-			ambient 0 0 0 1
+			ambient 0.1 0.1 0.1 1
 			diffuse 1 1 1 1
 			specular 0 0 0 1
 			emissive 0 0 0
@@ -110,7 +110,7 @@ material ground_steel_pipe
 		pass
 		{
 			shading phong
-			ambient 0 0 0 1
+			ambient 0.1 0.1 0.1 1
 			diffuse 1 1 1 1
 			specular 0.5 0.5 0.5 25.6
 			emissive 0 0 0
