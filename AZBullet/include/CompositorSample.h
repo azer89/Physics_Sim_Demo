@@ -3,9 +3,6 @@
 #define _CompositorChainReaction_H_
 
 #include "Ogre.h"
-//#include "OgreConfigFile.h"
-//#include "OgreStringConverter.h"
-//#include "OgreException.h"
 
 using namespace Ogre;
 
@@ -18,11 +15,13 @@ public:
 	void cleanupContent(void);
 	void setCompositorEnabled(Ogre::String name, bool enabled);
 
+	void SetMotionBlur(bool enabled);
 	//bool frameRenderingQueued(const FrameEvent& evt);
 
 public:
 	Ogre::Camera* mCamera;
 	Ogre::Viewport* mViewport;
+	
 
 
 protected:
@@ -43,7 +42,7 @@ protected:
 
 	//String mDebugCompositorName;
 	TextureUnitState* mDebugTextureTUS;
-
+	bool isMotionBlurActive;
 };
 
 

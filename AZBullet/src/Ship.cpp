@@ -37,6 +37,7 @@ void Ship::createObject(SceneManager* mSceneMgr, Hydrax::Hydrax *mHydrax)
 
 void Ship::updatePerFrame(Real elapsedTime)
 {
+	
 	Ogre::Vector3 curPos = this->mMainNode->getPosition();
 
 	if(mHydrax->isVisible())

@@ -80,8 +80,6 @@ void Vehicle::createObject(SceneManager* mSceneMgr,
 
 	this->mMainNode = vehicleNode;
 	Vector3 pos = this->mMainNode->_getDerivedPosition();
-	//Vector3 sight = pos + vehicleNode->_getDerivedOrientation() * Vector3(0, 2.5, 0);
-	//Vector3 cam = pos + vehicleNode->_getDerivedOrientation() * Vector3(0, 5, -7.5);
 
 	Vector3 sight =  Vector3(0, 3, 0);
 	Vector3 cam = Vector3(0, 6, -10);
@@ -197,20 +195,12 @@ void Vehicle::createObject(SceneManager* mSceneMgr,
 // update per frame
 void Vehicle::updatePerFrame(Real elapsedTime)
 {
-	/*
-	Quaternion orient = this->mMainNode->_getDerivedOrientation();
-	orient.y = 0;
-	Vector3 sight =  orient * Vector3::UNIT_Y * Vector3(0, 3, 0);
-	Vector3 cam = orient * Vector3::UNIT_Y * Vector3(0, 6, -10);
-
-	// set up sight node	
-	mSightNode->setPosition(sight);
-	mCameraNode->setPosition(cam);
-	*/
-
+	// update the speed
+	speed = mVehicle->getBulletVehicle()->getCurrentSpeedKmHour();
+	
 	// apply engine Force on relevant wheels
 	for (int i = mWheelsEngine[0]; i < mWheelsEngineCount; i++)
-	{
+	{		
 		mVehicle->applyEngineForce (mEngineForce, mWheelsEngine[i]);
 	}
 

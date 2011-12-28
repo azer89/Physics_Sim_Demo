@@ -74,7 +74,7 @@ void AZBullet::createScene(void)
 	compSample->mCamera = this->mCamera;
 	compSample->mViewport = this->hViewPort;
 	compSample->setupCompositorContent();
-	compSample->setCompositorEnabled("Radial Blur", true);
+	//compSample->setCompositorEnabled("HDR", true);
 }
 
 //------------------------------------------------------------------------------------
@@ -252,9 +252,15 @@ bool AZBullet::frameRenderingQueued(const Ogre::FrameEvent& arg)
 	mBulletWorld->stepSimulation(elapsedTime);	
 	//this->repositionCamera();	
 
-	for(int a = 0; a < chars.size(); a++)
+	for(int a = 0; a < chars.size(); a++) { chars[a]->updatePerFrame(elapsedTime); }
+
+	if(this->vehicle->speed >= 125.0f) 
 	{
-		chars[a]->updatePerFrame(elapsedTime);
+		this->compSample->SetMotionBlur(true);
+	}
+	else 
+	{
+		this->compSample->SetMotionBlur(false);
 	}
 	//this->vehicle->updatePerFrame(arg.timeSinceLastFrame);		
 	//this->ship->updatePerFrame(arg.timeSinceLastEvent);
