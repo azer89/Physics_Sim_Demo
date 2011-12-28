@@ -55,13 +55,13 @@ private:
 
 };
 
-//The compositor logic for the heat vision compositor
-class HeatVisionLogic : public ListenerFactoryLogic
-{
-protected:
-	/** @copydoc ListenerFactoryLogic::createListener */
-	virtual Ogre::CompositorInstance::Listener* createListener(Ogre::CompositorInstance* instance);
-};
+////The compositor logic for the heat vision compositor
+//class HeatVisionLogic : public ListenerFactoryLogic
+//{
+//protected:
+//	/** @copydoc ListenerFactoryLogic::createListener */
+//	virtual Ogre::CompositorInstance::Listener* createListener(Ogre::CompositorInstance* instance);
+//};
 
 //The compositor logic for the hdr compositor
 class HDRLogic : public ListenerFactoryLogic
@@ -71,12 +71,12 @@ protected:
 	virtual Ogre::CompositorInstance::Listener* createListener(Ogre::CompositorInstance* instance);
 };
 
-//The compositor logic for the gaussian blur compositor
-class GaussianBlurLogic : public ListenerFactoryLogic
-{
-protected:
-	/** @copydoc ListenerFactoryLogic::createListener */
-	virtual Ogre::CompositorInstance::Listener* createListener(Ogre::CompositorInstance* instance);
-};
+////The compositor logic for the gaussian blur compositor
+//class GaussianBlurLogic : public ListenerFactoryLogic
+//{
+//protected:
+//	/** @copydoc ListenerFactoryLogic::createListener */
+//	virtual Ogre::CompositorInstance::Listener* createListener(Ogre::CompositorInstance* instance);
+//};
 
 #endif
