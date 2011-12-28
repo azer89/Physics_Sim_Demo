@@ -62,9 +62,9 @@ void CompositorSample::setupCompositorContent(void)
 		// Register the compositor logics
 		// See comment in beginning of HelperLogics.h for explanation
 		Ogre::CompositorManager& compMgr = Ogre::CompositorManager::getSingleton();
-		compMgr.registerCompositorLogic("GaussianBlur", new GaussianBlurLogic);
+		//compMgr.registerCompositorLogic("GaussianBlur", new GaussianBlurLogic);
 		compMgr.registerCompositorLogic("HDR", new HDRLogic);
-		compMgr.registerCompositorLogic("HeatVision", new HeatVisionLogic);
+		//compMgr.registerCompositorLogic("HeatVision", new HeatVisionLogic);
 		firstTime = false;
 	}
 	

@@ -2,14 +2,12 @@
 #ifndef _CompositorChainReaction_H_
 #define _CompositorChainReaction_H_
 
-#include "OgreConfigFile.h"
-#include "OgreStringConverter.h"
-#include "OgreException.h"
+#include "Ogre.h"
+//#include "OgreConfigFile.h"
+//#include "OgreStringConverter.h"
+//#include "OgreException.h"
 
 using namespace Ogre;
-//using namespace OgreBites;
-
-#define COMPOSITORS_PER_PAGE 8
 
 class CompositorSample
 {
