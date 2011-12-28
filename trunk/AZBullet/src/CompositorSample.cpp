@@ -44,6 +44,18 @@ void CompositorSample::setupView()
     mCamera->setPosition(Ogre::Vector3(0,0,0));
     mCamera->lookAt(Ogre::Vector3(0,0,-300));
     mCamera->setNearClipDistance(1);
+
+	isMotionBlurActive = false;
+}
+
+//-----------------------------------------------------------------------------------
+void CompositorSample::SetMotionBlur(bool enabled)
+{
+	if(enabled != isMotionBlurActive)
+	{
+		CompositorManager::getSingleton().setCompositorEnabled(mViewport, "Motion Blur", enabled);
+		isMotionBlurActive = enabled;
+	}
 }
 
 //-----------------------------------------------------------------------------------
@@ -62,20 +74,13 @@ void CompositorSample::setupCompositorContent(void)
 		// Register the compositor logics
 		// See comment in beginning of HelperLogics.h for explanation
 		Ogre::CompositorManager& compMgr = Ogre::CompositorManager::getSingleton();
-		//compMgr.registerCompositorLogic("GaussianBlur", new GaussianBlurLogic);
 		compMgr.registerCompositorLogic("HDR", new HDRLogic);
-		//compMgr.registerCompositorLogic("HeatVision", new HeatVisionLogic);
 		firstTime = false;
 	}
 	
 	createTextures();
-    /// Create a couple of hard coded postfilter effects as an example of how to do it
-	/// but the preferred method is to use compositor scripts.
 	createEffects();
-	//setupScene();
 	registerCompositors();
-	//setupControls();
-	//setDragLook(true);
 }
 //-----------------------------------------------------------------------------------
 void CompositorSample::registerCompositors(void)
@@ -112,54 +117,7 @@ void CompositorSample::registerCompositors(void)
 		} catch (...) {
 		}
     }
-
-	//mNumCompositorPages = (mCompositorNames.size() / COMPOSITORS_PER_PAGE) +
-	//	((mCompositorNames.size() % COMPOSITORS_PER_PAGE == 0) ? 0 : 1);
 }
-//-----------------------------------------------------------------------------------
-/*
-void CompositorSample::changePage(size_t pageNum)
-{
-	assert(pageNum < mNumCompositorPages);
-	
-	mActiveCompositorPage = pageNum;
-	size_t maxCompositorsInPage = mCompositorNames.size() - (pageNum * COMPOSITORS_PER_PAGE);
-	for (size_t i=0; i < COMPOSITORS_PER_PAGE; i++)
-	{
-		String checkBoxName = "Compositor_" + Ogre::StringConverter::toString(i);
-		CheckBox* cb = static_cast<CheckBox*>(mTrayMgr->getWidget(TL_TOPLEFT, checkBoxName));
-		if (i < maxCompositorsInPage)
-		{
-			String compositorName = mCompositorNames[pageNum * COMPOSITORS_PER_PAGE + i];
-			CompositorInstance *tmpCompo = CompositorManager::getSingleton().getCompositorChain(mViewport)
-				->getCompositor(compositorName);
-
-			cb->setCaption(compositorName);
-
-			if( tmpCompo )
-			{
-				cb->setChecked( tmpCompo->getEnabled(), false );
-				cb->show();
-			}
-			else
-			{
-				cb->setChecked( false, false );
-				cb->hide();
-			}
-
-		}
-		else
-		{
-			cb->hide();
-		}
-	}
-
-	OgreBites::Button* pageButton = static_cast<OgreBites::Button*>(mTrayMgr->getWidget(TL_TOPLEFT, "PageButton"));
-	Ogre::StringStream ss;
-	ss << "Compositors " << pageNum + 1 << "/" << mNumCompositorPages;
-	pageButton->setCaption(ss.str());
-}
-*/
 
 //-----------------------------------------------------------------------------------
 void CompositorSample::cleanupContent(void)
@@ -168,157 +126,9 @@ void CompositorSample::cleanupContent(void)
 	CompositorManager::getSingleton().removeCompositorChain(mViewport);
 	//mCompositorNames.clear();
 }
-//-----------------------------------------------------------------------------------
-/*
-void CompositorSample::setupControls(void) 
-{
-	mTrayMgr->createButton(TL_TOPLEFT, "PageButton", "Compositors", 175);
 
-	for (size_t i=0; i < COMPOSITORS_PER_PAGE; i++)
-	{
-		String checkBoxName = "Compositor_" + Ogre::StringConverter::toString(i);
-		CheckBox* cb = mTrayMgr->createCheckBox(TL_TOPLEFT, checkBoxName, "Compositor", 175);
-		cb->hide();
-	}
 
-	changePage(0);
-	
-	mDebugTextureSelectMenu = mTrayMgr->createThickSelectMenu(TL_TOPRIGHT, "DebugRTTSelectMenu", "Debug RTT", 180, 5);
-	mDebugTextureSelectMenu->addItem("None");
 
-	mTrayMgr->createSeparator(TL_TOPRIGHT, "DebugRTTSep1");  // this is a hack to give the debug RTT a bit more room
-
-	DecorWidget* debugRTTPanel = mTrayMgr->createDecorWidget(TL_NONE, "DebugRTTPanel", "SdkTrays/Picture");
-	OverlayContainer* debugRTTContainer = (OverlayContainer*)debugRTTPanel->getOverlayElement();
-	mDebugTextureTUS = debugRTTContainer->getMaterial()->getBestTechnique()->getPass(0)->getTextureUnitState(0);
-	//mDebugTextureTUS->setTextureName("CompositorDemo/DebugView");
-	debugRTTContainer->setDimensions(128, 128);
-	debugRTTContainer->getChild("DebugRTTPanel/PictureFrame")->setDimensions(144, 144);
-	debugRTTPanel->hide();
-
-	mTrayMgr->createSeparator(TL_TOPRIGHT, "DebugRTTSep2");  // this is a hack to give the debug RTT a bit more room
-
-	mTrayMgr->showCursor();
-	mTrayMgr->showLogo(TL_BOTTOMLEFT);
-	mTrayMgr->toggleAdvancedFrameStats();
-}
-*/
-//-----------------------------------------------------------------------------------
-/*
-void CompositorSample::checkBoxToggled(OgreBites::CheckBox * box)
-{
-	if (Ogre::StringUtil::startsWith(box->getName(), "Compositor_", false))
-	{
-		String compositorName = box->getCaption();
-
-		String activeTex = mDebugTextureSelectMenu->getSelectedItem();
-
-		if (!box->isChecked())
-		{
-			//Remove the items from the debug menu and remove debug texture if from disabled compositor
-			bool debuggingRemovedTex = StringUtil::startsWith(activeTex, compositorName, false);
-			if (debuggingRemovedTex)
-			{
-				mDebugTextureTUS->setContentType(TextureUnitState::CONTENT_NAMED);
-				mDebugTextureSelectMenu->selectItem(0, true);
-			}
-			for (unsigned int i = 1; i < mDebugTextureSelectMenu->getNumItems(); i++)
-			{
-				if (StringUtil::startsWith(mDebugTextureSelectMenu->getItems()[i], compositorName, false))
-				{
-					mDebugTextureSelectMenu->removeItem(i);
-					i--;
-				}
-			}
-			if (!debuggingRemovedTex)
-			{
-				//Selection clears itself when removing items. Restore.
-				mDebugTextureSelectMenu->selectItem(activeTex, false);
-			}
-		}
-
-		CompositorManager::getSingleton().setCompositorEnabled(mViewport, compositorName, box->isChecked());
-
-		
-		if (box->isChecked())
-		{
-			//Add the items to the selectable texture menu
-			CompositorInstance* instance = CompositorManager::getSingleton().getCompositorChain(mViewport)->getCompositor(compositorName);
-			if (instance)
-			{
-				CompositionTechnique::TextureDefinitionIterator it = instance->getTechnique()->getTextureDefinitionIterator();
-				while (it.hasMoreElements())
-				{
-					CompositionTechnique::TextureDefinition* texDef = it.getNext();
-					size_t numTextures = texDef->formatList.size();
-					if (numTextures > 1)
-					{
-						for (size_t i=0; i<numTextures; i++)
-						{
-							//Dirty string composition. NOT ROBUST!
-							mDebugTextureSelectMenu->addItem(compositorName + ";" + texDef->name + ";" + 
-								Ogre::StringConverter::toString((Ogre::uint32)i));
-						}
-					}
-					else
-					{
-						mDebugTextureSelectMenu->addItem(compositorName + ";" + texDef->name);
-					}
-				}
-				mDebugTextureSelectMenu->selectItem(activeTex, false);
-			}
-		}
-	}
-}
-*/
-//-----------------------------------------------------------------------------------
-/*
-void CompositorSample::buttonHit(OgreBites::Button* button)
-{
-	size_t nextPage = (mActiveCompositorPage + 1) % mNumCompositorPages;
-	changePage(nextPage);
-}
-*/
-//-----------------------------------------------------------------------------------
-/*
-void CompositorSample::itemSelected(OgreBites::SelectMenu* menu)
-{
-	if (menu->getSelectionIndex() == 0)
-	{
-		mDebugTextureTUS->setContentType(TextureUnitState::CONTENT_NAMED);
-		mTrayMgr->getWidget("DebugRTTPanel")->hide();
-		mTrayMgr->removeWidgetFromTray("DebugRTTPanel");
-		return;
-	}
-
-	mTrayMgr->getWidget("DebugRTTPanel")->show();
-	mTrayMgr->moveWidgetToTray("DebugRTTPanel", TL_TOPRIGHT, mTrayMgr->getNumWidgets(TL_TOPRIGHT) - 1);
-	StringVector parts = StringUtil::split(menu->getSelectedItem(), ";");
-	mDebugTextureTUS->setContentType(TextureUnitState::CONTENT_COMPOSITOR);
-
-	if (parts.size() == 2)
-	{
-		mDebugTextureTUS->setCompositorReference(parts[0], parts[1]);
-	}
-	else
-	{
-		mDebugTextureTUS->setCompositorReference(parts[0], parts[1], 
-			StringConverter::parseUnsignedInt(parts[2]));
-	}
-}
-*/
-//-----------------------------------------------------------------------------------
-/*
-void CompositorSample::setupScene(void)
-{
-}
-*/
-//-----------------------------------------------------------------------------------
-/*
-bool CompositorSample::frameRenderingQueued(const FrameEvent& evt)
-{
-}
-*/
 //-----------------------------------------------------------------------------------
 /// Create the hard coded postfilter effects
 void CompositorSample::createEffects(void)
@@ -391,56 +201,6 @@ void CompositorSample::createEffects(void)
 			pass->setType(Ogre::CompositionPass::PT_RENDERQUAD);
 			pass->setMaterialName("Ogre/Compositor/MotionBlur");
 			pass->setInput(0, "sum");
-			}
-		}
-	}
-	/// Heat vision effect
-	Ogre::CompositorPtr comp4 = Ogre::CompositorManager::getSingleton().create(
-			"Heat Vision", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME
-		);
-	{
-		Ogre::CompositionTechnique *t = comp4->createTechnique();
-		t->setCompositorLogicName("HeatVision");
-		{
-			Ogre::CompositionTechnique::TextureDefinition *def = t->createTextureDefinition("scene");
-			def->width = 256;
-			def->height = 256;
-			def->formatList.push_back(Ogre::PF_R8G8B8);
-		}
-		{
-			Ogre::CompositionTechnique::TextureDefinition *def = t->createTextureDefinition("temp");
-			def->width = 256;
-			def->height = 256;
-			def->formatList.push_back(Ogre::PF_R8G8B8);
-		}
-		/// Render scene
-		{
-			Ogre::CompositionTargetPass *tp = t->createTargetPass();
-			tp->setInputMode(Ogre::CompositionTargetPass::IM_PREVIOUS);
-			tp->setOutputName("scene");
-		}
-		/// Light to heat pass
-		{
-			Ogre::CompositionTargetPass *tp = t->createTargetPass();
-			tp->setInputMode(Ogre::CompositionTargetPass::IM_NONE);
-			tp->setOutputName("temp");
-			{
-				Ogre::CompositionPass *pass = tp->createPass();
-				pass->setType(Ogre::CompositionPass::PT_RENDERQUAD);
-				pass->setIdentifier(0xDEADBABE); /// Identify pass for use in listener
-				pass->setMaterialName("Fury/HeatVision/LightToHeat");
-				pass->setInput(0, "scene");
-			}
-		}
-		/// Display result
-		{
-			Ogre::CompositionTargetPass *tp = t->getOutputTargetPass();
-			tp->setInputMode(Ogre::CompositionTargetPass::IM_NONE);
-			{
-				Ogre::CompositionPass *pass = tp->createPass();
-				pass->setType(Ogre::CompositionPass::PT_RENDERQUAD);
-				pass->setMaterialName("Fury/HeatVision/Blur");
-				pass->setInput(0, "temp");
 			}
 		}
 	}
