@@ -2,20 +2,21 @@
 #include "Stdafx.h"
 #include "Rocket.h"
 
+//-------------------------------------------------------------------------------------
 Rocket::Rocket(void)
 {
 	isActivated = false;
 	curSpeed = 0.0f;
 	accel = 0.0005f;
 	maxSpeed = 10.0f;
-
-	
 }
 
+//-------------------------------------------------------------------------------------
 Rocket::~Rocket(void)
 {
 }
 
+//-------------------------------------------------------------------------------------
 void Rocket::createObject(SceneManager* mSceneMgr)
 {
 	Ogre::Entity* rocketEntity = mSceneMgr->createEntity("RocketNode", "saturnv.mesh");
@@ -41,12 +42,14 @@ void Rocket::createObject(SceneManager* mSceneMgr)
 	activateRocket();
 }
 
+//-------------------------------------------------------------------------------------
 void Rocket::activateRocket()
 {
 	this->isActivated = true;
 	rocketSmoke->setVisible(true);
 }
 
+//-------------------------------------------------------------------------------------
 void Rocket::updatePerFrame(Real elapsedTime)
 {
 	if(!isActivated)	return;
@@ -57,10 +60,12 @@ void Rocket::updatePerFrame(Real elapsedTime)
 		curSpeed += accel;
 }
 
+//-------------------------------------------------------------------------------------
 void Rocket::keyPressed(const OIS::KeyEvent& arg)
 {
 }
 
+//-------------------------------------------------------------------------------------
 void Rocket::keyReleased(const OIS::KeyEvent& arg)
 {
 }

@@ -2,6 +2,8 @@
 /* 
 	Camera system tutorial by Kencho
 	http://www.ogre3d.org/tikiwiki/3rd+person+camera+system+tutorial
+
+	Modified by Reza Adhitya Saputra
 */
 
 #ifndef __Character_h_

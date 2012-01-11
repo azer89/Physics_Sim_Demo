@@ -154,7 +154,7 @@ void AZBullet::bulletInit()
 	rocket->createObject(mSceneMgr);
 
 	robot = new Robot();
-	robot->createObject(mSceneMgr);
+	robot->createObject(mSceneMgr, this->mBulletWorld, this->mNumEntitiesInstanced);
 
 	fancyTerrain = new FancyTerrain();
 	fancyTerrain->createObject(mSceneMgr);
@@ -169,8 +169,8 @@ void AZBullet::bulletInit()
 	switchLever = new SwitchLever();
 	switchLever->createObject(mSceneMgr);
 	
-	//mBulletWorld->getDebugDrawer()->setDrawWireframe(true);
-	//mBulletWorld->setShowDebugShapes(true);
+	mBulletWorld->getDebugDrawer()->setDrawWireframe(true);
+	mBulletWorld->setShowDebugShapes(true);
 
 	/*
 	Ogre::Vector3 initPos(-350, 80, -300);
