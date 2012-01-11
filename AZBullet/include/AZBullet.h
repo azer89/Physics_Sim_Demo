@@ -84,7 +84,6 @@ protected:
 	CompositorSample* compSample;		// compositor implementation
 
 	std::vector<Character*> chars;
-	//int currentObject = 0;
 
 	Vehicle* vehicle;					// 00
 	Robot* robot;						// 01

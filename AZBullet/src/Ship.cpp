@@ -83,14 +83,12 @@ void Ship::updatePerFrame(Real elapsedTime)
 	{
 		mMainNode->translate(
 			shipNode->_getDerivedOrientation() *
-			//Ogre::Quaternion(sqrt(0.5), 0, -sqrt(0.5), 0) *
 			Ogre::Vector3(0, 0, -speed));
 	}
 	else if (direction.z == 1)		// currently move backward
 	{
 		mMainNode->translate(
 			shipNode->_getDerivedOrientation() *
-			//Ogre::Quaternion(sqrt(0.5), 0, -sqrt(0.5), 0) *
 			Ogre::Vector3(0, 0, speed));
 	}
 }

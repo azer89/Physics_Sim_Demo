@@ -40,7 +40,7 @@ Vehicle::~Vehicle(void)
 }
 
 //-------------------------------------------------------------------------------------
-// init function to create terrain
+// init function to create vehicle
 void Vehicle::createObject(SceneManager* mSceneMgr,
 							OgreBulletDynamics::DynamicsWorld *mBulletWorld,
 							size_t &mNumEntitiesInstanced,
