@@ -6,7 +6,11 @@
 #include "Ogre.h"
 #include "Character.h"
 #include "LinearMath/btVector3.h"
-//#include "CompositorSample.h"
+
+#include "Shapes/OgreBulletCollisionsBoxShape.h"
+#include "Shapes/OgreBulletCollisionsCompoundShape.h"
+#include "Constraints/OgreBulletDynamicsRaycastVehicle.h"
+#include "OgreBulletDynamicsRigidBody.h"
 
 using namespace Ogre;
 using namespace OgreBulletCollisions;
