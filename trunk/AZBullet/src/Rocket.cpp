@@ -39,7 +39,7 @@ void Rocket::createObject(SceneManager* mSceneMgr)
 	mSightNode = this->mMainNode->createChildSceneNode("rocketSightNode", sight);
 	mCameraNode = this->mMainNode->createChildSceneNode("rocketCameraNode", cam);
 
-	activateRocket();
+	//activateRocket();
 }
 
 //-------------------------------------------------------------------------------------

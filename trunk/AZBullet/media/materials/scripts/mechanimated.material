@@ -4,7 +4,7 @@ material blinn2
 	{
 		pass
 		{
-			ambient 0 0 0 1
+			ambient 0.1 0.1 0.1 1
 			diffuse 0.10744 0.10744 0.10744 1
 			specular 0.5 0.5 0.5 89.6
 			emissive 0 0 0
@@ -18,7 +18,7 @@ material phong1
 		pass
 		{
 			shading phong
-			ambient 0 0 0 1
+			ambient 0.1 0.1 0.1 1
 			diffuse 1 0 0 1
 			specular 0.5 0.5 0.5 25.6
 			emissive 0 0 0
@@ -31,7 +31,7 @@ material blinn3
 	{
 		pass
 		{
-			ambient 0 0 0 1
+			ambient 0.1 0.1 0.1 1
 			diffuse 0.72728 0.72728 0.72728 1
 			specular 0.5 0.5 0.5 89.6
 			emissive 0 0 0

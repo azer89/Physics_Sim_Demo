@@ -6,7 +6,18 @@
 #include "Ogre.h"
 #include "Character.h"
 
+#include "Ogre.h"
+#include "Character.h"
+#include "LinearMath/btVector3.h"
+
+#include "Shapes/OgreBulletCollisionsBoxShape.h"
+#include "Shapes/OgreBulletCollisionsCompoundShape.h"
+#include "Constraints/OgreBulletDynamicsRaycastVehicle.h"
+#include "OgreBulletDynamicsRigidBody.h"
+
 using namespace Ogre;
+using namespace OgreBulletCollisions;
+using namespace OgreBulletDynamics;
 
 enum RobotState
 {
@@ -23,7 +34,7 @@ private:
 	OgreBulletDynamics::VehicleRayCaster	    *mVehicleRayCaster;
 	OgreBulletDynamics::RaycastVehicle	        *mVehicle;
 
-	Ogre::Entity    *mChassis;
+	Ogre::Entity    *robotEntity;
 	Ogre::Entity    *mWheels[4];
 	Ogre::SceneNode *mWheelNodes[4];	
 
@@ -42,17 +53,17 @@ private:
 	bool mSteeringRight;
 
 protected:
-	RobotState robotState;
-	Ogre::AnimationState* ani;
-	Ogre::Vector3 direction;
-	Ogre::Real speed;
+	//RobotState robotState;
+	//Ogre::AnimationState* ani;
+	//Ogre::Vector3 direction;
+	//Ogre::Real speed;
 	
 public:
 	SceneNode *robotNode;
 
-	Vector3 CarPosition;
+	Vector3 robotPosition;
 	SceneNode *vehicleNode;
-	Ogre::Real speed;
+	//Ogre::Real speed;
 
 public:
 	Robot(void);

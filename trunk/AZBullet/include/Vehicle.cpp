@@ -2,11 +2,6 @@
 #include "Stdafx.h"
 #include "Vehicle.h"
 
-#include "Shapes/OgreBulletCollisionsBoxShape.h"
-#include "Shapes/OgreBulletCollisionsCompoundShape.h"
-#include "Constraints/OgreBulletDynamicsRaycastVehicle.h"
-#include "OgreBulletDynamicsRigidBody.h"
-
 static float gMaxEngineForce = 5000.f;
 
 static float gSteeringIncrement = 0.04f;
@@ -99,7 +94,7 @@ void Vehicle::createObject(SceneManager* mSceneMgr,
 	
 	CompoundCollisionShape* compound = new CompoundCollisionShape();
 
-	BoxCollisionShape* chassisShape = new BoxCollisionShape(Ogre::Vector3(1.f,0.75f,2.1f));
+	BoxCollisionShape* chassisShape = new BoxCollisionShape(Ogre::Vector3(1.f, 0.75f, 2.1f));
 	compound->addChildShape(chassisShape, chassisShift); 
 
 	mCarChassis = new WheeledRigidBody("carChassis", mBulletWorld);
