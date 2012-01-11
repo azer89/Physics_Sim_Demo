@@ -25,10 +25,6 @@ static float gFrictionSlip = 10.5;
 //-------------------------------------------------------------------------------------
 Robot::Robot(void)
 {
-	//direction = Ogre::Vector3::ZERO;
-	//speed = 0.2f;
-	//robotState = RobotState::NOT_MOVE;
-
 	this->robotPosition = Ogre::Vector3(-103, 65, 40);
 }
 
@@ -42,48 +38,21 @@ void Robot::createObject(SceneManager* mSceneMgr,
 						 OgreBulletDynamics::DynamicsWorld *mBulletWorld,
 						 size_t &mNumEntitiesInstanced)
 {
-
-	//-------------------------------------------------------------------------------------
-	//Ogre::Entity* robotEntity = mSceneMgr->createEntity("RobotEntity", "mechanimated.mesh");
-	//this->mMainNode = mSceneMgr->getRootSceneNode()->createChildSceneNode();
-	//
-	//robotNode = this->mMainNode->createChildSceneNode("RobotNode");	
-	//robotNode->attachObject(robotEntity);
-	//robotNode->translate(Ogre::Vector3(-20, 0, -20));
-	//robotNode->setScale(Ogre::Vector3(2));	
-	//robotNode->rotate(Ogre::Vector3::UNIT_Y, Ogre::Radian(Ogre::Degree(135).valueRadians()));
-	//	
-	//this->mMainNode->setPosition(Ogre::Vector3(-103, 60, 40));
-
-	//Vector3 sight = Ogre::Vector3(0, 25, 0);
-	//Vector3 cam = Ogre::Vector3(75, 25, 75);
-
-	//// set up sight node	
-	//mSightNode = this->mMainNode->createChildSceneNode ("robotSightNode", sight);
-	//mCameraNode = this->mMainNode->createChildSceneNode ("robotCameraNode", cam);
-
-	//ani = robotEntity->getAnimationState("walking");
-	//ani->setEnabled(true);
-
-	//-------------------------------------------------------------------------------------
-	for (int i = 0; i < 4; i++)
-	{
-		mWheelsEngine[i] = 0;
-		mWheelsSteerable[i] = 0;
-	}
-
-	mWheelsEngineCount = 2;
+	mWheelsEngineCount = 4;
 	mWheelsEngine[0] = 0;
-	mWheelsEngine[1] = 1;
+	mWheelsEngine[1] = 1;  
 	mWheelsEngine[2] = 2;
 	mWheelsEngine[3] = 3;
+
+	mWheelsSteerableCount = 4;
+	mWheelsSteerable[0] = 0;
+	mWheelsSteerable[1] = 1;  
+	mWheelsSteerable[2] = 2;
+	mWheelsSteerable[3] = 3; 
 
 	mWheelsSteerableCount = 2;
 	mWheelsSteerable[0] = 0;
 	mWheelsSteerable[1] = 1;
-
-	mWheelEngineStyle = 0;
-	mWheelSteeringStyle = 0;
 
 	mSteeringLeft = false;
 	mSteeringRight = false;
@@ -100,42 +69,42 @@ void Robot::createObject(SceneManager* mSceneMgr,
 	this->mMainNode = vehicleNode;
 	Vector3 pos = this->mMainNode->_getDerivedPosition();
 
-	Vector3 sight = Ogre::Vector3(0, 25, 0);
-	Vector3 cam = Ogre::Vector3(75, 25, 75);
-
-	// set up sight node	
-	mSightNode = this->mMainNode->createChildSceneNode ("RobotSightNode", sight);
-	mCameraNode = this->mMainNode->createChildSceneNode ("RobotCameraNode", cam);
-
-	SceneNode *chassisnode = vehicleNode->createChildSceneNode();
-	//chassisnode->attachObject (robotEntity);
-	chassisnode->setPosition (chassisShift);
-	//chassisnode->rotate(Ogre::Quaternion(0, 0, 1, 0));
+	SceneNode *chassisNode = vehicleNode->createChildSceneNode();
+	chassisNode->setPosition (chassisShift);
 	
-	robotNode = chassisnode->createChildSceneNode("RobotNode");	
+	robotNode = chassisNode->createChildSceneNode("RobotNode");	
 	robotNode->attachObject(robotEntity);
-	//robotNode->translate(Ogre::Vector3(-20, 0, -20));
-	//robotNode->setScale(Ogre::Vector3(2));	
 	robotNode->rotate(Ogre::Vector3::UNIT_Y, Ogre::Radian(Ogre::Degree(-90).valueRadians()));
 
 	robotEntity->setQueryFlags (GEOMETRY_QUERY_MASK);
 	robotEntity->setQueryFlags (1<<2);
 	robotEntity->setCastShadows(false);
 
-	CompoundCollisionShape* compound = new CompoundCollisionShape();
+	Vector3 sight =  Vector3(0, 3, 0);
+	Vector3 cam = Vector3(0, 10, -25);
 
-	BoxCollisionShape* chassisShape = new BoxCollisionShape(Ogre::Vector3(3.0f, 1.0f, 3.0f));
-	compound->addChildShape(chassisShape, chassisShift); 
+	// set up sight node	
+	mSightNode = chassisNode->createChildSceneNode ("RobotSightNode", sight);
+	mCameraNode = chassisNode->createChildSceneNode ("RobotCameraNode", cam);
+
+	ani = robotEntity->getAnimationState("walking");
+	ani->setEnabled(true);
+
+	CompoundCollisionShape* compound01 = new CompoundCollisionShape();
+	BoxCollisionShape* chassisShape01 = new BoxCollisionShape(Ogre::Vector3(3.0f, 1.0f, 3.0f));
+	//BoxCollisionShape* chassisShape02 = new BoxCollisionShape(Ogre::Vector3(3.0f, 9.0f, 3.0f));
+	compound01->addChildShape(chassisShape01, chassisShift); 
+	//compound01->addChildShape(chassisShape02, Ogre::Vector3(0, 5.0, 0)); 
 
 	mCarChassis = new WheeledRigidBody("RobotChassis", mBulletWorld);
 
-	mCarChassis->setShape (chassisnode, 
-		compound, 
+	mCarChassis->setShape (chassisNode, 
+		compound01, 
 		0.6,				// restitution
 		0.6,				// friction
 		800,				// bodyMass
 		this->robotPosition, 
-		Quaternion::IDENTITY);
+		Ogre::Quaternion::IDENTITY);
 
 	mCarChassis->setDamping(0.2, 0.2);
 
@@ -201,15 +170,13 @@ void Robot::createObject(SceneManager* mSceneMgr,
 		wheelAxleCS,
 		gSuspensionRestLength,
 		gWheelRadius,
-		isFrontWheel, gWheelFriction, gRollInfluence);
-	
+		isFrontWheel, gWheelFriction, gRollInfluence);	
 }
 
 //-------------------------------------------------------------------------------------
 // update per frame
 void Robot::updatePerFrame(Real elapsedTime)
 {
-
 	//if(direction.x == -1)		// left
 	//{
 	//	mMainNode->rotate(Ogre::Vector3::UNIT_Y, Ogre::Radian(Ogre::Degree(-speed).valueRadians()));
@@ -239,7 +206,7 @@ void Robot::updatePerFrame(Real elapsedTime)
 	//}	
 
 	// update the speed
-	//speed = mVehicle->getBulletVehicle()->getCurrentSpeedKmHour();
+	//std::cout << mVehicle->getBulletVehicle()->getCurrentSpeedKmHour() << "\n";
 
 	// apply engine Force on relevant wheels
 	for (int i = mWheelsEngine[0]; i < mWheelsEngineCount; i++)
@@ -279,53 +246,11 @@ void Robot::updatePerFrame(Real elapsedTime)
 // when key pressed
 void Robot::keyPressed(const OIS::KeyEvent& arg)
 {
-	//if(!isFocus) return;
-
-	/*
-	if(arg.key == OIS::KC_LEFT) 
-	{ 
-		direction.x = -1; 
-	}
-	else if(arg.key == OIS::KC_RIGHT) 
-	{ 
-		direction.x = 1; 
-	}
-	else if(arg.key == OIS::KC_DOWN) 
-	{ 
-		direction.z = 1;
-		robotState = RobotState::MOVE_BACKWARD;
-	}
-	else if(arg.key == OIS::KC_UP) 
-	{ 
-		direction.z = -1; 
-		robotState = RobotState::MOVE_FORWARD;
-	}*/
-
 	bool wheel_engine_style_change = false;
 	bool wheel_steering_style_change = false;
 	bool isChangeDirection = false;
 
-	if(arg.key == OIS::KC_PGUP)
-	{
-		wheel_engine_style_change = true;
-		mWheelEngineStyle = (mWheelEngineStyle + 1) % 3;
-	}
-	else if(arg.key == OIS::KC_PGDOWN)
-	{
-		wheel_engine_style_change = true;
-		mWheelEngineStyle = (mWheelEngineStyle - 1) % 3;
-	}
-	else if(arg.key == OIS::KC_HOME)
-	{
-		wheel_steering_style_change = true;
-		mWheelSteeringStyle = (mWheelSteeringStyle + 1) % 3;
-	}
-	else if(arg.key == OIS::KC_END)
-	{
-		wheel_steering_style_change = true;
-		mWheelSteeringStyle = (mWheelSteeringStyle - 1) % 3;
-	}
-	else if(arg.key == OIS::KC_LEFT)
+	if(arg.key == OIS::KC_LEFT)
 	{
 		mSteeringLeft = true;
 		isChangeDirection = true;
@@ -349,71 +274,6 @@ void Robot::keyPressed(const OIS::KeyEvent& arg)
 		mSteeringRight = false;
 		mSteeringLeft = false;
 	}
-
-	if (wheel_engine_style_change)
-	{
-		for (int i = 0; i < 4; i++)
-			mWheelsEngine[i] = 0;
-
-		if (mWheelEngineStyle < 0)
-			mWheelEngineStyle = 2;
-
-		switch (mWheelEngineStyle)
-		{
-		case 0://front
-			mWheelsSteerableCount = 2;
-			mWheelsSteerable[0] = 0;
-			mWheelsSteerable[1] = 1;  
-			break;
-		case 1://back
-			mWheelsSteerableCount = 2;
-			mWheelsSteerable[0] = 2;
-			mWheelsSteerable[1] = 3;  
-			break;
-		case 2://4x4
-			mWheelsSteerableCount = 4;
-			mWheelsSteerable[0] = 0;
-			mWheelsSteerable[1] = 1;  
-			mWheelsSteerable[2] = 2;
-			mWheelsSteerable[3] = 3; 
-			break;
-		default:
-			assert(0);
-			break;
-		}
-	}
-
-	if (wheel_steering_style_change)
-	{
-		for (int i = 0; i < 4; i++) mWheelsSteerable[i] = 0;
-
-		if (mWheelSteeringStyle < 0) mWheelSteeringStyle = 2;
-
-		switch (mWheelSteeringStyle)
-		{
-		case 0://front
-			mWheelsEngineCount = 2;
-			mWheelsEngine[0] = 0;
-			mWheelsEngine[1] = 1;  
-			break;
-		case 1://back
-			mWheelsEngineCount = 2;
-			mWheelsEngine[0] = 2;
-			mWheelsEngine[1] = 3;  
-			break;
-		case 2://4x4
-			mWheelsEngineCount = 4;
-			mWheelsEngine[0] = 0;
-			mWheelsEngine[1] = 1;  
-			mWheelsEngine[2] = 2;
-			mWheelsEngine[3] = 3; 
-			break;
-		default:
-			assert(0);
-			break;
-		}
-	}
-
 }
 
 //-------------------------------------------------------------------------------------

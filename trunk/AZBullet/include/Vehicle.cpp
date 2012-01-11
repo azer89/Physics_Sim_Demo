@@ -67,7 +67,7 @@ void Vehicle::createObject(SceneManager* mSceneMgr,
 	mEngineForce = 0;
 	mSteering = 0;
 
-	const Ogre::Vector3 chassisShift(0, 1.0, 0);
+	const Ogre::Vector3 chassisShift(0, 1.2, 0);
 	float connectionHeight = 0.7f;
 
 	mChassis = mSceneMgr->createEntity( "chassis" + StringConverter::toString(mNumEntitiesInstanced++), "delorean.mesh");
@@ -85,7 +85,7 @@ void Vehicle::createObject(SceneManager* mSceneMgr,
 
 	SceneNode *chassisnode = vehicleNode->createChildSceneNode();
 	chassisnode->attachObject (mChassis);
-	chassisnode->setPosition (chassisShift);
+	chassisnode->setPosition (chassisShift - Ogre::Vector3 (0, 0.2, 0));
 	//chassisnode->rotate(Ogre::Quaternion(0, 0, 1, 0));
 
 	mChassis->setQueryFlags (GEOMETRY_QUERY_MASK);
