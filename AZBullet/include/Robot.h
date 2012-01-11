@@ -19,12 +19,12 @@ using namespace Ogre;
 using namespace OgreBulletCollisions;
 using namespace OgreBulletDynamics;
 
-enum RobotState
-{
-	MOVE_FORWARD,
-	MOVE_BACKWARD,
-	NOT_MOVE
-};
+//enum RobotState
+//{
+//	MOVE_FORWARD,
+//	MOVE_BACKWARD,
+//	NOT_MOVE
+//};
 
 class Robot : public Character
 {
@@ -54,7 +54,7 @@ private:
 
 protected:
 	//RobotState robotState;
-	//Ogre::AnimationState* ani;
+	Ogre::AnimationState* ani;
 	//Ogre::Vector3 direction;
 	//Ogre::Real speed;
 	
