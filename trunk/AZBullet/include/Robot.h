@@ -9,6 +9,8 @@
 #include "Ogre.h"
 #include "Character.h"
 #include "LinearMath/btVector3.h"
+#include "BulletDynamics/ConstraintSolver/btGeneric6DofConstraint.h"
+#include "BulletDynamics/Dynamics/btRigidBody.h"
 
 #include "Shapes/OgreBulletCollisionsBoxShape.h"
 #include "Shapes/OgreBulletCollisionsCompoundShape.h"
@@ -29,7 +31,7 @@ using namespace OgreBulletDynamics;
 class Robot : public Character
 {
 private:	
-	OgreBulletDynamics::WheeledRigidBody        *mCarChassis;
+	OgreBulletDynamics::WheeledRigidBody        *mRobotChassis;
 	OgreBulletDynamics::VehicleTuning	        *mTuning;
 	OgreBulletDynamics::VehicleRayCaster	    *mVehicleRayCaster;
 	OgreBulletDynamics::RaycastVehicle	        *mVehicle;

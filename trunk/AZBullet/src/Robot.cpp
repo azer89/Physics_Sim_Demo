@@ -86,9 +86,10 @@ void Robot::createObject(SceneManager* mSceneMgr,
 	compound->addChildShape(new BoxCollisionShape(Ogre::Vector3(0.6f, 4.0f, 2.0f)), chassisShift + Ogre::Vector3(-3, 4.0, 0));	// left limb
 	compound->addChildShape(new BoxCollisionShape(Ogre::Vector3(0.6f, 4.0f, 2.0f)), chassisShift + Ogre::Vector3(3, 4.0, 0));	// right limb
 	
-	mCarChassis = new WheeledRigidBody("RobotChassis", mBulletWorld);
+	mRobotChassis = new WheeledRigidBody("RobotChassis", mBulletWorld);
+	
 
-	mCarChassis->setShape (chassisNode, 
+	mRobotChassis->setShape (chassisNode, 
 		compound, 
 		0.0,				// restitution
 		0.6,				// friction
@@ -96,19 +97,46 @@ void Robot::createObject(SceneManager* mSceneMgr,
 		this->robotPosition, 
 		Ogre::Quaternion::IDENTITY);
 	
-	mCarChassis->setDamping(0.2, 0.9);		// ratio effect
-	mCarChassis->disableDeactivation ();
-	
+	mRobotChassis->setDamping(0.2, 0.9);		// ratio effect
+	mRobotChassis->disableDeactivation ();
+
 	mTuning = new VehicleTuning( gSuspensionStiffness, gSuspensionCompression, gSuspensionDamping, gMaxSuspensionTravelCm, gFrictionSlip);
 
 	mVehicleRayCaster = new VehicleRayCaster(mBulletWorld);
-	mVehicle = new RaycastVehicle(mCarChassis, mTuning, mVehicleRayCaster);
+	mVehicle = new RaycastVehicle(mRobotChassis, mTuning, mVehicleRayCaster);
 	mVehicle->setCoordinateSystem(0, 1, 2);	// rightIndex, upIndex, forwardIndex
-	
+
+	mRobotChassis->getBulletRigidBody()->setLinearFactor(btVector3(1, 1, 1));
+	mRobotChassis->getBulletRigidBody()->setAngularFactor(btVector3(0.5, 0.5, 0.5));	
+
+	//mCarChassis->getBulletRigidBody()->setGravity(btVector3(0, 0, 0));
+	//btVector3 objGravity = mCarChassis->getBulletRigidBody()->getGravity();	//objGravity.
+	//mCarChassis->getBulletRigidBody()->setGravity(objGravity);
+
+	//btRigidBody* zeroBody = new btRigidBody(0, NULL, NULL); // Create the body that we attach things to
+	//btRigidBody* robot = mRobotChassis->getBulletRigidBody();
+
+	//btGeneric6DofConstraint* constrict = new btGeneric6DofConstraint(*robot, *zeroBody, btTransform::getIdentity(), btTransform::getIdentity(), false);
+
+	//constrict->setLimit(0,1,0); // Disable X axis limits
+	//constrict->setLimit(1,1,0); // Disable Y axis limits
+	//constrict->setLimit(2,0,0); // Set the Z axis to always be equal to zero
+	//constrict->setLimit(3,1,0); // Uncap the rotational axes
+	//constrict->setLimit(4,1,0); // Uncap the rotational axes
+	//constrict->setLimit(5,1,0); // Uncap the rotational axes
+
+	//constrict->setLinearLowerLimit( btVector3( 1, 1, 1));
+	//constrict->setLinearUpperLimit( btVector3(-1, -1,-1));
+
+	//constrict->setAngularLowerLimit( btVector3( 1,  1,  1) );
+	//constrict->setAngularUpperLimit( btVector3(-1, -1, -1) );
+
+	//mBulletWorld->getBulletDynamicsWorld()->addConstraint(constrict);	
+
 	for (size_t i = 0; i < 4; i++) { mWheelNodes[i] = mSceneMgr->getRootSceneNode ()->createChildSceneNode ();}
 
-	Ogre::Vector3 wheelDirectionCS0(0,-1,0);
-	Ogre::Vector3 wheelAxleCS(-1,0,0);
+	Ogre::Vector3 wheelDirectionCS0(0, -1, 0);
+	Ogre::Vector3 wheelAxleCS(-1, 0, 0);
 
 	mVehicle->addWheel(mWheelNodes[0],
 		Ogre::Vector3 ( CUBE_HALF_EXTENTS + (0.3*gWheelWidth), connectionHeight, 2.3 * CUBE_HALF_EXTENTS - gWheelRadius),
@@ -133,16 +161,22 @@ void Robot::updatePerFrame(Real elapsedTime)
 {
 	// update the speed
 	Ogre::Real animFactor = mVehicle->getBulletVehicle()->getCurrentSpeedKmHour() / 50.0f;
-	//std::cout << animFactor << "\n";
 	if(animFactor > 0.1f || animFactor < -0.1f)	ani->addTime(elapsedTime * animFactor);
+
 	//Ogre::Vector3 centerMass = mCarChassis->getCenterOfMassPosition();
 	//mCarChassis->setPosition(btVector3(centerMass.x, centerMass.y + 50, centerMass.z));
 	//mMainNode->setPosition(0, 50, 0);
+	
+	Ogre::Real currentSpeed = mVehicle->getBulletVehicle()->getCurrentSpeedKmHour();
 
 	// apply engine Force on relevant wheels
 	for (int i = mWheelsEngine[0]; i < mWheelsEngineCount; i++) 
 	{
-		mVehicle->applyEngineForce (mEngineForce, mWheelsEngine[i]); 
+		Ogre::Real xFactor = 1.0f;
+		if(currentSpeed < 100.0f && currentSpeed >= 0.0f) xFactor = 2.0f;
+		if(currentSpeed > -100.0f && currentSpeed <= 0.0f) xFactor = -2.0f;
+
+		mVehicle->applyEngineForce (mEngineForce , mWheelsEngine[i]); 
 
 		if(mEngineForce == 0) mVehicle->getBulletVehicle()->setBrake(200, mWheelsEngine[i]);
 	}
