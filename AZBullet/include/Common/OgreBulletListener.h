@@ -136,13 +136,19 @@ public:
     OgreBulletDynamics::RigidBody* getBodyUnderCursorUsingBullet(Ogre::Vector3 &intersectionPoint, Ogre::Ray &rayTo);
     OgreBulletDynamics::RigidBody* getBodyUnderCursorUsingOgre(Ogre::Vector3 &intersectionPoint, Ogre::Ray &rayTo);
 
+public:
+	std::deque<Ogre::Entity *>                          mEntities;
+	std::deque<OgreBulletDynamics::RigidBody *>         mBodies;
+	std::deque<OgreBulletCollisions::CollisionShape *>  mShapes;
+	Ogre::SceneManager      *mBulletSceneMgr;
+	OgreBulletDynamics::DynamicsWorld *mBulletWorld;
 
 protected:
     static size_t mNumEntitiesInstanced;
     
     Ogre::RenderWindow      *mBulletWindow;
     Ogre::Root              *mBulletRoot;
-    Ogre::SceneManager      *mBulletSceneMgr;
+    //Ogre::SceneManager      *mBulletSceneMgr;
 
     int mCurrentShadowTechnique;
     Ogre::Light *mSunLight;
@@ -156,13 +162,12 @@ protected:
     float                    mBulletCameraMove;
     Ogre::Vector3            mBulletCameraTrans;
 
-    OgreBulletDynamics::DynamicsWorld *mBulletWorld;
+    //OgreBulletDynamics::DynamicsWorld *mBulletWorld;
     OgreBulletApplication *mBulletApplication;
 
-
-    std::deque<Ogre::Entity *>                          mEntities;
-    std::deque<OgreBulletDynamics::RigidBody *>         mBodies;
-    std::deque<OgreBulletCollisions::CollisionShape *>  mShapes;
+    //std::deque<Ogre::Entity *>                          mEntities;
+    //std::deque<OgreBulletDynamics::RigidBody *>         mBodies;
+    //std::deque<OgreBulletCollisions::CollisionShape *>  mShapes;
 
     bool                    mStatsOn;
     bool                    mQuit;

@@ -19,6 +19,17 @@ using namespace OgreBulletDynamics;
 
 class Ship : public Character
 {
+private:
+	RigidBody* addRigidBodyShip(OgreBulletListener *bulletListener,
+					const Ogre::String instanceName,
+					const Ogre::Vector3 &pos, 
+					const Ogre::Quaternion &q, 
+					const Ogre::Vector3 &size,
+					const Ogre::Real bodyRestitution, 
+					const Ogre::Real bodyFriction, 
+					const Ogre::Real bodyMass,
+					size_t &mNumEntitiesInstanced);
+
 protected:
 	Hydrax::Hydrax *mHydrax;
 	Ogre::Real speed;
@@ -30,7 +41,7 @@ public:
 	Ship(void);
 	virtual ~Ship(void);
 
-	void createObject(SceneManager* mSceneMgr, Hydrax::Hydrax *mHydrax);
+	void createObject(OgreBulletListener *bulletListener, Hydrax::Hydrax *mHydrax, size_t &mNumEntitiesInstanced);
 	virtual void updatePerFrame(Real elapsedTime);
 	virtual void keyPressed(const OIS::KeyEvent& arg);
 	virtual void keyReleased(const OIS::KeyEvent& arg);
