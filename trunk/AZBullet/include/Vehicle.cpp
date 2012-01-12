@@ -86,22 +86,20 @@ void Vehicle::createObject(SceneManager* mSceneMgr,
 	SceneNode *chassisnode = vehicleNode->createChildSceneNode();
 	chassisnode->attachObject (mChassis);
 	chassisnode->setPosition (chassisShift - Ogre::Vector3 (0, 0.2, 0));
-	//chassisnode->rotate(Ogre::Quaternion(0, 0, 1, 0));
 
 	mChassis->setQueryFlags (GEOMETRY_QUERY_MASK);
 	mChassis->setQueryFlags (1<<2);
 	mChassis->setCastShadows(false);
 	
 	CompoundCollisionShape* compound = new CompoundCollisionShape();
-
 	BoxCollisionShape* chassisShape = new BoxCollisionShape(Ogre::Vector3(1.f, 0.75f, 2.1f));
 	compound->addChildShape(chassisShape, chassisShift); 
-
+	
 	mCarChassis = new WheeledRigidBody("carChassis", mBulletWorld);
 
 	mCarChassis->setShape (vehicleNode, 
 		compound, 
-		0.6,				// restitution
+		0.0,				// restitution
 		0.6,				// friction
 		800,				// bodyMass
 		CarPosition, 
@@ -120,69 +118,35 @@ void Vehicle::createObject(SceneManager* mSceneMgr,
 
 	mVehicle->setCoordinateSystem(rightIndex, upIndex, forwardIndex);
 
-	Ogre::Vector3 wheelDirectionCS0(0,-1,0);
-	Ogre::Vector3 wheelAxleCS(-1,0,0);
-
 	for (size_t i = 0; i < 4; i++)
 	{
 		mWheels[i] = mSceneMgr->createEntity( "wheel" + StringConverter::toString(mNumEntitiesInstanced++), "wheel.mesh");
-
 		mWheels[i]->setQueryFlags (GEOMETRY_QUERY_MASK);
 		mWheels[i]->setQueryFlags (1<<2);
-
 		mWheels[i]->setCastShadows(false);
 
 		mWheelNodes[i] = mSceneMgr->getRootSceneNode ()->createChildSceneNode ();
 		mWheelNodes[i]->attachObject (mWheels[i]);
-
 	}
 
-	bool isFrontWheel = true;
+	Ogre::Vector3 wheelDirectionCS0(0,-1,0);
+	Ogre::Vector3 wheelAxleCS(-1,0,0);
 
-	Ogre::Vector3 connectionPointCS0 ( CUBE_HALF_EXTENTS + (0.3*gWheelWidth), connectionHeight, 2.3 * CUBE_HALF_EXTENTS - gWheelRadius);
+	mVehicle->addWheel(mWheelNodes[0],
+		Ogre::Vector3 ( CUBE_HALF_EXTENTS + (0.3*gWheelWidth), connectionHeight, 2.3 * CUBE_HALF_EXTENTS - gWheelRadius),
+		wheelDirectionCS0, wheelAxleCS, gSuspensionRestLength, gWheelRadius, true, gWheelFriction, gRollInfluence);
 
-	mVehicle->addWheel(
-		mWheelNodes[0],
-		connectionPointCS0,
-		wheelDirectionCS0,
-		wheelAxleCS,
-		gSuspensionRestLength,
-		gWheelRadius,
-		isFrontWheel, gWheelFriction, gRollInfluence);
+	mVehicle->addWheel(mWheelNodes[1],
+		Ogre::Vector3( -CUBE_HALF_EXTENTS - (0.3*gWheelWidth), connectionHeight, 2.3 * CUBE_HALF_EXTENTS - gWheelRadius),
+		wheelDirectionCS0, wheelAxleCS, gSuspensionRestLength, gWheelRadius, true, gWheelFriction, gRollInfluence);
 
-	connectionPointCS0 = Ogre::Vector3( -CUBE_HALF_EXTENTS - (0.3*gWheelWidth), connectionHeight, 2.3 * CUBE_HALF_EXTENTS - gWheelRadius);
+	mVehicle->addWheel(mWheelNodes[2],
+		Ogre::Vector3( -CUBE_HALF_EXTENTS - (0.3*gWheelWidth), connectionHeight, -2.1 * CUBE_HALF_EXTENTS + gWheelRadius),
+		wheelDirectionCS0, wheelAxleCS, gSuspensionRestLength, gWheelRadius, false, gWheelFriction, gRollInfluence);
 
-	mVehicle->addWheel(
-		mWheelNodes[1],
-		connectionPointCS0,
-		wheelDirectionCS0,
-		wheelAxleCS,
-		gSuspensionRestLength,
-		gWheelRadius,
-		isFrontWheel, gWheelFriction, gRollInfluence);
-
-	connectionPointCS0 = Ogre::Vector3( -CUBE_HALF_EXTENTS - (0.3*gWheelWidth), connectionHeight, -2.1 * CUBE_HALF_EXTENTS + gWheelRadius);
-
-	isFrontWheel = false;
-	mVehicle->addWheel(
-		mWheelNodes[2],
-		connectionPointCS0,
-		wheelDirectionCS0,
-		wheelAxleCS,
-		gSuspensionRestLength,
-		gWheelRadius,
-		isFrontWheel, gWheelFriction, gRollInfluence);
-
-	connectionPointCS0 = Ogre::Vector3( CUBE_HALF_EXTENTS + (0.3*gWheelWidth), connectionHeight, -2.1 * CUBE_HALF_EXTENTS + gWheelRadius);
-
-	mVehicle->addWheel(
-		mWheelNodes[3],
-		connectionPointCS0,
-		wheelDirectionCS0,
-		wheelAxleCS,
-		gSuspensionRestLength,
-		gWheelRadius,
-		isFrontWheel, gWheelFriction, gRollInfluence);
+	mVehicle->addWheel(mWheelNodes[3],
+		Ogre::Vector3( CUBE_HALF_EXTENTS + (0.3*gWheelWidth), connectionHeight, -2.1 * CUBE_HALF_EXTENTS + gWheelRadius),
+		wheelDirectionCS0, wheelAxleCS,	gSuspensionRestLength,	gWheelRadius, false, gWheelFriction, gRollInfluence);
 }
 
 
@@ -194,22 +158,17 @@ void Vehicle::updatePerFrame(Real elapsedTime)
 	speed = mVehicle->getBulletVehicle()->getCurrentSpeedKmHour();
 	
 	// apply engine Force on relevant wheels
-	for (int i = mWheelsEngine[0]; i < mWheelsEngineCount; i++)
-	{		
-		mVehicle->applyEngineForce (mEngineForce, mWheelsEngine[i]);
-	}
+	for (int i = mWheelsEngine[0]; i < mWheelsEngineCount; i++) { mVehicle->applyEngineForce (mEngineForce, mWheelsEngine[i]); }
 
 	if (mSteeringLeft)
 	{
 		mSteering += gSteeringIncrement;
-		if (mSteering > gSteeringClamp)
-			mSteering = gSteeringClamp;
+		if (mSteering > gSteeringClamp) mSteering = gSteeringClamp;
 	}
 	else if (mSteeringRight)
 	{
 		mSteering -= gSteeringIncrement;
-		if (mSteering < -gSteeringClamp)
-			mSteering = -gSteeringClamp;
+		if (mSteering < -gSteeringClamp) mSteering = -gSteeringClamp;
 	}
 	else if(!mSteeringLeft && !mSteeringRight)
 	{
@@ -352,6 +311,8 @@ void Vehicle::keyPressed(const OIS::KeyEvent& arg)
 // when key released
 void Vehicle::keyReleased(const OIS::KeyEvent& arg)
 {
+	if(!isFocus)	return;
+
 	if(arg.key == OIS::KC_LEFT) { mSteeringLeft = false; }
 	else if(arg.key == OIS::KC_RIGHT) { mSteeringRight = false; }
 	else if(arg.key == OIS::KC_DOWN) { mEngineForce = 0; }

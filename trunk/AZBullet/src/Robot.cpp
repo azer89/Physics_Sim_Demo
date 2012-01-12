@@ -25,6 +25,12 @@ static float gFrictionSlip = 10.5;
 //-------------------------------------------------------------------------------------
 Robot::Robot(void)
 {
+	mSteeringLeft = false;
+	mSteeringRight = false;
+
+	mEngineForce = 0;
+	mSteering = 0;
+
 	this->robotPosition = Ogre::Vector3(-103, 65, 40);
 }
 
@@ -39,26 +45,13 @@ void Robot::createObject(SceneManager* mSceneMgr,
 						 size_t &mNumEntitiesInstanced)
 {
 	mWheelsEngineCount = 4;
-	mWheelsEngine[0] = 0;
-	mWheelsEngine[1] = 1;  
-	mWheelsEngine[2] = 2;
-	mWheelsEngine[3] = 3;
+	mWheelsEngine[0] = 0; mWheelsEngine[1] = 1; mWheelsEngine[2] = 2; mWheelsEngine[3] = 3;
 
 	mWheelsSteerableCount = 4;
-	mWheelsSteerable[0] = 0;
-	mWheelsSteerable[1] = 1;  
-	mWheelsSteerable[2] = 2;
-	mWheelsSteerable[3] = 3; 
+	mWheelsSteerable[0] = 0; mWheelsSteerable[1] = 1; mWheelsSteerable[2] = 2; mWheelsSteerable[3] = 3; 
 
 	mWheelsSteerableCount = 2;
-	mWheelsSteerable[0] = 0;
-	mWheelsSteerable[1] = 1;
-
-	mSteeringLeft = false;
-	mSteeringRight = false;
-
-	mEngineForce = 0;
-	mSteering = 0;
+	mWheelsSteerable[0] = 0; mWheelsSteerable[1] = 1;
 
 	const Ogre::Vector3 chassisShift(0, 1.0, 0);
 	float connectionHeight = 0.7f;
@@ -80,151 +73,89 @@ void Robot::createObject(SceneManager* mSceneMgr,
 	robotEntity->setQueryFlags (1<<2);
 	robotEntity->setCastShadows(false);
 
-	Vector3 sight =  Vector3(0, 3, 0);
-	Vector3 cam = Vector3(0, 10, -25);
-
 	// set up sight node	
-	mSightNode = chassisNode->createChildSceneNode ("RobotSightNode", sight);
-	mCameraNode = chassisNode->createChildSceneNode ("RobotCameraNode", cam);
+	mSightNode = chassisNode->createChildSceneNode ("RobotSightNode", Vector3(0, 3, 0));
+	mCameraNode = chassisNode->createChildSceneNode ("RobotCameraNode", Vector3(0, 10, -35));
 
 	ani = robotEntity->getAnimationState("walking");
 	ani->setEnabled(true);
 
-	CompoundCollisionShape* compound01 = new CompoundCollisionShape();
-	BoxCollisionShape* chassisShape01 = new BoxCollisionShape(Ogre::Vector3(3.0f, 1.0f, 3.0f));
-	//BoxCollisionShape* chassisShape02 = new BoxCollisionShape(Ogre::Vector3(3.0f, 9.0f, 3.0f));
-	compound01->addChildShape(chassisShape01, chassisShift); 
-	//compound01->addChildShape(chassisShape02, Ogre::Vector3(0, 5.0, 0)); 
-
+	CompoundCollisionShape* compound = new CompoundCollisionShape();
+	compound->addChildShape(new BoxCollisionShape(Ogre::Vector3(4.0f, 0.5f, 4.0f)), chassisShift);								// base
+	compound->addChildShape(new BoxCollisionShape(Ogre::Vector3(2.0f, 2.8f, 3.0f)), chassisShift + Ogre::Vector3(0, 8.0, 0));	// body
+	compound->addChildShape(new BoxCollisionShape(Ogre::Vector3(0.6f, 4.0f, 2.0f)), chassisShift + Ogre::Vector3(-3, 4.0, 0));	// left limb
+	compound->addChildShape(new BoxCollisionShape(Ogre::Vector3(0.6f, 4.0f, 2.0f)), chassisShift + Ogre::Vector3(3, 4.0, 0));	// right limb
+	
 	mCarChassis = new WheeledRigidBody("RobotChassis", mBulletWorld);
 
 	mCarChassis->setShape (chassisNode, 
-		compound01, 
-		0.6,				// restitution
+		compound, 
+		0.0,				// restitution
 		0.6,				// friction
-		800,				// bodyMass
+		1500,				// bodyMass
 		this->robotPosition, 
 		Ogre::Quaternion::IDENTITY);
-
-	mCarChassis->setDamping(0.2, 0.2);
-
+	
+	mCarChassis->setDamping(0.2, 0.9);		// ratio effect
 	mCarChassis->disableDeactivation ();
+	
 	mTuning = new VehicleTuning( gSuspensionStiffness, gSuspensionCompression, gSuspensionDamping, gMaxSuspensionTravelCm, gFrictionSlip);
 
 	mVehicleRayCaster = new VehicleRayCaster(mBulletWorld);
 	mVehicle = new RaycastVehicle(mCarChassis, mTuning, mVehicleRayCaster);
-
-	int rightIndex = 0;
-	int upIndex = 1;
-	int forwardIndex = 2;
-
-	mVehicle->setCoordinateSystem(rightIndex, upIndex, forwardIndex);
+	mVehicle->setCoordinateSystem(0, 1, 2);	// rightIndex, upIndex, forwardIndex
+	
+	for (size_t i = 0; i < 4; i++) { mWheelNodes[i] = mSceneMgr->getRootSceneNode ()->createChildSceneNode ();}
 
 	Ogre::Vector3 wheelDirectionCS0(0,-1,0);
 	Ogre::Vector3 wheelAxleCS(-1,0,0);
 
-	for (size_t i = 0; i < 4; i++) { mWheelNodes[i] = mSceneMgr->getRootSceneNode ()->createChildSceneNode ();}
+	mVehicle->addWheel(mWheelNodes[0],
+		Ogre::Vector3 ( CUBE_HALF_EXTENTS + (0.3*gWheelWidth), connectionHeight, 2.3 * CUBE_HALF_EXTENTS - gWheelRadius),
+		wheelDirectionCS0, wheelAxleCS, gSuspensionRestLength, gWheelRadius, true, gWheelFriction, gRollInfluence);
 
-	bool isFrontWheel = true;
+	mVehicle->addWheel(mWheelNodes[1],
+		Ogre::Vector3( -CUBE_HALF_EXTENTS - (0.3*gWheelWidth), connectionHeight, 2.3 * CUBE_HALF_EXTENTS - gWheelRadius),
+		wheelDirectionCS0, wheelAxleCS, gSuspensionRestLength, gWheelRadius, true, gWheelFriction, gRollInfluence);
 
-	Ogre::Vector3 connectionPointCS0 ( CUBE_HALF_EXTENTS + (0.3*gWheelWidth), connectionHeight, 2.3 * CUBE_HALF_EXTENTS - gWheelRadius);
+	mVehicle->addWheel(mWheelNodes[2],
+		Ogre::Vector3( -CUBE_HALF_EXTENTS - (0.3*gWheelWidth), connectionHeight, -2.1 * CUBE_HALF_EXTENTS + gWheelRadius),
+		wheelDirectionCS0, wheelAxleCS, gSuspensionRestLength, gWheelRadius, false, gWheelFriction, gRollInfluence);
 
-	mVehicle->addWheel(
-		mWheelNodes[0],
-		connectionPointCS0,
-		wheelDirectionCS0,
-		wheelAxleCS,
-		gSuspensionRestLength,
-		gWheelRadius,
-		isFrontWheel, gWheelFriction, gRollInfluence);
-
-	connectionPointCS0 = Ogre::Vector3( -CUBE_HALF_EXTENTS - (0.3*gWheelWidth), connectionHeight, 2.3 * CUBE_HALF_EXTENTS - gWheelRadius);
-
-	mVehicle->addWheel(
-		mWheelNodes[1],
-		connectionPointCS0,
-		wheelDirectionCS0,
-		wheelAxleCS,
-		gSuspensionRestLength,
-		gWheelRadius,
-		isFrontWheel, gWheelFriction, gRollInfluence);
-
-	connectionPointCS0 = Ogre::Vector3( -CUBE_HALF_EXTENTS - (0.3*gWheelWidth), connectionHeight, -2.1 * CUBE_HALF_EXTENTS + gWheelRadius);
-
-	isFrontWheel = false;
-	mVehicle->addWheel(
-		mWheelNodes[2],
-		connectionPointCS0,
-		wheelDirectionCS0,
-		wheelAxleCS,
-		gSuspensionRestLength,
-		gWheelRadius,
-		isFrontWheel, gWheelFriction, gRollInfluence);
-
-	connectionPointCS0 = Ogre::Vector3( CUBE_HALF_EXTENTS + (0.3*gWheelWidth), connectionHeight, -2.1 * CUBE_HALF_EXTENTS + gWheelRadius);
-
-	mVehicle->addWheel(
-		mWheelNodes[3],
-		connectionPointCS0,
-		wheelDirectionCS0,
-		wheelAxleCS,
-		gSuspensionRestLength,
-		gWheelRadius,
-		isFrontWheel, gWheelFriction, gRollInfluence);	
+	mVehicle->addWheel(mWheelNodes[3],
+		Ogre::Vector3( CUBE_HALF_EXTENTS + (0.3*gWheelWidth), connectionHeight, -2.1 * CUBE_HALF_EXTENTS + gWheelRadius),
+		wheelDirectionCS0, wheelAxleCS,	gSuspensionRestLength,	gWheelRadius, false, gWheelFriction, gRollInfluence);
 }
 
 //-------------------------------------------------------------------------------------
 // update per frame
 void Robot::updatePerFrame(Real elapsedTime)
 {
-	//if(direction.x == -1)		// left
-	//{
-	//	mMainNode->rotate(Ogre::Vector3::UNIT_Y, Ogre::Radian(Ogre::Degree(-speed).valueRadians()));
-	//}
-	//else if(direction.x == 1)	// right
-	//{
-	//	mMainNode->rotate(Ogre::Vector3::UNIT_Y, Ogre::Radian(Ogre::Degree(speed).valueRadians()));
-	//}
-
-	//if(robotState == RobotState::MOVE_FORWARD)
-	//{
-	//	mMainNode->translate(
-	//		robotNode->_getDerivedOrientation() *
-	//		Ogre::Quaternion(sqrt(0.5), 0, -sqrt(0.5), 0) *
-	//		Ogre::Vector3(0, 0, -speed));
-
-	//	ani->addTime(elapsedTime * 1.1f);
-	//}
-	//else if (robotState == RobotState::MOVE_BACKWARD)
-	//{
-	//	mMainNode->translate(
-	//		robotNode->_getDerivedOrientation() *
-	//		Ogre::Quaternion(sqrt(0.5), 0, -sqrt(0.5), 0) *
-	//		Ogre::Vector3(0, 0, speed));
-
-	//	ani->addTime(-elapsedTime * 1.1f);
-	//}	
-
 	// update the speed
-	//std::cout << mVehicle->getBulletVehicle()->getCurrentSpeedKmHour() << "\n";
+	Ogre::Real animFactor = mVehicle->getBulletVehicle()->getCurrentSpeedKmHour() / 50.0f;
+	//std::cout << animFactor << "\n";
+	if(animFactor > 0.1f || animFactor < -0.1f)	ani->addTime(elapsedTime * animFactor);
+	//Ogre::Vector3 centerMass = mCarChassis->getCenterOfMassPosition();
+	//mCarChassis->setPosition(btVector3(centerMass.x, centerMass.y + 50, centerMass.z));
+	//mMainNode->setPosition(0, 50, 0);
 
 	// apply engine Force on relevant wheels
-	for (int i = mWheelsEngine[0]; i < mWheelsEngineCount; i++)
-	{		
-		mVehicle->applyEngineForce (mEngineForce, mWheelsEngine[i]);
+	for (int i = mWheelsEngine[0]; i < mWheelsEngineCount; i++) 
+	{
+		mVehicle->applyEngineForce (mEngineForce, mWheelsEngine[i]); 
+
+		if(mEngineForce == 0) mVehicle->getBulletVehicle()->setBrake(200, mWheelsEngine[i]);
 	}
 
 	if (mSteeringLeft)
 	{
 		mSteering += gSteeringIncrement;
-		if (mSteering > gSteeringClamp)
-			mSteering = gSteeringClamp;
+		if (mSteering > gSteeringClamp) mSteering = gSteeringClamp;
 	}
 	else if (mSteeringRight)
 	{
 		mSteering -= gSteeringIncrement;
-		if (mSteering < -gSteeringClamp)
-			mSteering = -gSteeringClamp;
+		if (mSteering < -gSteeringClamp) mSteering = -gSteeringClamp;
 	}
 	else if(!mSteeringLeft && !mSteeringRight)
 	{
@@ -246,6 +177,8 @@ void Robot::updatePerFrame(Real elapsedTime)
 // when key pressed
 void Robot::keyPressed(const OIS::KeyEvent& arg)
 {
+	if(!isFocus)	return;
+
 	bool wheel_engine_style_change = false;
 	bool wheel_steering_style_change = false;
 	bool isChangeDirection = false;
@@ -260,14 +193,8 @@ void Robot::keyPressed(const OIS::KeyEvent& arg)
 		mSteeringRight = true;
 		isChangeDirection = true;
 	}
-	else if(arg.key == OIS::KC_DOWN)
-	{
-		mEngineForce = -gMaxEngineForce;
-	}
-	else if(arg.key == OIS::KC_UP)
-	{
-		mEngineForce = gMaxEngineForce;
-	}
+	else if(arg.key == OIS::KC_DOWN) { mEngineForce = -gMaxEngineForce; }
+	else if(arg.key == OIS::KC_UP) { mEngineForce = gMaxEngineForce; }
 
 	if(!isChangeDirection)
 	{
@@ -280,27 +207,7 @@ void Robot::keyPressed(const OIS::KeyEvent& arg)
 // when key released
 void Robot::keyReleased(const OIS::KeyEvent& arg)
 {
-
-	//if(!isFocus) return;
-
-	/*if(arg.key == OIS::KC_LEFT) 
-	{ 
-		direction.x = 0; 
-	}
-	else if(arg.key == OIS::KC_RIGHT) 
-	{ 
-		direction.x = 0; 
-	}
-	else if(arg.key == OIS::KC_DOWN) 
-	{ 
-		direction.z = 0; 
-		robotState = RobotState::NOT_MOVE;
-	}
-	else if(arg.key == OIS::KC_UP) 
-	{ 
-		direction.z = 0; 
-		robotState = RobotState::NOT_MOVE;
-	}*/
+	if(!isFocus) return;
 
 	if(arg.key == OIS::KC_LEFT) { mSteeringLeft = false; }
 	else if(arg.key == OIS::KC_RIGHT) { mSteeringRight = false; }
