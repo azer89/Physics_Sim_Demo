@@ -20,7 +20,9 @@ using namespace OgreBulletDynamics;
 class Ship : public Character
 {
 private:
-	RigidBody* addRigidBodyShip(OgreBulletListener *bulletListener,
+	RigidBody *shipRigidBody;
+
+	void addRigidBodyShip(OgreBulletListener *bulletListener,
 					const Ogre::String instanceName,
 					const Ogre::Vector3 &pos, 
 					const Ogre::Quaternion &q, 
