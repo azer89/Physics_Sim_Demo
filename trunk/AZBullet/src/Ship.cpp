@@ -2,39 +2,61 @@
 #include "Stdafx.h"
 #include "Ship.h"
 
+const float gStaticBodyRestitution  = 0.1f;
+const float gStaticBodyFriction     = 0.8f;
+
+const float gDynamicBodyRestitution = 0.6f;
+const float gDynamicBodyFriction    = 0.6f;
+const float gDynamicBodyMass        = 1.0f;
+
+//-------------------------------------------------------------------------------------
 Ship::Ship(void)
 {
 	speed = 0.3f;
 }
 
+//-------------------------------------------------------------------------------------
 Ship::~Ship(void)
 {
 }
 
-void Ship::createObject(SceneManager* mSceneMgr, Hydrax::Hydrax *mHydrax)
+//-------------------------------------------------------------------------------------
+void Ship::createObject(OgreBulletListener *bulletListener,
+						Hydrax::Hydrax *mHydrax,
+						size_t &mNumEntitiesInstanced)
 {
 	this->mHydrax = mHydrax;
+	this->addRigidBodyShip(bulletListener,	// bullet listener
+		"BlueShip",							// instance name
+		Ogre::Vector3(-80, 50, -50),		// position
+		Quaternion::IDENTITY,				// orientation
+		Ogre::Vector3(15, 10, 45),			// size
+		0.0f,								// restitution
+		0.6f,								// friction
+		1500.0f,							// mass
+		mNumEntitiesInstanced);				// number of instances
 
-	Ogre::Entity* rocketEntity = mSceneMgr->createEntity("ShipNode", "yatch.mesh");
-	this->mMainNode = mSceneMgr->getRootSceneNode()->createChildSceneNode();
+	//Ogre::Entity* rocketEntity = mSceneMgr->createEntity("ShipNode", "yatch.mesh");
+	//this->mMainNode = mSceneMgr->getRootSceneNode()->createChildSceneNode();
 
-	shipNode = this->mMainNode->createChildSceneNode("ShipNode");
-	shipNode->attachObject(rocketEntity);		
-	shipNode->setScale(Ogre::Vector3(5));
-	shipNode->setFixedYawAxis(true);
-	shipNode->rotate(Ogre::Vector3::UNIT_Y, Ogre::Radian(Ogre::Degree(-45).valueRadians()));
+	//shipNode = this->mMainNode->createChildSceneNode("ShipNode");
+	//shipNode->attachObject(rocketEntity);		
+	//shipNode->setScale(Ogre::Vector3(5));
+	//shipNode->setFixedYawAxis(true);
+	//shipNode->rotate(Ogre::Vector3::UNIT_Y, Ogre::Radian(Ogre::Degree(-45).valueRadians()));
 
-	this->mMainNode->setPosition(Ogre::Vector3(-80, 50, -50));
+	//this->mMainNode->setPosition(Ogre::Vector3(-80, 50, -50));
 
-	Vector3 sight = Ogre::Vector3(0, 25, 0);
-	Vector3 cam = Ogre::Vector3(-250, 100, 0);
+	//Vector3 sight = Ogre::Vector3(0, 25, 0);
+	//Vector3 cam = Ogre::Vector3(-250, 100, 0);
 
-	// set up sight node	
-	mSightNode = this->mMainNode->createChildSceneNode ("shipSightNode", sight);
-	mCameraNode = this->mMainNode->createChildSceneNode ("shipCameraNode", cam);
+	//// set up sight node	
+	//mSightNode = this->mMainNode->createChildSceneNode ("shipSightNode", sight);
+	//mCameraNode = this->mMainNode->createChildSceneNode ("shipCameraNode", cam);
 	
 }
 
+//-------------------------------------------------------------------------------------
 void Ship::updatePerFrame(Real elapsedTime)
 {
 	
@@ -72,27 +94,28 @@ void Ship::updatePerFrame(Real elapsedTime)
 
 	if(direction.x == -1)		// left
 	{
-		mMainNode->rotate(Ogre::Vector3::UNIT_Y, Ogre::Radian(Ogre::Degree(-speed).valueRadians()));
+		//mMainNode->rotate(Ogre::Vector3::UNIT_Y, Ogre::Radian(Ogre::Degree(-speed).valueRadians()));
 	}
 	else if(direction.x == 1)	// right
 	{
-		mMainNode->rotate(Ogre::Vector3::UNIT_Y, Ogre::Radian(Ogre::Degree(speed).valueRadians()));
+		//mMainNode->rotate(Ogre::Vector3::UNIT_Y, Ogre::Radian(Ogre::Degree(speed).valueRadians()));
 	}
 
 	if(direction.z == -1)		// currently move forward
 	{
 		mMainNode->translate(
-			shipNode->_getDerivedOrientation() *
+			mMainNode->_getDerivedOrientation() *
 			Ogre::Vector3(0, 0, -speed));
 	}
 	else if (direction.z == 1)		// currently move backward
 	{
 		mMainNode->translate(
-			shipNode->_getDerivedOrientation() *
+			mMainNode->_getDerivedOrientation() *
 			Ogre::Vector3(0, 0, speed));
 	}
 }
 
+//-------------------------------------------------------------------------------------
 void Ship::keyPressed(const OIS::KeyEvent& arg)
 {
 	if(!isFocus) return;
@@ -115,6 +138,7 @@ void Ship::keyPressed(const OIS::KeyEvent& arg)
 	}
 }
 
+//-------------------------------------------------------------------------------------
 void Ship::keyReleased(const OIS::KeyEvent& arg)
 {
 	if(arg.key == OIS::KC_LEFT) 
@@ -133,4 +157,56 @@ void Ship::keyReleased(const OIS::KeyEvent& arg)
 	{ 
 		direction.z = 0; 
 	}
+}
+
+//-------------------------------------------------------------------------------------
+RigidBody* Ship::addRigidBodyShip(OgreBulletListener *bulletListener,
+							const Ogre::String instanceName,
+							const Ogre::Vector3 &pos, 
+							const Ogre::Quaternion &q, 
+							const Ogre::Vector3 &size,
+							const Ogre::Real bodyRestitution, 
+							const Ogre::Real bodyFriction, 
+							const Ogre::Real bodyMass,
+							size_t &mNumEntitiesInstanced)
+{
+	Entity *shipEntity = bulletListener->mBulletSceneMgr->createEntity(
+		instanceName + StringConverter::toString(mNumEntitiesInstanced),
+		"yatch.mesh");
+
+	shipEntity->setQueryFlags (GEOMETRY_QUERY_MASK);
+	//rocketEntity->setCastShadows(true);
+
+	BoxCollisionShape *sceneCubeShape = new BoxCollisionShape(size);
+	
+	RigidBody *shipRigidBody = new RigidBody(
+		"shipRigid" + StringConverter::toString(mNumEntitiesInstanced), 
+		bulletListener->mBulletWorld);
+
+	this->mMainNode = bulletListener->mBulletSceneMgr->getRootSceneNode()->createChildSceneNode();
+	//shipNode = this->mMainNode->createChildSceneNode("ShipNode");
+	mMainNode->attachObject(shipEntity);		
+	mMainNode->setScale(Ogre::Vector3(5));
+	mMainNode->setFixedYawAxis(true);
+	mMainNode->rotate(Ogre::Vector3::UNIT_Y, Ogre::Radian(Ogre::Degree(-45).valueRadians()));
+
+	Vector3 sight = Ogre::Vector3(0, 25, 0);
+	Vector3 cam = Ogre::Vector3(-250, 100, 0);
+
+	// set up sight node	
+	mSightNode = this->mMainNode->createChildSceneNode ("shipSightNode", sight);
+	mCameraNode = this->mMainNode->createChildSceneNode ("shipCameraNode", cam);
+	
+	shipRigidBody->setShape (mMainNode,  sceneCubeShape, bodyRestitution, bodyFriction, bodyMass, pos, q);
+
+	bulletListener->mEntities.push_back(shipEntity);
+	bulletListener->mShapes.push_back(sceneCubeShape);
+	bulletListener->mBodies.push_back(shipRigidBody);
+
+	shipRigidBody->getBulletRigidBody()->setGravity(btVector3(0, 0, 0));		// make it float
+	shipRigidBody->setKinematicObject(true);									// set it as kinematic object
+
+	mNumEntitiesInstanced++;
+
+	return shipRigidBody;
 }

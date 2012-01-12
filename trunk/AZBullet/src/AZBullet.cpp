@@ -164,7 +164,7 @@ void AZBullet::bulletInit()
 	this->toggleOceanSimulation();
 
 	ship = new Ship();
-	ship->createObject(mSceneMgr, mHydrax);
+	ship->createObject(this, mHydrax, this->mNumEntitiesInstanced);
 
 	switchLever = new SwitchLever();
 	switchLever->createObject(mSceneMgr);
