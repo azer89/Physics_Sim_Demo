@@ -38,8 +38,8 @@ private:
 
 	Hikari::FlashValue onExitClick(Hikari::FlashControl* caller, const Hikari::Arguments& args);				// event listener to close app
 	Hikari::FlashValue onMenuStateChange(Hikari::FlashControl* caller, const Hikari::Arguments& args);			// event listener when menu opened/closed
-	Hikari::FlashValue onOceanSimToogle(Hikari::FlashControl* caller, const Hikari::Arguments& args);
-	Hikari::FlashValue onWeatherOption(Hikari::FlashControl* caller, const Hikari::Arguments& args);
+	Hikari::FlashValue onOceanSimToogle(Hikari::FlashControl* caller, const Hikari::Arguments& args);			// hydrax option
+	Hikari::FlashValue onWeatherOption(Hikari::FlashControl* caller, const Hikari::Arguments& args);			// weather option
 	
 	//Hikari::FlashValue onCurveChange(Hikari::FlashControl* caller, const Hikari::Arguments& args);			// event listener to change curve type	
 	//Hikari::FlashValue onHeightChange(Hikari::FlashControl* caller, const Hikari::Arguments& args);			// event listener to change pole's height
