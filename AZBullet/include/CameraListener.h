@@ -22,7 +22,7 @@ public:
 protected:	
 	Character *mChar;				// References to the main character and the camera
 	ThirdPersonCamera *mExCamera;
-	unsigned int mMode;				// Camera mode - Now supports 1st person, 3rd person (chasing) and 3rd person (fixed)
+	unsigned int mMode;				// Camera mode
 };
 
 #endif

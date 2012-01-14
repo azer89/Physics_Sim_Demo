@@ -11,10 +11,10 @@ using namespace Ogre;
 class Rocket : public Character
 {
 protected:
-	Ogre::Real curSpeed;
-	Ogre::Real accel;
-	Ogre::Real maxSpeed;
-	Ogre::ParticleSystem* rocketSmoke;
+	Ogre::Real curSpeed;					// current speed
+	Ogre::Real accel;						// speed acceleration
+	Ogre::Real maxSpeed;					// maximum speed
+	Ogre::ParticleSystem* rocketSmoke;		// smoke particle
 
 public:
 	bool isActivated;

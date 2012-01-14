@@ -49,14 +49,10 @@ void Vehicle::createObject(SceneManager* mSceneMgr,
 	}
 
 	mWheelsEngineCount = 2;
-	mWheelsEngine[0] = 0;
-	mWheelsEngine[1] = 1;
-	mWheelsEngine[2] = 2;
-	mWheelsEngine[3] = 3;
+	mWheelsEngine[0] = 0; mWheelsEngine[1] = 1; mWheelsEngine[2] = 2; mWheelsEngine[3] = 3;
 
 	mWheelsSteerableCount = 2;
-	mWheelsSteerable[0] = 0;
-	mWheelsSteerable[1] = 1;
+	mWheelsSteerable[0] = 0; mWheelsSteerable[1] = 1;
 
 	mWheelEngineStyle = 0;
 	mWheelSteeringStyle = 0;

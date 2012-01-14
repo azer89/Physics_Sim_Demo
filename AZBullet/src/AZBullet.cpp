@@ -164,13 +164,15 @@ void AZBullet::bulletInit()
 	this->toggleOceanSimulation();
 
 	ship = new Ship();
-	ship->createObject(this, mHydrax, this->mNumEntitiesInstanced);
+	//ship->createObject(this, mHydrax, this->mNumEntitiesInstanced);
+	ship->createObject(mSceneMgr, this->mBulletWorld, this->mNumEntitiesInstanced);
+	robot->ship = ship;
 
 	switchLever = new SwitchLever();
 	switchLever->createObject(mSceneMgr);
 	
-	mBulletWorld->getDebugDrawer()->setDrawWireframe(true);
-	mBulletWorld->setShowDebugShapes(true);
+	//mBulletWorld->getDebugDrawer()->setDrawWireframe(true);
+	//mBulletWorld->setShowDebugShapes(true);
 
 	/*
 	Ogre::Vector3 initPos(-350, 80, -300);
@@ -262,6 +264,11 @@ bool AZBullet::frameRenderingQueued(const Ogre::FrameEvent& arg)
 	{
 		this->compSample->SetMotionBlur(false);
 	}
+
+	//std::cout << "ship: " << this->ship->mVehicle->getBulletVehicle()->getRigidBody()->getLinearVelocity() << "\n";
+	//std::cout << "rbot: " << this->robot->mVehicle->getBulletVehicle()->getRigidBody()->getLinearVelocity() << "\n";
+	//this->robot->mVehicle->getBulletVehicle()->getRigidBody()->setLinearVelocity(this->ship->mVehicle->getBulletVehicle()->getRigidBody()->getLinearVelocity());
+
 	//this->vehicle->updatePerFrame(arg.timeSinceLastFrame);		
 	//this->ship->updatePerFrame(arg.timeSinceLastEvent);
 	menu->update(this->mWindow);	// update Hikari

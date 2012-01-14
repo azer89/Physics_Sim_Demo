@@ -1,33 +1,10 @@
-material ground_pavement
-{
-	technique
-	{
-		pass
-		{
-			ambient 0.1 0.1 0.1 1
-			diffuse 1 1 1 1
-			specular 0 0 0 1
-			emissive 0 0 0
-
-			texture_unit
-			{
-				texture brick.jpg
-				tex_coord_set 0
-				colour_op modulate
-				scale 1 1
-				scroll 0 0
-				rotate 0
-			}
-		}
-	}
-}
 material ground_grass
 {
 	technique
 	{
 		pass
 		{
-			ambient 0.1 0.1 0.1 1
+			ambient 0 0 0 1
 			diffuse 1 1 1 1
 			specular 0 0 0 1
 			emissive 0 0 0
@@ -44,16 +21,26 @@ material ground_grass
 		}
 	}
 }
-material ground_lambert_black
+material ground_pavement
 {
 	technique
 	{
 		pass
 		{
-			ambient 0.1 0.1 0.1 1
-			diffuse 0.122 0.122 0.122 1
+			ambient 0 0 0 1
+			diffuse 1 1 1 1
 			specular 0 0 0 1
 			emissive 0 0 0
+
+			texture_unit
+			{
+				texture brick.jpg
+				tex_coord_set 0
+				colour_op modulate
+				scale 1 1
+				scroll 0 0
+				rotate 0
+			}
 		}
 	}
 }
@@ -63,7 +50,7 @@ material ground_wood_01
 	{
 		pass
 		{
-			ambient 0.1 0.1 0.1 1
+			ambient 0 0 0 1
 			diffuse 1 1 1 1
 			specular 0 0 0 1
 			emissive 0 0 0
@@ -86,7 +73,7 @@ material ground_wood02
 	{
 		pass
 		{
-			ambient 0.1 0.1 0.1 1
+			ambient 0 0 0 1
 			diffuse 1 1 1 1
 			specular 0 0 0 1
 			emissive 0 0 0
@@ -110,7 +97,7 @@ material ground_steel_pipe
 		pass
 		{
 			shading phong
-			ambient 0.1 0.1 0.1 1
+			ambient 0 0 0 1
 			diffuse 1 1 1 1
 			specular 0.5 0.5 0.5 25.6
 			emissive 0 0 0
@@ -124,6 +111,19 @@ material ground_steel_pipe
 				scroll 0 0
 				rotate 0
 			}
+		}
+	}
+}
+material lambert1
+{
+	technique
+	{
+		pass
+		{
+			ambient 0 0 0 1
+			diffuse 0.5 0.5 0.5 1
+			specular 0 0 0 1
+			emissive 0 0 0
 		}
 	}
 }

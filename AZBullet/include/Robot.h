@@ -5,6 +5,7 @@
 
 #include "Ogre.h"
 #include "Character.h"
+#include "Ship.h"
 
 #include "Ogre.h"
 #include "Character.h"
@@ -34,7 +35,7 @@ private:
 	OgreBulletDynamics::WheeledRigidBody        *mRobotChassis;
 	OgreBulletDynamics::VehicleTuning	        *mTuning;
 	OgreBulletDynamics::VehicleRayCaster	    *mVehicleRayCaster;
-	OgreBulletDynamics::RaycastVehicle	        *mVehicle;
+	//OgreBulletDynamics::RaycastVehicle	    *mVehicle;
 
 	Ogre::Entity    *robotEntity;
 	Ogre::Entity    *mWheels[4];
@@ -57,15 +58,14 @@ private:
 protected:
 	//RobotState robotState;
 	Ogre::AnimationState* ani;
-	//Ogre::Vector3 direction;
-	//Ogre::Real speed;
 	
 public:
+	Ship* ship;
 	SceneNode *robotNode;
-
 	Vector3 robotPosition;
+	Quaternion robotRotation;
 	SceneNode *vehicleNode;
-	//Ogre::Real speed;
+	OgreBulletDynamics::RaycastVehicle	        *mVehicle;
 
 public:
 	Robot(void);
