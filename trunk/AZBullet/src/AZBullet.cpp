@@ -282,13 +282,15 @@ bool AZBullet::frameStarted(const FrameEvent& evt)
 	Ogre::Real elapsedTime = evt.timeSinceLastFrame;	
 	mCameraListener->frameStarted(evt);
 	return true;
+	//return this->bulletFrameStarted(elapsedTime);
 }
 
 // -------------------------------------------------------------------------
 bool AZBullet::frameEnded(const FrameEvent& evt)
 {
 	Ogre::Real elapsedTime = evt.timeSinceLastFrame;
-	return true; 
+	return true;
+	//return this->bulletFrameEnded(elapsedTime);
 }
 
 //-------------------------------------------------------------------------------------

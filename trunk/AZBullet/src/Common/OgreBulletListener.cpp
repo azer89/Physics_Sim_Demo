@@ -357,7 +357,8 @@ void OgreBulletListener::setBulletPhysicGUI()
     gui->addEffect(new BetaGUI::AlphaEffect(aWindow, 2, 1, 0, 3));
 
     menuWindow->addBoolButton(&mQuit, "Quit", BetaGUI::WPT_HORIZONTAL);
-
+	
+	
     // appears and slide in
     const Vector2 screenLeftTop (- menuWindow->getSize ().x, 0);
     const Vector2 screenLeftOffTop (0, 0);
