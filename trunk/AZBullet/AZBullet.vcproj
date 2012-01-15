@@ -126,11 +126,11 @@
 				AdditionalOptions="-Zm256"
 				Optimization="2"
 				InlineFunctionExpansion="1"
-				EnableIntrinsicFunctions="true"
+				EnableIntrinsicFunctions="false"
 				FavorSizeOrSpeed="1"
-				OmitFramePointers="true"
+				OmitFramePointers="false"
 				AdditionalIncludeDirectories="include;include\Collisions;include\Dynamics;include\Common;include\Hydrax;&quot;$(OGRE_HOME)\include&quot;;&quot;$(OGRE_HOME)\include\OIS&quot;;&quot;$(OGRE_HOME)\include\OGRE&quot;;&quot;$(OGRE_HOME)\Samples\Common\include&quot;;&quot;$(OGRE_HOME)\boost_1_44&quot;;&quot;$(BULLET_ROOT)\src&quot;;&quot;$(BULLET_ROOT)\Extras\GIMPACTUtils\include&quot;"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_PRECOMP"
 				StringPooling="true"
 				MinimalRebuild="true"
 				ExceptionHandling="1"
@@ -141,6 +141,7 @@
 				RuntimeTypeInfo="true"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
+				Detect64BitPortabilityProblems="true"
 				DebugInformationFormat="3"
 			/>
 			<Tool
@@ -158,10 +159,12 @@
 				OutputFile="$(OutDir)\$(ProjectName).exe"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="&quot;$(OGRE_HOME)\lib\release&quot;;&quot;$(OGRE_HOME)\boost_1_44\lib&quot;;&quot;lib\$(ConfigurationName)&quot;"
-				GenerateDebugInformation="false"
+				GenerateDebugInformation="true"
 				SubSystem="2"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
+				OptimizeForWindows98="1"
+				DataExecutionPrevention="0"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -255,22 +258,6 @@
 			<Filter
 				Name="Common"
 				>
-				<File
-					RelativePath=".\src\Common\BetaGUI.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\src\Common\OgreBulletApplication.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\src\Common\OgreBulletGuiListener.cpp"
-					>
-				</File>
-				<File
-					RelativePath=".\src\Common\OgreBulletInputListener.cpp"
-					>
-				</File>
 				<File
 					RelativePath=".\src\Common\OgreBulletListener.cpp"
 					>
@@ -369,22 +356,6 @@
 			<Filter
 				Name="Common"
 				>
-				<File
-					RelativePath=".\include\Common\BetaGUI.h"
-					>
-				</File>
-				<File
-					RelativePath=".\include\Common\OgreBulletApplication.h"
-					>
-				</File>
-				<File
-					RelativePath=".\include\Common\OgreBulletGuiListener.h"
-					>
-				</File>
-				<File
-					RelativePath=".\include\Common\OgreBulletInputListener.h"
-					>
-				</File>
 				<File
 					RelativePath=".\include\Common\OgreBulletListener.h"
 					>

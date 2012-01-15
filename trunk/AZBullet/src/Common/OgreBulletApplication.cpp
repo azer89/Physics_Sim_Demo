@@ -58,74 +58,74 @@ OgreBulletApplication::~OgreBulletApplication()
 bool OgreBulletApplication::switchListener(OgreBulletListener *newListener)
 {
 
-#if (OGRE_VERSION <  ((1 << 16) | (3 << 8) | 0))
-
-    if (mBulletListener)
-    {
-        mInputSystem->removeMouseMotionListener(mBulletListener->getBulletInputListener());
-        mInputSystem->removeMouseListener(mBulletListener->getBulletInputListener());
-        mInputSystem->removeKeyListener(mBulletListener->getBulletInputListener());
-        mBulletListener->bulletShutdown ();
-    }
-
-    newListener->bulletInit (mRoot, mWindow);
-
-    mInputSystem->addMouseMotionListener(newListener->getBulletInputListener());
-    mInputSystem->addMouseListener(newListener->getBulletInputListener());   
-    mInputSystem->addKeyListener(newListener->getBulletInputListener());             
-
-#else
-
-    if (mBulletListener)
-    {
-        mInput->setEventCallback (0);
-        mMouse->setEventCallback (0);
-        mBulletListener->bulletShutdown ();
-    }
-
-    newListener->bulletInit (mRoot, mWindow, this);
-    mInput->setEventCallback (newListener->getBulletInputListener());
-    mMouse->setEventCallback (newListener->getBulletInputListener());
-
-#endif //OGRE_VERSION not Eihort
-
-    mBulletListener = newListener;
+//#if (OGRE_VERSION <  ((1 << 16) | (3 << 8) | 0))
+//
+//    if (mBulletListener)
+//    {
+//        mInputSystem->removeMouseMotionListener(mBulletListener->getBulletInputListener());
+//        mInputSystem->removeMouseListener(mBulletListener->getBulletInputListener());
+//        mInputSystem->removeKeyListener(mBulletListener->getBulletInputListener());
+//        mBulletListener->bulletShutdown ();
+//    }
+//
+//    newListener->bulletInit (mRoot, mWindow);
+//
+//    mInputSystem->addMouseMotionListener(newListener->getBulletInputListener());
+//    mInputSystem->addMouseListener(newListener->getBulletInputListener());   
+//    mInputSystem->addKeyListener(newListener->getBulletInputListener());             
+//
+//#else
+//
+//    if (mBulletListener)
+//    {
+//        mInput->setEventCallback (0);
+//        mMouse->setEventCallback (0);
+//        mBulletListener->bulletShutdown ();
+//    }
+//
+//    newListener->bulletInit (mRoot, mWindow, this);
+//    mInput->setEventCallback (newListener->getBulletInputListener());
+//    mMouse->setEventCallback (newListener->getBulletInputListener());
+//
+//#endif //OGRE_VERSION not Eihort
+//
+//    mBulletListener = newListener;
 
     return true;
 }
 // -------------------------------------------------------------------------
 bool OgreBulletApplication::frameStarted(const FrameEvent& evt)
 {
-
-#if !(OGRE_VERSION <  ((1 << 16) | (3 << 8) | 0))
-        mMouse->capture();
-        mInput->capture();
-#else
-    mInput->capture();
-#endif 
-
-    std::vector <OgreBulletListener *>::iterator it =  mBulletListeners->begin();
-    while (it != mBulletListeners->end())
-    {
-        if ((*(*it)->getBoolActivator()) == true ||
-            mInput->isKeyDown ((*it)->getNextKey ()))
-        {
-            //if ((*it) !=  mBulletListener)
-            {
-                switchListener(*it);
-            }
-            break;
-        }
-        ++it;
-    }	
-
-    assert (mBulletListener);
-
-    if (!mBulletListener->bulletFrameStarted(evt.timeSinceLastFrame))
-    {
-        mBulletListener->bulletShutdown ();
-        return false;
-    }
+//
+//#if !(OGRE_VERSION <  ((1 << 16) | (3 << 8) | 0))
+//        mMouse->capture();
+//        mInput->capture();
+//#else
+//    mInput->capture();
+//#endif 
+//
+//    std::vector <OgreBulletListener *>::iterator it =  mBulletListeners->begin();
+//    while (it != mBulletListeners->end())
+//    {
+//        if ((*(*it)->getBoolActivator()) == true ||
+//            mInput->isKeyDown ((*it)->getNextKey ()))
+//        {
+//            //if ((*it) !=  mBulletListener)
+//            {
+//                switchListener(*it);
+//            }
+//            break;
+//        }
+//        ++it;
+//    }	
+//
+//    assert (mBulletListener);
+//
+//    if (!mBulletListener->bulletFrameStarted(evt.timeSinceLastFrame))
+//    {
+//        mBulletListener->bulletShutdown ();
+//        return false;
+//    }
     return true;
 }
 
