@@ -116,122 +116,122 @@ const Ogre::Vector3    gConeBodyBounds      = Ogre::Vector3 (1, 1, 1);
 const Real       gSphereBodyBounds    = 1.0f;
 // -------------------------------------------------------------------------
 OgreBulletListener::OgreBulletListener() :    
-mBulletCameraMove (0.1f),
-mBulletCameraTrans (Ogre::Vector3::ZERO),
-mBulletCamera(0),
-mBulletRoot(0),
+//mBulletCameraMove (0.1f),
+//mBulletCameraTrans (Ogre::Vector3::ZERO),
+//mBulletCamera(0),
+//mBulletRoot(0),
 mBulletSceneMgr(0),
-mBulletWindow(0),
-mBulletWorld(0),
-mStatsOn (true),
-mPaused (false),
-mShootSpeed (7.f),
-mImpulseForce (10.f),
-mDebugRayLine(0),
-mRayQuery(0),
-mInputListener(0),
-mGuiListener(0),
-mPickConstraint(0),
-mCollisionClosestRayResultCallback(0)
+//mBulletWindow(0),
+mBulletWorld(0)
+//mStatsOn (true),
+//mPaused (false),
+//mShootSpeed (7.f),
+//mImpulseForce (10.f),
+//mDebugRayLine(0),
+//mRayQuery(0),
+//mInputListener(0),
+//mGuiListener(0),
+//mPickConstraint(0),
+//mCollisionClosestRayResultCallback(0)
 {
 
 
 }
 // -------------------------------------------------------------------------
-void OgreBulletListener::bulletInit(Ogre::Root *root, Ogre::RenderWindow *win, OgreBulletApplication *application)
-{
-    mBulletRoot = root;
-    mBulletWindow = win;
-    mBulletApplication = application;
-    mBulletCameraTrans = Ogre::Vector3::ZERO;
+//void OgreBulletListener::bulletInit(Ogre::Root *root, Ogre::RenderWindow *win, OgreBulletApplication *application)
+//{
+    //mBulletRoot = root;
+    //mBulletWindow = win;
+    //mBulletApplication = application;
+    //mBulletCameraTrans = Ogre::Vector3::ZERO;
 
-    mGuiListener = new OgreBulletGuiListener(this, win);
+    //mGuiListener = new OgreBulletGuiListener(this, win);
 
-    mInputListener = new OgreBulletInputListener(this, win);
+    //mInputListener = new OgreBulletInputListener(this, win);
 
-    /******************* CREATESHADOWS ***************************/
-#ifndef _DEBUG
-    mCurrentShadowTechnique = convertShadowTechniqueToInt(SHADOWTYPE_TEXTURE_ADDITIVE);
-
-	mBulletSceneMgr->setShadowColour(ColourValue(0.5, 0.5, 0.5));
-
-	Ogre::PixelFormat pxlFmt = Ogre::PF_L8;
-	if (mBulletRoot->getRenderSystem()->getCapabilities()->hasCapability(RSC_TEXTURE_FLOAT))
-	{
-		const bool isOpenGL = (Ogre::Root::getSingleton().getRenderSystem()->getName().find("GL") != Ogre::String::npos);
-		if (isOpenGL)// GL performs much better if you pick half-float format
-			pxlFmt = Ogre::PF_FLOAT16_R;
-		else
-			pxlFmt = Ogre::PF_FLOAT32_R;// D3D is the opposite - if you ask for PF_FLOAT16_R you
-		// get an integer format instead! You can ask for PF_FLOAT16_GR
-		// but the precision doesn't work well
-
-	}
-	if (pxlFmt != Ogre::PF_L8)
-	{
-		String CUSTOM_CASTER_MATERIAL("Ogre/DepthShadowmap/Caster/Float");
-		String CUSTOM_RECEIVER_MATERIAL("Ogre/DepthShadowmap/Receiver/Float");
-		mBulletSceneMgr->setShadowTextureSelfShadow(true);
-		mBulletSceneMgr->setShadowTextureCasterMaterial(CUSTOM_CASTER_MATERIAL);
-		mBulletSceneMgr->setShadowTextureReceiverMaterial(CUSTOM_RECEIVER_MATERIAL + "/PCF");
-		//mSceneMgr->setShadowTextureReceiverMaterial(CUSTOM_RECEIVER_MATERIAL);
-	}
-
-	
-	
-	Ogre::LiSPSMShadowCameraSetup *mLiSPSMSetup = new Ogre::LiSPSMShadowCameraSetup();
-	mLiSPSMSetup->setUseAggressiveFocusRegion(true);
-	//mLiSPSMSetup->setUseSimpleOptimalAdjust(true);
-	mLiSPSMSetup->setOptimalAdjustFactor(1.1f);
-	mBulletSceneMgr->setShadowCameraSetup(Ogre::ShadowCameraSetupPtr(mLiSPSMSetup));
-
-
-	mBulletSceneMgr->setShadowTechnique(convertToShadowTechnique(mCurrentShadowTechnique));
-	if (mBulletRoot->getRenderSystem()->getCapabilities()->hasCapability(RSC_HWRENDER_TO_TEXTURE))
-	{
-		// In D3D, use a 1024x1024 shadow texture
-		mBulletSceneMgr->setShadowTextureSettings(2048, 2, pxlFmt);
-	}
-	else
-	{
-		// Use 512x512 texture in GL since we can't go higher than the window res
-		mBulletSceneMgr->setShadowTextureSettings(512, 2, pxlFmt);
-	}
-
-
-#endif // _DEBUG
+//    /******************* CREATESHADOWS ***************************/
+//#ifndef _DEBUG
+//    mCurrentShadowTechnique = convertShadowTechniqueToInt(SHADOWTYPE_TEXTURE_ADDITIVE);
+//
+//	mBulletSceneMgr->setShadowColour(ColourValue(0.5, 0.5, 0.5));
+//
+//	Ogre::PixelFormat pxlFmt = Ogre::PF_L8;
+//	//if (mBulletRoot->getRenderSystem()->getCapabilities()->hasCapability(RSC_TEXTURE_FLOAT))
+//	//{
+//		const bool isOpenGL = (Ogre::Root::getSingleton().getRenderSystem()->getName().find("GL") != Ogre::String::npos);
+//		if (isOpenGL)// GL performs much better if you pick half-float format
+//			pxlFmt = Ogre::PF_FLOAT16_R;
+//		else
+//			pxlFmt = Ogre::PF_FLOAT32_R;// D3D is the opposite - if you ask for PF_FLOAT16_R you
+//		// get an integer format instead! You can ask for PF_FLOAT16_GR
+//		// but the precision doesn't work well
+//
+//	//}
+//	//if (pxlFmt != Ogre::PF_L8)
+//	//{
+//	//	String CUSTOM_CASTER_MATERIAL("Ogre/DepthShadowmap/Caster/Float");
+//	//	String CUSTOM_RECEIVER_MATERIAL("Ogre/DepthShadowmap/Receiver/Float");
+//	//	mBulletSceneMgr->setShadowTextureSelfShadow(true);
+//	//	mBulletSceneMgr->setShadowTextureCasterMaterial(CUSTOM_CASTER_MATERIAL);
+//	//	mBulletSceneMgr->setShadowTextureReceiverMaterial(CUSTOM_RECEIVER_MATERIAL + "/PCF");
+//	//	//mSceneMgr->setShadowTextureReceiverMaterial(CUSTOM_RECEIVER_MATERIAL);
+//	//}
+//
+//	
+//	
+//	Ogre::LiSPSMShadowCameraSetup *mLiSPSMSetup = new Ogre::LiSPSMShadowCameraSetup();
+//	mLiSPSMSetup->setUseAggressiveFocusRegion(true);
+//	//mLiSPSMSetup->setUseSimpleOptimalAdjust(true);
+//	mLiSPSMSetup->setOptimalAdjustFactor(1.1f);
+//	mBulletSceneMgr->setShadowCameraSetup(Ogre::ShadowCameraSetupPtr(mLiSPSMSetup));
+//
+//
+//	mBulletSceneMgr->setShadowTechnique(convertToShadowTechnique(mCurrentShadowTechnique));
+//	//if (mBulletRoot->getRenderSystem()->getCapabilities()->hasCapability(RSC_HWRENDER_TO_TEXTURE))
+//	//{
+//		// In D3D, use a 1024x1024 shadow texture
+//		mBulletSceneMgr->setShadowTextureSettings(2048, 2, pxlFmt);
+//	//}
+//	//else
+//	//{
+//	//	// Use 512x512 texture in GL since we can't go higher than the window res
+//	//	mBulletSceneMgr->setShadowTextureSettings(512, 2, pxlFmt);
+//	//}
+//
+//
+//#endif // _DEBUG
 
     /******************* CREATE Queries ***************************/
-    mRayQuery = mBulletSceneMgr->createRayQuery(Ray());
-    mRayQuery->setQueryMask (GEOMETRY_QUERY_MASK);
-    mRayQuery->setQueryTypeMask(SceneManager::ENTITY_TYPE_MASK);
-    MovableObject::setDefaultQueryFlags (ANY_QUERY_MASK);
+    //mRayQuery = mBulletSceneMgr->createRayQuery(Ray());
+    //mRayQuery->setQueryMask (GEOMETRY_QUERY_MASK);
+    //mRayQuery->setQueryTypeMask(SceneManager::ENTITY_TYPE_MASK);
+    //MovableObject::setDefaultQueryFlags (ANY_QUERY_MASK);
 
-    //
-    mQuit = false;
-    mPaused = false;
-    mActivationBool = false;
+    ////
+    //mQuit = false;
+    //mPaused = false;
+    //mActivationBool = false;
 
-    mPickConstraint = 0;
+    //mPickConstraint = 0;
 
-    mWireFrame = false;
-    mDrawAabb = false;
-    mDrawFeaturesText = false;
-    mDrawContactPoints = false;
-    mNoDeactivation = false;
-    mNoHelpText = false;
-    mDrawText = false;
-    mProfileTimings = false;
-    mEnableSatComparison = false;
-    mDisableBulletLCP = false;
-    mEnableCCD = false;
+    //mWireFrame = false;
+    //mDrawAabb = false;
+    //mDrawFeaturesText = false;
+    //mDrawContactPoints = false;
+    //mNoDeactivation = false;
+    //mNoHelpText = false;
+    //mDrawText = false;
+    //mProfileTimings = false;
+    //mEnableSatComparison = false;
+    //mDisableBulletLCP = false;
+    //mEnableCCD = false;
 
-}
+//}
 // -------------------------------------------------------------------------
-void OgreBulletListener::setBulletBasicLight()
-{
+//void OgreBulletListener::setBulletBasicLight()
+//{
     // Set ambient light
-    mBulletSceneMgr->setAmbientLight(ColourValue(0.4, 0.4, 0.4));
+    //mBulletSceneMgr->setAmbientLight(ColourValue(0.4, 0.4, 0.4));
 
 	// Fixed light, dim
 // 	mSunLight = mSceneMgr->createLight("Sun");
@@ -243,7 +243,7 @@ void OgreBulletListener::setBulletBasicLight()
 // 	mSunLight->setAttenuation(8000, 1, 0.0005, 0);
 
 	// Point light, movable, reddish
-	mLight = mBulletSceneMgr->createLight("Spot");
+	/*mLight = mBulletSceneMgr->createLight("Spot");
 	mLight->setType(Light::LT_SPOTLIGHT);
 	mLight->setPosition(100.0, 80.5,-10.0);
 	mLight->setSpotlightRange(Degree(30), Degree(50));
@@ -263,122 +263,122 @@ void OgreBulletListener::setBulletBasicLight()
 	dir.normalise();
 	mLight2->setDirection(dir);
 	mLight2->setDiffuseColour(0.72, 0.70, 0.70);
-	mLight2->setSpecularColour(0.3, 0.1, 0.1);
+	mLight2->setSpecularColour(0.3, 0.1, 0.1);*/
 
-}
+//}
 // -------------------------------------------------------------------------
-void OgreBulletListener::setBulletPhysicGUI()
-{
-    BetaGUI::GUI *gui = mGuiListener->getGui ();
+//void OgreBulletListener::setBulletPhysicGUI()
+//{
+    /*BetaGUI::GUI *gui = mGuiListener->getGui ();
 
     BetaGUI::Window *menuWindow = gui->addMenuWindow(
         Vector2(mBulletWindow->getWidth(), 24));
     menuWindow->hide ();
 
 
-    BetaGUI::Window *aWindow;
+    BetaGUI::Window *aWindow;*/
 
 
-    aWindow = menuWindow->addMenuWindowTab("Scene Choice");
-    {
-        std::vector <OgreBulletListener *> *sceneList = mBulletApplication->getScenesList();
-        std::vector <OgreBulletListener *>::iterator itScenes = sceneList->begin();
-        for (;itScenes < sceneList->end(); ++itScenes)
-        {
-            if ((*itScenes) == this)
-                aWindow->addBoolButton((*itScenes)->getBoolActivator(), "reset " + (*itScenes)->getName(), BetaGUI::WPT_VERTICAL);
-            else
-                aWindow->addBoolButton((*itScenes)->getBoolActivator(), (*itScenes)->getName(), BetaGUI::WPT_VERTICAL);
-        }
-    }
-    aWindow->hide ();
+    //aWindow = menuWindow->addMenuWindowTab("Scene Choice");
+    //{
+    //    std::vector <OgreBulletListener *> *sceneList = mBulletApplication->getScenesList();
+    //    std::vector <OgreBulletListener *>::iterator itScenes = sceneList->begin();
+    //    for (;itScenes < sceneList->end(); ++itScenes)
+    //    {
+    //        if ((*itScenes) == this)
+    //            aWindow->addBoolButton((*itScenes)->getBoolActivator(), "reset " + (*itScenes)->getName(), BetaGUI::WPT_VERTICAL);
+    //        else
+    //            aWindow->addBoolButton((*itScenes)->getBoolActivator(), (*itScenes)->getName(), BetaGUI::WPT_VERTICAL);
+    //    }
+    //}
+    //aWindow->hide ();
 
 
-    aWindow = menuWindow->addMenuWindowTab("Time", false, BetaGUI::WPT_NONE);
-    aWindow->addBoolButton(&mPaused, "Play/Pause", BetaGUI::WPT_HORIZONTAL);
-    aWindow->addBoolButton(&mDoOnestep, "Single Step", BetaGUI::WPT_HORIZONTAL);
-    aWindow->hide ();
+    //aWindow = menuWindow->addMenuWindowTab("Time", false, BetaGUI::WPT_NONE);
+    //aWindow->addBoolButton(&mPaused, "Play/Pause", BetaGUI::WPT_HORIZONTAL);
+    //aWindow->addBoolButton(&mDoOnestep, "Single Step", BetaGUI::WPT_HORIZONTAL);
+    //aWindow->hide ();
 
-    // appears and slide in
-    const Vector2 screenRightTop (mBulletWindow->getWidth () - aWindow->getSize ().x, 0);
-    const Vector2 screenRightOffTop (mBulletWindow->getWidth () - aWindow->getSize ().x, - aWindow->getSize ().y);
-    gui->addEffect(new BetaGUI::MoveEffect(aWindow, 2, screenRightOffTop, screenRightTop, 0));
-    gui->addEffect(new BetaGUI::AlphaEffect(aWindow, 2, 0, 1, 0));
+    //// appears and slide in
+    //const Vector2 screenRightTop (mBulletWindow->getWidth () - aWindow->getSize ().x, 0);
+    //const Vector2 screenRightOffTop (mBulletWindow->getWidth () - aWindow->getSize ().x, - aWindow->getSize ().y);
+    //gui->addEffect(new BetaGUI::MoveEffect(aWindow, 2, screenRightOffTop, screenRightTop, 0));
+    //gui->addEffect(new BetaGUI::AlphaEffect(aWindow, 2, 0, 1, 0));
 
-    aWindow = menuWindow->addMenuWindowTab("Interaction");
-    aWindow->addRealButton(&mShootSpeed,
-        Vector4(0.1, 5.0, 0.0, 100.0),
-        "Shoot Speed:", BetaGUI::WPT_VERTICAL);
-    aWindow->addRealButton(&mImpulseForce,
-        Vector4(0.1, 5.0, 0.0, 100.0),
-        "Impulse Force:", BetaGUI::WPT_VERTICAL);
-    aWindow->hide ();
+    //aWindow = menuWindow->addMenuWindowTab("Interaction");
+    //aWindow->addRealButton(&mShootSpeed,
+    //    Vector4(0.1, 5.0, 0.0, 100.0),
+    //    "Shoot Speed:", BetaGUI::WPT_VERTICAL);
+    //aWindow->addRealButton(&mImpulseForce,
+    //    Vector4(0.1, 5.0, 0.0, 100.0),
+    //    "Impulse Force:", BetaGUI::WPT_VERTICAL);
+    //aWindow->hide ();
 
-    aWindow = menuWindow->addMenuWindowTab("Debug");
-    aWindow->addBoolButton(&mWireFrame, "Draw Wireframe", BetaGUI::WPT_VERTICAL);
-    aWindow->addBoolButton(&mDrawAabb, "Draw Aabb", BetaGUI::WPT_VERTICAL);
-    aWindow->addBoolButton(&mDrawFeaturesText, "Draw Features Text", BetaGUI::WPT_VERTICAL);
-    aWindow->addBoolButton(&mDrawContactPoints, "Draw Contact Points", BetaGUI::WPT_VERTICAL);
-    aWindow->addBoolButton(&mNoDeactivation, "No Deactivation", BetaGUI::WPT_VERTICAL);
-    aWindow->addBoolButton(&mNoHelpText, "No Help Text", BetaGUI::WPT_VERTICAL);
-    aWindow->addBoolButton(&mDrawText, "Draw Text", BetaGUI::WPT_VERTICAL);
-    aWindow->addBoolButton(&mProfileTimings, "Profile Timings", BetaGUI::WPT_VERTICAL);
-    aWindow->addBoolButton(&mEnableSatComparison, "Enable Sat Comparison", BetaGUI::WPT_VERTICAL);
-    aWindow->addBoolButton(&mDisableBulletLCP, "Disable Bullet LCP", BetaGUI::WPT_VERTICAL);
-    aWindow->addBoolButton(&mEnableCCD, "Enable CCD", BetaGUI::WPT_VERTICAL);
-    aWindow->hide ();
+    //aWindow = menuWindow->addMenuWindowTab("Debug");
+    //aWindow->addBoolButton(&mWireFrame, "Draw Wireframe", BetaGUI::WPT_VERTICAL);
+    //aWindow->addBoolButton(&mDrawAabb, "Draw Aabb", BetaGUI::WPT_VERTICAL);
+    //aWindow->addBoolButton(&mDrawFeaturesText, "Draw Features Text", BetaGUI::WPT_VERTICAL);
+    //aWindow->addBoolButton(&mDrawContactPoints, "Draw Contact Points", BetaGUI::WPT_VERTICAL);
+    //aWindow->addBoolButton(&mNoDeactivation, "No Deactivation", BetaGUI::WPT_VERTICAL);
+    //aWindow->addBoolButton(&mNoHelpText, "No Help Text", BetaGUI::WPT_VERTICAL);
+    //aWindow->addBoolButton(&mDrawText, "Draw Text", BetaGUI::WPT_VERTICAL);
+    //aWindow->addBoolButton(&mProfileTimings, "Profile Timings", BetaGUI::WPT_VERTICAL);
+    //aWindow->addBoolButton(&mEnableSatComparison, "Enable Sat Comparison", BetaGUI::WPT_VERTICAL);
+    //aWindow->addBoolButton(&mDisableBulletLCP, "Disable Bullet LCP", BetaGUI::WPT_VERTICAL);
+    //aWindow->addBoolButton(&mEnableCCD, "Enable CCD", BetaGUI::WPT_VERTICAL);
+    //aWindow->hide ();
 
-    aWindow = menuWindow ->addMenuWindowTab("FPS", false, BetaGUI::WPT_NONE);
-    mFpsStaticText = aWindow->addStaticText("FPS Count", BetaGUI::WPT_VERTICAL);
-    aWindow->hide ();
-    // appears and slide in
-    const Vector2 screenRightBottom (mBulletWindow->getWidth () - 360, mBulletWindow->getHeight () - 24);
-    const Vector2 screenRightOffBottom (mBulletWindow->getWidth () - 360, mBulletWindow->getHeight ());
-    gui->addEffect(new BetaGUI::MoveEffect(aWindow, 2, screenRightOffBottom, screenRightBottom, 0));
-    gui->addEffect(new BetaGUI::AlphaEffect(aWindow, 2, 0, 1, 0));
+    //aWindow = menuWindow ->addMenuWindowTab("FPS", false, BetaGUI::WPT_NONE);
+    //mFpsStaticText = aWindow->addStaticText("FPS Count", BetaGUI::WPT_VERTICAL);
+    //aWindow->hide ();
+    //// appears and slide in
+    //const Vector2 screenRightBottom (mBulletWindow->getWidth () - 360, mBulletWindow->getHeight () - 24);
+    //const Vector2 screenRightOffBottom (mBulletWindow->getWidth () - 360, mBulletWindow->getHeight ());
+    //gui->addEffect(new BetaGUI::MoveEffect(aWindow, 2, screenRightOffBottom, screenRightBottom, 0));
+    //gui->addEffect(new BetaGUI::AlphaEffect(aWindow, 2, 0, 1, 0));
 
 
-    aWindow = menuWindow->addMenuWindowTab("Help");
-    aWindow->addStaticText(mName + " Help Informations", BetaGUI::WPT_VERTICAL);
+    //aWindow = menuWindow->addMenuWindowTab("Help");
+    //aWindow->addStaticText(mName + " Help Informations", BetaGUI::WPT_VERTICAL);
 
-    std::vector <String>::iterator keyIterator = mHelpKeys.begin();
-    for (;keyIterator < mHelpKeys.end(); ++keyIterator)
-    {
-        aWindow->addStaticText(*keyIterator, BetaGUI::WPT_VERTICAL); 
-    }
+    //std::vector <String>::iterator keyIterator = mHelpKeys.begin();
+    //for (;keyIterator < mHelpKeys.end(); ++keyIterator)
+    //{
+    //    aWindow->addStaticText(*keyIterator, BetaGUI::WPT_VERTICAL); 
+    //}
 
-    // appears and slide
-    const Vector2 halfWindowSize (aWindow->getSize ().x / 2, aWindow->getSize ().y / 2);
-    const Vector2 screenCentered ((mBulletWindow->getWidth () / 2) - halfWindowSize.x,
-        (mBulletWindow->getHeight () / 2) - halfWindowSize.y);
-    gui->addEffect(new BetaGUI::MoveEffect(aWindow, 2, -halfWindowSize, screenCentered, 0));
-    gui->addEffect(new BetaGUI::AlphaEffect(aWindow, 2, 0, 1, 0));
-    // disappears
-    gui->addEffect(new BetaGUI::AlphaEffect(aWindow, 2, 1, 0, 3));
+    //// appears and slide
+    //const Vector2 halfWindowSize (aWindow->getSize ().x / 2, aWindow->getSize ().y / 2);
+    //const Vector2 screenCentered ((mBulletWindow->getWidth () / 2) - halfWindowSize.x,
+    //    (mBulletWindow->getHeight () / 2) - halfWindowSize.y);
+    //gui->addEffect(new BetaGUI::MoveEffect(aWindow, 2, -halfWindowSize, screenCentered, 0));
+    //gui->addEffect(new BetaGUI::AlphaEffect(aWindow, 2, 0, 1, 0));
+    //// disappears
+    //gui->addEffect(new BetaGUI::AlphaEffect(aWindow, 2, 1, 0, 3));
 
-    menuWindow->addBoolButton(&mQuit, "Quit", BetaGUI::WPT_HORIZONTAL);
+    //menuWindow->addBoolButton(&mQuit, "Quit", BetaGUI::WPT_HORIZONTAL);
 	
 	
-    // appears and slide in
-    const Vector2 screenLeftTop (- menuWindow->getSize ().x, 0);
-    const Vector2 screenLeftOffTop (0, 0);
-    gui->addEffect(new BetaGUI::MoveEffect(menuWindow, 2, screenLeftTop, screenLeftOffTop, 0));
-    gui->addEffect(new BetaGUI::AlphaEffect(menuWindow, 2, 0, 1, 0));
-}
+    //// appears and slide in
+    //const Vector2 screenLeftTop (- menuWindow->getSize ().x, 0);
+    //const Vector2 screenLeftOffTop (0, 0);
+    //gui->addEffect(new BetaGUI::MoveEffect(menuWindow, 2, screenLeftTop, screenLeftOffTop, 0));
+    //gui->addEffect(new BetaGUI::AlphaEffect(menuWindow, 2, 0, 1, 0));
+//}
 // -------------------------------------------------------------------------
-void OgreBulletListener::getDebugLines()
-{
-    if (mDebugRayLine == 0)
+//void OgreBulletListener::getDebugLines()
+//{
+    /*if (mDebugRayLine == 0)
     {
         mDebugRayLine = new DebugLines();
         mBulletSceneMgr->getRootSceneNode ()->createChildSceneNode ()->attachObject (mDebugRayLine);
-    }
-}
+    }*/
+//}
 // -------------------------------------------------------------------------
 void OgreBulletListener::bulletShutdown()
 {
-    delete mInputListener;
-    delete mGuiListener;
+    //delete mInputListener;
+    //delete mGuiListener;
 
     // OgreBullet physic delete 
     std::deque<OgreBulletDynamics::RigidBody *>::iterator itBody = mBodies.begin();
@@ -393,7 +393,8 @@ void OgreBulletListener::bulletShutdown()
     delete mBulletWorld;
 
     // Ogre delete 
-    mBulletSceneMgr->destroyQuery (mRayQuery);
+    //mBulletSceneMgr->destroyQuery (mRayQuery);
+
     std::deque<Ogre::Entity *>::iterator itEntity = mEntities.begin();
     while (mEntities.end() != itEntity)
     {
@@ -405,266 +406,269 @@ void OgreBulletListener::bulletShutdown()
 
         ++itEntity;
     }
-    mEntities.clear();
-    mBulletSceneMgr->destroyCamera(mBulletCamera->getName ());
-    mBulletWindow->removeViewport(0);
-    mBulletRoot->destroySceneManager (mBulletSceneMgr);
-    delete mDebugRayLine;
 
-    mInputListener = 0;
-    mGuiListener = 0;
-    mRayQuery = 0;
-    mBulletWorld = 0;
-    mBulletCamera = 0;
-    mBulletSceneMgr = 0;
-    mDebugRayLine = 0;
-
-    mBodies.clear();
     mEntities.clear();
-    mShapes.clear();
+	mBulletWorld = 0;
+
+	mBodies.clear();
+	mEntities.clear();
+	mShapes.clear();
+
+	//mBulletSceneMgr = 0;
+    //mBulletSceneMgr->destroyCamera(mBulletCamera->getName ());
+    //mBulletWindow->removeViewport(0);
+    //mBulletRoot->destroySceneManager (mBulletSceneMgr);
+    //delete mDebugRayLine;
+    //mInputListener = 0;
+    //mGuiListener = 0;
+    //mRayQuery = 0;    
+    //mBulletCamera = 0;    
+    //mDebugRayLine = 0;
+
+    
 
 }
 
 // -------------------------------------------------------------------------
-void OgreBulletListener::bulletButton0Pressed()
-{
-    // pick a body and try to drag it.
-    Ogre::Vector3 pickPos;
-    Ogre::Ray rayTo;
-    OgreBulletDynamics::RigidBody * body = 
-        getBodyUnderCursorUsingBullet(pickPos, rayTo);
-        //getBodyUnderCursorUsingOgre(pickPos, rayTo);
-    if (body)
-    {  
-        //other exclusions?
-        if (!(body->isStaticObject() 
-            //|| body->isKinematicObject()
-            ))
-        {
-            mPickedBody = body;
-            mPickedBody->disableDeactivation();		
-            const Ogre::Vector3 localPivot (body->getCenterOfMassPivot(pickPos));
-            OgreBulletDynamics::PointToPointConstraint *p2p  = 
-                new OgreBulletDynamics::PointToPointConstraint(body, localPivot);
+//void OgreBulletListener::bulletButton0Pressed()
+//{
+    //// pick a body and try to drag it.
+    //Ogre::Vector3 pickPos;
+    //Ogre::Ray rayTo;
+    //OgreBulletDynamics::RigidBody * body = 
+    //    getBodyUnderCursorUsingBullet(pickPos, rayTo);
+    //    //getBodyUnderCursorUsingOgre(pickPos, rayTo);
+    //if (body)
+    //{  
+    //    //other exclusions?
+    //    if (!(body->isStaticObject() 
+    //        //|| body->isKinematicObject()
+    //        ))
+    //    {
+    //        mPickedBody = body;
+    //        mPickedBody->disableDeactivation();		
+    //        const Ogre::Vector3 localPivot (body->getCenterOfMassPivot(pickPos));
+    //        OgreBulletDynamics::PointToPointConstraint *p2p  = 
+    //            new OgreBulletDynamics::PointToPointConstraint(body, localPivot);
 
-            mBulletWorld->addConstraint(p2p);					    
+    //        mBulletWorld->addConstraint(p2p);					    
 
-            //save mouse position for dragging
-            mOldPickingPos = pickPos;
-            const Ogre::Vector3 eyePos(mBulletCamera->getDerivedPosition());
-            mOldPickingDist  = (pickPos - eyePos).length();
+    //        //save mouse position for dragging
+    //        mOldPickingPos = pickPos;
+    //        const Ogre::Vector3 eyePos(mBulletCamera->getDerivedPosition());
+    //        mOldPickingDist  = (pickPos - eyePos).length();
 
-            //very weak constraint for picking
-            p2p->setTau (0.1f);
-            mPickConstraint = p2p;
+    //        //very weak constraint for picking
+    //        p2p->setTau (0.1f);
+    //        mPickConstraint = p2p;
 
 
-        }
-        getDebugLines();
-        mDebugRayLine->addLine (rayTo.getOrigin(), pickPos);
-        mDebugRayLine->draw();
-    }
+    //    }
+    //    getDebugLines();
+    //    mDebugRayLine->addLine (rayTo.getOrigin(), pickPos);
+    //    mDebugRayLine->draw();
+    //}
 
-    if (mGuiListener->getGui()->injectMouse(mInputListener->getAbsMouseX ()*mBulletWindow->getWidth(), 
-        mInputListener->getAbsMouseY ()*mBulletWindow->getHeight(), true))
-    {
-        mGuiListener->hideMouse();
-    }
-    else
-    {
-        mGuiListener->showMouse ();
-    }
-}
+    //if (mGuiListener->getGui()->injectMouse(mInputListener->getAbsMouseX ()*mBulletWindow->getWidth(), 
+    //    mInputListener->getAbsMouseY ()*mBulletWindow->getHeight(), true))
+    //{
+    //    mGuiListener->hideMouse();
+    //}
+    //else
+    //{
+    //    mGuiListener->showMouse ();
+    //}
+//}
 // -------------------------------------------------------------------------
-void OgreBulletListener::bulletButton1Pressed()
-{
+//void OgreBulletListener::bulletButton1Pressed()
+//{
 
     // small unique impulse under cursor.
-    Ogre::Vector3 pickPos;
-    Ogre::Ray rayTo;
-    OgreBulletDynamics::RigidBody * body = 
-        getBodyUnderCursorUsingBullet(pickPos, rayTo);
-        //getBodyUnderCursorUsingOgre(pickPos, rayTo);
-    if (body)
-    {  
-        if (!(body->isStaticObject() 
-            || body->isKinematicObject()
-            ))
-        {
+    //Ogre::Vector3 pickPos;
+    //Ogre::Ray rayTo;
+    //OgreBulletDynamics::RigidBody * body = 
+    //    getBodyUnderCursorUsingBullet(pickPos, rayTo);
+    //    //getBodyUnderCursorUsingOgre(pickPos, rayTo);
+    //if (body)
+    //{  
+    //    if (!(body->isStaticObject() 
+    //        || body->isKinematicObject()
+    //        ))
+    //    {
 
-            body->enableActiveState ();
+    //        body->enableActiveState ();
 
-            const Ogre::Vector3 relPos (pickPos - body->getCenterOfMassPosition());
-            const Ogre::Vector3 impulse (rayTo.getDirection ());
+    //        const Ogre::Vector3 relPos (pickPos - body->getCenterOfMassPosition());
+    //        const Ogre::Vector3 impulse (rayTo.getDirection ());
 
-            body->applyImpulse (impulse * mImpulseForce, relPos);		
+    //        body->applyImpulse (impulse * mImpulseForce, relPos);		
 
-        }
+    //    }
 
-        getDebugLines();
-        mDebugRayLine->addLine (rayTo.getOrigin(), pickPos);
-        mDebugRayLine->draw();	
-    }  
-}
+    //    getDebugLines();
+    //    mDebugRayLine->addLine (rayTo.getOrigin(), pickPos);
+    //    mDebugRayLine->draw();	
+    //}  
+//}
 // -------------------------------------------------------------------------
-void OgreBulletListener::bulletButton2Pressed()
-{ 
-    mGuiListener->hideMouse ();
-}
+//void OgreBulletListener::bulletButton2Pressed()
+//{ 
+    //mGuiListener->hideMouse ();
+//}
 // -------------------------------------------------------------------------
-void OgreBulletListener::bulletButton0Released()
-{
-    if (mPickConstraint)
-    {
-        // was dragging, but button released
-        // Remove constraint
-        mBulletWorld->removeConstraint(mPickConstraint);
-        delete mPickConstraint;
+//void OgreBulletListener::bulletButton0Released()
+//{
+    //if (mPickConstraint)
+    //{
+    //    // was dragging, but button released
+    //    // Remove constraint
+    //    mBulletWorld->removeConstraint(mPickConstraint);
+    //    delete mPickConstraint;
 
-        mPickConstraint = 0;
-        mPickedBody->forceActivationState();
-        mPickedBody->setDeactivationTime( 0.f );
-        mPickedBody = 0;	
+    //    mPickConstraint = 0;
+    //    mPickedBody->forceActivationState();
+    //    mPickedBody->setDeactivationTime( 0.f );
+    //    mPickedBody = 0;	
 
-        getDebugLines();
-        mDebugRayLine->addLine (Ogre::Vector3::ZERO, Ogre::Vector3::ZERO);	
-        mDebugRayLine->draw();  
-        mGuiListener->showMouse(); 
-    }
-}
+    //    getDebugLines();
+    //    mDebugRayLine->addLine (Ogre::Vector3::ZERO, Ogre::Vector3::ZERO);	
+    //    mDebugRayLine->draw();  
+    //    mGuiListener->showMouse(); 
+    //}
+//}
 // -------------------------------------------------------------------------
-void OgreBulletListener::bulletButton1Released()
-{
-}
+//void OgreBulletListener::bulletButton1Released()
+//{
+//}
 // -------------------------------------------------------------------------
-void OgreBulletListener::bulletButton2Released()
-{
-    mGuiListener->showMouse ();
-}
+//void OgreBulletListener::bulletButton2Released()
+//{
+    //mGuiListener->showMouse ();
+//}
 // -------------------------------------------------------------------------
-void OgreBulletListener::bulletMouseMoved()
-{
-    mGuiListener->setMousePosition(mInputListener->getAbsMouseX (), mInputListener->getAbsMouseY ());
-    if (mPickConstraint)
-    {
-        // dragging
-        //add a point to point constraint for picking	
-        Ogre::Ray rayTo = mBulletCamera->getCameraToViewportRay (mInputListener->getAbsMouseX(), mInputListener->getAbsMouseY());
-        //move the constraint pivot
-        OgreBulletDynamics::PointToPointConstraint * p2p = static_cast <OgreBulletDynamics::PointToPointConstraint *>(mPickConstraint);
-        //keep it at the same picking distance
+//void OgreBulletListener::bulletMouseMoved()
+//{
+    //mGuiListener->setMousePosition(mInputListener->getAbsMouseX (), mInputListener->getAbsMouseY ());
+    //if (mPickConstraint)
+    //{
+    //    // dragging
+    //    //add a point to point constraint for picking	
+    //    Ogre::Ray rayTo = mBulletCamera->getCameraToViewportRay (mInputListener->getAbsMouseX(), mInputListener->getAbsMouseY());
+    //    //move the constraint pivot
+    //    OgreBulletDynamics::PointToPointConstraint * p2p = static_cast <OgreBulletDynamics::PointToPointConstraint *>(mPickConstraint);
+    //    //keep it at the same picking distance
 
-        const Ogre::Vector3 eyePos(mBulletCamera->getDerivedPosition());
+    //    const Ogre::Vector3 eyePos(mBulletCamera->getDerivedPosition());
 
-        //Ogre::Vector3 dir = rayTo.getDirection () - eyePos;
-        //dir.normalise();
-        //dir *= mOldPickingDist;
-        Ogre::Vector3 dir = rayTo.getDirection () * mOldPickingDist;
-        dir.normalise();
+    //    //Ogre::Vector3 dir = rayTo.getDirection () - eyePos;
+    //    //dir.normalise();
+    //    //dir *= mOldPickingDist;
+    //    Ogre::Vector3 dir = rayTo.getDirection () * mOldPickingDist;
+    //    dir.normalise();
 
-        const Ogre::Vector3 newPos (eyePos + dir);
-        p2p->setPivotB (newPos);    
+    //    const Ogre::Vector3 newPos (eyePos + dir);
+    //    p2p->setPivotB (newPos);    
 
-        setDebugText ("Dragging");
+    //    setDebugText ("Dragging");
 
-        getDebugLines();
-        mDebugRayLine->addLine (mPickedBody->getWorldPosition (), newPos);
-        mDebugRayLine->draw();
-        mGuiListener->showMouse();
-    }
+    //    getDebugLines();
+    //    mDebugRayLine->addLine (mPickedBody->getWorldPosition (), newPos);
+    //    mDebugRayLine->draw();
+    //    mGuiListener->showMouse();
+    //}
 
-    if (mGuiListener->getGui()->injectMouse(mInputListener->getAbsMouseX ()*mBulletWindow->getWidth(), 
-        mInputListener->getAbsMouseY ()*mBulletWindow->getHeight(), mInputListener->getButton0Pressed()))
-    {
-        mGuiListener->hideMouse();
-    }
-    else 
-    {
-        mGuiListener->showMouse();
-    }
+    //if (mGuiListener->getGui()->injectMouse(mInputListener->getAbsMouseX ()*mBulletWindow->getWidth(), 
+    //    mInputListener->getAbsMouseY ()*mBulletWindow->getHeight(), mInputListener->getButton0Pressed()))
+    //{
+    //    mGuiListener->hideMouse();
+    //}
+    //else 
+    //{
+    //    mGuiListener->showMouse();
+    //}
 
 
-    if (mInputListener->getButton2Pressed())
-    {
-        mBulletCameraRotX = Degree(-mInputListener->getRelMouseX () * 0.13);
-        mBulletCameraRotY = Degree(-mInputListener->getRelMouseY () * 0.13);
-    }
+    //if (mInputListener->getButton2Pressed())
+    //{
+    //    mBulletCameraRotX = Degree(-mInputListener->getRelMouseX () * 0.13);
+    //    mBulletCameraRotY = Degree(-mInputListener->getRelMouseY () * 0.13);
+    //}
 
-}
+//}
 // -------------------------------------------------------------------------
-void OgreBulletListener::bulletKeyPressed(BULLET_KEY_CODE key)
-{
+//void OgreBulletListener::bulletKeyPressed(BULLET_KEY_CODE key)
+//{
 
-    static int count = 0;
-    // Scene Debug Options
+    //static int count = 0;
+    //// Scene Debug Options
 
-    switch(key)
-    {
-        // Application Utils
-    case KC_ESCAPE:
-        mQuit = true;
-        break;
+    //switch(key)
+    //{
+    //    // Application Utils
+    //case KC_ESCAPE:
+    //    mQuit = true;
+    //    break;
 
-    case KC_SYSRQ:
-        mBulletWindow->writeContentsToFile("OgreBulletScreenShot"+StringConverter::toString(count++)+".png");
-        break;
+    //case KC_SYSRQ:
+    //    mBulletWindow->writeContentsToFile("OgreBulletScreenShot"+StringConverter::toString(count++)+".png");
+    //    break;
 
         // Scene Debug Options
 
-    case KC_T:
-        mWireFrame = true;
-        break;
-    case KC_1:
-        mDrawAabb = true;
-        break;
-    case KC_2:
-        mDrawFeaturesText = true;
-        break;
-    case KC_3:
-        mDrawContactPoints = true;
-        break;
-    case KC_4:
-        mNoDeactivation = true;
-        break;
-    case KC_5:
-        mNoHelpText = true;
-        break;
-    case KC_6:
-        mDrawText = true;
-        break;
-    case KC_7:
-        mProfileTimings = true;
-        break;
-    case KC_8:
-        mEnableSatComparison = true;
-        break;
-    case KC_9:
-        mDisableBulletLCP = true;
-        break;
-    case KC_0:
-        mEnableCCD = true;
-        break;
+    //case KC_T:
+    //    mWireFrame = true;
+    //    break;
+    //case KC_1:
+    //    mDrawAabb = true;
+    //    break;
+    //case KC_2:
+    //    mDrawFeaturesText = true;
+    //    break;
+    //case KC_3:
+    //    mDrawContactPoints = true;
+    //    break;
+    //case KC_4:
+    //    mNoDeactivation = true;
+    //    break;
+    //case KC_5:
+    //    mNoHelpText = true;
+    //    break;
+    //case KC_6:
+    //    mDrawText = true;
+    //    break;
+    //case KC_7:
+    //    mProfileTimings = true;
+    //    break;
+    //case KC_8:
+    //    mEnableSatComparison = true;
+    //    break;
+    //case KC_9:
+    //    mDisableBulletLCP = true;
+    //    break;
+    //case KC_0:
+    //    mEnableCCD = true;
+    //    break;
 
-        // pause
-    case KC_P:
-        mPaused = !mPaused;
-        break;
-        // single step
-    case KC_M:
-        mDoOnestep = true;
-        break;
-        // faster Shoots
-    case KC_ADD:
-        mShootSpeed += 5.0f;
-        break;
-        // Slower Shoots
-    case KC_MINUS:
-        mShootSpeed -= 5.0f;
-        break;
+    //    // pause
+    //case KC_P:
+    //    mPaused = !mPaused;
+    //    break;
+    //    // single step
+    //case KC_M:
+    //    mDoOnestep = true;
+    //    break;
+    //    // faster Shoots
+    //case KC_ADD:
+    //    mShootSpeed += 5.0f;
+    //    break;
+    //    // Slower Shoots
+    //case KC_MINUS:
+    //    mShootSpeed -= 5.0f;
+    //    break;
 
-        //Camera
-    case KC_Z:
-    case KC_W:
+    //    //Camera
+    //case KC_Z:
+    /*case KC_W:
         mBulletCameraTrans.z -= mBulletCameraMove;
         break;
 
@@ -679,41 +683,41 @@ void OgreBulletListener::bulletKeyPressed(BULLET_KEY_CODE key)
 
     case KC_D:
         mBulletCameraTrans.x += mBulletCameraMove;
-        break;
+        break;*/
 
-    default:
+    /*default:
         break;
-    }
-}
+    }*/
+//}
 // -------------------------------------------------------------------------
-void OgreBulletListener::bulletKeyReleased(BULLET_KEY_CODE key)
-{
-    switch(key)
-    {
-        //Camera
-    case KC_Z:
-    case KC_W:
-        mBulletCameraTrans.z += mBulletCameraMove;
-        break;
-    case KC_S:
-        mBulletCameraTrans.z -= mBulletCameraMove;
-        break;
-    case KC_Q:
-    case KC_A:
-        mBulletCameraTrans.x += mBulletCameraMove;
-        break;
-    case KC_D:
-        mBulletCameraTrans.x -= mBulletCameraMove;
-        break;
+//void OgreBulletListener::bulletKeyReleased(BULLET_KEY_CODE key)
+//{
+    //switch(key)
+    //{
+    //    //Camera
+    //case KC_Z:
+    //case KC_W:
+    //    mBulletCameraTrans.z += mBulletCameraMove;
+    //    break;
+    //case KC_S:
+    //    mBulletCameraTrans.z -= mBulletCameraMove;
+    //    break;
+    //case KC_Q:
+    //case KC_A:
+    //    mBulletCameraTrans.x += mBulletCameraMove;
+    //    break;
+    //case KC_D:
+    //    mBulletCameraTrans.x -= mBulletCameraMove;
+    //    break;
 
-    default:
-        break;
-    }
-}
+    //default:
+    //    break;
+    //}
+//}
 // -------------------------------------------------------------------------
-OgreBulletDynamics::RigidBody* OgreBulletListener::getBodyUnderCursorUsingBullet(Ogre::Vector3 &intersectionPoint, Ray &rayTo)
-{
-    rayTo = mBulletCamera->getCameraToViewportRay (mInputListener->getAbsMouseX(), mInputListener->getAbsMouseY());
+//OgreBulletDynamics::RigidBody* OgreBulletListener::getBodyUnderCursorUsingBullet(Ogre::Vector3 &intersectionPoint, Ray &rayTo)
+//{
+    /*rayTo = mBulletCamera->getCameraToViewportRay (mInputListener->getAbsMouseX(), mInputListener->getAbsMouseY());
 
 	delete mCollisionClosestRayResultCallback;
 	mCollisionClosestRayResultCallback = new CollisionClosestRayResultCallback(rayTo, mBulletWorld, mBulletCamera->getFarClipDistance());
@@ -727,55 +731,55 @@ OgreBulletDynamics::RigidBody* OgreBulletListener::getBodyUnderCursorUsingBullet
 		intersectionPoint = mCollisionClosestRayResultCallback->getCollisionPoint ();
         setDebugText("Hit :" + body->getName());
         return body;
-    }
-    return 0;
-}
+    }*/
+    //return 0;
+//}
 // -------------------------------------------------------------------------
-OgreBulletDynamics::RigidBody* OgreBulletListener::getBodyUnderCursorUsingOgre(Ogre::Vector3 &intersectionPoint, Ray &rayTo)
-{
-    rayTo = mBulletCamera->getCameraToViewportRay (mInputListener->getAbsMouseX(), mInputListener->getAbsMouseY());
-
-    mRayQuery->setRay (rayTo);
-    const RaySceneQueryResult& result = mRayQuery->execute();
-    if (!result.empty())
-    {
-        RaySceneQueryResult::const_iterator i = result.begin();
-
-        mRayQuery->setSortByDistance (true, 1);//only one hit
-        while((i != result.end()))
-        {
-            SceneNode *node = i->movable->getParentSceneNode() ;
-#if (OGRE_VERSION >=  ((1 << 16) | (5 << 8) | 0)) // must have at least shoggoth (1.5.0)
-			intersectionPoint = node->_getDerivedPosition ();
-#else
-			intersectionPoint = node->getWorldPosition ();
-#endif
-            const unsigned short num = node->numAttachedObjects();
-            MovableObject* movable;
-            for (unsigned short cur = 0;cur < num; cur++)
-            {
-                movable = node->getAttachedObject(cur);
-                if (movable->getMovableType() == OgreBulletCollisions::Object::mMovableType) 
-                {
-                    OgreBulletCollisions::Object *object = static_cast <OgreBulletCollisions::Object *>(movable);
-                    OgreBulletDynamics::RigidBody *body = static_cast <OgreBulletDynamics::RigidBody *>(object);
-                    setDebugText ("Hit :" + body->getName());
-
-                    return body;
-                }
-            }
-            ++i;
-        }	
-    }// if results.	 
-    return 0;
-}
+//OgreBulletDynamics::RigidBody* OgreBulletListener::getBodyUnderCursorUsingOgre(Ogre::Vector3 &intersectionPoint, Ray &rayTo)
+//{
+//    rayTo = mBulletCamera->getCameraToViewportRay (mInputListener->getAbsMouseX(), mInputListener->getAbsMouseY());
+//
+//    mRayQuery->setRay (rayTo);
+//    const RaySceneQueryResult& result = mRayQuery->execute();
+//    if (!result.empty())
+//    {
+//        RaySceneQueryResult::const_iterator i = result.begin();
+//
+//        mRayQuery->setSortByDistance (true, 1);//only one hit
+//        while((i != result.end()))
+//        {
+//            SceneNode *node = i->movable->getParentSceneNode() ;
+//#if (OGRE_VERSION >=  ((1 << 16) | (5 << 8) | 0)) // must have at least shoggoth (1.5.0)
+//			intersectionPoint = node->_getDerivedPosition ();
+//#else
+//			intersectionPoint = node->getWorldPosition ();
+//#endif
+//            const unsigned short num = node->numAttachedObjects();
+//            MovableObject* movable;
+//            for (unsigned short cur = 0;cur < num; cur++)
+//            {
+//                movable = node->getAttachedObject(cur);
+//                if (movable->getMovableType() == OgreBulletCollisions::Object::mMovableType) 
+//                {
+//                    OgreBulletCollisions::Object *object = static_cast <OgreBulletCollisions::Object *>(movable);
+//                    OgreBulletDynamics::RigidBody *body = static_cast <OgreBulletDynamics::RigidBody *>(object);
+//                    setDebugText ("Hit :" + body->getName());
+//
+//                    return body;
+//                }
+//            }
+//            ++i;
+//        }	
+//    }// if results.	 
+//    return 0;
+//}
 // -------------------------------------------------------------------------
-bool OgreBulletListener::bulletFrameStarted(Real elapsedTime)
-{
-    if (mQuit)
-        return false;
+//bool OgreBulletListener::bulletFrameStarted(Real elapsedTime)
+//{
+    /*if (mQuit)
+        return false;*/
 
-    if (mInputListener->getButton2Pressed())
+    /*if (mInputListener->getButton2Pressed())
     {
         mBulletCamera->yaw(mBulletCameraRotX);
         mBulletCamera->pitch(mBulletCameraRotY);
@@ -784,108 +788,108 @@ bool OgreBulletListener::bulletFrameStarted(Real elapsedTime)
         mBulletCameraRotY = 0;
     }
 
-    mBulletCamera->moveRelative(mBulletCameraTrans);
+    mBulletCamera->moveRelative(mBulletCameraTrans);*/
 
     // update physics
-    if (!mPaused || mDoOnestep)
+    /*if (!mPaused || mDoOnestep)
         mBulletWorld->stepSimulation(elapsedTime);
 
-    mDoOnestep = false;
+    mDoOnestep = false;*/
 
-    return true;
-}
+//    return true;
+//}
 // -------------------------------------------------------------------------
-bool OgreBulletListener::bulletFrameEnded(Real elapsedTime)
-{
-    if (mQuit)
-        return false;
+//bool OgreBulletListener::bulletFrameEnded(Real elapsedTime)
+//{
+  //  if (mQuit)
+  //      return false;
 
-    DebugDrawer *debugDrawer = mBulletWorld->getDebugDrawer ();
+  //  DebugDrawer *debugDrawer = mBulletWorld->getDebugDrawer ();
 
 
-    // Scene Debug Options
-    if (mWireFrame)
-    {
-        const bool wasWireframeShapes = debugDrawer->doesDrawWireframe();
-        debugDrawer->setDrawWireframe(!wasWireframeShapes);
-        mBulletWorld->setShowDebugShapes(!wasWireframeShapes);
-        mWireFrame = false;
-    }
-    if (mDrawAabb) 
-    {
-        debugDrawer->setDrawAabb(!debugDrawer->doesDrawAabb());
-        mDrawAabb = false;
-    }
-    if ( mDrawFeaturesText)
-    {
-        debugDrawer->setDrawFeaturesText(!debugDrawer->doesDrawFeaturesText());
-        mDrawFeaturesText = false;
-    }
-    if ( mDrawContactPoints)
-    {
-        debugDrawer->setDrawContactPoints(!debugDrawer->doesDrawContactPoints());
-		mBulletWorld->setShowDebugContactPoints(debugDrawer->doesDrawContactPoints());
-        mDrawContactPoints = false;
-    }
-    if ( mNoDeactivation)
-    {
-        debugDrawer->setNoDeactivation(!debugDrawer->doesNoDeactivation());
-        mNoDeactivation = false;
-    }
-    if ( mNoHelpText)
-    {
-        debugDrawer->setNoHelpText(!debugDrawer->doesNoHelpText());
-        mNoHelpText = false;
-    }
-    if ( mDrawText)
-    {
-        debugDrawer->setDrawText(!debugDrawer->doesDrawText());
-        mDrawText = false;
-    }
-    if ( mProfileTimings)
-    {
-        debugDrawer->setProfileTimings(!debugDrawer->doesProfileTimings());
-        mProfileTimings = false;
-    }
-    if ( mEnableSatComparison)
-    {
-        debugDrawer->setEnableSatComparison(!debugDrawer->doesEnableSatComparison());
-        mEnableSatComparison = false;
-    }
-    if ( mDisableBulletLCP)
-    {
-        debugDrawer->setDisableBulletLCP(!debugDrawer->doesDisableBulletLCP());
-        mDisableBulletLCP = false;
-    }
-    if ( mEnableCCD)
-    {
-        debugDrawer->setEnableCCD(!debugDrawer->doesEnableCCD());
-        mEnableCCD = false;
-    }
+  //  // Scene Debug Options
+  //  if (mWireFrame)
+  //  {
+  //      const bool wasWireframeShapes = debugDrawer->doesDrawWireframe();
+  //      debugDrawer->setDrawWireframe(!wasWireframeShapes);
+  //      mBulletWorld->setShowDebugShapes(!wasWireframeShapes);
+  //      mWireFrame = false;
+  //  }
+  //  if (mDrawAabb) 
+  //  {
+  //      debugDrawer->setDrawAabb(!debugDrawer->doesDrawAabb());
+  //      mDrawAabb = false;
+  //  }
+  //  if ( mDrawFeaturesText)
+  //  {
+  //      debugDrawer->setDrawFeaturesText(!debugDrawer->doesDrawFeaturesText());
+  //      mDrawFeaturesText = false;
+  //  }
+  //  if ( mDrawContactPoints)
+  //  {
+  //      debugDrawer->setDrawContactPoints(!debugDrawer->doesDrawContactPoints());
+		//mBulletWorld->setShowDebugContactPoints(debugDrawer->doesDrawContactPoints());
+  //      mDrawContactPoints = false;
+  //  }
+  //  if ( mNoDeactivation)
+  //  {
+  //      debugDrawer->setNoDeactivation(!debugDrawer->doesNoDeactivation());
+  //      mNoDeactivation = false;
+  //  }
+  //  if ( mNoHelpText)
+  //  {
+  //      debugDrawer->setNoHelpText(!debugDrawer->doesNoHelpText());
+  //      mNoHelpText = false;
+  //  }
+  //  if ( mDrawText)
+  //  {
+  //      debugDrawer->setDrawText(!debugDrawer->doesDrawText());
+  //      mDrawText = false;
+  //  }
+  //  if ( mProfileTimings)
+  //  {
+  //      debugDrawer->setProfileTimings(!debugDrawer->doesProfileTimings());
+  //      mProfileTimings = false;
+  //  }
+  //  if ( mEnableSatComparison)
+  //  {
+  //      debugDrawer->setEnableSatComparison(!debugDrawer->doesEnableSatComparison());
+  //      mEnableSatComparison = false;
+  //  }
+  //  if ( mDisableBulletLCP)
+  //  {
+  //      debugDrawer->setDisableBulletLCP(!debugDrawer->doesDisableBulletLCP());
+  //      mDisableBulletLCP = false;
+  //  }
+  //  if ( mEnableCCD)
+  //  {
+  //      debugDrawer->setEnableCCD(!debugDrawer->doesEnableCCD());
+  //      mEnableCCD = false;
+  //  }
 
-    mGuiListener->getGui ()->update (elapsedTime);
-    updateStats();
-    return true;
-}
+  //  mGuiListener->getGui ()->update (elapsedTime);
+  //  updateStats();
+//    return true;
+//}
 // ------------------------------------------------------------------------- 
-bool OgreBulletListener::checkIfEnoughPlaceToAddObject(float maxDist)
-{
-    Ogre::Vector3 pickPos;
-    Ogre::Ray rayTo;
-    OgreBulletDynamics::RigidBody * body = 
-        getBodyUnderCursorUsingBullet(pickPos, rayTo);
-        //getBodyUnderCursorUsingOgre(pickPos, rayTo);
-    if (body)
-    {          
-        if ((pickPos - mBulletCamera->getDerivedPosition ()).length () < maxDist)
-            return false;
-    }
-    return true;        
-}
+//bool OgreBulletListener::checkIfEnoughPlaceToAddObject(float maxDist)
+//{
+//    Ogre::Vector3 pickPos;
+//    Ogre::Ray rayTo;
+//    OgreBulletDynamics::RigidBody * body = 
+//        getBodyUnderCursorUsingBullet(pickPos, rayTo);
+//        //getBodyUnderCursorUsingOgre(pickPos, rayTo);
+//    /*if (body)
+//    {          
+//        if ((pickPos - mBulletCamera->getDerivedPosition ()).length () < maxDist)
+//            return false;
+//    }*/
+//    return true;        
+//}
 // -------------------------------------------------------------------------
-void OgreBulletListener::throwDynamicObject(BULLET_KEY_CODE key)
-{
-    const float trowDist = 2.0f;
+//void OgreBulletListener::throwDynamicObject(BULLET_KEY_CODE key)
+//{
+    /*const float trowDist = 2.0f;
     switch(key)
     {
     case KC_B: 
@@ -939,8 +943,8 @@ void OgreBulletListener::throwDynamicObject(BULLET_KEY_CODE key)
                 );
         }
         break;
-    }
-}
+    }*/
+//}
 // -------------------------------------------------------------------------
 void OgreBulletListener::dropDynamicObject(int key, Ogre::Vector3 vec)
 {
@@ -984,7 +988,6 @@ void OgreBulletListener::initWorld(const Ogre::Vector3 &gravityVector,
 
     // add Debug info display tool
     DebugDrawer *debugDrawer = new DebugDrawer();
-
     mBulletWorld->setDebugDrawer(debugDrawer);
 
     SceneNode *node = mBulletSceneMgr->getRootSceneNode()->createChildSceneNode("debugDrawer", Ogre::Vector3::ZERO);
@@ -1018,7 +1021,6 @@ RigidBody *OgreBulletListener::addCube(const Ogre::String instanceName,
     entity->setNormaliseNormals(true);
 #endif
 	entity->setCastShadows(true);
-
     entity->setMaterialName("Bullet/box");
 
     BoxCollisionShape *sceneCubeShape = new BoxCollisionShape(size);
@@ -1054,7 +1056,6 @@ RigidBody *OgreBulletListener::addSphere(const Ogre::String instanceName,
     entity->setNormaliseNormals(true);
 #endif
 	entity->setCastShadows(true);
-
     entity->setMaterialName("Bullet/box");
 
     SphereCollisionShape *sceneCubeShape = new SphereCollisionShape(radius);
@@ -1232,30 +1233,30 @@ RigidBody *OgreBulletListener::addStaticPlane( const Ogre::Real bodyRestitution,
 
 
 // -------------------------------------------------------------------------
-void OgreBulletListener::updateStats(void)
-{
+//void OgreBulletListener::updateStats(void)
+//{
 
-    // update stats when necessary
-    if (mFpsStaticText)
-    {
-        const RenderTarget::FrameStats& stats = mBulletWindow->getStatistics();
+	//// update stats when necessary
+	//if (mFpsStaticText)
+	//{
+	//	const RenderTarget::FrameStats& stats = mBulletWindow->getStatistics();
 
-        static String avgFps = "Average FPS: ";
-        static String currFps = "Current FPS: ";
-        static String tris = "Triangle Count: ";
+	//	static String avgFps = "Average FPS: ";
+	//	static String currFps = "Current FPS: ";
+	//	static String tris = "Triangle Count: ";
 
 
-        mFpsStaticText->setValue
-            (
-            avgFps + StringConverter::toString(stats.avgFPS) + " / " +
-            currFps + StringConverter::toString(stats.lastFPS) + " / " +
-            tris + StringConverter::toString(stats.triangleCount)
-            );
-    }
+	//	mFpsStaticText->setValue
+	//		(
+	//		avgFps + StringConverter::toString(stats.avgFPS) + " / " +
+	//		currFps + StringConverter::toString(stats.lastFPS) + " / " +
+	//		tris + StringConverter::toString(stats.triangleCount)
+	//		);
+	//}
 
-    try {
-        OverlayElement* guiDbg = OverlayManager::getSingleton().getOverlayElement("Core/DebugText");
-        guiDbg->setCaption(mDebugText);
-    }
-    catch(...) {}
-}
+	//try {
+	//	OverlayElement* guiDbg = OverlayManager::getSingleton().getOverlayElement("Core/DebugText");
+	//	guiDbg->setCaption(mDebugText);
+	//}
+	//catch(...) {}
+//}

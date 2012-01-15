@@ -48,6 +48,9 @@ AZBullet::AZBullet(void):OgreBulletListener()
 //-------------------------------------------------------------------------------------
 AZBullet::~AZBullet(void)
 {	
+	this->bulletShutdown();
+	//mRoot->removeFrameListener(this);
+
 	if (vehicle != NULL)		delete vehicle;
 	if (tManager != NULL)		delete tManager;
 	if (obs != NULL)			delete obs;
@@ -97,9 +100,9 @@ void AZBullet::changeSkyBox()
 // -------------------------------------------------------------------------
 void AZBullet::bulletInit()
 {	
-	mBulletCamera = mCamera;		// OgreBulletListener's camera
-	mBulletWindow = mWindow;		// OgreBulletListener's window
-	mBulletRoot = mRoot;			// OgreBulletListener's root
+	//mBulletCamera = mCamera;		// OgreBulletListener's camera
+	//mBulletWindow = mWindow;		// OgreBulletListener's window
+	//mBulletRoot = mRoot;			// OgreBulletListener's root
 	mBulletSceneMgr = mSceneMgr;	// OgreBulletListener's scene manager
 
 	mSceneMgr->setAmbientLight(ColourValue(1, 1, 1));
@@ -498,7 +501,7 @@ void AZBullet::createFrameListener(void)
 	this->bLMouseDown = false;
 	this->bRMouseDown = false;
 	this->mRotateSpeed = 0.1f;
-	this->mName = "AZBullet";	
+	//this->mName = "AZBullet";	
 
 	mRayScnQuery = mSceneMgr->createRayQuery(Ogre::Ray());	
 }
