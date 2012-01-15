@@ -3,7 +3,7 @@
 	ProjectType="Visual C++"
 	Version="9.00"
 	Name="AZBullet"
-	ProjectGUID="{1F6C3DB4-3A1A-4D9C-9CF5-1149015EB021}"
+	ProjectGUID="{7FA88547-3065-4D6F-916A-542A29DAE808}"
 	RootNamespace="AZBullet"
 	TargetFrameworkVersion="196613"
 	>
@@ -95,8 +95,7 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				Description="Copying exe to samples bin directory ..."
-				CommandLine="copy &quot;$(OutDir)\$(TargetFileName)&quot; &quot;$(OGRE_HOME)\Bin\$(ConfigurationName)&quot;"
+				CommandLine=""
 			/>
 		</Configuration>
 		<Configuration
@@ -141,7 +140,6 @@
 				FloatingPointModel="2"
 				RuntimeTypeInfo="true"
 				UsePrecompiledHeader="0"
-				PrecompiledHeaderThrough="Stdafx.h"
 				WarningLevel="3"
 				DebugInformationFormat="3"
 			/>
@@ -186,8 +184,7 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				Description="Copying exe to samples bin directory ..."
-				CommandLine="copy &quot;$(OutDir)\$(TargetFileName)&quot; &quot;$(OGRE_HOME)\Bin\$(ConfigurationName)&quot;"
+				CommandLine=""
 			/>
 		</Configuration>
 	</Configurations>
@@ -255,10 +252,6 @@
 				RelativePath=".\src\ThirdPersonCamera.cpp"
 				>
 			</File>
-			<File
-				RelativePath=".\include\Vehicle.cpp"
-				>
-			</File>
 			<Filter
 				Name="Common"
 				>
@@ -322,6 +315,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\include\FlashValue.h"
+				>
+			</File>
+			<File
 				RelativePath=".\include\ObstacleForFun.h"
 				>
 			</File>
@@ -331,10 +328,6 @@
 			</File>
 			<File
 				RelativePath=".\include\RayTerrain.h"
-				>
-			</File>
-			<File
-				RelativePath=".\res\Resource.h"
 				>
 			</File>
 			<File
@@ -363,6 +356,10 @@
 			</File>
 			<File
 				RelativePath=".\include\ThirdPersonCamera.h"
+				>
+			</File>
+			<File
+				RelativePath=".\include\Vehicle.cpp"
 				>
 			</File>
 			<File
