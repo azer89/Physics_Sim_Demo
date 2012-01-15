@@ -66,10 +66,10 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="OgreMain_d.lib OIS_d.lib OgreTerrain_d.lib OgreBulletCollisions_d.lib OgreBulletDynamics_d.lib BulletCollision.lib BulletDynamics.lib LinearMath.lib GIMPACTutils.lib ConvexDecomposition.lib Hydrax.lib Hikari_d.lib"
+				AdditionalDependencies="OgreMain_d.lib OIS_d.lib OgreTerrain_d.lib OgreBulletCollisions_d.lib OgreBulletDynamics_d.lib BulletCollision_d.lib BulletDynamics_d.lib LinearMath_d.lib GIMPACTutils_d.lib ConvexDecomposition_d.lib Hydrax_d.lib Hikari_d.lib"
 				OutputFile="$(OutDir)\$(ProjectName).exe"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;$(OGRE_HOME)\lib\debug&quot;;&quot;$(OGRE_HOME)\boost_1_44\lib&quot;;&quot;lib\$(ConfigurationName)&quot;;&quot;$(BULLET_ROOT)\lib\&quot;"
+				AdditionalLibraryDirectories="&quot;$(OGRE_HOME)\lib\debug&quot;;&quot;$(OGRE_HOME)\boost_1_44\lib&quot;;&quot;lib\$(ConfigurationName)&quot;"
 				GenerateDebugInformation="true"
 				ProgramDatabaseFile="$(OutDir)/AZBullet.pdb"
 				SubSystem="1"
@@ -154,10 +154,10 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="OgreMain.lib OIS.lib OgreTerrain.lib OgreBulletCollisions.lib OgreBulletDynamics.lib BulletCollision.lib BulletDynamics.lib LinearMath.lib GIMPACTUtils.lib ConvexDecomposition.lib Hydrax.lib Hikari.lib"
+				AdditionalDependencies="OgreMain.lib OIS.lib OgreBulletCollisions.lib OgreBulletDynamics.lib BulletCollision.lib BulletDynamics.lib LinearMath.lib GIMPACTutils.lib ConvexDecomposition.lib Hydrax.lib Hikari.lib"
 				OutputFile="$(OutDir)\$(ProjectName).exe"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="&quot;$(OGRE_HOME)\lib\release&quot;;&quot;$(OGRE_HOME)\boost_1_44\lib&quot;;&quot;lib\$(ConfigurationName)&quot;;&quot;$(BULLET_ROOT)\lib\&quot;"
+				AdditionalLibraryDirectories="&quot;$(OGRE_HOME)\lib\release&quot;;&quot;$(OGRE_HOME)\boost_1_44\lib&quot;;&quot;lib\$(ConfigurationName)&quot;"
 				GenerateDebugInformation="false"
 				SubSystem="2"
 				OptimizeReferences="2"
