@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AZBullet", "AZBullet\AZBullet.vcproj", "{1F6C3DB4-3A1A-4D9C-9CF5-1149015EB021}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AZBullet", "AZBullet\AZBullet.vcproj", "{7FA88547-3065-4D6F-916A-542A29DAE808}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -9,10 +9,10 @@ Global
 		Release|Win32 = Release|Win32
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{1F6C3DB4-3A1A-4D9C-9CF5-1149015EB021}.Debug|Win32.ActiveCfg = Debug|Win32
-		{1F6C3DB4-3A1A-4D9C-9CF5-1149015EB021}.Debug|Win32.Build.0 = Debug|Win32
-		{1F6C3DB4-3A1A-4D9C-9CF5-1149015EB021}.Release|Win32.ActiveCfg = Release|Win32
-		{1F6C3DB4-3A1A-4D9C-9CF5-1149015EB021}.Release|Win32.Build.0 = Release|Win32
+		{7FA88547-3065-4D6F-916A-542A29DAE808}.Debug|Win32.ActiveCfg = Debug|Win32
+		{7FA88547-3065-4D6F-916A-542A29DAE808}.Debug|Win32.Build.0 = Debug|Win32
+		{7FA88547-3065-4D6F-916A-542A29DAE808}.Release|Win32.ActiveCfg = Release|Win32
+		{7FA88547-3065-4D6F-916A-542A29DAE808}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

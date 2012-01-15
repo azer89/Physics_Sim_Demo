@@ -1,476 +1,368 @@
-18:49:52: Creating resource group General
-18:49:52: Creating resource group Internal
-18:49:52: Creating resource group Autodetect
-18:49:52: SceneManagerFactory for type 'DefaultSceneManager' registered.
-18:49:52: Registering ResourceManager for type Material
-18:49:52: Registering ResourceManager for type Mesh
-18:49:52: Registering ResourceManager for type Skeleton
-18:49:52: MovableObjectFactory for type 'ParticleSystem' registered.
-18:49:52: OverlayElementFactory for type Panel registered.
-18:49:52: OverlayElementFactory for type BorderPanel registered.
-18:49:52: OverlayElementFactory for type TextArea registered.
-18:49:52: Registering ResourceManager for type Font
-18:49:52: ArchiveFactory for archive type FileSystem registered.
-18:49:52: ArchiveFactory for archive type Zip registered.
-18:49:52: DDS codec registering
-18:49:53: FreeImage version: 3.13.1
-18:49:53: This program uses FreeImage, a free, open source image library supporting all common bitmap formats. See http://freeimage.sourceforge.net for details
-18:49:53: Supported formats: bmp,ico,jpg,jif,jpeg,jpe,jng,koa,iff,lbm,mng,pbm,pbm,pcd,pcx,pgm,pgm,png,ppm,ppm,ras,tga,targa,tif,tiff,wap,wbmp,wbm,psd,cut,xbm,xpm,gif,hdr,g3,sgi,exr,j2k,j2c,jp2,pfm,pct,pict,pic,bay,bmq,cr2,crw,cs1,dc2,dcr,dng,erf,fff,hdr,k25,kdc,mdc,mos,mrw,nef,orf,pef,pxn,raf,raw,rdc,sr2,srf,arw,3fr,cine,ia,kc2,mef,nrw,qtk,rw2,sti,drf,dsc,ptx,cap,iiq,rwz
-18:49:53: Registering ResourceManager for type HighLevelGpuProgram
-18:49:53: Registering ResourceManager for type Compositor
-18:49:53: MovableObjectFactory for type 'Entity' registered.
-18:49:53: MovableObjectFactory for type 'Light' registered.
-18:49:53: MovableObjectFactory for type 'BillboardSet' registered.
-18:49:53: MovableObjectFactory for type 'ManualObject' registered.
-18:49:53: MovableObjectFactory for type 'BillboardChain' registered.
-18:49:53: MovableObjectFactory for type 'RibbonTrail' registered.
-18:49:53: Loading library .\RenderSystem_Direct3D9
-18:49:53: Installing plugin: D3D9 RenderSystem
-18:49:53: D3D9 : Direct3D9 Rendering Subsystem created.
-18:49:53: D3D9: Driver Detection Starts
-18:49:53: D3D9: Driver Detection Ends
-18:49:53: Plugin successfully installed
-18:49:53: Loading library .\RenderSystem_GL
-18:49:53: Installing plugin: GL RenderSystem
-18:49:53: OpenGL Rendering Subsystem created.
-18:49:53: Plugin successfully installed
-18:49:53: Loading library .\Plugin_ParticleFX
-18:49:53: Installing plugin: ParticleFX
-18:49:53: Particle Emitter Type 'Point' registered
-18:49:53: Particle Emitter Type 'Box' registered
-18:49:53: Particle Emitter Type 'Ellipsoid' registered
-18:49:53: Particle Emitter Type 'Cylinder' registered
-18:49:53: Particle Emitter Type 'Ring' registered
-18:49:53: Particle Emitter Type 'HollowEllipsoid' registered
-18:49:53: Particle Affector Type 'LinearForce' registered
-18:49:53: Particle Affector Type 'ColourFader' registered
-18:49:53: Particle Affector Type 'ColourFader2' registered
-18:49:53: Particle Affector Type 'ColourImage' registered
-18:49:53: Particle Affector Type 'ColourInterpolator' registered
-18:49:53: Particle Affector Type 'Scaler' registered
-18:49:53: Particle Affector Type 'Rotator' registered
-18:49:53: Particle Affector Type 'DirectionRandomiser' registered
-18:49:53: Particle Affector Type 'DeflectorPlane' registered
-18:49:53: Plugin successfully installed
-18:49:53: Loading library .\Plugin_BSPSceneManager
-18:49:53: Installing plugin: BSP Scene Manager
-18:49:53: Plugin successfully installed
-18:49:53: Loading library .\Plugin_CgProgramManager
-18:49:54: Installing plugin: Cg Program Manager
-18:49:54: Plugin successfully installed
-18:49:54: Loading library .\Plugin_PCZSceneManager
-18:49:54: Installing plugin: Portal Connected Zone Scene Manager
-18:49:54: PCZone Factory Type 'ZoneType_Default' registered
-18:49:54: Plugin successfully installed
-18:49:54: Loading library .\Plugin_OctreeZone
-18:49:54: Installing plugin: Octree Zone Factory
-18:49:54: Plugin successfully installed
-18:49:54: Loading library .\Plugin_OctreeSceneManager
-18:49:54: Installing plugin: Octree & Terrain Scene Manager
-18:49:54: Plugin successfully installed
-18:49:54: *-*-* OGRE Initialising
-18:49:54: *-*-* Version 1.7.2 (Cthugha)
-18:49:54: Creating resource group Essential
-18:49:54: Added resource location '../../media/thumbnails' of type 'FileSystem' to resource group 'Essential'
-18:49:54: Added resource location '../../media/packs/SdkTrays.zip' of type 'Zip' to resource group 'Essential'
-18:49:54: Added resource location '../../media' of type 'FileSystem' to resource group 'General'
-18:49:54: Creating resource group Hydrax
-18:49:54: Added resource location '../../Media/Hydrax' of type 'FileSystem' to resource group 'Hydrax'
-18:49:54: Creating resource group OgreBulletCollisions
-18:49:54: Added resource location '../../media/OgreBulletCollisions' of type 'FileSystem' to resource group 'OgreBulletCollisions'
-18:49:54: Creating resource group Popular
-18:49:54: Added resource location '../../media/fonts' of type 'FileSystem' to resource group 'Popular'
-18:49:54: Added resource location '../../media/materials/programs' of type 'FileSystem' to resource group 'Popular'
-18:49:54: Added resource location '../../media/materials/scripts' of type 'FileSystem' to resource group 'Popular'
-18:49:54: Added resource location '../../media/materials/textures' of type 'FileSystem' to resource group 'Popular'
-18:49:54: Added resource location '../../media/materials/textures/nvidia' of type 'FileSystem' to resource group 'Popular'
-18:49:54: Added resource location '../../media/models' of type 'FileSystem' to resource group 'Popular'
-18:49:54: Added resource location '../../media/particle' of type 'FileSystem' to resource group 'Popular'
-18:49:54: Added resource location '../../media/packs/SkyBoxes.zip' of type 'Zip' to resource group 'Popular'
-18:49:54: D3D9 : RenderSystem Option: Allow NVPerfHUD = No
-18:49:54: D3D9 : RenderSystem Option: FSAA = 0
-18:49:54: D3D9 : RenderSystem Option: Floating-point mode = Fastest
-18:49:54: D3D9 : RenderSystem Option: Full Screen = No
-18:49:54: D3D9 : RenderSystem Option: Rendering Device = Monitor-1-NVIDIA Quadro FX 580
-18:49:54: D3D9 : RenderSystem Option: Resource Creation Policy = Create on all devices
-18:49:54: D3D9 : RenderSystem Option: VSync = No
-18:49:54: D3D9 : RenderSystem Option: VSync Interval = 1
-18:49:54: D3D9 : RenderSystem Option: Video Mode = 1280 x 720 @ 32-bit colour
-18:49:54: D3D9 : RenderSystem Option: sRGB Gamma Conversion = No
-18:49:57: CPU Identifier & Features
-18:49:57: -------------------------
-18:49:57:  *   CPU ID: AuthenticAMD: AMD Athlon(tm) II X4 630 Processor
-18:49:57:  *      SSE: yes
-18:49:57:  *     SSE2: yes
-18:49:57:  *     SSE3: yes
-18:49:57:  *      MMX: yes
-18:49:57:  *   MMXEXT: yes
-18:49:57:  *    3DNOW: yes
-18:49:57:  * 3DNOWEXT: yes
-18:49:57:  *     CMOV: yes
-18:49:57:  *      TSC: yes
-18:49:57:  *      FPU: yes
-18:49:57:  *      PRO: yes
-18:49:57:  *       HT: no
-18:49:57: -------------------------
-18:49:57: D3D9 : Subsystem Initialising
-18:49:57: Registering ResourceManager for type Texture
-18:49:57: Registering ResourceManager for type GpuProgram
-18:49:57: D3D9RenderSystem::_createRenderWindow "__The_Chain_Reaction__", 1280x720 windowed  miscParams: FSAA=0 FSAAHint= colourDepth=32 gamma=false monitorIndex=0 useNVPerfHUD=false vsync=false vsyncInterval=1 
-18:49:57: D3D9 : Created D3D9 Rendering Window '__The_Chain_Reaction__' : 1280x720, 32bpp
-18:49:57: D3D9 : WARNING - disabling VSync in windowed mode can cause timing issues at lower frame rates, turn VSync on if you observe this problem.
-18:49:57: D3D9: Vertex texture format supported - PF_FLOAT16_RGB
-18:49:57: D3D9: Vertex texture format supported - PF_FLOAT16_RGBA
-18:49:57: D3D9: Vertex texture format supported - PF_FLOAT32_RGB
-18:49:57: D3D9: Vertex texture format supported - PF_FLOAT32_RGBA
-18:49:57: D3D9: Vertex texture format supported - PF_FLOAT16_R
-18:49:57: D3D9: Vertex texture format supported - PF_FLOAT32_R
-18:49:57: D3D9: Vertex texture format supported - PF_FLOAT16_GR
-18:49:57: D3D9: Vertex texture format supported - PF_FLOAT32_GR
-18:49:57: RenderSystem capabilities
-18:49:57: -------------------------
-18:49:57: RenderSystem Name: Direct3D9 Rendering Subsystem
-18:49:57: GPU Vendor: nvidia
-18:49:57: Device Name: Monitor-1-NVIDIA Quadro FX 580
-18:49:57: Driver Version: 8.17.12.7589
-18:49:57:  * Fixed function pipeline: yes
-18:49:57:  * Hardware generation of mipmaps: yes
-18:49:57:  * Texture blending: yes
-18:49:57:  * Anisotropic texture filtering: yes
-18:49:57:  * Dot product texture operation: yes
-18:49:57:  * Cube mapping: yes
-18:49:57:  * Hardware stencil buffer: yes
-18:49:57:    - Stencil depth: 8
-18:49:57:    - Two sided stencil support: yes
-18:49:57:    - Wrap stencil values: yes
-18:49:57:  * Hardware vertex / index buffers: yes
-18:49:57:  * Vertex programs: yes
-18:49:57:  * Number of floating-point constants for vertex programs: 256
-18:49:57:  * Number of integer constants for vertex programs: 16
-18:49:57:  * Number of boolean constants for vertex programs: 16
-18:49:57:  * Fragment programs: yes
-18:49:57:  * Number of floating-point constants for fragment programs: 224
-18:49:57:  * Number of integer constants for fragment programs: 16
-18:49:57:  * Number of boolean constants for fragment programs: 16
-18:49:57:  * Geometry programs: no
-18:49:57:  * Number of floating-point constants for geometry programs: 0
-18:49:57:  * Number of integer constants for geometry programs: 27648
-18:49:57:  * Number of boolean constants for geometry programs: 28527
-18:49:57:  * Supported Shader Profiles: hlsl ps_1_1 ps_1_2 ps_1_3 ps_1_4 ps_2_0 ps_2_a ps_2_b ps_2_x ps_3_0 vs_1_1 vs_2_0 vs_2_a vs_2_x vs_3_0
-18:49:57:  * Texture Compression: yes
-18:49:57:    - DXT: yes
-18:49:57:    - VTC: no
-18:49:57:    - PVRTC: no
-18:49:57:  * Scissor Rectangle: yes
-18:49:57:  * Hardware Occlusion Query: yes
-18:49:57:  * User clip planes: yes
-18:49:57:  * VET_UBYTE4 vertex element type: yes
-18:49:57:  * Infinite far plane projection: yes
-18:49:57:  * Hardware render-to-texture: yes
-18:49:57:  * Floating point textures: yes
-18:49:57:  * Non-power-of-two textures: yes
-18:49:57:  * Volume textures: yes
-18:49:57:  * Multiple Render Targets: 4
-18:49:57:    - With different bit depths: yes
-18:49:57:  * Point Sprites: yes
-18:49:57:  * Extended point parameters: yes
-18:49:57:  * Max Point Size: 10
-18:49:57:  * Vertex texture fetch: yes
-18:49:57:  * Number of world matrices: 0
-18:49:57:  * Number of texture units: 8
-18:49:57:  * Stencil buffer depth: 8
-18:49:57:  * Number of vertex blend matrices: 0
-18:49:57:    - Max vertex textures: 4
-18:49:57:    - Vertex textures shared: no
-18:49:57:  * Render to Vertex Buffer : no
-18:49:57:  * DirectX per stage constants: yes
-18:49:57: ***************************************
-18:49:57: *** D3D9 : Subsystem Initialised OK ***
-18:49:57: ***************************************
-18:49:57: DefaultWorkQueue('Root') initialising on thread 0058EEA0.
-18:49:57: DefaultWorkQueue('Root')::WorkerFunc - thread 00661090 starting.
-18:49:57: DefaultWorkQueue('Root')::WorkerFunc - thread 00661100 starting.
-18:49:57: DefaultWorkQueue('Root')::WorkerFunc - thread 00661580 starting.
-18:49:57: Particle Renderer Type 'billboard' registered
-18:49:57: DefaultWorkQueue('Root')::WorkerFunc - thread 00661B00 starting.
-18:49:57: SceneManagerFactory for type 'BspSceneManager' registered.
-18:49:57: Registering ResourceManager for type BspLevel
-18:49:57: SceneManagerFactory for type 'PCZSceneManager' registered.
-18:49:57: MovableObjectFactory for type 'PCZLight' registered.
-18:49:57: MovableObjectFactory for type 'Portal' registered.
-18:49:57: MovableObjectFactory for type 'AntiPortal' registered.
-18:49:57: PCZone Factory Type 'ZoneType_Octree' registered
-18:49:57: PCZone Factory Type 'ZoneType_Terrain' registered
-18:49:57: SceneManagerFactory for type 'OctreeSceneManager' registered.
-18:49:57: SceneManagerFactory for type 'TerrainSceneManager' registered.
-18:49:57: TerrainSceneManager: Registered a new PageSource for type Heightmap
-18:49:57: Initialising resource group Essential
-18:49:57: Parsing scripts for resource group Essential
-18:49:57: Parsing script SdkTrays.material
-18:49:57: Parsing script SdkTrays.fontdef
-18:49:57: Parsing script SdkTrays.overlay
-18:49:57: Bad element attribute line: '# you can offset the image to change the cursor "hotspot"' for element SdkTrays/Cursor in overlay 
-18:49:57: Texture: sdk_cursor.png: Loading 1 faces(PF_A8R8G8B8,32x32x1) with  hardware generated mipmaps from Image. Internal format is PF_A8R8G8B8,32x32x1.
-18:49:57: Texture: sdk_tray.png: Loading 1 faces(PF_A8R8G8B8,64x64x1) with  hardware generated mipmaps from Image. Internal format is PF_A8R8G8B8,64x64x1.
-18:49:57: Texture: sdk_button_up.png: Loading 1 faces(PF_A8R8G8B8,128x32x1) with  hardware generated mipmaps from Image. Internal format is PF_A8R8G8B8,128x32x1.
-18:49:57: Texture: sdk_text_box.png: Loading 1 faces(PF_A8R8G8B8,32x32x1) with  hardware generated mipmaps from Image. Internal format is PF_A8R8G8B8,32x32x1.
-18:49:57: Texture: sdk_mini_tray.png: Loading 1 faces(PF_A8R8G8B8,32x32x1) with  hardware generated mipmaps from Image. Internal format is PF_A8R8G8B8,32x32x1.
-18:49:57: Texture: sdk_track.png: Loading 1 faces(PF_A8R8G8B8,16x32x1) with  hardware generated mipmaps from Image. Internal format is PF_A8R8G8B8,16x32x1.
-18:49:57: Texture: sdk_handle.png: Loading 1 faces(PF_A8R8G8B8,16x16x1) with  hardware generated mipmaps from Image. Internal format is PF_A8R8G8B8,16x16x1.
-18:49:57: Texture: sdk_mini_text_box.png: Loading 1 faces(PF_A8R8G8B8,32x32x1) with  hardware generated mipmaps from Image. Internal format is PF_A8R8G8B8,32x32x1.
-18:49:57: Texture: sdk_label.png: Loading 1 faces(PF_A8R8G8B8,32x32x1) with  hardware generated mipmaps from Image. Internal format is PF_A8R8G8B8,32x32x1.
-18:49:57: Texture: sdk_separator.png: Loading 1 faces(PF_A8R8G8B8,64x16x1) with  hardware generated mipmaps from Image. Internal format is PF_A8R8G8B8,64x16x1.
-18:49:57: Texture: sdk_logo.png: Loading 1 faces(PF_A8R8G8B8,128x64x1) with  hardware generated mipmaps from Image. Internal format is PF_A8R8G8B8,128x64x1.
-18:49:57: Texture: sdk_shade.png: Loading 1 faces(PF_A8R8G8B8,64x48x1) with 5 generated mipmaps from Image. Internal format is PF_A8R8G8B8,64x48x1.
-18:49:57: Texture: sdk_frame.png: Loading 1 faces(PF_A8R8G8B8,32x32x1) with  hardware generated mipmaps from Image. Internal format is PF_A8R8G8B8,32x32x1.
-18:49:57: Texture: sdk_mini_text_box_over.png: Loading 1 faces(PF_A8R8G8B8,32x32x1) with  hardware generated mipmaps from Image. Internal format is PF_A8R8G8B8,32x32x1.
-18:49:57: Texture: sdk_pulse.png: Loading 1 faces(PF_R8G8B8,8x1x1) with  hardware generated mipmaps from Image. Internal format is PF_X8R8G8B8,8x1x1.
-18:49:57: Finished parsing scripts for resource group Essential
-18:49:57: *** Initializing OIS ***
-18:49:57: Parsing scripts for resource group Autodetect
-18:49:57: Font SdkTrays/Captionusing texture size 512x256
-18:49:57: Info: Freetype returned null for character 160 in font SdkTrays/Caption
-18:49:57: Texture: SdkTrays/CaptionTexture: Loading 1 faces(PF_BYTE_LA,512x256x1) with 0 generated mipmaps from Image. Internal format is PF_BYTE_LA,512x256x1.
-18:49:57: Font SdkTrays/Valueusing texture size 512x256
-18:49:57: Info: Freetype returned null for character 127 in font SdkTrays/Value
-18:49:57: Info: Freetype returned null for character 128 in font SdkTrays/Value
-18:49:57: Info: Freetype returned null for character 129 in font SdkTrays/Value
-18:49:57: Info: Freetype returned null for character 130 in font SdkTrays/Value
-18:49:57: Info: Freetype returned null for character 131 in font SdkTrays/Value
-18:49:57: Info: Freetype returned null for character 132 in font SdkTrays/Value
-18:49:57: Info: Freetype returned null for character 133 in font SdkTrays/Value
-18:49:57: Info: Freetype returned null for character 134 in font SdkTrays/Value
-18:49:57: Info: Freetype returned null for character 135 in font SdkTrays/Value
-18:49:57: Info: Freetype returned null for character 136 in font SdkTrays/Value
-18:49:57: Info: Freetype returned null for character 137 in font SdkTrays/Value
-18:49:57: Info: Freetype returned null for character 138 in font SdkTrays/Value
-18:49:57: Info: Freetype returned null for character 139 in font SdkTrays/Value
-18:49:57: Info: Freetype returned null for character 140 in font SdkTrays/Value
-18:49:57: Info: Freetype returned null for character 141 in font SdkTrays/Value
-18:49:57: Info: Freetype returned null for character 142 in font SdkTrays/Value
-18:49:57: Info: Freetype returned null for character 143 in font SdkTrays/Value
-18:49:57: Info: Freetype returned null for character 144 in font SdkTrays/Value
-18:49:57: Info: Freetype returned null for character 145 in font SdkTrays/Value
-18:49:57: Info: Freetype returned null for character 146 in font SdkTrays/Value
-18:49:57: Info: Freetype returned null for character 147 in font SdkTrays/Value
-18:49:57: Info: Freetype returned null for character 148 in font SdkTrays/Value
-18:49:57: Info: Freetype returned null for character 149 in font SdkTrays/Value
-18:49:57: Info: Freetype returned null for character 150 in font SdkTrays/Value
-18:49:57: Info: Freetype returned null for character 151 in font SdkTrays/Value
-18:49:57: Info: Freetype returned null for character 152 in font SdkTrays/Value
-18:49:57: Info: Freetype returned null for character 153 in font SdkTrays/Value
-18:49:57: Info: Freetype returned null for character 154 in font SdkTrays/Value
-18:49:57: Info: Freetype returned null for character 155 in font SdkTrays/Value
-18:49:57: Info: Freetype returned null for character 156 in font SdkTrays/Value
-18:49:57: Info: Freetype returned null for character 157 in font SdkTrays/Value
-18:49:57: Info: Freetype returned null for character 158 in font SdkTrays/Value
-18:49:57: Info: Freetype returned null for character 159 in font SdkTrays/Value
-18:49:57: Info: Freetype returned null for character 160 in font SdkTrays/Value
-18:49:57: Texture: SdkTrays/ValueTexture: Loading 1 faces(PF_BYTE_LA,512x256x1) with 0 generated mipmaps from Image. Internal format is PF_BYTE_LA,512x256x1.
-18:49:57: Finished parsing scripts for resource group Autodetect
-18:49:57: Parsing scripts for resource group General
-18:49:57: Finished parsing scripts for resource group General
-18:49:57: Parsing scripts for resource group Hydrax
-18:49:57: Finished parsing scripts for resource group Hydrax
-18:49:57: Parsing scripts for resource group Internal
-18:49:57: Finished parsing scripts for resource group Internal
-18:49:57: Parsing scripts for resource group OgreBulletCollisions
-18:49:57: Finished parsing scripts for resource group OgreBulletCollisions
-18:49:57: Parsing scripts for resource group Popular
-18:49:57: Parsing script Examples.program
-18:49:58: Parsing script StdQuad_vp.program
-18:49:58: Parsing script ASCII.material
-18:49:58: Parsing script ASMSwizzle.material
-18:49:58: Compiler error: object unsupported by render system in ASMSwizzle.material(1)
-18:49:58: Parsing script BlackAndWhite.material
-18:49:58: Parsing script Bloom.material
-18:49:58: Parsing script Bloom2.material
-18:49:58: Parsing script CGSwizzle.material
-18:49:58: Parsing script chassis.material
-18:49:58: Parsing script CompositorDemo.material
-18:49:58: Parsing script delorean.material
-18:49:58: Parsing script DepthShadowmap.material
-18:49:58: Parsing script Dither.material
-18:49:58: Parsing script DOF.material
-18:49:58: OGRE EXCEPTION(7:InternalErrorException): Unable to find CG profile enum for program DOF_Blend_ps: The parameter used is invalid. in CgProgram::selectProfile at ..\..\..\..\..\PlugIns\CgProgramManager\src\OgreCgProgramManagerDll.cpp (line 67)
-18:49:58: High-level program DOF_Blend_ps encountered an error during loading and is thus not supported.
-OGRE EXCEPTION(7:InternalErrorException): Unable to find CG profile enum for program DOF_Blend_ps: The parameter used is invalid. in CgProgram::selectProfile at ..\..\..\..\..\PlugIns\CgProgramManager\src\OgreCgProgramManagerDll.cpp (line 67)
-18:49:58: Parsing script Embossed.material
-18:49:58: Parsing script Example-Water.material
-18:49:58: Parsing script Examples-Advanced.material
-18:49:59: Parsing script Examples-DynTex.material
-18:49:59: Parsing script Examples-Water.material
-18:49:59: Parsing script Examples.material
-18:49:59: OGRE EXCEPTION(2:InvalidParametersException): Parameter called camObjPos does not exist.  in GpuProgramParameters::_findNamedConstantDefinition at ..\..\..\..\OgreMain\src\OgreGpuProgramParams.cpp (line 1433)
-18:49:59: Compiler error: invalid parameters in Examples.material(837): setting of constant failed
-18:50:00: Parsing script facial.material
-18:50:00: Parsing script Glass.material
-18:50:00: Parsing script GLSLSwizzle.material
-18:50:00: Parsing script Halftone.material
-18:50:00: Parsing script hdr.material
-18:50:00: Parsing script HeatVision.material
-18:50:00: Parsing script Hurt.material
-18:50:00: Parsing script instancing.material
-18:50:00: Parsing script Invert.material
-18:50:00: Parsing script IsoSurf.material
-18:50:00: Parsing script Laplace.material
-18:50:00: Parsing script lever.material
-18:50:00: Parsing script mechanimated.material
-18:50:00: Parsing script MotionBlur.material
-18:50:00: Parsing script MRTtest.material
-18:50:00: Parsing script NightVision.material
-18:50:00: Parsing script Ocean.material
-18:50:01: Parsing script OffsetMapping.material
-18:50:01: Parsing script Ogre.material
-18:50:01: Parsing script OldMovie.material
-18:50:01: Parsing script OldTV.material
-18:50:01: Parsing script ParticleGS.material
-18:50:01: OGRE EXCEPTION(7:InternalErrorException): Unable to compile Cg program Ogre/ParticleGS/GenerateVS: The compile returned an error.
-(0) : error C6015: Output 'POSITION' not completely written
- in CgProgram::loadFromSource at ..\..\..\..\..\PlugIns\CgProgramManager\src\OgreCgProgramManagerDll.cpp (line 67)
-18:50:01: High-level program Ogre/ParticleGS/GenerateVS encountered an error during loading and is thus not supported.
-OGRE EXCEPTION(7:InternalErrorException): Unable to compile Cg program Ogre/ParticleGS/GenerateVS: The compile returned an error.
-(0) : error C6015: Output 'POSITION' not completely written
- in CgProgram::loadFromSource at ..\..\..\..\..\PlugIns\CgProgramManager\src\OgreCgProgramManagerDll.cpp (line 67)
-18:50:01: OGRE EXCEPTION(7:InternalErrorException): Unable to compile Cg program Ogre/ParticleGS/DisplayVS: The compile returned an error.
-(249) : warning C7050: "output.color" might be used before being initialized
-(0) : error C6015: Output 'POSITION' not completely written
- in CgProgram::loadFromSource at ..\..\..\..\..\PlugIns\CgProgramManager\src\OgreCgProgramManagerDll.cpp (line 67)
-18:50:01: High-level program Ogre/ParticleGS/DisplayVS encountered an error during loading and is thus not supported.
-OGRE EXCEPTION(7:InternalErrorException): Unable to compile Cg program Ogre/ParticleGS/DisplayVS: The compile returned an error.
-(249) : warning C7050: "output.color" might be used before being initialized
-(0) : error C6015: Output 'POSITION' not completely written
- in CgProgram::loadFromSource at ..\..\..\..\..\PlugIns\CgProgramManager\src\OgreCgProgramManagerDll.cpp (line 67)
-18:50:01: OGRE EXCEPTION(7:InternalErrorException): Unable to compile Cg program Ogre/ParticleGS/DisplayPS: The compile returned an error.
-(323) : fatal error C9999: unexpected cast operation
- in CgProgram::loadFromSource at ..\..\..\..\..\PlugIns\CgProgramManager\src\OgreCgProgramManagerDll.cpp (line 67)
-18:50:01: High-level program Ogre/ParticleGS/DisplayPS encountered an error during loading and is thus not supported.
-OGRE EXCEPTION(7:InternalErrorException): Unable to compile Cg program Ogre/ParticleGS/DisplayPS: The compile returned an error.
-(323) : fatal error C9999: unexpected cast operation
- in CgProgram::loadFromSource at ..\..\..\..\..\PlugIns\CgProgramManager\src\OgreCgProgramManagerDll.cpp (line 67)
-18:50:01: Parsing script Penguin.material
-18:50:01: Parsing script Posterize.material
-18:50:01: Parsing script pssm.material
-18:50:01: Parsing script RadialBlur.material
-18:50:01: Parsing script rocket.material
-18:50:01: Parsing script RZR-002.material
-18:50:01: Parsing script saturnv.material
-18:50:01: Parsing script ShaderSystem.material
-18:50:01: Parsing script shadows.material
-18:50:02: Parsing script SharpenEdges.material
-18:50:02: Parsing script sibenik.material
-18:50:02: Parsing script SkyBox.material
-18:50:02: Parsing script smoke.material
-18:50:02: Parsing script target.material
-18:50:02: Parsing script terrain_ground.material
-18:50:02: Parsing script Tiling.material
-18:50:02: Parsing script VarianceShadowmap.material
-18:50:02: Parsing script wheel.material
-18:50:02: Parsing script yatch.material
-18:50:02: Parsing script smoke.particle
-18:50:02: Parsing script Examples.compositor
-18:50:02: Finished parsing scripts for resource group Popular
-18:50:02: Texture: ct_fr.png: Loading 1 faces(PF_R8G8B8,512x512x1) with  hardware generated mipmaps from Image. Internal format is PF_X8R8G8B8,512x512x1.
-18:50:02: Texture: ct_bk.png: Loading 1 faces(PF_R8G8B8,512x512x1) with  hardware generated mipmaps from Image. Internal format is PF_X8R8G8B8,512x512x1.
-18:50:02: Texture: ct_lf.png: Loading 1 faces(PF_R8G8B8,512x512x1) with  hardware generated mipmaps from Image. Internal format is PF_X8R8G8B8,512x512x1.
-18:50:02: Texture: ct_rt.png: Loading 1 faces(PF_R8G8B8,512x512x1) with  hardware generated mipmaps from Image. Internal format is PF_X8R8G8B8,512x512x1.
-18:50:02: Texture: ct_up.png: Loading 1 faces(PF_R8G8B8,512x512x1) with  hardware generated mipmaps from Image. Internal format is PF_X8R8G8B8,512x512x1.
-18:50:02: Texture: ct_dn.png: Loading 1 faces(PF_R8G8B8,512x512x1) with  hardware generated mipmaps from Image. Internal format is PF_X8R8G8B8,512x512x1.
-18:50:02: Mesh: Loading delorean.mesh.
-18:50:02: Mesh: Loading wheel.mesh.
-18:50:02: WARNING: wheel.mesh is an older format ([MeshSerializer_v1.40]); you should upgrade it as soon as possible using the OgreMeshUpgrade tool.
-18:50:02: Texture: Tire_tex.png: Loading 1 faces(PF_A8R8G8B8,256x256x1) with  hardware generated mipmaps from Image. Internal format is PF_A8R8G8B8,256x256x1.
-18:50:02: *** Initializing OIS ***
-18:50:02: Mesh: Loading terrain_ground.mesh.
-18:50:02: Texture: brick.jpg: Loading 1 faces(PF_R8G8B8,696x648x1) with 5 generated mipmaps from Image. Internal format is PF_X8R8G8B8,696x648x1.
-18:50:02: Texture: grass.jpg: Loading 1 faces(PF_R8G8B8,500x500x1) with 5 generated mipmaps from Image. Internal format is PF_X8R8G8B8,500x500x1.
-18:50:03: Texture: wood.jpg: Loading 1 faces(PF_R8G8B8,468x313x1) with 5 generated mipmaps from Image. Internal format is PF_X8R8G8B8,468x313x1.
-18:50:03: Texture: wood02.jpg: Loading 1 faces(PF_R8G8B8,500x500x1) with 5 generated mipmaps from Image. Internal format is PF_X8R8G8B8,500x500x1.
-18:50:03: Texture: steel.jpg: Loading 1 faces(PF_R8G8B8,1440x1335x1) with 5 generated mipmaps from Image. Internal format is PF_X8R8G8B8,1440x1335x1.
-18:50:03: Mesh: Loading saturnv.mesh.
-18:50:03: OGRE EXCEPTION(6:FileNotFoundException): Cannot locate resource SATURNVU.GIF in resource group Popular or any other group. in ResourceGroupManager::openResource at ..\..\..\..\OgreMain\src\OgreResourceGroupManager.cpp (line 753)
-18:50:03: Error loading texture SATURNVU.GIF. Texture layer will be blank. Loading the texture failed with the following exception: OGRE EXCEPTION(6:FileNotFoundException): Cannot locate resource SATURNVU.GIF in resource group Popular or any other group. in ResourceGroupManager::openResource at ..\..\..\..\OgreMain\src\OgreResourceGroupManager.cpp (line 753)
-18:50:03: OGRE EXCEPTION(6:FileNotFoundException): Cannot locate resource SATURNVA.GIF in resource group Popular or any other group. in ResourceGroupManager::openResource at ..\..\..\..\OgreMain\src\OgreResourceGroupManager.cpp (line 753)
-18:50:03: Error loading texture SATURNVA.GIF. Texture layer will be blank. Loading the texture failed with the following exception: OGRE EXCEPTION(6:FileNotFoundException): Cannot locate resource SATURNVA.GIF in resource group Popular or any other group. in ResourceGroupManager::openResource at ..\..\..\..\OgreMain\src\OgreResourceGroupManager.cpp (line 753)
-18:50:03: OGRE EXCEPTION(6:FileNotFoundException): Cannot locate resource SATURNVT.GIF in resource group Popular or any other group. in ResourceGroupManager::openResource at ..\..\..\..\OgreMain\src\OgreResourceGroupManager.cpp (line 753)
-18:50:03: Error loading texture SATURNVT.GIF. Texture layer will be blank. Loading the texture failed with the following exception: OGRE EXCEPTION(6:FileNotFoundException): Cannot locate resource SATURNVT.GIF in resource group Popular or any other group. in ResourceGroupManager::openResource at ..\..\..\..\OgreMain\src\OgreResourceGroupManager.cpp (line 753)
-18:50:03: OGRE EXCEPTION(6:FileNotFoundException): Cannot locate resource SATURNVW.BMP in resource group Popular or any other group. in ResourceGroupManager::openResource at ..\..\..\..\OgreMain\src\OgreResourceGroupManager.cpp (line 753)
-18:50:03: Error loading texture SATURNVW.BMP. Texture layer will be blank. Loading the texture failed with the following exception: OGRE EXCEPTION(6:FileNotFoundException): Cannot locate resource SATURNVW.BMP in resource group Popular or any other group. in ResourceGroupManager::openResource at ..\..\..\..\OgreMain\src\OgreResourceGroupManager.cpp (line 753)
-18:50:03: Mesh: Loading mechanimated.mesh.
-18:50:04: Texture: Water01.jpg: Loading 1 faces(PF_R8G8B8,512x512x1) with  hardware generated mipmaps from Image. Internal format is PF_X8R8G8B8,512x512x1.
-18:50:04: [Hydrax] Hydrax created.
-18:50:04: [Hydrax] HydraxDemo.hdx loaded.
-18:50:04: [Hydrax] Creating module...
-18:50:04: [Hydrax] Creating ProjectedGridVertex module.
-18:50:04: [Hydrax] ProjectedGridVertex created.
-18:50:04: [Hydrax] Module created.
-18:50:04: [Hydrax] Initializating RTT Manager...
-18:50:04: [Hydrax] RTT manager initialized.
-18:50:04: [Hydrax] Registring device restored listener...
-18:50:04: [Hydrax] Device restored listener registred.
-18:50:04: [Hydrax] Creating materials...
-18:50:04: [Hydrax] Creating water material...
-18:50:04: Texture: Fresnel.bmp: Loading 1 faces(PF_L8,256x1x1) with  hardware generated mipmaps from Image. Internal format is PF_L8,256x1x1.
-18:50:04: Texture: Foam.png: Loading 1 faces(PF_R8G8B8,512x512x1) with  hardware generated mipmaps from Image. Internal format is PF_X8R8G8B8,512x512x1.
-18:50:04: [Hydrax] Water material created.
-18:50:04: [Hydrax] Creating depth material...
-18:50:04: Texture: Caustics_0.bmp: Loading 1 faces(PF_R8G8B8,128x128x1) with  hardware generated mipmaps from Image. Internal format is PF_X8R8G8B8,128x128x1.
-18:50:04: Texture: Caustics_1.bmp: Loading 1 faces(PF_R8G8B8,128x128x1) with  hardware generated mipmaps from Image. Internal format is PF_X8R8G8B8,128x128x1.
-18:50:04: Texture: Caustics_2.bmp: Loading 1 faces(PF_R8G8B8,128x128x1) with  hardware generated mipmaps from Image. Internal format is PF_X8R8G8B8,128x128x1.
-18:50:04: Texture: Caustics_3.bmp: Loading 1 faces(PF_R8G8B8,128x128x1) with  hardware generated mipmaps from Image. Internal format is PF_X8R8G8B8,128x128x1.
-18:50:04: Texture: Caustics_4.bmp: Loading 1 faces(PF_R8G8B8,128x128x1) with  hardware generated mipmaps from Image. Internal format is PF_X8R8G8B8,128x128x1.
-18:50:04: Texture: Caustics_5.bmp: Loading 1 faces(PF_R8G8B8,128x128x1) with  hardware generated mipmaps from Image. Internal format is PF_X8R8G8B8,128x128x1.
-18:50:04: Texture: Caustics_6.bmp: Loading 1 faces(PF_R8G8B8,128x128x1) with  hardware generated mipmaps from Image. Internal format is PF_X8R8G8B8,128x128x1.
-18:50:04: Texture: Caustics_7.bmp: Loading 1 faces(PF_R8G8B8,128x128x1) with  hardware generated mipmaps from Image. Internal format is PF_X8R8G8B8,128x128x1.
-18:50:04: Texture: Caustics_8.bmp: Loading 1 faces(PF_R8G8B8,128x128x1) with  hardware generated mipmaps from Image. Internal format is PF_X8R8G8B8,128x128x1.
-18:50:04: Texture: Caustics_9.bmp: Loading 1 faces(PF_R8G8B8,128x128x1) with  hardware generated mipmaps from Image. Internal format is PF_X8R8G8B8,128x128x1.
-18:50:04: Texture: Caustics_10.bmp: Loading 1 faces(PF_R8G8B8,128x128x1) with  hardware generated mipmaps from Image. Internal format is PF_X8R8G8B8,128x128x1.
-18:50:04: Texture: Caustics_11.bmp: Loading 1 faces(PF_R8G8B8,128x128x1) with  hardware generated mipmaps from Image. Internal format is PF_X8R8G8B8,128x128x1.
-18:50:04: Texture: Caustics_12.bmp: Loading 1 faces(PF_R8G8B8,128x128x1) with  hardware generated mipmaps from Image. Internal format is PF_X8R8G8B8,128x128x1.
-18:50:04: Texture: Caustics_13.bmp: Loading 1 faces(PF_R8G8B8,128x128x1) with  hardware generated mipmaps from Image. Internal format is PF_X8R8G8B8,128x128x1.
-18:50:04: Texture: Caustics_14.bmp: Loading 1 faces(PF_R8G8B8,128x128x1) with  hardware generated mipmaps from Image. Internal format is PF_X8R8G8B8,128x128x1.
-18:50:04: Texture: Caustics_15.bmp: Loading 1 faces(PF_R8G8B8,128x128x1) with  hardware generated mipmaps from Image. Internal format is PF_X8R8G8B8,128x128x1.
-18:50:04: Texture: Caustics_16.bmp: Loading 1 faces(PF_R8G8B8,128x128x1) with  hardware generated mipmaps from Image. Internal format is PF_X8R8G8B8,128x128x1.
-18:50:04: Texture: Caustics_17.bmp: Loading 1 faces(PF_R8G8B8,128x128x1) with  hardware generated mipmaps from Image. Internal format is PF_X8R8G8B8,128x128x1.
-18:50:04: Texture: Caustics_18.bmp: Loading 1 faces(PF_R8G8B8,128x128x1) with  hardware generated mipmaps from Image. Internal format is PF_X8R8G8B8,128x128x1.
-18:50:04: Texture: Caustics_19.bmp: Loading 1 faces(PF_R8G8B8,128x128x1) with  hardware generated mipmaps from Image. Internal format is PF_X8R8G8B8,128x128x1.
-18:50:04: Texture: Caustics_20.bmp: Loading 1 faces(PF_R8G8B8,128x128x1) with  hardware generated mipmaps from Image. Internal format is PF_X8R8G8B8,128x128x1.
-18:50:04: Texture: Caustics_21.bmp: Loading 1 faces(PF_R8G8B8,128x128x1) with  hardware generated mipmaps from Image. Internal format is PF_X8R8G8B8,128x128x1.
-18:50:04: Texture: Caustics_22.bmp: Loading 1 faces(PF_R8G8B8,128x128x1) with  hardware generated mipmaps from Image. Internal format is PF_X8R8G8B8,128x128x1.
-18:50:04: Texture: Caustics_23.bmp: Loading 1 faces(PF_R8G8B8,128x128x1) with  hardware generated mipmaps from Image. Internal format is PF_X8R8G8B8,128x128x1.
-18:50:04: Texture: Caustics_24.bmp: Loading 1 faces(PF_R8G8B8,128x128x1) with  hardware generated mipmaps from Image. Internal format is PF_X8R8G8B8,128x128x1.
-18:50:04: Texture: Caustics_25.bmp: Loading 1 faces(PF_R8G8B8,128x128x1) with  hardware generated mipmaps from Image. Internal format is PF_X8R8G8B8,128x128x1.
-18:50:04: Texture: Caustics_26.bmp: Loading 1 faces(PF_R8G8B8,128x128x1) with  hardware generated mipmaps from Image. Internal format is PF_X8R8G8B8,128x128x1.
-18:50:04: Texture: Caustics_27.bmp: Loading 1 faces(PF_R8G8B8,128x128x1) with  hardware generated mipmaps from Image. Internal format is PF_X8R8G8B8,128x128x1.
-18:50:04: Texture: Caustics_28.bmp: Loading 1 faces(PF_R8G8B8,128x128x1) with  hardware generated mipmaps from Image. Internal format is PF_X8R8G8B8,128x128x1.
-18:50:04: Texture: Caustics_29.bmp: Loading 1 faces(PF_R8G8B8,128x128x1) with  hardware generated mipmaps from Image. Internal format is PF_X8R8G8B8,128x128x1.
-18:50:04: Texture: Caustics_30.bmp: Loading 1 faces(PF_R8G8B8,128x128x1) with  hardware generated mipmaps from Image. Internal format is PF_X8R8G8B8,128x128x1.
-18:50:04: Texture: Caustics_31.bmp: Loading 1 faces(PF_R8G8B8,128x128x1) with  hardware generated mipmaps from Image. Internal format is PF_X8R8G8B8,128x128x1.
-18:50:04: [Hydrax] Depth material created.
-18:50:04: [Hydrax] Creating underwater material...
-18:50:04: OGRE EXCEPTION(6:FileNotFoundException): Cannot locate resource HydraxDepthReflectionMap in resource group Hydrax or any other group. in ResourceGroupManager::openResource at ..\..\..\..\OgreMain\src\OgreResourceGroupManager.cpp (line 753)
-18:50:04: Error loading texture HydraxDepthReflectionMap. Texture layer will be blank. Loading the texture failed with the following exception: OGRE EXCEPTION(6:FileNotFoundException): Cannot locate resource HydraxDepthReflectionMap in resource group Hydrax or any other group. in ResourceGroupManager::openResource at ..\..\..\..\OgreMain\src\OgreResourceGroupManager.cpp (line 753)
-18:50:04: Texture: UnderwaterDistortion.jpg: Loading 1 faces(PF_R8G8B8,256x256x1) with  hardware generated mipmaps from Image. Internal format is PF_X8R8G8B8,256x256x1.
-18:50:04: [Hydrax] Underwater material created.
-18:50:04: [Hydrax] Materials created.
-18:50:04: [Hydrax] Creating god rays...
-18:50:04: [Hydrax] Perlin destroyed.
-18:50:04: [Hydrax] God rays created.
-18:50:04: [Hydrax] Creating water mesh...
-18:50:04: [Hydrax] Water mesh created.
-18:50:04: Mesh: Loading yatch.mesh.
-18:50:04: Texture: smile.jpg: Loading 1 faces(PF_R8G8B8,1234x1124x1) with 5 generated mipmaps from Image. Internal format is PF_X8R8G8B8,1234x1124x1.
-18:50:04: Mesh: Loading lever.mesh.
-18:50:07: Texture: smoke.png: Loading 1 faces(PF_A8R8G8B8,256x256x1) with  hardware generated mipmaps from Image. Internal format is PF_A8R8G8B8,256x256x1.
-18:51:20: [Hydrax] Perlin destroyed.
-18:51:20: [Hydrax] ProjectedGridVertex destroyed.
-18:51:20: [Hydrax] Perlin destroyed.
-18:51:20: [Hydrax] Hydrax object removed.
-18:51:20: DefaultWorkQueue('Root') shutting down on thread 0058EEA0.
-18:51:20: DefaultWorkQueue('Root')::WorkerFunc - thread 00661580 stopped.
-18:51:20: DefaultWorkQueue('Root')::WorkerFunc - thread 00661B00 stopped.
-18:51:20: DefaultWorkQueue('Root')::WorkerFunc - thread 00661100 stopped.
-18:51:20: DefaultWorkQueue('Root')::WorkerFunc - thread 00661090 stopped.
-18:51:20: PCZone Factory Type 'ZoneType_Octree' unregistered
-18:51:20: PCZone Factory Type 'ZoneType_Terrain' unregistered
-18:51:20: Unregistering ResourceManager for type BspLevel
+08:55:55: Creating resource group General
+08:55:55: Creating resource group Internal
+08:55:55: Creating resource group Autodetect
+08:55:55: SceneManagerFactory for type 'DefaultSceneManager' registered.
+08:55:55: Registering ResourceManager for type Material
+08:55:55: Registering ResourceManager for type Mesh
+08:55:55: Registering ResourceManager for type Skeleton
+08:55:55: MovableObjectFactory for type 'ParticleSystem' registered.
+08:55:55: OverlayElementFactory for type Panel registered.
+08:55:55: OverlayElementFactory for type BorderPanel registered.
+08:55:55: OverlayElementFactory for type TextArea registered.
+08:55:55: Registering ResourceManager for type Font
+08:55:55: ArchiveFactory for archive type FileSystem registered.
+08:55:55: ArchiveFactory for archive type Zip registered.
+08:55:55: DDS codec registering
+08:55:55: FreeImage version: 3.13.1
+08:55:55: This program uses FreeImage, a free, open source image library supporting all common bitmap formats. See http://freeimage.sourceforge.net for details
+08:55:55: Supported formats: bmp,ico,jpg,jif,jpeg,jpe,jng,koa,iff,lbm,mng,pbm,pbm,pcd,pcx,pgm,pgm,png,ppm,ppm,ras,tga,targa,tif,tiff,wap,wbmp,wbm,psd,cut,xbm,xpm,gif,hdr,g3,sgi,exr,j2k,j2c,jp2,pfm,pct,pict,pic,bay,bmq,cr2,crw,cs1,dc2,dcr,dng,erf,fff,hdr,k25,kdc,mdc,mos,mrw,nef,orf,pef,pxn,raf,raw,rdc,sr2,srf,arw,3fr,cine,ia,kc2,mef,nrw,qtk,rw2,sti,drf,dsc,ptx,cap,iiq,rwz
+08:55:55: Registering ResourceManager for type HighLevelGpuProgram
+08:55:55: Registering ResourceManager for type Compositor
+08:55:55: MovableObjectFactory for type 'Entity' registered.
+08:55:55: MovableObjectFactory for type 'Light' registered.
+08:55:55: MovableObjectFactory for type 'BillboardSet' registered.
+08:55:55: MovableObjectFactory for type 'ManualObject' registered.
+08:55:55: MovableObjectFactory for type 'BillboardChain' registered.
+08:55:55: MovableObjectFactory for type 'RibbonTrail' registered.
+08:55:55: Loading library .\RenderSystem_Direct3D9
+08:55:55: Installing plugin: D3D9 RenderSystem
+08:55:55: D3D9 : Direct3D9 Rendering Subsystem created.
+08:55:55: D3D9: Driver Detection Starts
+08:55:55: D3D9: Driver Detection Ends
+08:55:55: Plugin successfully installed
+08:55:55: Loading library .\Plugin_ParticleFX
+08:55:55: Installing plugin: ParticleFX
+08:55:55: Particle Emitter Type 'Point' registered
+08:55:55: Particle Emitter Type 'Box' registered
+08:55:55: Particle Emitter Type 'Ellipsoid' registered
+08:55:55: Particle Emitter Type 'Cylinder' registered
+08:55:55: Particle Emitter Type 'Ring' registered
+08:55:55: Particle Emitter Type 'HollowEllipsoid' registered
+08:55:55: Particle Affector Type 'LinearForce' registered
+08:55:55: Particle Affector Type 'ColourFader' registered
+08:55:55: Particle Affector Type 'ColourFader2' registered
+08:55:55: Particle Affector Type 'ColourImage' registered
+08:55:55: Particle Affector Type 'ColourInterpolator' registered
+08:55:55: Particle Affector Type 'Scaler' registered
+08:55:55: Particle Affector Type 'Rotator' registered
+08:55:55: Particle Affector Type 'DirectionRandomiser' registered
+08:55:55: Particle Affector Type 'DeflectorPlane' registered
+08:55:55: Plugin successfully installed
+08:55:55: Loading library .\Plugin_CgProgramManager
+08:55:55: Installing plugin: Cg Program Manager
+08:55:55: Plugin successfully installed
+08:55:55: *-*-* OGRE Initialising
+08:55:55: *-*-* Version 1.7.2 (Cthugha)
+08:55:55: Creating resource group Essential
+08:55:55: Added resource location '../../media/thumbnails' of type 'FileSystem' to resource group 'Essential'
+08:55:55: Added resource location '../../media/packs/SdkTrays.zip' of type 'Zip' to resource group 'Essential'
+08:55:55: Added resource location '../../media' of type 'FileSystem' to resource group 'General'
+08:55:55: Added resource location '../../media/packs/SkyBoxes.zip' of type 'Zip' to resource group 'General'
+08:55:55: Creating resource group Hydrax
+08:55:55: Added resource location '../../Media/Hydrax' of type 'FileSystem' to resource group 'Hydrax'
+08:55:55: Creating resource group OgreBulletCollisions
+08:55:55: Added resource location '../../media/OgreBulletCollisions' of type 'FileSystem' to resource group 'OgreBulletCollisions'
+08:55:55: Creating resource group Popular
+08:55:55: Added resource location '../../media/materials/programs' of type 'FileSystem' to resource group 'Popular'
+08:55:55: Added resource location '../../media/materials/scripts' of type 'FileSystem' to resource group 'Popular'
+08:55:55: Added resource location '../../media/materials/textures' of type 'FileSystem' to resource group 'Popular'
+08:55:55: Added resource location '../../media/models' of type 'FileSystem' to resource group 'Popular'
+08:55:55: Added resource location '../../media/particle' of type 'FileSystem' to resource group 'Popular'
+08:55:55: D3D9 : RenderSystem Option: Allow NVPerfHUD = Yes
+08:55:55: D3D9 : RenderSystem Option: FSAA = 0
+08:55:55: D3D9 : RenderSystem Option: Floating-point mode = Fastest
+08:55:55: D3D9 : RenderSystem Option: Full Screen = No
+08:55:55: D3D9 : RenderSystem Option: Rendering Device = Monitor-1-NVIDIA Quadro FX 580
+08:55:55: D3D9 : RenderSystem Option: Resource Creation Policy = Create on all devices
+08:55:55: D3D9 : RenderSystem Option: VSync = No
+08:55:55: D3D9 : RenderSystem Option: VSync Interval = 1
+08:55:55: D3D9 : RenderSystem Option: Video Mode = 1360 x 768 @ 32-bit colour
+08:55:55: D3D9 : RenderSystem Option: sRGB Gamma Conversion = No
+08:56:03: CPU Identifier & Features
+08:56:03: -------------------------
+08:56:03:  *   CPU ID: AuthenticAMD: AMD Athlon(tm) II X4 630 Processor
+08:56:03:  *      SSE: yes
+08:56:03:  *     SSE2: yes
+08:56:03:  *     SSE3: yes
+08:56:03:  *      MMX: yes
+08:56:03:  *   MMXEXT: yes
+08:56:03:  *    3DNOW: yes
+08:56:03:  * 3DNOWEXT: yes
+08:56:03:  *     CMOV: yes
+08:56:03:  *      TSC: yes
+08:56:03:  *      FPU: yes
+08:56:03:  *      PRO: yes
+08:56:03:  *       HT: no
+08:56:03: -------------------------
+08:56:03: D3D9 : Subsystem Initialising
+08:56:03: Registering ResourceManager for type Texture
+08:56:03: Registering ResourceManager for type GpuProgram
+08:56:03: D3D9RenderSystem::_createRenderWindow "__The_Chain_Reaction__", 1360x768 windowed  miscParams: FSAA=0 FSAAHint= colourDepth=32 gamma=false monitorIndex=0 useNVPerfHUD=true vsync=false vsyncInterval=1 
+08:56:03: D3D9 : Created D3D9 Rendering Window '__The_Chain_Reaction__' : 1360x768, 32bpp
+08:56:03: D3D9 : WARNING - disabling VSync in windowed mode can cause timing issues at lower frame rates, turn VSync on if you observe this problem.
+08:56:03: D3D9: Vertex texture format supported - PF_FLOAT16_RGB
+08:56:03: D3D9: Vertex texture format supported - PF_FLOAT16_RGBA
+08:56:03: D3D9: Vertex texture format supported - PF_FLOAT32_RGB
+08:56:03: D3D9: Vertex texture format supported - PF_FLOAT32_RGBA
+08:56:03: D3D9: Vertex texture format supported - PF_FLOAT16_R
+08:56:03: D3D9: Vertex texture format supported - PF_FLOAT32_R
+08:56:03: D3D9: Vertex texture format supported - PF_FLOAT16_GR
+08:56:03: D3D9: Vertex texture format supported - PF_FLOAT32_GR
+08:56:03: RenderSystem capabilities
+08:56:03: -------------------------
+08:56:03: RenderSystem Name: Direct3D9 Rendering Subsystem
+08:56:03: GPU Vendor: nvidia
+08:56:03: Device Name: Monitor-1-NVIDIA Quadro FX 580
+08:56:03: Driver Version: 8.17.12.7642
+08:56:03:  * Fixed function pipeline: yes
+08:56:03:  * Hardware generation of mipmaps: yes
+08:56:03:  * Texture blending: yes
+08:56:03:  * Anisotropic texture filtering: yes
+08:56:03:  * Dot product texture operation: yes
+08:56:03:  * Cube mapping: yes
+08:56:03:  * Hardware stencil buffer: yes
+08:56:03:    - Stencil depth: 8
+08:56:03:    - Two sided stencil support: yes
+08:56:03:    - Wrap stencil values: yes
+08:56:03:  * Hardware vertex / index buffers: yes
+08:56:03:  * Vertex programs: yes
+08:56:03:  * Number of floating-point constants for vertex programs: 256
+08:56:03:  * Number of integer constants for vertex programs: 16
+08:56:03:  * Number of boolean constants for vertex programs: 16
+08:56:03:  * Fragment programs: yes
+08:56:03:  * Number of floating-point constants for fragment programs: 224
+08:56:03:  * Number of integer constants for fragment programs: 16
+08:56:03:  * Number of boolean constants for fragment programs: 16
+08:56:03:  * Geometry programs: no
+08:56:03:  * Number of floating-point constants for geometry programs: 0
+08:56:03:  * Number of integer constants for geometry programs: 17664
+08:56:03:  * Number of boolean constants for geometry programs: 757
+08:56:03:  * Supported Shader Profiles: hlsl ps_1_1 ps_1_2 ps_1_3 ps_1_4 ps_2_0 ps_2_a ps_2_b ps_2_x ps_3_0 vs_1_1 vs_2_0 vs_2_a vs_2_x vs_3_0
+08:56:03:  * Texture Compression: yes
+08:56:03:    - DXT: yes
+08:56:03:    - VTC: no
+08:56:03:    - PVRTC: no
+08:56:03:  * Scissor Rectangle: yes
+08:56:03:  * Hardware Occlusion Query: yes
+08:56:03:  * User clip planes: yes
+08:56:03:  * VET_UBYTE4 vertex element type: yes
+08:56:03:  * Infinite far plane projection: yes
+08:56:03:  * Hardware render-to-texture: yes
+08:56:03:  * Floating point textures: yes
+08:56:03:  * Non-power-of-two textures: yes
+08:56:03:  * Volume textures: yes
+08:56:03:  * Multiple Render Targets: 4
+08:56:03:    - With different bit depths: yes
+08:56:03:  * Point Sprites: yes
+08:56:03:  * Extended point parameters: yes
+08:56:03:  * Max Point Size: 10
+08:56:03:  * Vertex texture fetch: yes
+08:56:03:  * Number of world matrices: 0
+08:56:03:  * Number of texture units: 8
+08:56:03:  * Stencil buffer depth: 8
+08:56:03:  * Number of vertex blend matrices: 0
+08:56:03:    - Max vertex textures: 4
+08:56:03:    - Vertex textures shared: no
+08:56:03:  * Render to Vertex Buffer : no
+08:56:03:  * DirectX per stage constants: yes
+08:56:03: ***************************************
+08:56:03: *** D3D9 : Subsystem Initialised OK ***
+08:56:03: ***************************************
+08:56:03: DefaultWorkQueue('Root') initialising on thread 003A9DF0.
+08:56:03: DefaultWorkQueue('Root')::WorkerFunc - thread 003BD330 starting.
+08:56:03: DefaultWorkQueue('Root')::WorkerFunc - thread 003BD3A0 starting.
+08:56:03: DefaultWorkQueue('Root')::WorkerFunc - thread 003BD760 starting.
+08:56:03: DefaultWorkQueue('Root')::WorkerFunc - thread 003BDB40 starting.
+08:56:03: Particle Renderer Type 'billboard' registered
+08:56:03: Initialising resource group Essential
+08:56:03: Parsing scripts for resource group Essential
+08:56:03: Parsing script SdkTrays.material
+08:56:03: Parsing script SdkTrays.fontdef
+08:56:03: Parsing script SdkTrays.overlay
+08:56:03: Bad element attribute line: '# you can offset the image to change the cursor "hotspot"' for element SdkTrays/Cursor in overlay 
+08:56:03: Texture: sdk_cursor.png: Loading 1 faces(PF_A8R8G8B8,32x32x1) with  hardware generated mipmaps from Image. Internal format is PF_A8R8G8B8,32x32x1.
+08:56:03: Texture: sdk_tray.png: Loading 1 faces(PF_A8R8G8B8,64x64x1) with  hardware generated mipmaps from Image. Internal format is PF_A8R8G8B8,64x64x1.
+08:56:03: Texture: sdk_button_up.png: Loading 1 faces(PF_A8R8G8B8,128x32x1) with  hardware generated mipmaps from Image. Internal format is PF_A8R8G8B8,128x32x1.
+08:56:03: Texture: sdk_text_box.png: Loading 1 faces(PF_A8R8G8B8,32x32x1) with  hardware generated mipmaps from Image. Internal format is PF_A8R8G8B8,32x32x1.
+08:56:03: Texture: sdk_mini_tray.png: Loading 1 faces(PF_A8R8G8B8,32x32x1) with  hardware generated mipmaps from Image. Internal format is PF_A8R8G8B8,32x32x1.
+08:56:03: Texture: sdk_track.png: Loading 1 faces(PF_A8R8G8B8,16x32x1) with  hardware generated mipmaps from Image. Internal format is PF_A8R8G8B8,16x32x1.
+08:56:03: Texture: sdk_handle.png: Loading 1 faces(PF_A8R8G8B8,16x16x1) with  hardware generated mipmaps from Image. Internal format is PF_A8R8G8B8,16x16x1.
+08:56:03: Texture: sdk_mini_text_box.png: Loading 1 faces(PF_A8R8G8B8,32x32x1) with  hardware generated mipmaps from Image. Internal format is PF_A8R8G8B8,32x32x1.
+08:56:03: Texture: sdk_label.png: Loading 1 faces(PF_A8R8G8B8,32x32x1) with  hardware generated mipmaps from Image. Internal format is PF_A8R8G8B8,32x32x1.
+08:56:03: Texture: sdk_separator.png: Loading 1 faces(PF_A8R8G8B8,64x16x1) with  hardware generated mipmaps from Image. Internal format is PF_A8R8G8B8,64x16x1.
+08:56:03: Texture: sdk_logo.png: Loading 1 faces(PF_A8R8G8B8,128x64x1) with  hardware generated mipmaps from Image. Internal format is PF_A8R8G8B8,128x64x1.
+08:56:03: Texture: sdk_shade.png: Loading 1 faces(PF_A8R8G8B8,64x48x1) with 5 generated mipmaps from Image. Internal format is PF_A8R8G8B8,64x48x1.
+08:56:03: Texture: sdk_frame.png: Loading 1 faces(PF_A8R8G8B8,32x32x1) with  hardware generated mipmaps from Image. Internal format is PF_A8R8G8B8,32x32x1.
+08:56:03: Texture: sdk_mini_text_box_over.png: Loading 1 faces(PF_A8R8G8B8,32x32x1) with  hardware generated mipmaps from Image. Internal format is PF_A8R8G8B8,32x32x1.
+08:56:03: Texture: sdk_pulse.png: Loading 1 faces(PF_R8G8B8,8x1x1) with  hardware generated mipmaps from Image. Internal format is PF_X8R8G8B8,8x1x1.
+08:56:03: Finished parsing scripts for resource group Essential
+08:56:03: *** Initializing OIS ***
+08:56:03: Parsing scripts for resource group Autodetect
+08:56:03: Font SdkTrays/Captionusing texture size 512x256
+08:56:03: Info: Freetype returned null for character 160 in font SdkTrays/Caption
+08:56:03: Texture: SdkTrays/CaptionTexture: Loading 1 faces(PF_BYTE_LA,512x256x1) with 0 generated mipmaps from Image. Internal format is PF_BYTE_LA,512x256x1.
+08:56:03: Font SdkTrays/Valueusing texture size 512x256
+08:56:03: Info: Freetype returned null for character 127 in font SdkTrays/Value
+08:56:03: Info: Freetype returned null for character 128 in font SdkTrays/Value
+08:56:03: Info: Freetype returned null for character 129 in font SdkTrays/Value
+08:56:03: Info: Freetype returned null for character 130 in font SdkTrays/Value
+08:56:03: Info: Freetype returned null for character 131 in font SdkTrays/Value
+08:56:03: Info: Freetype returned null for character 132 in font SdkTrays/Value
+08:56:03: Info: Freetype returned null for character 133 in font SdkTrays/Value
+08:56:03: Info: Freetype returned null for character 134 in font SdkTrays/Value
+08:56:03: Info: Freetype returned null for character 135 in font SdkTrays/Value
+08:56:03: Info: Freetype returned null for character 136 in font SdkTrays/Value
+08:56:03: Info: Freetype returned null for character 137 in font SdkTrays/Value
+08:56:03: Info: Freetype returned null for character 138 in font SdkTrays/Value
+08:56:03: Info: Freetype returned null for character 139 in font SdkTrays/Value
+08:56:03: Info: Freetype returned null for character 140 in font SdkTrays/Value
+08:56:03: Info: Freetype returned null for character 141 in font SdkTrays/Value
+08:56:03: Info: Freetype returned null for character 142 in font SdkTrays/Value
+08:56:03: Info: Freetype returned null for character 143 in font SdkTrays/Value
+08:56:03: Info: Freetype returned null for character 144 in font SdkTrays/Value
+08:56:03: Info: Freetype returned null for character 145 in font SdkTrays/Value
+08:56:03: Info: Freetype returned null for character 146 in font SdkTrays/Value
+08:56:03: Info: Freetype returned null for character 147 in font SdkTrays/Value
+08:56:03: Info: Freetype returned null for character 148 in font SdkTrays/Value
+08:56:03: Info: Freetype returned null for character 149 in font SdkTrays/Value
+08:56:03: Info: Freetype returned null for character 150 in font SdkTrays/Value
+08:56:03: Info: Freetype returned null for character 151 in font SdkTrays/Value
+08:56:03: Info: Freetype returned null for character 152 in font SdkTrays/Value
+08:56:03: Info: Freetype returned null for character 153 in font SdkTrays/Value
+08:56:03: Info: Freetype returned null for character 154 in font SdkTrays/Value
+08:56:03: Info: Freetype returned null for character 155 in font SdkTrays/Value
+08:56:03: Info: Freetype returned null for character 156 in font SdkTrays/Value
+08:56:03: Info: Freetype returned null for character 157 in font SdkTrays/Value
+08:56:03: Info: Freetype returned null for character 158 in font SdkTrays/Value
+08:56:03: Info: Freetype returned null for character 159 in font SdkTrays/Value
+08:56:03: Info: Freetype returned null for character 160 in font SdkTrays/Value
+08:56:03: Texture: SdkTrays/ValueTexture: Loading 1 faces(PF_BYTE_LA,512x256x1) with 0 generated mipmaps from Image. Internal format is PF_BYTE_LA,512x256x1.
+08:56:03: Finished parsing scripts for resource group Autodetect
+08:56:03: Parsing scripts for resource group General
+08:56:03: Finished parsing scripts for resource group General
+08:56:03: Parsing scripts for resource group Hydrax
+08:56:03: Finished parsing scripts for resource group Hydrax
+08:56:03: Parsing scripts for resource group Internal
+08:56:03: Finished parsing scripts for resource group Internal
+08:56:03: Parsing scripts for resource group OgreBulletCollisions
+08:56:03: Finished parsing scripts for resource group OgreBulletCollisions
+08:56:03: Parsing scripts for resource group Popular
+08:56:03: Parsing script StdQuad_vp.program
+08:56:03: Parsing script Bloom.material
+08:56:03: Parsing script Bloom2.material
+08:56:03: Parsing script CompositorDemo.material
+08:56:03: Parsing script delorean.material
+08:56:03: Parsing script Examples-Water.material
+08:56:03: Parsing script hdr.material
+08:56:04: Parsing script lever.material
+08:56:04: Parsing script mechanimated.material
+08:56:04: Parsing script MotionBlur.material
+08:56:04: Parsing script RadialBlur.material
+08:56:04: Parsing script rocket.material
+08:56:04: Parsing script saturnv.material
+08:56:04: Parsing script SkyBox.material
+08:56:04: Parsing script smoke.material
+08:56:04: Parsing script terrain_ground.material
+08:56:04: Parsing script wheel.material
+08:56:04: Parsing script yatch.material
+08:56:04: Parsing script smoke.particle
+08:56:04: Parsing script Examples.compositor
+08:56:04: Finished parsing scripts for resource group Popular
+08:56:04: Texture: ct_fr.png: Loading 1 faces(PF_R8G8B8,512x512x1) with  hardware generated mipmaps from Image. Internal format is PF_X8R8G8B8,512x512x1.
+08:56:04: Texture: ct_bk.png: Loading 1 faces(PF_R8G8B8,512x512x1) with  hardware generated mipmaps from Image. Internal format is PF_X8R8G8B8,512x512x1.
+08:56:04: Texture: ct_lf.png: Loading 1 faces(PF_R8G8B8,512x512x1) with  hardware generated mipmaps from Image. Internal format is PF_X8R8G8B8,512x512x1.
+08:56:04: Texture: ct_rt.png: Loading 1 faces(PF_R8G8B8,512x512x1) with  hardware generated mipmaps from Image. Internal format is PF_X8R8G8B8,512x512x1.
+08:56:04: Texture: ct_up.png: Loading 1 faces(PF_R8G8B8,512x512x1) with  hardware generated mipmaps from Image. Internal format is PF_X8R8G8B8,512x512x1.
+08:56:04: Texture: ct_dn.png: Loading 1 faces(PF_R8G8B8,512x512x1) with  hardware generated mipmaps from Image. Internal format is PF_X8R8G8B8,512x512x1.
+08:56:04: Mesh: Loading delorean.mesh.
+08:56:04: Mesh: Loading wheel.mesh.
+08:56:04: WARNING: wheel.mesh is an older format ([MeshSerializer_v1.40]); you should upgrade it as soon as possible using the OgreMeshUpgrade tool.
+08:56:04: Texture: Tire_tex.png: Loading 1 faces(PF_A8R8G8B8,256x256x1) with  hardware generated mipmaps from Image. Internal format is PF_A8R8G8B8,256x256x1.
+08:56:04: *** Initializing OIS ***
+08:56:04: Mesh: Loading terrain_ground.mesh.
+08:56:04: Texture: grass.jpg: Loading 1 faces(PF_R8G8B8,500x500x1) with 5 generated mipmaps from Image. Internal format is PF_X8R8G8B8,500x500x1.
+08:56:04: Texture: brick.jpg: Loading 1 faces(PF_R8G8B8,696x648x1) with 5 generated mipmaps from Image. Internal format is PF_X8R8G8B8,696x648x1.
+08:56:04: Texture: wood.jpg: Loading 1 faces(PF_R8G8B8,468x313x1) with 5 generated mipmaps from Image. Internal format is PF_X8R8G8B8,468x313x1.
+08:56:04: Texture: wood02.jpg: Loading 1 faces(PF_R8G8B8,500x500x1) with 5 generated mipmaps from Image. Internal format is PF_X8R8G8B8,500x500x1.
+08:56:04: Texture: steel.jpg: Loading 1 faces(PF_R8G8B8,1440x1335x1) with 5 generated mipmaps from Image. Internal format is PF_X8R8G8B8,1440x1335x1.
+08:56:05: Mesh: Loading saturnv.mesh.
+08:56:05: OGRE EXCEPTION(6:FileNotFoundException): Cannot locate resource SATURNVU.GIF in resource group Popular or any other group. in ResourceGroupManager::openResource at ..\..\..\..\OgreMain\src\OgreResourceGroupManager.cpp (line 753)
+08:56:05: Error loading texture SATURNVU.GIF. Texture layer will be blank. Loading the texture failed with the following exception: OGRE EXCEPTION(6:FileNotFoundException): Cannot locate resource SATURNVU.GIF in resource group Popular or any other group. in ResourceGroupManager::openResource at ..\..\..\..\OgreMain\src\OgreResourceGroupManager.cpp (line 753)
+08:56:05: OGRE EXCEPTION(6:FileNotFoundException): Cannot locate resource SATURNVA.GIF in resource group Popular or any other group. in ResourceGroupManager::openResource at ..\..\..\..\OgreMain\src\OgreResourceGroupManager.cpp (line 753)
+08:56:05: Error loading texture SATURNVA.GIF. Texture layer will be blank. Loading the texture failed with the following exception: OGRE EXCEPTION(6:FileNotFoundException): Cannot locate resource SATURNVA.GIF in resource group Popular or any other group. in ResourceGroupManager::openResource at ..\..\..\..\OgreMain\src\OgreResourceGroupManager.cpp (line 753)
+08:56:05: OGRE EXCEPTION(6:FileNotFoundException): Cannot locate resource SATURNVT.GIF in resource group Popular or any other group. in ResourceGroupManager::openResource at ..\..\..\..\OgreMain\src\OgreResourceGroupManager.cpp (line 753)
+08:56:05: Error loading texture SATURNVT.GIF. Texture layer will be blank. Loading the texture failed with the following exception: OGRE EXCEPTION(6:FileNotFoundException): Cannot locate resource SATURNVT.GIF in resource group Popular or any other group. in ResourceGroupManager::openResource at ..\..\..\..\OgreMain\src\OgreResourceGroupManager.cpp (line 753)
+08:56:05: OGRE EXCEPTION(6:FileNotFoundException): Cannot locate resource SATURNVW.BMP in resource group Popular or any other group. in ResourceGroupManager::openResource at ..\..\..\..\OgreMain\src\OgreResourceGroupManager.cpp (line 753)
+08:56:05: Error loading texture SATURNVW.BMP. Texture layer will be blank. Loading the texture failed with the following exception: OGRE EXCEPTION(6:FileNotFoundException): Cannot locate resource SATURNVW.BMP in resource group Popular or any other group. in ResourceGroupManager::openResource at ..\..\..\..\OgreMain\src\OgreResourceGroupManager.cpp (line 753)
+08:56:05: Texture: Water01.jpg: Loading 1 faces(PF_R8G8B8,512x512x1) with  hardware generated mipmaps from Image. Internal format is PF_X8R8G8B8,512x512x1.
+08:56:05: [Hydrax] Hydrax created.
+08:56:05: [Hydrax] HydraxDemo.hdx loaded.
+08:56:05: [Hydrax] Creating module...
+08:56:05: [Hydrax] Creating ProjectedGridVertex module.
+08:56:05: [Hydrax] ProjectedGridVertex created.
+08:56:05: [Hydrax] Module created.
+08:56:05: [Hydrax] Initializating RTT Manager...
+08:56:05: [Hydrax] RTT manager initialized.
+08:56:05: [Hydrax] Registring device restored listener...
+08:56:05: [Hydrax] Device restored listener registred.
+08:56:05: [Hydrax] Creating materials...
+08:56:05: [Hydrax] Creating water material...
+08:56:05: Texture: Fresnel.bmp: Loading 1 faces(PF_L8,256x1x1) with  hardware generated mipmaps from Image. Internal format is PF_L8,256x1x1.
+08:56:05: Texture: Foam.png: Loading 1 faces(PF_R8G8B8,512x512x1) with  hardware generated mipmaps from Image. Internal format is PF_X8R8G8B8,512x512x1.
+08:56:05: [Hydrax] Water material created.
+08:56:05: [Hydrax] Creating depth material...
+08:56:05: Texture: Caustics_0.bmp: Loading 1 faces(PF_R8G8B8,128x128x1) with  hardware generated mipmaps from Image. Internal format is PF_X8R8G8B8,128x128x1.
+08:56:05: Texture: Caustics_1.bmp: Loading 1 faces(PF_R8G8B8,128x128x1) with  hardware generated mipmaps from Image. Internal format is PF_X8R8G8B8,128x128x1.
+08:56:05: Texture: Caustics_2.bmp: Loading 1 faces(PF_R8G8B8,128x128x1) with  hardware generated mipmaps from Image. Internal format is PF_X8R8G8B8,128x128x1.
+08:56:05: Texture: Caustics_3.bmp: Loading 1 faces(PF_R8G8B8,128x128x1) with  hardware generated mipmaps from Image. Internal format is PF_X8R8G8B8,128x128x1.
+08:56:05: Texture: Caustics_4.bmp: Loading 1 faces(PF_R8G8B8,128x128x1) with  hardware generated mipmaps from Image. Internal format is PF_X8R8G8B8,128x128x1.
+08:56:05: Texture: Caustics_5.bmp: Loading 1 faces(PF_R8G8B8,128x128x1) with  hardware generated mipmaps from Image. Internal format is PF_X8R8G8B8,128x128x1.
+08:56:05: Texture: Caustics_6.bmp: Loading 1 faces(PF_R8G8B8,128x128x1) with  hardware generated mipmaps from Image. Internal format is PF_X8R8G8B8,128x128x1.
+08:56:05: Texture: Caustics_7.bmp: Loading 1 faces(PF_R8G8B8,128x128x1) with  hardware generated mipmaps from Image. Internal format is PF_X8R8G8B8,128x128x1.
+08:56:05: Texture: Caustics_8.bmp: Loading 1 faces(PF_R8G8B8,128x128x1) with  hardware generated mipmaps from Image. Internal format is PF_X8R8G8B8,128x128x1.
+08:56:05: Texture: Caustics_9.bmp: Loading 1 faces(PF_R8G8B8,128x128x1) with  hardware generated mipmaps from Image. Internal format is PF_X8R8G8B8,128x128x1.
+08:56:05: Texture: Caustics_10.bmp: Loading 1 faces(PF_R8G8B8,128x128x1) with  hardware generated mipmaps from Image. Internal format is PF_X8R8G8B8,128x128x1.
+08:56:05: Texture: Caustics_11.bmp: Loading 1 faces(PF_R8G8B8,128x128x1) with  hardware generated mipmaps from Image. Internal format is PF_X8R8G8B8,128x128x1.
+08:56:05: Texture: Caustics_12.bmp: Loading 1 faces(PF_R8G8B8,128x128x1) with  hardware generated mipmaps from Image. Internal format is PF_X8R8G8B8,128x128x1.
+08:56:05: Texture: Caustics_13.bmp: Loading 1 faces(PF_R8G8B8,128x128x1) with  hardware generated mipmaps from Image. Internal format is PF_X8R8G8B8,128x128x1.
+08:56:05: Texture: Caustics_14.bmp: Loading 1 faces(PF_R8G8B8,128x128x1) with  hardware generated mipmaps from Image. Internal format is PF_X8R8G8B8,128x128x1.
+08:56:05: Texture: Caustics_15.bmp: Loading 1 faces(PF_R8G8B8,128x128x1) with  hardware generated mipmaps from Image. Internal format is PF_X8R8G8B8,128x128x1.
+08:56:05: Texture: Caustics_16.bmp: Loading 1 faces(PF_R8G8B8,128x128x1) with  hardware generated mipmaps from Image. Internal format is PF_X8R8G8B8,128x128x1.
+08:56:05: Texture: Caustics_17.bmp: Loading 1 faces(PF_R8G8B8,128x128x1) with  hardware generated mipmaps from Image. Internal format is PF_X8R8G8B8,128x128x1.
+08:56:05: Texture: Caustics_18.bmp: Loading 1 faces(PF_R8G8B8,128x128x1) with  hardware generated mipmaps from Image. Internal format is PF_X8R8G8B8,128x128x1.
+08:56:05: Texture: Caustics_19.bmp: Loading 1 faces(PF_R8G8B8,128x128x1) with  hardware generated mipmaps from Image. Internal format is PF_X8R8G8B8,128x128x1.
+08:56:05: Texture: Caustics_20.bmp: Loading 1 faces(PF_R8G8B8,128x128x1) with  hardware generated mipmaps from Image. Internal format is PF_X8R8G8B8,128x128x1.
+08:56:05: Texture: Caustics_21.bmp: Loading 1 faces(PF_R8G8B8,128x128x1) with  hardware generated mipmaps from Image. Internal format is PF_X8R8G8B8,128x128x1.
+08:56:05: Texture: Caustics_22.bmp: Loading 1 faces(PF_R8G8B8,128x128x1) with  hardware generated mipmaps from Image. Internal format is PF_X8R8G8B8,128x128x1.
+08:56:05: Texture: Caustics_23.bmp: Loading 1 faces(PF_R8G8B8,128x128x1) with  hardware generated mipmaps from Image. Internal format is PF_X8R8G8B8,128x128x1.
+08:56:05: Texture: Caustics_24.bmp: Loading 1 faces(PF_R8G8B8,128x128x1) with  hardware generated mipmaps from Image. Internal format is PF_X8R8G8B8,128x128x1.
+08:56:05: Texture: Caustics_25.bmp: Loading 1 faces(PF_R8G8B8,128x128x1) with  hardware generated mipmaps from Image. Internal format is PF_X8R8G8B8,128x128x1.
+08:56:05: Texture: Caustics_26.bmp: Loading 1 faces(PF_R8G8B8,128x128x1) with  hardware generated mipmaps from Image. Internal format is PF_X8R8G8B8,128x128x1.
+08:56:05: Texture: Caustics_27.bmp: Loading 1 faces(PF_R8G8B8,128x128x1) with  hardware generated mipmaps from Image. Internal format is PF_X8R8G8B8,128x128x1.
+08:56:05: Texture: Caustics_28.bmp: Loading 1 faces(PF_R8G8B8,128x128x1) with  hardware generated mipmaps from Image. Internal format is PF_X8R8G8B8,128x128x1.
+08:56:05: Texture: Caustics_29.bmp: Loading 1 faces(PF_R8G8B8,128x128x1) with  hardware generated mipmaps from Image. Internal format is PF_X8R8G8B8,128x128x1.
+08:56:05: Texture: Caustics_30.bmp: Loading 1 faces(PF_R8G8B8,128x128x1) with  hardware generated mipmaps from Image. Internal format is PF_X8R8G8B8,128x128x1.
+08:56:05: Texture: Caustics_31.bmp: Loading 1 faces(PF_R8G8B8,128x128x1) with  hardware generated mipmaps from Image. Internal format is PF_X8R8G8B8,128x128x1.
+08:56:05: [Hydrax] Depth material created.
+08:56:05: [Hydrax] Creating underwater material...
+08:56:05: OGRE EXCEPTION(6:FileNotFoundException): Cannot locate resource HydraxDepthReflectionMap in resource group Hydrax or any other group. in ResourceGroupManager::openResource at ..\..\..\..\OgreMain\src\OgreResourceGroupManager.cpp (line 753)
+08:56:05: Error loading texture HydraxDepthReflectionMap. Texture layer will be blank. Loading the texture failed with the following exception: OGRE EXCEPTION(6:FileNotFoundException): Cannot locate resource HydraxDepthReflectionMap in resource group Hydrax or any other group. in ResourceGroupManager::openResource at ..\..\..\..\OgreMain\src\OgreResourceGroupManager.cpp (line 753)
+08:56:05: Texture: UnderwaterDistortion.jpg: Loading 1 faces(PF_R8G8B8,256x256x1) with  hardware generated mipmaps from Image. Internal format is PF_X8R8G8B8,256x256x1.
+08:56:05: [Hydrax] Underwater material created.
+08:56:05: [Hydrax] Materials created.
+08:56:05: [Hydrax] Creating god rays...
+08:56:05: [Hydrax] Perlin destroyed.
+08:56:05: [Hydrax] God rays created.
+08:56:05: [Hydrax] Creating water mesh...
+08:56:05: [Hydrax] Water mesh created.
+08:56:05: Mesh: Loading lever.mesh.
+08:56:08: Texture: smoke.png: Loading 1 faces(PF_A8R8G8B8,256x256x1) with  hardware generated mipmaps from Image. Internal format is PF_A8R8G8B8,256x256x1.
+08:56:16: [Hydrax] Perlin destroyed.
+08:56:16: [Hydrax] ProjectedGridVertex destroyed.
+08:56:16: [Hydrax] Perlin destroyed.
+08:56:16: [Hydrax] Hydrax object removed.
+08:56:16: DefaultWorkQueue('Root') shutting down on thread 003A9DF0.
+08:56:16: DefaultWorkQueue('Root')::WorkerFunc - thread 003BDB40 stopped.
+08:56:16: DefaultWorkQueue('Root')::WorkerFunc - thread 003BD760 stopped.
+08:56:16: DefaultWorkQueue('Root')::WorkerFunc - thread 003BD3A0 stopped.
+08:56:16: DefaultWorkQueue('Root')::WorkerFunc - thread 003BD330 stopped.
