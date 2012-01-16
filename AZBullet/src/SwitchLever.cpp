@@ -12,16 +12,29 @@ SwitchLever::~SwitchLever(void)
 
 void SwitchLever::createObject(OgreBulletListener *bulletListener, size_t &mNumEntitiesInstanced)
 {
-	/*Ogre::Entity* leverEntity = bulletListener->mBulletSceneMgr->createEntity("SwitchLeverEntity", "lever.mesh");
-	this->mMainNode01 = bulletListener->mBulletSceneMgr->getRootSceneNode()->createChildSceneNode();
+	this->addRigidBody(mRigidBody01,
+		ani01,
+		bulletListener,
+		"lever.mesh",
+		Ogre::Vector3(-75, 110, 375),
+		Ogre::Vector3(2, 3, 5),
+		Ogre::Vector3(0, 0, 0),
+		Ogre::Vector3(5),
+		Ogre::Quaternion::IDENTITY,
+		mNumEntitiesInstanced);
 
-	switchLeverNode01 = this->mMainNode01->createChildSceneNode("SwitchLeverNode");
-	switchLeverNode01->attachObject(leverEntity);
-	switchLeverNode01->setScale(Ogre::Vector3(5));
+	Ogre::Real degree = Ogre::Degree(180).valueRadians();
 
-	this->mMainNode01->setPosition(Ogre::Vector3(-75, 110, 375));*/
-
-		
+	this->addRigidBody(mRigidBody02,
+		ani02,
+		bulletListener,
+		"lever02.mesh",
+		Ogre::Vector3(375, 70, 260),
+		Ogre::Vector3(8, 15, 1),
+		Ogre::Vector3(0, 0, 0),
+		Ogre::Vector3(1),
+		Quaternion(Math::Cos(degree/2), 0, Math::Sin(degree/2), 0),
+		mNumEntitiesInstanced);
 }
 
 void SwitchLever::updatePerFrame(Real elapsedTime)
@@ -29,7 +42,7 @@ void SwitchLever::updatePerFrame(Real elapsedTime)
 }
 
 //-------------------------------------------------------------------------------------
-void SwitchLever::addRigidBodyLadder(RigidBody* mRigidBody,
+void SwitchLever::addRigidBody(RigidBody* mRigidBody,
 									 Ogre::AnimationState* ani,
 									 OgreBulletListener *bulletListener,
 									 const Ogre::String meshFile,
@@ -57,8 +70,9 @@ void SwitchLever::addRigidBodyLadder(RigidBody* mRigidBody,
 	Ogre::SceneNode* switchLvrNode = ladderMainNode->createChildSceneNode();
 	switchLvrNode->attachObject(mEntity);		
 	switchLvrNode->translate(translation);
-	switchLvrNode->setScale(0.8, 1, 0.8);
+	switchLvrNode->setScale(scale);
 	mRigidBody->setShape(ladderMainNode,  sceneCubeShape, bodyRestitution, bodyFriction, bodyMass, pos, q);
+	mRigidBody->setKinematicObject(true);
 
 	bulletListener->mEntities.push_back(mEntity);
 	bulletListener->mShapes.push_back(sceneCubeShape);

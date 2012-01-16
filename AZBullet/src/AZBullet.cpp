@@ -152,6 +152,9 @@ void AZBullet::bulletInit()
 
 	switchLever = new SwitchLever();
 	switchLever->createObject(this, this->mNumEntitiesInstanced);
+
+	obs = new ObstacleForFun();
+	obs->createObject(this, this->mNumEntitiesInstanced);
 	
 	//mBulletWorld->getDebugDrawer()->setDrawWireframe(true);
 	//mBulletWorld->setShowDebugShapes(true);
