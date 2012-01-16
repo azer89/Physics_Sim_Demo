@@ -55,7 +55,6 @@ protected:
      virtual void createScene(void);		// prepare everything
 	 void repositionCamera(void);			// not used
 	 void createSimpleWater();				// create simple water effect
-	 void createSimpleSky();				// create skybox
 	 void createHydraxSimulation();			// create hydrax ocean simulation
 	 void changeSkyBox();					// change skybox texture and directional light
 	 void changeCameraPosition(int val);	// point the camera to different object

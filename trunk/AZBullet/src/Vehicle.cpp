@@ -26,7 +26,7 @@ static float gFrictionSlip = 10.5;
 // constructor
 Vehicle::Vehicle(void)
 {
-	this->CarPosition =  Ogre::Vector3(-350, 62, -460);
+	this->CarPosition =  Ogre::Vector3(-450, 62, -460);
 }
 //-------------------------------------------------------------------------------------
 // destructor
