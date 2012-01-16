@@ -26,7 +26,8 @@ static float gFrictionSlip = 10.5;
 // constructor
 Vehicle::Vehicle(void)
 {
-	this->CarPosition =  Ogre::Vector3(-450, 62, -460);
+	this->CarPosition =  Ogre::Vector3(-448.5, 58, -460);
+	//this->CarPosition =  Ogre::Vector3(-448.5, 59, 50);
 }
 //-------------------------------------------------------------------------------------
 // destructor
@@ -152,6 +153,8 @@ void Vehicle::updatePerFrame(Real elapsedTime)
 {
 	// update the speed
 	speed = mVehicle->getBulletVehicle()->getCurrentSpeedKmHour();
+
+	//std::cout << this->vehicleNode->_getDerivedPosition() << "\n";
 	
 	// apply engine Force on relevant wheels
 	for (int i = mWheelsEngine[0]; i < mWheelsEngineCount; i++) { mVehicle->applyEngineForce (mEngineForce, mWheelsEngine[i]); }

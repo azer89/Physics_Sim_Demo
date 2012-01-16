@@ -1,0 +1,49 @@
+material monolith_white
+{
+	technique
+	{
+		pass
+		{
+			ambient 0.6 0.6 0.6 1
+			diffuse 1 1 1 1
+			specular 0.5 0.5 0.5 89.6
+			emissive 0 0 0
+		}
+	}
+}
+material saturn_v_launcher
+{
+	technique
+	{
+		pass
+		{
+			ambient 0.6 0.6 0.6 1
+			diffuse 1 1 1 1
+			specular 0 0 0 1
+			emissive 0 0 0
+
+			texture_unit
+			{
+				texture saturn_v.png
+				tex_coord_set 0
+				colour_op modulate
+				scale 1 1
+				scroll 0 0
+				rotate 0
+			}
+		}
+	}
+}
+material lever_red
+{
+	technique
+	{
+		pass
+		{
+			ambient 0.01 0.01 0.01 1
+			diffuse 1 0 0 1
+			specular 0.5 0.5 0.5 89.6
+			emissive 0 0 0
+		}
+	}
+}

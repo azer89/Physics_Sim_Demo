@@ -21,7 +21,7 @@ protected:
 	Ogre::AnimationState* ani02;
 
 protected:
-	void addRigidBodyLadder(RigidBody* mRigidBody,
+	void addRigidBody(RigidBody* mRigidBody,
 		Ogre::AnimationState* ani,
 		OgreBulletListener *bulletListener,
 		const Ogre::String meshFile,
