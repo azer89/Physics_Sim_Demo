@@ -396,9 +396,12 @@ void OgreBulletListener::bulletShutdown()
         ++itBody;
     }
 
-    delete mBulletWorld->getDebugDrawer();
-    mBulletWorld->setDebugDrawer(0);
-    delete mBulletWorld;
+    //delete mBulletWorld->getDebugDrawer();
+	if(mBulletWorld)
+	{
+		mBulletWorld->setDebugDrawer(0);
+		delete mBulletWorld;
+	}
 
     // Ogre delete 
     //mBulletSceneMgr->destroyQuery (mRayQuery);

@@ -44,6 +44,7 @@ void RayFlashInterface::setupHikari(void)
 	//objectControls->bind("Height", FlashDelegate(this, &RayFlashInterface::onHeightChange));
 }
 
+//-------------------------------------------------------------------------------------
 void RayFlashInterface::showObjectControl(int xMPos, int yMPos, int height)
 {
 	using namespace Hikari;
@@ -56,11 +57,13 @@ void RayFlashInterface::showObjectControl(int xMPos, int yMPos, int height)
 	oCPos.y = yMPos;
 }
 
+//-------------------------------------------------------------------------------------
 void RayFlashInterface::hideObjectControl()
 {
 	//objectControls->hide();
 }
 
+//-------------------------------------------------------------------------------------
 bool RayFlashInterface::isInsideMenu(int mouseX, int mouseY)
 {
 	if(isMenuOpen && 
@@ -92,7 +95,7 @@ bool RayFlashInterface::isInsideMenu(int mouseX, int mouseY)
 	return false;
 }
 
-
+//-------------------------------------------------------------------------------------
 Hikari::FlashValue RayFlashInterface::onOceanSimToogle(Hikari::FlashControl* caller, const Hikari::Arguments& args)
 {
 	using namespace Hikari;
@@ -102,6 +105,7 @@ Hikari::FlashValue RayFlashInterface::onOceanSimToogle(Hikari::FlashControl* cal
 	return FLASH_VOID;
 }
 
+//-------------------------------------------------------------------------------------
 Hikari::FlashValue RayFlashInterface::onExitClick(Hikari::FlashControl* caller, const Hikari::Arguments& args)
 {
 	using namespace Hikari;
@@ -112,6 +116,7 @@ Hikari::FlashValue RayFlashInterface::onExitClick(Hikari::FlashControl* caller, 
 	return FLASH_VOID;
 }
 
+//-------------------------------------------------------------------------------------
 Hikari::FlashValue RayFlashInterface::onWeatherOption(Hikari::FlashControl* caller, const Hikari::Arguments& args)
 {
 	using namespace Hikari;
@@ -133,6 +138,7 @@ Hikari::FlashValue RayFlashInterface::onWeatherOption(Hikari::FlashControl* call
 	return FLASH_VOID;
 }
 
+//-------------------------------------------------------------------------------------
 Hikari::FlashValue RayFlashInterface::onMenuStateChange(Hikari::FlashControl* caller, const Hikari::Arguments& args)
 {
 	using namespace Hikari;
@@ -156,7 +162,6 @@ Hikari::FlashValue RayFlashInterface::onHeightChange(Hikari::FlashControl* calle
 	using namespace Hikari;
 	std::string text = args.at(0).getString(); 
 	Ogre::Real temp = ::atof(text.c_str());
-
 	rayApp->setPoleHeight(temp);
 
 	return FLASH_VOID;

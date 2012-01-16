@@ -31,7 +31,6 @@ Robot::Robot(void)
 	mEngineForce = 0;
 	mSteering = 0;
 
-
 	// on bridge
 	//this->robotPosition = Ogre::Vector3(10, 61, 133);
 	//Ogre::Real degree = Ogre::Degree(-135).valueRadians();
@@ -41,6 +40,11 @@ Robot::Robot(void)
 	this->robotPosition = Ogre::Vector3(-65, 110, 375);
 	Ogre::Real degree = Ogre::Degree(180).valueRadians();
 	this->robotRotation = Quaternion(Math::Cos(degree/2), 0, Math::Sin(degree/2), 0);
+
+	// on land
+	//this->robotPosition = Ogre::Vector3(370, 60, -300);
+	//Ogre::Real degree = Ogre::Degree(0).valueRadians();
+	//this->robotRotation = Quaternion(Math::Cos(degree/2), 0, Math::Sin(degree/2), 0);
 }
 
 //-------------------------------------------------------------------------------------
@@ -91,6 +95,7 @@ void Robot::createObject(SceneManager* mSceneMgr,
 	CompoundCollisionShape* compound = new CompoundCollisionShape();
 	compound->addChildShape(new BoxCollisionShape(Ogre::Vector3(4.0f, 0.5f, 4.0f)), chassisShift);								// base
 	compound->addChildShape(new BoxCollisionShape(Ogre::Vector3(2.0f, 2.8f, 3.0f)), chassisShift + Ogre::Vector3(0, 8.0, 0));	// body
+	//compound->addChildShape(new BoxCollisionShape(Ogre::Vector3(2.0f, 2.8f, 50.0f)), chassisShift + Ogre::Vector3(0, 40.0, 0));	// asdf
 	compound->addChildShape(new BoxCollisionShape(Ogre::Vector3(0.6f, 4.0f, 2.0f)), chassisShift + Ogre::Vector3(-3, 4.0, 0));	// left limb
 	compound->addChildShape(new BoxCollisionShape(Ogre::Vector3(0.6f, 4.0f, 2.0f)), chassisShift + Ogre::Vector3(3, 4.0, 0));	// right limb
 	

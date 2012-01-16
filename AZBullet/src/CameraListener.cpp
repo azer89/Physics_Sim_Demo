@@ -2,6 +2,7 @@
 #include "Stdafx.h"
 #include "CameraListener.h"
 
+//------------------------------------------------------------------------------------- 
 CameraListener::CameraListener(RenderWindow* win, Camera* cam) : 
 	ExampleFrameListener(win, cam)
 {
@@ -11,31 +12,22 @@ CameraListener::CameraListener(RenderWindow* win, Camera* cam) :
 }
 
 
-void CameraListener::setCharacter (Character *character) 
-{
-	mChar = character;
-}
+//------------------------------------------------------------------------------------- 
+void CameraListener::setCharacter (Character *character) { mChar = character; }
 
-void CameraListener::setExtendedCamera (ThirdPersonCamera *cam) 
-{
-	mExCamera = cam;
-}
+//------------------------------------------------------------------------------------- 
+void CameraListener::setExtendedCamera (ThirdPersonCamera *cam) { mExCamera = cam; }
 
+//------------------------------------------------------------------------------------- 
 void CameraListener::instantUpdate()
 {
-	if (mExCamera) 
-	{
-		if (mChar)
-			mExCamera->instantUpdate (mChar->getCameraNode ()->_getDerivedPosition(), mChar->getSightNode ()->_getDerivedPosition());
-		
-	}
+	if (mExCamera && mChar) mExCamera->instantUpdate (mChar->getCameraNode ()->_getDerivedPosition(), mChar->getSightNode ()->_getDerivedPosition());
 }
 
+//------------------------------------------------------------------------------------- 
 bool CameraListener::frameStarted(const FrameEvent& evt)
 {
 	mKeyboard->capture();
-	
-	//std::cout << mChar->getCameraNode()->_getDerivedPosition() << "\n";
 
 	if (mChar) 
 	{
@@ -99,8 +91,7 @@ bool CameraListener::frameStarted(const FrameEvent& evt)
 	}
 
 	// Exit if we press Esc
-	if(mKeyboard->isKeyDown (OIS::KC_ESCAPE))
-		return false;
+	if(mKeyboard->isKeyDown (OIS::KC_ESCAPE)) return false;
 
 	return true;
 }

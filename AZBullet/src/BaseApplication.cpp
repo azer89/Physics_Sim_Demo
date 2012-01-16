@@ -51,7 +51,6 @@ BaseApplication::~BaseApplication(void)
 	Ogre::WindowEventUtilities::removeWindowEventListener(mWindow, this);
 	windowClosed(mWindow);
 
-	mRoot->destroySceneManager (mSceneMgr);
 	//delete mRoot;
 }
 
@@ -156,8 +155,7 @@ void BaseApplication::createViewports(void)
 	vp->setBackgroundColour(Ogre::ColourValue(0,0,0));
 
 	// Alter the camera aspect ratio to match the viewport
-	mCamera->setAspectRatio(
-		Ogre::Real(vp->getActualWidth()) / Ogre::Real(vp->getActualHeight()));
+	mCamera->setAspectRatio( Ogre::Real(vp->getActualWidth()) / Ogre::Real(vp->getActualHeight()));
 }
 //-------------------------------------------------------------------------------------
 void BaseApplication::setupResources(void)
@@ -192,9 +190,7 @@ void BaseApplication::createResourceListener(void)
 void BaseApplication::loadResources(void)
 {
 	//mTrayMgr->showLoadingBar();
-
 	Ogre::ResourceGroupManager::getSingleton().initialiseAllResourceGroups();
-
 	//mTrayMgr->hideLoadingBar();
 }
 //-------------------------------------------------------------------------------------
