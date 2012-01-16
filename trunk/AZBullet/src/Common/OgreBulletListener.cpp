@@ -227,6 +227,8 @@ mBulletWorld(0)
     //mEnableCCD = false;
 
 //}
+
+
 // -------------------------------------------------------------------------
 //void OgreBulletListener::setBulletBasicLight()
 //{
@@ -266,6 +268,8 @@ mBulletWorld(0)
 	mLight2->setSpecularColour(0.3, 0.1, 0.1);*/
 
 //}
+
+
 // -------------------------------------------------------------------------
 //void OgreBulletListener::setBulletPhysicGUI()
 //{
@@ -365,6 +369,8 @@ mBulletWorld(0)
     //gui->addEffect(new BetaGUI::MoveEffect(menuWindow, 2, screenLeftTop, screenLeftOffTop, 0));
     //gui->addEffect(new BetaGUI::AlphaEffect(menuWindow, 2, 0, 1, 0));
 //}
+
+
 // -------------------------------------------------------------------------
 //void OgreBulletListener::getDebugLines()
 //{
@@ -374,6 +380,8 @@ mBulletWorld(0)
         mBulletSceneMgr->getRootSceneNode ()->createChildSceneNode ()->attachObject (mDebugRayLine);
     }*/
 //}
+
+
 // -------------------------------------------------------------------------
 void OgreBulletListener::bulletShutdown()
 {
@@ -424,9 +432,6 @@ void OgreBulletListener::bulletShutdown()
     //mRayQuery = 0;    
     //mBulletCamera = 0;    
     //mDebugRayLine = 0;
-
-    
-
 }
 
 // -------------------------------------------------------------------------
@@ -479,6 +484,8 @@ void OgreBulletListener::bulletShutdown()
     //    mGuiListener->showMouse ();
     //}
 //}
+
+
 // -------------------------------------------------------------------------
 //void OgreBulletListener::bulletButton1Pressed()
 //{
@@ -510,11 +517,13 @@ void OgreBulletListener::bulletShutdown()
     //    mDebugRayLine->draw();	
     //}  
 //}
+
 // -------------------------------------------------------------------------
 //void OgreBulletListener::bulletButton2Pressed()
 //{ 
     //mGuiListener->hideMouse ();
 //}
+
 // -------------------------------------------------------------------------
 //void OgreBulletListener::bulletButton0Released()
 //{
@@ -536,15 +545,20 @@ void OgreBulletListener::bulletShutdown()
     //    mGuiListener->showMouse(); 
     //}
 //}
+
 // -------------------------------------------------------------------------
 //void OgreBulletListener::bulletButton1Released()
 //{
 //}
+
+
 // -------------------------------------------------------------------------
 //void OgreBulletListener::bulletButton2Released()
 //{
     //mGuiListener->showMouse ();
 //}
+
+
 // -------------------------------------------------------------------------
 //void OgreBulletListener::bulletMouseMoved()
 //{
@@ -593,8 +607,9 @@ void OgreBulletListener::bulletShutdown()
     //    mBulletCameraRotX = Degree(-mInputListener->getRelMouseX () * 0.13);
     //    mBulletCameraRotY = Degree(-mInputListener->getRelMouseY () * 0.13);
     //}
-
 //}
+
+
 // -------------------------------------------------------------------------
 //void OgreBulletListener::bulletKeyPressed(BULLET_KEY_CODE key)
 //{
@@ -689,6 +704,8 @@ void OgreBulletListener::bulletShutdown()
         break;
     }*/
 //}
+
+
 // -------------------------------------------------------------------------
 //void OgreBulletListener::bulletKeyReleased(BULLET_KEY_CODE key)
 //{
@@ -714,6 +731,8 @@ void OgreBulletListener::bulletShutdown()
     //    break;
     //}
 //}
+
+
 // -------------------------------------------------------------------------
 //OgreBulletDynamics::RigidBody* OgreBulletListener::getBodyUnderCursorUsingBullet(Ogre::Vector3 &intersectionPoint, Ray &rayTo)
 //{
@@ -734,6 +753,8 @@ void OgreBulletListener::bulletShutdown()
     }*/
     //return 0;
 //}
+
+
 // -------------------------------------------------------------------------
 //OgreBulletDynamics::RigidBody* OgreBulletListener::getBodyUnderCursorUsingOgre(Ogre::Vector3 &intersectionPoint, Ray &rayTo)
 //{
@@ -773,6 +794,8 @@ void OgreBulletListener::bulletShutdown()
 //    }// if results.	 
 //    return 0;
 //}
+
+
 // -------------------------------------------------------------------------
 //bool OgreBulletListener::bulletFrameStarted(Real elapsedTime)
 //{
@@ -798,6 +821,8 @@ void OgreBulletListener::bulletShutdown()
 
 //    return true;
 //}
+
+
 // -------------------------------------------------------------------------
 //bool OgreBulletListener::bulletFrameEnded(Real elapsedTime)
 //{
@@ -871,6 +896,8 @@ void OgreBulletListener::bulletShutdown()
   //  updateStats();
 //    return true;
 //}
+
+
 // ------------------------------------------------------------------------- 
 //bool OgreBulletListener::checkIfEnoughPlaceToAddObject(float maxDist)
 //{
@@ -886,6 +913,8 @@ void OgreBulletListener::bulletShutdown()
 //    }*/
 //    return true;        
 //}
+
+
 // -------------------------------------------------------------------------
 //void OgreBulletListener::throwDynamicObject(BULLET_KEY_CODE key)
 //{
@@ -945,6 +974,8 @@ void OgreBulletListener::bulletShutdown()
         break;
     }*/
 //}
+
+
 // -------------------------------------------------------------------------
 void OgreBulletListener::dropDynamicObject(int key, Ogre::Vector3 vec)
 {
@@ -1117,6 +1148,8 @@ RigidBody *OgreBulletListener::addCylinder(const Ogre::String instanceName,
 
     return defaultBody;
 }
+
+
 // -------------------------------------------------------------------------
 RigidBody *OgreBulletListener::addCone(const Ogre::String instanceName,
                                        const Ogre::Vector3 &pos, const Ogre::Quaternion &q, const Ogre::Vector3 &size,
@@ -1154,6 +1187,8 @@ RigidBody *OgreBulletListener::addCone(const Ogre::String instanceName,
 
     return defaultBody;
 }
+
+
 // -------------------------------------------------------------------------
 RigidBody *OgreBulletListener::addStaticTrimesh(const Ogre::String &instanceName,
                                                 const Ogre::String &meshName,
@@ -1185,6 +1220,8 @@ RigidBody *OgreBulletListener::addStaticTrimesh(const Ogre::String &instanceName
 
     return sceneRigid;
 }
+
+
 // -------------------------------------------------------------------------
 RigidBody *OgreBulletListener::addStaticPlane( const Ogre::Real bodyRestitution, 
                                               const Ogre::Real bodyFriction)

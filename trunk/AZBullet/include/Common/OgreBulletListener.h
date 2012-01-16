@@ -40,7 +40,7 @@ enum QueryFlags
 	STATIC_GEOMETRY_QUERY_MASK		= 1<<4
 };
 
-class OgreBulletApplication;
+//class OgreBulletApplication;
 
 /*
 The base Test class, is also able to listen for collisions and thus change the contact properties

@@ -18,15 +18,11 @@ AZBullet::AZBullet(void):OgreBulletListener()
 {
 	_def_SkyBoxNum = 3;
 
-	mSkyBoxes[0] = "Sky/ClubTropicana";
-	mSkyBoxes[1] = "Sky/EarlyMorning";
-	mSkyBoxes[2] = "Sky/Clouds";
-	mSunPosition[0] = Ogre::Vector3(0,10000,0);
-	mSunPosition[1] = Ogre::Vector3(0,10000,90000);
-	mSunPosition[2] = Ogre::Vector3(0,10000,0);
-	mSunColor[0] =  Ogre::Vector3(1, 0.9, 0.6);
-	mSunColor[1] =  Ogre::Vector3(1,0.6,0.4);
-	mSunColor[2] =  Ogre::Vector3(0.45,0.45,0.45);
+	mSkyBoxes[0] = "Sky/ClubTropicana"; mSkyBoxes[1] = "Sky/EarlyMorning"; mSkyBoxes[2] = "Sky/Clouds";
+
+	mSunPosition[0] = Ogre::Vector3(0,10000,0); mSunPosition[1] = Ogre::Vector3(0,10000,90000); mSunPosition[2] = Ogre::Vector3(0,10000,0);
+	
+	mSunColor[0] =  Ogre::Vector3(1, 0.9, 0.6); mSunColor[1] =  Ogre::Vector3(1,0.6,0.4); mSunColor[2] =  Ogre::Vector3(0.45,0.45,0.45);
 
 	this->mRotateSpeed = 0.1f;
 	this->mCurrentSkyBox = 0;
@@ -99,10 +95,7 @@ void AZBullet::changeSkyBox()
 
 // -------------------------------------------------------------------------
 void AZBullet::bulletInit()
-{	
-	//mBulletCamera = mCamera;		// OgreBulletListener's camera
-	//mBulletWindow = mWindow;		// OgreBulletListener's window
-	//mBulletRoot = mRoot;			// OgreBulletListener's root
+{
 	mBulletSceneMgr = mSceneMgr;	// OgreBulletListener's scene manager
 
 	mSceneMgr->setAmbientLight(ColourValue(1, 1, 1));
@@ -123,15 +116,6 @@ void AZBullet::bulletInit()
 							  mSunColor[mCurrentSkyBox].z);
 	
 	//mSceneMgr->setShadowTechnique(Ogre::SHADOWTYPE_STENCIL_ADDITIVE);
-
-	// create terrain group
-	//rayTerrain = new RayTerrain();
-	//rayTerrain->createTerrain(this->mSceneMgr, light);
-	//rayTerrain->integrateBullet(mSceneMgr, mBulletWorld, mBodies, mShapes);
-	
-	// Create a terrain
-	//tManager = new TerrainManager();
-	//tManager->createTerrain(mSceneMgr, mBulletWorld, mBodies, mShapes);
 
 	// create a vehicle
 	vehicle = new Vehicle();
@@ -167,7 +151,6 @@ void AZBullet::bulletInit()
 	this->toggleOceanSimulation();
 
 	ship = new Ship();
-	//ship->createObject(this, mHydrax, this->mNumEntitiesInstanced);
 	ship->createObject(mSceneMgr, this->mBulletWorld, this->mNumEntitiesInstanced);
 	robot->ship = ship;
 
@@ -250,11 +233,18 @@ void AZBullet::createSimpleWater()
 bool AZBullet::frameRenderingQueued(const Ogre::FrameEvent& arg)
 {
 	if(!BaseApplication::frameRenderingQueued(arg)) { return false; }
-
 	Ogre::Real elapsedTime = arg.timeSinceLastEvent;
-	
+
 	if(this->isHydraxEnabled) mHydrax->update(elapsedTime);
-	mBulletWorld->stepSimulation(elapsedTime);	
+
+	// step simulation -----------------------------------------------------------------	
+	int mul = 1;
+#ifdef _DEBUG
+#else
+	mul = 3;
+#endif
+	mBulletWorld->stepSimulation(elapsedTime * mul);	
+	
 	//this->repositionCamera();	
 
 	for(int a = 0; a < chars.size(); a++) { chars[a]->updatePerFrame(elapsedTime); }
