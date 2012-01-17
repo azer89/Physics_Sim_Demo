@@ -6,6 +6,7 @@
 #include "Ogre.h"
 #include "Character.h"
 #include "Ship.h"
+#include "CollisionDetectorTool.h"
 
 #include "Ogre.h"
 #include "Character.h"
@@ -22,20 +23,12 @@ using namespace Ogre;
 using namespace OgreBulletCollisions;
 using namespace OgreBulletDynamics;
 
-//enum RobotState
-//{
-//	MOVE_FORWARD,
-//	MOVE_BACKWARD,
-//	NOT_MOVE
-//};
-
 class Robot : public Character
 {
 private:	
 	OgreBulletDynamics::WheeledRigidBody        *mRobotChassis;
 	OgreBulletDynamics::VehicleTuning	        *mTuning;
 	OgreBulletDynamics::VehicleRayCaster	    *mVehicleRayCaster;
-	//OgreBulletDynamics::RaycastVehicle	    *mVehicle;
 
 	Ogre::Entity    *robotEntity;
 	Ogre::Entity    *mWheels[4];
@@ -56,8 +49,12 @@ private:
 	bool mSteeringRight;
 
 protected:
-	//RobotState robotState;
+	CollisionDetectorTool* collisionDetector;
 	Ogre::AnimationState* ani;
+	Ogre::AnimationState* blockerAni;
+	Ogre::Real blockerAniCounter;
+	bool isActive;
+	//bool collisionBetweenShip;
 	
 public:
 	Ship* ship;
@@ -70,6 +67,8 @@ public:
 public:
 	Robot(void);
 	virtual ~Robot(void);
+
+	void activateRobot();
 
 	void createObject(SceneManager* mSceneMgr, 
 		OgreBulletDynamics::DynamicsWorld *mBulletWorld,

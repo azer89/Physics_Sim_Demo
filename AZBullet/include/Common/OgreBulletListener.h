@@ -20,8 +20,8 @@ A basic test framework that minimize code in each test scene listener.
 
 #include "OgreBulletDynamics.h"
 
-#include "OgreBulletInputListener.h"
-#include "OgreBulletGuiListener.h"
+//#include "OgreBulletInputListener.h"
+//#include "OgreBulletGuiListener.h"
 
 //#define BASIC_HELP_INFO0 "Use F1, F2, F3, F4"
 //#define BASIC_HELP_INFO1 "B,N,G,H to Throw a Cube, Sphere, Cone, Cylinder"
@@ -52,26 +52,21 @@ public:
 	// Constructor/destructor
     OgreBulletListener();
     virtual ~OgreBulletListener(){};
+
+	virtual void bulletShutdown();
+	void dropDynamicObject(int key, Ogre::Vector3 vec);
     //virtual void bulletInit(Ogre::Root *root, Ogre::RenderWindow *win, OgreBulletApplication *application);
-
-    virtual void bulletShutdown();
-
     //void setBulletPhysicGUI();
     //void setBulletBasicLight();
-
     //const BULLET_KEY_CODE getNextKey() const {return mActivationKeyCode;};
     //void setNextKey(BULLET_KEY_CODE code){mActivationKeyCode = code;};
-
     //void setBulletInfoText();
-
     //const Ogre::String getName() {return mName;}
-
     //virtual bool bulletFrameStarted(Ogre::Real elapsedTime);
     //virtual bool bulletFrameEnded(Ogre::Real elapsedTime);
-
     //bool checkIfEnoughPlaceToAddObject(float maxDist);
     //void throwDynamicObject(BULLET_KEY_CODE key);
-    void dropDynamicObject(int key, Ogre::Vector3 vec);
+    
 
     //OgreBulletInputListener *getBulletInputListener(){return mInputListener;}
 
@@ -87,9 +82,7 @@ public:
 
     //virtual void bulletKeyPressed(BULLET_KEY_CODE key);
     //virtual void bulletKeyReleased(BULLET_KEY_CODE key);
-
     //bool *getBoolActivator(){return &mActivationBool;}
-
     //void setDebugText(const Ogre::String &debugText){mDebugText = debugText;}
 
     void initWorld (const Ogre::Vector3 &gravityVector = Ogre::Vector3 (0,-9.81,0), 
@@ -132,7 +125,6 @@ public:
     
     
     //void getDebugLines();
-
     //OgreBulletDynamics::RigidBody* getBodyUnderCursorUsingBullet(Ogre::Vector3 &intersectionPoint, Ogre::Ray &rayTo);
     //OgreBulletDynamics::RigidBody* getBodyUnderCursorUsingOgre(Ogre::Vector3 &intersectionPoint, Ogre::Ray &rayTo);
 
@@ -140,8 +132,8 @@ public:
 	std::deque<Ogre::Entity *>                          mEntities;
 	std::deque<OgreBulletDynamics::RigidBody *>         mBodies;
 	std::deque<OgreBulletCollisions::CollisionShape *>  mShapes;
-	Ogre::SceneManager      *mBulletSceneMgr;
-	OgreBulletDynamics::DynamicsWorld *mBulletWorld;
+	Ogre::SceneManager*									mBulletSceneMgr;
+	OgreBulletDynamics::DynamicsWorld*					mBulletWorld;
 
 protected:
     static size_t mNumEntitiesInstanced;
@@ -154,7 +146,6 @@ protected:
     //Ogre::Light *mSunLight;
 	//Ogre::Light *mLight;
 	//Ogre::Light *mLight2;
-
 
     //Ogre::Camera            *mBulletCamera;
     //Ogre::Radian             mBulletCameraRotX;
@@ -177,7 +168,6 @@ protected:
     //float                    mImpulseForce;
     //bool                     mPaused;
 
-
     //bool                    mWireFrame;
     //bool                    mDrawAabb;
     //bool                    mDrawFeaturesText;
@@ -190,9 +180,7 @@ protected:
     //bool                    mDisableBulletLCP;
     //bool                    mEnableCCD;
 
-
    //BetaGUI::StaticText*  mFpsStaticText;
-
 
    // picking Drag&Drop, impulse
    //OgreBulletDynamics::RigidBody        *mPickedBody;

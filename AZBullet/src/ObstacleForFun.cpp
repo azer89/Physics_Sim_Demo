@@ -22,7 +22,7 @@ void ObstacleForFun::createObject(OgreBulletListener *bulletListener, size_t &mN
 			this->addRigidBody(
 				bulletListener,											// bullet listener
 				"crate.mesh",											// mesh name
-				Ogre::Vector3(-442 + (idx * 6.1), 62 + (a * 6.2), 45),	// position
+				Ogre::Vector3(-442 + (idx * 6.1), 62 + (a * 6.2), 30),	// position
 				Ogre::Vector3(3, 3, 3),									// size
 				Ogre::Vector3::ZERO,									// node translation
 				Ogre::Vector3(2),										// scale

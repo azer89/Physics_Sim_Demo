@@ -11,13 +11,13 @@ Copyright (c) 2007 tuan.kuranes@gmail.com (Use it Freely, even Statically, but h
 This source file is not LGPL, it's public source code that you can reuse.
 -----------------------------------------------------------------------------*/
 #include "Stdafx.h"
-#include "OgreBulletApplication.h"
 #include "OgreBulletListener.h"
-#include "OgreBulletGuiListener.h"
-#include "OgreBulletInputListener.h"
+
+//#include "OgreBulletApplication.h"
+//#include "OgreBulletGuiListener.h"
+//#include "OgreBulletInputListener.h"
 
 #include "OgreBulletCollisionsShape.h"
-
  
 #include "Shapes/OgreBulletCollisionsBoxShape.h"
 #include "Shapes/OgreBulletCollisionsSphereShape.h"
@@ -27,23 +27,16 @@ This source file is not LGPL, it's public source code that you can reuse.
 #include "Shapes/OgreBulletCollisionsStaticPlaneShape.h"
 
 #include "Shapes/OgreBulletCollisionsCompoundShape.h"
-
 #include "Shapes/OgreBulletCollisionsMultiSphereShape.h"
-
 #include "Shapes/OgreBulletCollisionsConvexHullShape.h"
 #include "Shapes/OgreBulletCollisionsMinkowskiSumShape.h"
 
 #include "Shapes/OgreBulletCollisionsTrimeshShape.h"
-
 #include "Utils/OgreBulletCollisionsMeshToShapeConverter.h"
-
 #include "OgreBulletCollisionsRay.h"
-
 #include "Debug/OgreBulletCollisionsDebugLines.h"
-
 #include "OgreBulletDynamicsWorld.h"
 #include "OgreBulletDynamicsRigidBody.h"
-
 #include "OgreBulletDynamicsConstraint.h"
 #include "Constraints/OgreBulletDynamicsPoint2pointConstraint.h" 
 
@@ -134,9 +127,9 @@ mBulletWorld(0)
 //mPickConstraint(0),
 //mCollisionClosestRayResultCallback(0)
 {
-
-
 }
+
+
 // -------------------------------------------------------------------------
 //void OgreBulletListener::bulletInit(Ogre::Root *root, Ogre::RenderWindow *win, OgreBulletApplication *application)
 //{
@@ -225,7 +218,6 @@ mBulletWorld(0)
     //mEnableSatComparison = false;
     //mDisableBulletLCP = false;
     //mEnableCCD = false;
-
 //}
 
 
@@ -256,7 +248,6 @@ mBulletWorld(0)
 	mLight->setDiffuseColour(0.70, 0.70, 0.72);
 	mLight->setSpecularColour(0.1, 0.1, 0.3);
 
-
 	mLight2 = mBulletSceneMgr->createLight("Spot2");
 	mLight2->setType(Light::LT_SPOTLIGHT);
 	mLight2->setPosition(-100.0, 80.5, 10.0);
@@ -266,7 +257,6 @@ mBulletWorld(0)
 	mLight2->setDirection(dir);
 	mLight2->setDiffuseColour(0.72, 0.70, 0.70);
 	mLight2->setSpecularColour(0.3, 0.1, 0.1);*/
-
 //}
 
 
@@ -340,7 +330,6 @@ mBulletWorld(0)
     //const Vector2 screenRightOffBottom (mBulletWindow->getWidth () - 360, mBulletWindow->getHeight ());
     //gui->addEffect(new BetaGUI::MoveEffect(aWindow, 2, screenRightOffBottom, screenRightBottom, 0));
     //gui->addEffect(new BetaGUI::AlphaEffect(aWindow, 2, 0, 1, 0));
-
 
     //aWindow = menuWindow->addMenuWindowTab("Help");
     //aWindow->addStaticText(mName + " Help Informations", BetaGUI::WPT_VERTICAL);
@@ -487,7 +476,6 @@ void OgreBulletListener::bulletShutdown()
     //    mGuiListener->showMouse ();
     //}
 //}
-
 
 // -------------------------------------------------------------------------
 //void OgreBulletListener::bulletButton1Pressed()
@@ -1253,16 +1241,13 @@ RigidBody *OgreBulletListener::addStaticPlane( const Ogre::Real bodyRestitution,
     s->build();
     //SceneNode* mPlaneNode = mSceneMgr->getRootSceneNode()->createChildSceneNode(name);
 
-
     CollisionShape *Shape = new StaticPlaneCollisionShape (Ogre::Vector3(0,1,0), 0);
 
     RigidBody *defaultPlaneBody = new RigidBody(
         "Plane" + StringConverter::toString(mNumEntitiesInstanced), 
         mBulletWorld);
 
-
     defaultPlaneBody->setStaticShape (Shape, bodyRestitution, bodyFriction);
-
     mBodies.push_back(defaultPlaneBody);
     mShapes.push_back(Shape);
 

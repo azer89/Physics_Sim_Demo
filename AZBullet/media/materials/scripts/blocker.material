@@ -1,0 +1,33 @@
+material white_umbrella
+{
+	technique
+	{
+		pass
+		{
+			cull_software none
+			cull_hardware none
+		
+			ambient 0.5 0.5 0.5 1
+			diffuse 1 1 1 1
+			specular 0 0 0 1
+			emissive 0 0 0
+		}
+	}
+}
+material red_umbrella
+{
+	technique
+	{
+		pass
+		{
+			cull_software none
+			cull_hardware none
+		
+			shading phong
+			ambient 0.2 0.2 0.2 1
+			diffuse 1 0 0 1
+			specular 0.5 0.5 0.5 25.6
+			emissive 0 0 0
+		}
+	}
+}

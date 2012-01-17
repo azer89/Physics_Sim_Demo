@@ -38,11 +38,12 @@ public:
 	SceneNode *vehicleNode;
 	Ogre::Real speed;
 
+	OgreBulletDynamics::RaycastVehicle	        *mVehicle;
+
 private:	
 	OgreBulletDynamics::WheeledRigidBody        *mCarChassis;
 	OgreBulletDynamics::VehicleTuning	        *mTuning;
 	OgreBulletDynamics::VehicleRayCaster	    *mVehicleRayCaster;
-	OgreBulletDynamics::RaycastVehicle	        *mVehicle;
 
 	Ogre::Entity    *mChassis;
 	Ogre::Entity    *mWheels[4];

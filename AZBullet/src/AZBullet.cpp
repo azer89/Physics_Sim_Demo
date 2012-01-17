@@ -28,7 +28,7 @@ AZBullet::AZBullet(void):OgreBulletListener()
 
 	vehicle = 0;
 	tManager = 0;
-	obs = 0L;
+	obs = 0;
 	rayTerrain = 0;
 	mHydrax = 0;
 	menu = 0;
@@ -71,7 +71,11 @@ void AZBullet::createScene(void)
 	compSample->mCamera = this->mCamera;
 	compSample->mViewport = this->hViewPort;
 	compSample->setupCompositorContent();
-	//compSample->setCompositorEnabled("HDR", true);
+	
+#ifndef _DEBUG
+	compSample->setCompositorEnabled("HDR", true);
+#endif
+	
 }
 
 //------------------------------------------------------------------------------------
@@ -153,20 +157,15 @@ void AZBullet::bulletInit()
 	switchLever = new SwitchLever();
 	switchLever->createObject(this, this->mNumEntitiesInstanced);
 
+	switchLever->robot = robot;
+	switchLever->vehicle = vehicle;
+	switchLever->rocket = rocket;
+
 	obs = new ObstacleForFun();
 	obs->createObject(this, this->mNumEntitiesInstanced);
 	
 	//mBulletWorld->getDebugDrawer()->setDrawWireframe(true);
 	//mBulletWorld->setShowDebugShapes(true);
-
-	/*
-	Ogre::Vector3 initPos(-350, 80, -300);
-	for(int a = 0; a < 5; a++)
-	{
-		this->dropDynamicObject(0, initPos);
-		initPos += Ogre::Vector3(0, 2, 40);
-	}
-	*/
 
 	chars.push_back(vehicle);		// 00
 	chars.push_back(robot);			// 01
@@ -229,6 +228,8 @@ bool AZBullet::frameRenderingQueued(const Ogre::FrameEvent& arg)
 	//this->repositionCamera();	
 
 	for(int a = 0; a < chars.size(); a++) { chars[a]->updatePerFrame(elapsedTime); }
+	switchLever->updatePerFrame(elapsedTime);
+
 
 	if(this->vehicle->speed >= 125.0f) { this->compSample->SetMotionBlur(true); }
 	else { this->compSample->SetMotionBlur(false); }

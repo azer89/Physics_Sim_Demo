@@ -10,5 +10,7 @@
 #include "OgreRenderWindow.h"
 #include "OgreConfigFile.h"
 
-// #include <Terrain/OgreTerrain.h>
-// #include <Terrain/OgreTerrainGroup.h>
+#include "OISEvents.h"
+#include "OISInputManager.h"
+#include "OISKeyboard.h"
+#include "OISMouse.h"
