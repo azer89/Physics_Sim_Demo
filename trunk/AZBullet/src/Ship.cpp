@@ -31,8 +31,7 @@ Ship::Ship(void)
 	mSteeringRight = false;
 
 	mEngineForce = 0;
-	mSteering = 0;
-	
+	mSteering = 0;	
 
 	this->shipPosition = Ogre::Vector3(-90, 8, 20);
 	
@@ -46,9 +45,6 @@ Ship::~Ship(void)
 }
 
 //-------------------------------------------------------------------------------------
-//void Ship::createObject(OgreBulletListener *bulletListener,
-//						Hydrax::Hydrax *mHydrax,
-//						size_t &mNumEntitiesInstanced)
 void Ship::createObject(SceneManager* mSceneMgr, 
 			 OgreBulletDynamics::DynamicsWorld *mBulletWorld,
 			 size_t &mNumEntitiesInstanced)
@@ -231,35 +227,6 @@ void Ship::updatePerFrame(Real elapsedTime)
 		if (i < 2) mVehicle->setSteeringValue (mSteering, mWheelsSteerable[i]);
 		else mVehicle->setSteeringValue (-mSteering, mWheelsSteerable[i]);
 	}
-	
-	//Ogre::Vector3 curPos = this->mMainNode->getPosition();
-
-	//if(mHydrax->isVisible())
-	//{
-	//	Ogre::Real hydraxHeight = mHydrax->getHeigth(Ogre::Vector2(curPos.x, curPos.z));
-	//	this->mMainNode->setPosition(Ogre::Vector3(curPos.x, hydraxHeight, curPos.z));
-	//}
-	//else
-	//{
-	//	this->mMainNode->setPosition(Ogre::Vector3(curPos.x, 50, curPos.z));
-	//}
-
-	//if(direction.x == -1)		// left
-	//{
-	//	//mMainNode->rotate(Ogre::Vector3::UNIT_Y, Ogre::Radian(Ogre::Degree(-speed).valueRadians()));
-	//}
-	//else if(direction.x == 1)	// right
-	//{
-	//	//mMainNode->rotate(Ogre::Vector3::UNIT_Y, Ogre::Radian(Ogre::Degree(speed).valueRadians()));
-	//}
-
-	//if(direction.z != 0)
-	//{
-	//	Vector3 force = mMainNode->_getDerivedOrientation() * Ogre::Vector3(0, 0, speed * direction.z);
-	//	//std::cout << force << "\n";
-	//	//shipRigidBody->applyForce(force, Vector3::ZERO);
-	//	shipRigidBody->setLinearVelocity(force.x, force.y, force.z);
-	//}
 }
 
 //-------------------------------------------------------------------------------------
@@ -291,11 +258,6 @@ void Ship::keyPressed(const OIS::KeyEvent& arg)
 		mSteeringRight = false;
 		mSteeringLeft = false;
 	}
-
-	/*if(arg.key == OIS::KC_LEFT)			{ direction.x = -1; }
-	else if(arg.key == OIS::KC_RIGHT)	{ direction.x = 1;  }
-	else if(arg.key == OIS::KC_DOWN)	{ direction.z = 1;  }
-	else if(arg.key == OIS::KC_UP)		{ direction.z = -1; }*/
 }
 
 //-------------------------------------------------------------------------------------
@@ -309,59 +271,4 @@ void Ship::keyReleased(const OIS::KeyEvent& arg)
 	else if(arg.key == OIS::KC_RIGHT) { mSteeringRight = false; }
 	else if(arg.key == OIS::KC_DOWN) { mEngineForce = 0; }
 	else if(arg.key == OIS::KC_UP) { mEngineForce = 0; }
-
-	/*if(arg.key == OIS::KC_LEFT)			{ direction.x = 0;  }
-	else if(arg.key == OIS::KC_RIGHT)	{ direction.x = 0;  }
-	else if(arg.key == OIS::KC_DOWN)	{ direction.z = 0;  }
-	else if(arg.key == OIS::KC_UP)		{ direction.z = 0;  }*/
 }
-
-//-------------------------------------------------------------------------------------
-//void Ship::addRigidBodyShip(OgreBulletListener *bulletListener,
-//							const Ogre::String instanceName,
-//							const Ogre::Vector3 &pos, 
-//							const Ogre::Quaternion &q, 
-//							const Ogre::Vector3 &size,
-//							const Ogre::Real bodyRestitution, 
-//							const Ogre::Real bodyFriction, 
-//							const Ogre::Real bodyMass,
-//							size_t &mNumEntitiesInstanced)
-//{
-//	Entity *shipEntity = bulletListener->mBulletSceneMgr->createEntity(
-//		instanceName + StringConverter::toString(mNumEntitiesInstanced),
-//		"yatch.mesh");
-//
-//	shipEntity->setQueryFlags (GEOMETRY_QUERY_MASK);
-//	//rocketEntity->setCastShadows(true);
-//
-//	BoxCollisionShape *sceneCubeShape = new BoxCollisionShape(size);
-//	
-//	shipRigidBody = new RigidBody(
-//		"shipRigid" + StringConverter::toString(mNumEntitiesInstanced), 
-//		bulletListener->mBulletWorld);
-//
-//	this->mMainNode = bulletListener->mBulletSceneMgr->getRootSceneNode()->createChildSceneNode();
-//	//shipNode = this->mMainNode->createChildSceneNode("ShipNode");
-//	mMainNode->attachObject(shipEntity);		
-//	mMainNode->setScale(Ogre::Vector3(5));
-//	mMainNode->setFixedYawAxis(true);
-//	mMainNode->rotate(Ogre::Vector3::UNIT_Y, Ogre::Radian(Ogre::Degree(-45).valueRadians()));
-//
-//	Vector3 sight = Ogre::Vector3(0, 25, 0);
-//	Vector3 cam = Ogre::Vector3(-250, 100, 0);
-//
-//	// set up sight node	
-//	mSightNode = this->mMainNode->createChildSceneNode ("shipSightNode", sight);
-//	mCameraNode = this->mMainNode->createChildSceneNode ("shipCameraNode", cam);
-//	
-//	shipRigidBody->setShape (mMainNode,  sceneCubeShape, bodyRestitution, bodyFriction, bodyMass, pos, q);
-//
-//	bulletListener->mEntities.push_back(shipEntity);
-//	bulletListener->mShapes.push_back(sceneCubeShape);
-//	bulletListener->mBodies.push_back(shipRigidBody);
-//
-//	shipRigidBody->getBulletRigidBody()->setGravity(btVector3(0, 0, 0));		// make it float
-//	shipRigidBody->setKinematicObject(true);									// set it as kinematic object
-//
-//	mNumEntitiesInstanced++;
-//}

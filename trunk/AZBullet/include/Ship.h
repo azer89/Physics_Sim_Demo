@@ -4,6 +4,7 @@
 
 #include "Ogre.h"
 #include "Character.h"
+#include "CollisionDetectorTool.h"
 #include "Hydrax.h"
 
 #include "Shapes/OgreBulletCollisionsBoxShape.h"
@@ -44,8 +45,10 @@ private:
 	bool mSteeringLeft;
 	bool mSteeringRight;
 
-private:
 	RigidBody *shipRigidBody;
+
+private:
+	
 
 	/*void addRigidBodyShip(OgreBulletListener *bulletListener,
 					const Ogre::String instanceName,

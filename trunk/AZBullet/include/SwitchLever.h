@@ -7,6 +7,9 @@
 #include "Ogre.h"
 #include "Character.h"
 #include "Robot.h"
+#include "Vehicle.h"
+#include "Rocket.h"
+#include "CollisionDetectorTool.h"
 
 using namespace Ogre;
 
@@ -20,9 +23,15 @@ protected:
 	Ogre::AnimationState* ani01;
 	Ogre::AnimationState* ani02;
 
+	CollisionDetectorTool* colDetector;
+
+	bool lever01Active;
+	bool lever02Active;
+	Ogre::Real aniCounter01;
+	Ogre::Real aniCounter02;
+
 protected:
-	void addRigidBody(RigidBody* mRigidBody,
-		Ogre::AnimationState* ani,
+	RigidBody* addRigidBody(int noLever,
 		OgreBulletListener *bulletListener,
 		const Ogre::String meshFile,
 		const Ogre::Vector3 &pos, 
@@ -34,6 +43,8 @@ protected:
 
 public:
 	Robot* robot;
+	Vehicle* vehicle;
+	Rocket* rocket;
 
 public:
 	SwitchLever(void);

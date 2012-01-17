@@ -31,20 +31,25 @@ Robot::Robot(void)
 	mEngineForce = 0;
 	mSteering = 0;
 
+	isActive = false;
+	blockerAniCounter = 0.0f;
+
 	// on bridge
 	//this->robotPosition = Ogre::Vector3(10, 61, 133);
 	//Ogre::Real degree = Ogre::Degree(-135).valueRadians();
 	//this->robotRotation = Quaternion(Math::Cos(degree/2), 0, Math::Sin(degree/2), 0);
+	//this->activateRobot();
 
 	// on hill
-	/*this->robotPosition = Ogre::Vector3(-65, 110, 375);
+	this->robotPosition = Ogre::Vector3(-165, 110, 375);
 	Ogre::Real degree = Ogre::Degree(180).valueRadians();
-	this->robotRotation = Quaternion(Math::Cos(degree/2), 0, Math::Sin(degree/2), 0);*/
+	this->robotRotation = Quaternion(Math::Cos(degree/2), 0, Math::Sin(degree/2), 0);
 
 	// on land
-	this->robotPosition = Ogre::Vector3(370, 60, -300);
+	/*this->robotPosition = Ogre::Vector3(370, 60, -300);
 	Ogre::Real degree = Ogre::Degree(0).valueRadians();
 	this->robotRotation = Quaternion(Math::Cos(degree/2), 0, Math::Sin(degree/2), 0);
+	this->activateRobot();*/
 }
 
 //-------------------------------------------------------------------------------------
@@ -57,6 +62,20 @@ void Robot::createObject(SceneManager* mSceneMgr,
 						 OgreBulletDynamics::DynamicsWorld *mBulletWorld,
 						 size_t &mNumEntitiesInstanced)
 {
+	//-------------------------------------------------------------------------------------
+	Ogre::Entity* blockerEntity = mSceneMgr->createEntity( "BlockerEntity", "blocker.mesh");
+	Ogre::SceneNode* blockerNode = mSceneMgr->getRootSceneNode ()->createChildSceneNode("BlockerNode", this->robotPosition);;	
+	blockerNode->attachObject(blockerEntity);
+	blockerNode->setScale(Vector3(2));
+	blockerEntity->setQueryFlags (GEOMETRY_QUERY_MASK);
+	blockerEntity->setQueryFlags (1<<2);
+	blockerEntity->setCastShadows(false);
+
+	blockerAni = blockerEntity->getAnimationState("down");
+	blockerAni->setEnabled(true);
+	blockerAni->setLoop(false);
+
+	//-------------------------------------------------------------------------------------
 	mWheelsEngineCount = 4;
 	mWheelsEngine[0] = 0; mWheelsEngine[1] = 1; mWheelsEngine[2] = 2; mWheelsEngine[3] = 3;
 
@@ -95,7 +114,6 @@ void Robot::createObject(SceneManager* mSceneMgr,
 	CompoundCollisionShape* compound = new CompoundCollisionShape();
 	compound->addChildShape(new BoxCollisionShape(Ogre::Vector3(4.0f, 0.5f, 4.0f)), chassisShift);								// base
 	compound->addChildShape(new BoxCollisionShape(Ogre::Vector3(2.0f, 2.8f, 3.0f)), chassisShift + Ogre::Vector3(0, 8.0, 0));	// body
-	//compound->addChildShape(new BoxCollisionShape(Ogre::Vector3(2.0f, 2.8f, 50.0f)), chassisShift + Ogre::Vector3(0, 40.0, 0));	// asdf
 	compound->addChildShape(new BoxCollisionShape(Ogre::Vector3(0.6f, 4.0f, 2.0f)), chassisShift + Ogre::Vector3(-3, 4.0, 0));	// left limb
 	compound->addChildShape(new BoxCollisionShape(Ogre::Vector3(0.6f, 4.0f, 2.0f)), chassisShift + Ogre::Vector3(3, 4.0, 0));	// right limb
 	
@@ -156,7 +174,6 @@ void Robot::createObject(SceneManager* mSceneMgr,
 
 		mWheelNodes[i] = mSceneMgr->getRootSceneNode ()->createChildSceneNode ();
 		mWheelNodes[i]->attachObject (mWheels[i]);*/
-
 	}
 
 	Ogre::Vector3 wheelDirectionCS0(0, -1, 0);
@@ -185,7 +202,14 @@ void Robot::createObject(SceneManager* mSceneMgr,
 // update per frame
 void Robot::updatePerFrame(Real elapsedTime)
 {
-	
+	//------------------------------------------------------------------------------------
+	if(isActive && blockerAniCounter <= blockerAni->getLength())
+	{
+		blockerAni->addTime(elapsedTime * 0.2);
+		blockerAniCounter += elapsedTime * 0.2;
+	}	
+
+	//------------------------------------------------------------------------------------
 	Ogre::Real currentSpeed = mVehicle->getBulletVehicle()->getCurrentSpeedKmHour();
 	
 	// transfer velocity from ship to robot ----------------------------------------------
@@ -198,7 +222,7 @@ void Robot::updatePerFrame(Real elapsedTime)
 	//std::cout << this->robotNode->_getDerivedPosition() << "\n";
 
 	bool isGotTransfer = false;
-	//std::cout << dist << "\n" ;
+
 	if((shipSpeed < -5.0f || shipSpeed > 5.0f) && dist <= 55.0f)
 	{
 		mVehicle->getBulletVehicle()->getRigidBody()->setLinearVelocity(ship->mVehicle->getBulletVehicle()->getRigidBody()->getLinearVelocity());
@@ -259,7 +283,7 @@ void Robot::updatePerFrame(Real elapsedTime)
 // when key pressed
 void Robot::keyPressed(const OIS::KeyEvent& arg)
 {
-	if(!isFocus)	return;
+	if(!isFocus || !isActive)	return;
 
 	bool wheel_engine_style_change = false;
 	bool wheel_steering_style_change = false;
@@ -289,10 +313,16 @@ void Robot::keyPressed(const OIS::KeyEvent& arg)
 // when key released
 void Robot::keyReleased(const OIS::KeyEvent& arg)
 {
-	if(!isFocus) return;
+	if(!isFocus || !isActive) return;
 
 	if(arg.key == OIS::KC_LEFT) { mSteeringLeft = false; }
 	else if(arg.key == OIS::KC_RIGHT) { mSteeringRight = false; }
 	else if(arg.key == OIS::KC_DOWN) { mEngineForce = 0; }
 	else if(arg.key == OIS::KC_UP) { mEngineForce = 0; }
+}
+
+//-------------------------------------------------------------------------------------
+void Robot::activateRobot()
+{
+	this->isActive = true;
 }
