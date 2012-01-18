@@ -49,6 +49,9 @@ private:
 
 protected:
 	Ogre::Real defaultHeight;
+	Ogre::AnimationState* ani;
+	Ogre::Real aniCurPos;
+	int aniFlag;
 
 public:
 	Hydrax::Hydrax *mHydrax;

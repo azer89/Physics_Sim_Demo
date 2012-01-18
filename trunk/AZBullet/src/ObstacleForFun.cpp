@@ -36,7 +36,7 @@ void ObstacleForFun::createObject(OgreBulletListener *bulletListener, size_t &mN
 		this->addRigidBody(
 			bulletListener,	
 			"crate.mesh",											
-			Ogre::Vector3(-105, 112 + (a * 4.2), 280),	
+			Ogre::Vector3(-140, 112 + (a * 4.2), 310),	
 			Ogre::Vector3(2, 2, 2),									
 			Ogre::Vector3::ZERO,									
 			Ogre::Vector3(1.3),										
@@ -46,7 +46,7 @@ void ObstacleForFun::createObject(OgreBulletListener *bulletListener, size_t &mN
 		this->addRigidBody(
 			bulletListener,	
 			"crate.mesh",											
-			Ogre::Vector3(-145, 112 + (a * 4.2), 245),	
+			Ogre::Vector3(-175, 112 + (a * 4.2), 275),	
 			Ogre::Vector3(2, 2, 2),									
 			Ogre::Vector3::ZERO,									
 			Ogre::Vector3(1.3),										

@@ -14,11 +14,19 @@ protected:
 	Ogre::Real curSpeed;					// current speed
 	Ogre::Real accel;						// speed acceleration
 	Ogre::Real maxSpeed;					// maximum speed
-	Ogre::ParticleSystem* rocketSmoke;		// smoke particle
+	Ogre::ParticleSystem* rocketSmoke;		// main rocket
+	Ogre::ParticleSystem* rocketSmoke01;	// upleft rocket
+	Ogre::ParticleSystem* rocketSmoke02;	// upright rocket
+	Ogre::ParticleSystem* rocketSmoke03;	// downleft docket
+	Ogre::ParticleSystem* rocketSmoke04;	// downright rocket
 
 public:
 	bool isActivated;
-	SceneNode *rocketNode;
+	SceneNode *rocketNode;		// main rocket
+	SceneNode *rocketNode01;	// up rocket
+	SceneNode *rocketNode02;	// down rocket
+	SceneNode *rocketNode03;	// left docket
+	SceneNode *rocketNode04;	// right rocket
 
 	Rocket::Rocket(void);
 	virtual ~Rocket(void);

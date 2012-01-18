@@ -81,6 +81,14 @@ void Ship::createObject(SceneManager* mSceneMgr,
 	shipEntity->setQueryFlags (1<<2);
 	shipEntity->setCastShadows(false);
 
+	// ----------------------------------------------------------------------------
+	ani = shipEntity->getAnimationState("wave");
+	ani->setEnabled(true);
+	ani->setLoop(true);
+	aniCurPos = 0.0f;
+	aniFlag = 1;
+	// ----------------------------------------------------------------------------
+
 	// set up sight node	
 	mSightNode = chassisNode->createChildSceneNode ("ShipSightNode", Vector3(0,50, 0));
 	mCameraNode = chassisNode->createChildSceneNode ("ShipCameraNode", Vector3(-90, 175, -120));
@@ -157,6 +165,15 @@ void Ship::createObject(SceneManager* mSceneMgr,
 //-------------------------------------------------------------------------------------
 void Ship::updatePerFrame(Real elapsedTime)
 {
+	//---------------------------------------------------------------------------------
+	Ogre::Real aniStep = elapsedTime * 0.5f * aniFlag;
+	ani->addTime(aniStep);
+	aniCurPos += aniStep;
+	//---------------------------------------------------------------------------------
+
+	if(aniCurPos <= 0.05 ) aniFlag = 1;
+	else if(aniCurPos >= ani->getLength() - 0.05) aniFlag = -1;
+
 	Ogre::Vector3 curPos = this->mMainNode->getPosition();
 
 	if(mHydrax->isVisible())

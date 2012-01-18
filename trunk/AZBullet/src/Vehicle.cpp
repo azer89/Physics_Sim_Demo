@@ -153,7 +153,6 @@ void Vehicle::updatePerFrame(Real elapsedTime)
 {
 	// update the speed
 	speed = mVehicle->getBulletVehicle()->getCurrentSpeedKmHour();
-
 	//std::cout << this->vehicleNode->_getDerivedPosition() << "\n";
 	
 	// apply engine Force on relevant wheels
