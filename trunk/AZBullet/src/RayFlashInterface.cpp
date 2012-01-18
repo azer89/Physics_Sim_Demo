@@ -22,7 +22,7 @@ void RayFlashInterface::setupHikari(void)
 
 	hikariMgr = new HikariManager("..\\..\\media\\flash\\RayRayRayUI\\bin");
 
-	mainMenuControl = hikariMgr->createFlashOverlay("Menu", rayApp->hViewPort, 300, 300, Position(TopLeft));
+	mainMenuControl = hikariMgr->createFlashOverlay("Menu", rayApp->hViewPort, 500, 300, Position(TopLeft));
 
 	mainMenuControl->load("RayRayRayUI.swf");
 	mainMenuControl->setDraggable(false);
@@ -32,7 +32,7 @@ void RayFlashInterface::setupHikari(void)
 	mainMenuControl->bind("MenuState", FlashDelegate(this, &RayFlashInterface::onMenuStateChange));
 	mainMenuControl->bind("OceanSimToggle", FlashDelegate(this, &RayFlashInterface::onOceanSimToogle));
 	mainMenuControl->bind("WeatherOption", FlashDelegate(this, &RayFlashInterface::onWeatherOption));
-	//mainMenuControl->bind("Start", FlashDelegate(this, &RayFlashInterface::onStartClick));
+	mainMenuControl->bind("Camera", FlashDelegate(this, &RayFlashInterface::onCameraChangePosition));
 	//mainMenuControl->bind("Stop", FlashDelegate(this, &RayFlashInterface::onStopClick));	
 	//mainMenuControl->bind("Curve", FlashDelegate(this, &RayFlashInterface::onCurveChange));
 
@@ -133,6 +133,36 @@ Hikari::FlashValue RayFlashInterface::onWeatherOption(Hikari::FlashControl* call
 	else if(text == "cloudy")
 	{
 		this->rayApp->setWeather(2);
+	}
+
+	return FLASH_VOID;
+}
+
+//-------------------------------------------------------------------------------------
+Hikari::FlashValue RayFlashInterface::onCameraChangePosition(Hikari::FlashControl* caller, const Hikari::Arguments& args)
+{
+	using namespace Hikari;
+	std::string text = args.at(0).getString(); 
+
+	if(text == "1")
+	{
+		this->rayApp->changeCameraPosition(0);
+	}
+	else if(text == "2")
+	{
+		this->rayApp->changeCameraPosition(1);
+	}
+	else if(text == "3")
+	{
+		this->rayApp->changeCameraPosition(2);
+	}
+	else if(text == "4")
+	{
+		this->rayApp->changeCameraPosition(3);
+	}
+	else if(text == "5")
+	{
+		this->rayApp->changeCameraPosition(4);
 	}
 
 	return FLASH_VOID;
