@@ -9,6 +9,7 @@
 #include "Robot.h"
 #include "Vehicle.h"
 #include "Rocket.h"
+#include "SoundManager.h"
 #include "CollisionDetectorTool.h"
 
 using namespace Ogre;
@@ -45,6 +46,7 @@ public:
 	Robot* robot;
 	Vehicle* vehicle;
 	Rocket* rocket;
+	SoundManager* soundManager;
 
 public:
 	SwitchLever(void);

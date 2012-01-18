@@ -9,6 +9,8 @@ Rocket::Rocket(void)
 	curSpeed = 0.0f;
 	accel = 0.03f;
 	maxSpeed = 10.0f;
+	setTimer = false;
+	timer = 0.0f;
 }
 
 //-------------------------------------------------------------------------------------
@@ -76,17 +78,33 @@ void Rocket::createObject(SceneManager* mSceneMgr)
 //-------------------------------------------------------------------------------------
 void Rocket::activateRocket()
 {
-	this->isActivated = true;
-	rocketSmoke->setVisible(true);
-	rocketSmoke01->setVisible(true);
-	rocketSmoke02->setVisible(true);
-	rocketSmoke03->setVisible(true);
-	rocketSmoke04->setVisible(true);
+	this->setTimer = true;
+	//this->isActivated = true;
+	//rocketSmoke->setVisible(true);
+	//rocketSmoke01->setVisible(true);
+	//rocketSmoke02->setVisible(true);
+	//rocketSmoke03->setVisible(true);
+	//rocketSmoke04->setVisible(true);
 }
 
 //-------------------------------------------------------------------------------------
 void Rocket::updatePerFrame(Real elapsedTime)
 {
+	if(setTimer)
+	{
+		timer += elapsedTime;
+
+		if(timer >= 3.0f)
+		{
+			this->isActivated = true;
+			rocketSmoke->setVisible(true);
+			rocketSmoke01->setVisible(true);
+			rocketSmoke02->setVisible(true);
+			rocketSmoke03->setVisible(true);
+			rocketSmoke04->setVisible(true);
+		}
+	}
+
 	if(!isActivated)	return;
 
 	mMainNode->translate(0, curSpeed, 0);

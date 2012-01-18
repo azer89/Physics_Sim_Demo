@@ -44,12 +44,13 @@ Robot::Robot(void)
 	this->robotPosition = Ogre::Vector3(-165, 110, 375);
 	Ogre::Real degree = Ogre::Degree(180).valueRadians();
 	this->robotRotation = Quaternion(Math::Cos(degree/2), 0, Math::Sin(degree/2), 0);
+	//this->activateRobot();
 
 	// on land
-	//this->robotPosition = Ogre::Vector3(370, 60, -300);
-	//Ogre::Real degree = Ogre::Degree(0).valueRadians();
-	//this->robotRotation = Quaternion(Math::Cos(degree/2), 0, Math::Sin(degree/2), 0);
-	//this->activateRobot();
+	/*this->robotPosition = Ogre::Vector3(370, 60, -300);
+	Ogre::Real degree = Ogre::Degree(0).valueRadians();
+	this->robotRotation = Quaternion(Math::Cos(degree/2), 0, Math::Sin(degree/2), 0);
+	this->activateRobot();*/
 }
 
 //-------------------------------------------------------------------------------------
@@ -127,7 +128,7 @@ void Robot::createObject(SceneManager* mSceneMgr,
 		this->robotPosition, 
 		this->robotRotation);
 	
-	mRobotChassis->setDamping(0.2, 0.2);		// ratio effect
+	mRobotChassis->setDamping(0.2, 0.001);		// ratio effect
 	mRobotChassis->disableDeactivation ();
 
 	mTuning = new VehicleTuning( gSuspensionStiffness, gSuspensionCompression, gSuspensionDamping, gMaxSuspensionTravelCm, gFrictionSlip);

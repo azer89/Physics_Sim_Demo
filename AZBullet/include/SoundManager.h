@@ -11,14 +11,24 @@ using namespace irrklang;
 class SoundManager
 {
 protected:
-	ISoundEngine* engine; 
-	ik_f32 volume;
+	ISoundEngine* engine;			// irrKlang engine
+	ik_f32 volume;					// current volume
+
+	ISound* bgmSound;
+	ISound* victorySound;
+	ISound* toTheMoonSound;
+	Ogre::Real victoryCounter;
+
+	bool bgmInitiated;
+	bool victoryInitiated;
+	bool toTheMoonInitiated;
 
 public:
 	SoundManager(void);
 	virtual ~SoundManager(void);
 
 	void createSound();
+	void playVictory();
 	void update(Ogre::Real elapsedTime);
 };
 
