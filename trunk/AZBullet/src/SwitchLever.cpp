@@ -65,6 +65,7 @@ void SwitchLever::updatePerFrame(Real elapsedTime)
 	{
 		lever02Active = true;
 		rocket->activateRocket();
+		soundManager->playVictory();
 	}
 
 	if(lever01Active)

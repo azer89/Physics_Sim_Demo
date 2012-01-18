@@ -20,8 +20,13 @@ protected:
 	Ogre::ParticleSystem* rocketSmoke03;	// downleft docket
 	Ogre::ParticleSystem* rocketSmoke04;	// downright rocket
 
-public:
 	bool isActivated;
+	Ogre::Real timer;
+
+public:
+	
+	bool setTimer;
+
 	SceneNode *rocketNode;		// main rocket
 	SceneNode *rocketNode01;	// up rocket
 	SceneNode *rocketNode02;	// down rocket

@@ -78,14 +78,14 @@ void AZBullet::createScene(void)
 	// create sounds
 	soundManager = new SoundManager();
 	soundManager->createSound();
+	switchLever->soundManager = soundManager;
 
 	//mHydrax->update(0.0f);
-	//mSceneMgr->setShadowTechnique(Ogre::SHADOWTYPE_STENCIL_ADDITIVE);
+	//mSceneMgr->setShadowTechnique(Ogre::SHADOWTYPE_TEXTURE_ADDITIVE);
 	
 #ifndef _DEBUG
 	compSample->setCompositorEnabled("HDR", true);
-#endif
-	
+#endif	
 }
 
 //------------------------------------------------------------------------------------
@@ -103,9 +103,6 @@ void AZBullet::changeSkyBox()
 	mSceneMgr->getLight("Light0")->setSpecularColour(mSunColor[mCurrentSkyBox].x,
 													 mSunColor[mCurrentSkyBox].y,
 													 mSunColor[mCurrentSkyBox].z);
-
-	
-	
 }
 
 // -------------------------------------------------------------------------
@@ -210,15 +207,8 @@ void AZBullet::createHydraxSimulation()
 			Hydrax::Module::ProjectedGrid::Options());	
 	
 	mHydrax->setModule(static_cast<Hydrax::Module::Module*>(mModule));
-
 	mHydrax->loadCfg("HydraxDemo.hdx");
 	mHydrax->create();
-
-	mHydrax->getMesh()->getEntity()->setCastShadows(false);
-	mHydrax->getMaterialManager()->getMaterial(Hydrax::MaterialManager::MAT_WATER)->setReceiveShadows(false);
-	mHydrax->getMaterialManager()->getMaterial(Hydrax::MaterialManager::MAT_WATER)->setLightingEnabled(false);
-	mHydrax->getMaterialManager()->getMaterial(Hydrax::MaterialManager::MAT_DEPTH)->setReceiveShadows(false);
-	mHydrax->getMaterialManager()->getMaterial(Hydrax::MaterialManager::MAT_DEPTH)->setLightingEnabled(false);
 }
 
 //-------------------------------------------------------------------------------------

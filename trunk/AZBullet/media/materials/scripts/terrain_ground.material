@@ -147,8 +147,8 @@ material cactus1Shader
 		pass
 		{
 			shading phong
-			ambient 0.2 0.2 0.2 1
-			diffuse 0.55576 0.543981 0.407518 1
+			ambient 0.1 0.2 0.1 1
+			diffuse 0.15576 0.543981 0.107518 1
 			specular 0.159892 0.162157 0.104638 12.8
 			emissive 0 0 0
 		}
@@ -161,8 +161,8 @@ material cactus1LeafShader
 		pass
 		{
 			shading phong
-			ambient 0.2 0.2 0.2 1
-			diffuse 0.447059 0.431373 0.376471 1
+			ambient 0.0 0.2 0.0 1
+			diffuse 0.147059 0.431373 0.176471 1
 			specular 0.199088 0.20388 0.159026 12.8
 			emissive 0 0 0
 		}
