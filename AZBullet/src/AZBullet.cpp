@@ -37,6 +37,7 @@ AZBullet::AZBullet(void):OgreBulletListener()
 	ship = 0;
 	fancyTerrain = 0;
 	switchLever = 0;
+	flag = 0;
 }
 
 //-------------------------------------------------------------------------------------
@@ -56,6 +57,7 @@ AZBullet::~AZBullet(void)
 	if (ship)			delete ship;
 	if (fancyTerrain)	delete fancyTerrain;
 	if (switchLever)	delete switchLever;
+	if( flag)			delete flag;
 }
 
 //-------------------------------------------------------------------------------------
@@ -70,7 +72,11 @@ void AZBullet::createScene(void)
 	compSample = new CompositorSample();
 	compSample->mCamera = this->mCamera;
 	compSample->mViewport = this->hViewPort;
+	
 	compSample->setupCompositorContent();
+
+	//mHydrax->update(0.0f);
+	//mSceneMgr->setShadowTechnique(Ogre::SHADOWTYPE_STENCIL_ADDITIVE);
 	
 #ifndef _DEBUG
 	compSample->setCompositorEnabled("HDR", true);
@@ -93,6 +99,7 @@ void AZBullet::changeSkyBox()
 	mSceneMgr->getLight("Light0")->setSpecularColour(mSunColor[mCurrentSkyBox].x,
 													 mSunColor[mCurrentSkyBox].y,
 													 mSunColor[mCurrentSkyBox].z);
+	
 }
 
 // -------------------------------------------------------------------------
@@ -162,6 +169,9 @@ void AZBullet::bulletInit()
 	switchLever->vehicle = vehicle;
 	switchLever->rocket = rocket;
 
+	flag = new Flag();
+	flag->createObject(this);
+
 	obs = new ObstacleForFun();
 	obs->createObject(this, this->mNumEntitiesInstanced);
 	
@@ -197,6 +207,12 @@ void AZBullet::createHydraxSimulation()
 
 	mHydrax->loadCfg("HydraxDemo.hdx");
 	mHydrax->create();
+
+	mHydrax->getMesh()->getEntity()->setCastShadows(false);
+	mHydrax->getMaterialManager()->getMaterial(Hydrax::MaterialManager::MAT_WATER)->setReceiveShadows(false);
+	mHydrax->getMaterialManager()->getMaterial(Hydrax::MaterialManager::MAT_WATER)->setLightingEnabled(false);
+	mHydrax->getMaterialManager()->getMaterial(Hydrax::MaterialManager::MAT_DEPTH)->setReceiveShadows(false);
+	mHydrax->getMaterialManager()->getMaterial(Hydrax::MaterialManager::MAT_DEPTH)->setLightingEnabled(false);
 }
 
 //-------------------------------------------------------------------------------------
@@ -232,7 +248,7 @@ bool AZBullet::frameRenderingQueued(const Ogre::FrameEvent& arg)
 
 	for(int a = 0; a < chars.size(); a++) { chars[a]->updatePerFrame(elapsedTime); }
 	switchLever->updatePerFrame(elapsedTime);
-
+	flag->updatePerFrame(elapsedTime);
 
 	if(this->vehicle->speed >= 125.0f) { this->compSample->SetMotionBlur(true); }
 	else { this->compSample->SetMotionBlur(false); }

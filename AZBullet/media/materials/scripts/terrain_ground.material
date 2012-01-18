@@ -4,7 +4,7 @@ material ground_wood_01
 	{
 		pass
 		{
-			ambient 0 0 0 1
+			ambient 0.2 0.2 0.2 1
 			diffuse 1 1 1 1
 			specular 0 0 0 1
 			emissive 0 0 0
@@ -27,7 +27,7 @@ material ground_wood02
 	{
 		pass
 		{
-			ambient 0 0 0 1
+			ambient 0.2 0.2 0.2 1
 			diffuse 1 1 1 1
 			specular 0 0 0 1
 			emissive 0 0 0
@@ -51,7 +51,7 @@ material ground_steel_pipe
 		pass
 		{
 			shading phong
-			ambient 0 0 0 1
+			ambient 0.2 0.2 0.2 1
 			diffuse 1 1 1 1
 			specular 0.5 0.5 0.5 25.6
 			emissive 0 0 0
@@ -74,7 +74,7 @@ material lambert1
 	{
 		pass
 		{
-			ambient 0 0 0 1
+			ambient 0.2 0.2 0.2 1
 			diffuse 0.5 0.5 0.5 1
 			specular 0 0 0 1
 			emissive 0 0 0
@@ -87,7 +87,7 @@ material ground_pavement
 	{
 		pass
 		{
-			ambient 0 0 0 1
+			ambient 0.2 0.2 0.2 1
 			diffuse 1 1 1 1
 			specular 0 0 0 1
 			emissive 0 0 0
@@ -110,7 +110,7 @@ material ground_grass
 	{
 		pass
 		{
-			ambient 0 0 0 1
+			ambient 0.2 0.2 0.2 1
 			diffuse 1 1 1 1
 			specular 0 0 0 1
 			emissive 0 0 0
@@ -133,7 +133,7 @@ material red_arrow
 	{
 		pass
 		{
-			ambient 0 0 0 1
+			ambient 0.2 0.0 0.0 1
 			diffuse 1 0 0 1
 			specular 0 0 0 1
 			emissive 0 0 0
@@ -147,7 +147,7 @@ material cactus1Shader
 		pass
 		{
 			shading phong
-			ambient 0 0 0 1
+			ambient 0.2 0.2 0.2 1
 			diffuse 0.55576 0.543981 0.407518 1
 			specular 0.159892 0.162157 0.104638 12.8
 			emissive 0 0 0
@@ -161,7 +161,7 @@ material cactus1LeafShader
 		pass
 		{
 			shading phong
-			ambient 0 0 0 1
+			ambient 0.2 0.2 0.2 1
 			diffuse 0.447059 0.431373 0.376471 1
 			specular 0.199088 0.20388 0.159026 12.8
 			emissive 0 0 0
