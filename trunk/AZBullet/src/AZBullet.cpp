@@ -153,6 +153,7 @@ void AZBullet::bulletInit()
 	ship = new Ship();
 	ship->createObject(mSceneMgr, this->mBulletWorld, this->mNumEntitiesInstanced);
 	robot->ship = ship;
+	ship->mHydrax = mHydrax;
 
 	switchLever = new SwitchLever();
 	switchLever->createObject(this, this->mNumEntitiesInstanced);
@@ -164,8 +165,10 @@ void AZBullet::bulletInit()
 	obs = new ObstacleForFun();
 	obs->createObject(this, this->mNumEntitiesInstanced);
 	
-	//mBulletWorld->getDebugDrawer()->setDrawWireframe(true);
-	//mBulletWorld->setShowDebugShapes(true);
+#ifdef _DEBUG
+	mBulletWorld->getDebugDrawer()->setDrawWireframe(true);
+	mBulletWorld->setShowDebugShapes(true);
+#endif
 
 	chars.push_back(vehicle);		// 00
 	chars.push_back(robot);			// 01

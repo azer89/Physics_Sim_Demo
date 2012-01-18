@@ -47,25 +47,11 @@ private:
 
 	RigidBody *shipRigidBody;
 
-private:
-	
-
-	/*void addRigidBodyShip(OgreBulletListener *bulletListener,
-					const Ogre::String instanceName,
-					const Ogre::Vector3 &pos, 
-					const Ogre::Quaternion &q, 
-					const Ogre::Vector3 &size,
-					const Ogre::Real bodyRestitution, 
-					const Ogre::Real bodyFriction, 
-					const Ogre::Real bodyMass,
-					size_t &mNumEntitiesInstanced);*/
-
 protected:
-	Hydrax::Hydrax *mHydrax;
-	Ogre::Real speed;
-	Ogre::Vector3 direction;
+	Ogre::Real defaultHeight;
 
 public:
+	Hydrax::Hydrax *mHydrax;
 	SceneNode *shipNode;
 	Vector3 shipPosition;
 	Quaternion shipRotation;

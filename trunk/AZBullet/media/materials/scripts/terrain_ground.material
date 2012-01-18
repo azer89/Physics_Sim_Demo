@@ -1,49 +1,3 @@
-material ground_grass
-{
-	technique
-	{
-		pass
-		{
-			ambient 0 0 0 1
-			diffuse 1 1 1 1
-			specular 0 0 0 1
-			emissive 0 0 0
-
-			texture_unit
-			{
-				texture grass.jpg
-				tex_coord_set 0
-				colour_op modulate
-				scale 1 1
-				scroll 0 0
-				rotate 0
-			}
-		}
-	}
-}
-material ground_pavement
-{
-	technique
-	{
-		pass
-		{
-			ambient 0 0 0 1
-			diffuse 1 1 1 1
-			specular 0 0 0 1
-			emissive 0 0 0
-
-			texture_unit
-			{
-				texture brick.jpg
-				tex_coord_set 0
-				colour_op modulate
-				scale 1 1
-				scroll 0 0
-				rotate 0
-			}
-		}
-	}
-}
 material ground_wood_01
 {
 	technique
@@ -123,6 +77,93 @@ material lambert1
 			ambient 0 0 0 1
 			diffuse 0.5 0.5 0.5 1
 			specular 0 0 0 1
+			emissive 0 0 0
+		}
+	}
+}
+material ground_pavement
+{
+	technique
+	{
+		pass
+		{
+			ambient 0 0 0 1
+			diffuse 1 1 1 1
+			specular 0 0 0 1
+			emissive 0 0 0
+
+			texture_unit
+			{
+				texture brick.jpg
+				tex_coord_set 0
+				colour_op modulate
+				scale 1 1
+				scroll 0 0
+				rotate 0
+			}
+		}
+	}
+}
+material ground_grass
+{
+	technique
+	{
+		pass
+		{
+			ambient 0 0 0 1
+			diffuse 1 1 1 1
+			specular 0 0 0 1
+			emissive 0 0 0
+
+			texture_unit
+			{
+				texture grass.jpg
+				tex_coord_set 0
+				colour_op modulate
+				scale 1 1
+				scroll 0 0
+				rotate 0
+			}
+		}
+	}
+}
+material red_arrow
+{
+	technique
+	{
+		pass
+		{
+			ambient 0 0 0 1
+			diffuse 1 0 0 1
+			specular 0 0 0 1
+			emissive 0 0 0
+		}
+	}
+}
+material cactus1Shader
+{
+	technique
+	{
+		pass
+		{
+			shading phong
+			ambient 0 0 0 1
+			diffuse 0.55576 0.543981 0.407518 1
+			specular 0.159892 0.162157 0.104638 12.8
+			emissive 0 0 0
+		}
+	}
+}
+material cactus1LeafShader
+{
+	technique
+	{
+		pass
+		{
+			shading phong
+			ambient 0 0 0 1
+			diffuse 0.447059 0.431373 0.376471 1
+			specular 0.199088 0.20388 0.159026 12.8
 			emissive 0 0 0
 		}
 	}

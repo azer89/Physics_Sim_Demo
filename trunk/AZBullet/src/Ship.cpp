@@ -33,7 +33,7 @@ Ship::Ship(void)
 	mEngineForce = 0;
 	mSteering = 0;	
 
-	this->shipPosition = Ogre::Vector3(-90, 8, 20);
+	this->shipPosition = Ogre::Vector3(-90, 7, 20);
 	
 	Ogre::Real degree = Ogre::Degree(-225).valueRadians();
 	this->shipRotation = Quaternion(Math::Cos(degree/2), 0, Math::Sin(degree/2), 0);
@@ -151,38 +151,30 @@ void Ship::createObject(SceneManager* mSceneMgr,
 
 	mVehicle->getBulletVehicle()->getRigidBody()->setLinearVelocity(btVector3(0, 0, 0));
 
-	//this->addRigidBodyShip(bulletListener,	// bullet listener
-	//	"BlueShip",							// instance name
-	//	Ogre::Vector3(-80, 50, -50),		// position
-	//	Quaternion::IDENTITY,				// orientation
-	//	Ogre::Vector3(15, 10, 45),			// size
-	//	0.0f,								// restitution
-	//	0.6f,								// friction
-	//	1500.0f,							// mass
-	//	mNumEntitiesInstanced);				// number of instances
-
-	//Ogre::Entity* rocketEntity = mSceneMgr->createEntity("ShipNode", "yatch.mesh");
-	//this->mMainNode = mSceneMgr->getRootSceneNode()->createChildSceneNode();
-
-	//shipNode = this->mMainNode->createChildSceneNode("ShipNode");
-	//shipNode->attachObject(rocketEntity);		
-	//shipNode->setScale(Ogre::Vector3(5));
-	//shipNode->setFixedYawAxis(true);
-	//shipNode->rotate(Ogre::Vector3::UNIT_Y, Ogre::Radian(Ogre::Degree(-45).valueRadians()));
-
-	//this->mMainNode->setPosition(Ogre::Vector3(-80, 50, -50));
-
-	//Vector3 sight = Ogre::Vector3(0, 25, 0);
-	//Vector3 cam = Ogre::Vector3(-250, 100, 0);
-
-	//// set up sight node	
-	//mSightNode = this->mMainNode->createChildSceneNode ("shipSightNode", sight);
-	//mCameraNode = this->mMainNode->createChildSceneNode ("shipCameraNode", cam);	
+	this->defaultHeight = shipNode->getPosition().y;
 }
 
 //-------------------------------------------------------------------------------------
 void Ship::updatePerFrame(Real elapsedTime)
 {
+	Ogre::Vector3 curPos = this->mMainNode->getPosition();
+
+	if(mHydrax->isVisible())
+	{
+		Ogre::Real hydraxHeight = mHydrax->getHeigth(Ogre::Vector2(curPos.x, curPos.z));
+
+		Ogre::Real diff = hydraxHeight - defaultHeight;
+		Vector3 shipCurPos = shipNode->getPosition();
+		shipNode->setPosition(shipCurPos.x, defaultHeight + (diff / 10.0f), shipCurPos.z);
+		//std::cout << diff << "\n";
+
+	}
+	else
+	{		
+		Vector3 shipCurPos = shipNode->getPosition();
+		shipNode->setPosition(shipCurPos.x, defaultHeight, shipCurPos.z);
+	}
+
 
 	Ogre::Real currentSpeed = mVehicle->getBulletVehicle()->getCurrentSpeedKmHour();
 
