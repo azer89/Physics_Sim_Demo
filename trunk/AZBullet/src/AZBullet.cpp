@@ -29,7 +29,7 @@ AZBullet::AZBullet(void):OgreBulletListener()
 	vehicle = 0;
 	tManager = 0;
 	obs = 0;
-	rayTerrain = 0;
+	//rayTerrain = 0;
 	mHydrax = 0;
 	menu = 0;
 	rocket = 0;
@@ -49,7 +49,7 @@ AZBullet::~AZBullet(void)
 	if (vehicle)		delete vehicle;
 	if (tManager)		delete tManager;
 	if (obs)			delete obs;
-	if (rayTerrain)		delete rayTerrain;
+	//if (rayTerrain)		delete rayTerrain;
 	if (mHydrax)		delete mHydrax;
 	if (menu)			delete menu;
 	if (rocket)			delete rocket;
@@ -75,6 +75,10 @@ void AZBullet::createScene(void)
 	
 	compSample->setupCompositorContent();
 
+	// create sounds
+	soundManager = new SoundManager();
+	soundManager->createSound();
+
 	//mHydrax->update(0.0f);
 	//mSceneMgr->setShadowTechnique(Ogre::SHADOWTYPE_STENCIL_ADDITIVE);
 	
@@ -99,6 +103,8 @@ void AZBullet::changeSkyBox()
 	mSceneMgr->getLight("Light0")->setSpecularColour(mSunColor[mCurrentSkyBox].x,
 													 mSunColor[mCurrentSkyBox].y,
 													 mSunColor[mCurrentSkyBox].z);
+
+	
 	
 }
 
@@ -252,6 +258,8 @@ bool AZBullet::frameRenderingQueued(const Ogre::FrameEvent& arg)
 
 	if(this->vehicle->speed >= 125.0f) { this->compSample->SetMotionBlur(true); }
 	else { this->compSample->SetMotionBlur(false); }
+
+	soundManager->update(elapsedTime);
 
 	menu->update(this->mWindow);	// update Hikari
 	return true;

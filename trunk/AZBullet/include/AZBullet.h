@@ -20,6 +20,8 @@ Filename:    AZBullet.h
 #include "FancyTerrain.h"
 #include "SwitchLever.h"
 #include "CompositorSample.h"
+#include "Flag.h"
+#include "SoundManager.h"
 
 #include "Hydrax/Hydrax.h"
 
@@ -90,8 +92,10 @@ protected:
 	Rocket* rocket;						// 03 
 	FancyTerrain* fancyTerrain;			// 04
 	SwitchLever* switchLever;			// 06
+	Flag* flag;
 	ObstacleForFun* obs;				// not used
-	RayTerrain* rayTerrain;				// not used
+	SoundManager* soundManager;
+	//RayTerrain* rayTerrain;				// not used
 
 	CameraListener* mCameraListener;
 	ThirdPersonCamera* exCamera;
