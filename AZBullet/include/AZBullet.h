@@ -49,6 +49,8 @@ public:
 	virtual bool frameEnded(const Ogre::FrameEvent& evt);
 	virtual bool frameRenderingQueued(const Ogre::FrameEvent& arg);
 
+	void changeCameraPosition(int val);	// point the camera to different object
+
 public:
 	 Ogre::Viewport* hViewPort;			// viewport from camera
 	 RayFlashInterface* menu;			// hikari
@@ -58,8 +60,7 @@ protected:
 	 void repositionCamera(void);			// not used
 	 void createSimpleWater();				// create simple water effect
 	 void createHydraxSimulation();			// create hydrax ocean simulation
-	 void changeSkyBox();					// change skybox texture and directional light
-	 void changeCameraPosition(int val);	// point the camera to different object
+	 void changeSkyBox();					// change skybox texture and directional light	 
 
 	 // OIS::MouseListener
 	 virtual bool mouseMoved(const OIS::MouseEvent& arg);

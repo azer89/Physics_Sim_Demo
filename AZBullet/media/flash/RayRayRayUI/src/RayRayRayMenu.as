@@ -20,9 +20,16 @@ package
 		private var exitButton:ExitButton;
 		private var fpsInfo:FPSInfo;
 		private var fpsText:TextField;
-		private var menu:MovieClip;
+		private var menu01:MovieClip;
+		private var menu02:MovieClip;
 		private var gearIcon:GearIcon;
 		private var isDown:Boolean = true;
+		
+		private var vehicleButton:VehicleButton;
+		private var robotButton:RobotButton;
+		private var shipButton:ShipButton;
+		private var rocketButton:RocketButton;
+		private var terrainButton:TerrainButton;
 		
 		private var oceanSimOption:OceanSimOption;
 		private var prevOceanSim:PrevButton;
@@ -46,39 +53,79 @@ package
 		
 		private function setButton():void
 		{
+			menu02 = new MovieClip();
+			menu02.x = -400;
+			menu02.y = 0;
+			menu02.alpha = 0;
+			
 			gearIcon = new GearIcon();
 			gearIcon.x = 35;
 			gearIcon.y = 35;
 			gearIcon.addEventListener(MouseEvent.CLICK, onGearClick, false, 0, true);
 			this.addChild(gearIcon);
 			
-			menu = new MovieClip();
-			menu.x = 0;
-			menu.y = -200;
-			menu.alpha = 0;
+			menu01 = new MovieClip();
+			menu01.x = 0;
+			menu01.y = -200;
+			menu01.alpha = 0;
 			
 			fpsInfo = new FPSInfo();
 			fpsInfo.x = 95;
 			fpsInfo.y = 40;
-			menu.addChild(fpsInfo);
+			menu01.addChild(fpsInfo);
 			
 			weatherOption = new WeatherOption();
 			weatherOption.x = 90;
 			weatherOption.y = 70;
-			menu.addChild(weatherOption);
+			menu01.addChild(weatherOption);
 			
 			oceanSimOption = new OceanSimOption();
 			oceanSimOption.x = 90;
 			oceanSimOption.y = 110;
-			menu.addChild(oceanSimOption);
+			menu01.addChild(oceanSimOption);
 			
 			exitButton = new ExitButton();
 			exitButton.x = 90;
 			exitButton.y = 150;
 			exitButton.addEventListener(MouseEvent.CLICK, onExitClick, false, 0, true);
-			menu.addChild(exitButton);
+			menu01.addChild(exitButton);
 			
-			this.addChild(menu);
+			this.addChild(menu01);
+			
+			// ---------------------------------------------------------------------
+			vehicleButton = new VehicleButton();
+			vehicleButton.x = 60 + 35 + 10;
+			vehicleButton.y = 35;
+			menu02.addChild(vehicleButton);
+			
+			robotButton = new RobotButton();
+			robotButton.x = 60 * 2 + 35 + 10 * 2;
+			robotButton.y = 35;
+			menu02.addChild(robotButton);
+			
+			shipButton = new ShipButton();
+			shipButton.x = 60 * 3 + 35 + 10 * 3;
+			shipButton.y = 35;
+			menu02.addChild(shipButton);
+			
+			rocketButton = new RocketButton();
+			rocketButton.x = 60 * 4 + 35 + 10 * 4;
+			rocketButton.y = 35;
+			menu02.addChild(rocketButton);
+			
+			terrainButton = new TerrainButton();
+			terrainButton.x = 60 * 5 + 35 + 10 * 5;
+			terrainButton.y = 35;
+			menu02.addChild(terrainButton);
+			
+			this.addChild(menu02);
+			
+			// ------------------------------------------------------------------
+			vehicleButton.addEventListener(MouseEvent.CLICK, onVehicleClick, false, 0, true);
+			robotButton.addEventListener(MouseEvent.CLICK, onRobotClick, false, 0, true);
+			shipButton.addEventListener(MouseEvent.CLICK, onShipClick, false, 0, true);
+			rocketButton.addEventListener(MouseEvent.CLICK, onRocketClick, false, 0, true);
+			terrainButton.addEventListener(MouseEvent.CLICK, onTerrainClick, false, 0, true);
 			
 			//this.startButton.enabled = true;
 			//this.startButton.visible = true;
@@ -93,12 +140,14 @@ package
 			
 			if (isDown)
 			{				
-				TweenLite.to(menu, 0.5, { x:0, y:50, ease:Circ.easeOut, alpha:1 } );
+				TweenLite.to(menu01, 0.5, { x:0, y:50, ease:Circ.easeOut, alpha:1 } );
+				TweenLite.to(menu02, 0.5, { x:0, y:0, ease:Circ.easeOut, alpha:1 } );
 				ExternalInterface.call("MenuState", "open");
 			}
 			else
 			{
-				TweenLite.to(menu, 0.5, { x:0, y: -200, ease:Circ.easeIn, alpha:0 } );
+				TweenLite.to(menu01, 0.5, { x:0, y: -200, ease:Circ.easeIn, alpha:0 } );
+				TweenLite.to(menu02, 0.5, { x:-400, y: 0, ease:Circ.easeIn, alpha:0 } );
 				ExternalInterface.call("MenuState", "close");
 			}
 				
@@ -252,6 +301,34 @@ package
 		{
 			fpsText.text = "FPS: " + fps.toString();
 		}
+		
+		//----------------------------------------------------------------
+		
+		private function onVehicleClick( event:MouseEvent ):void
+		{
+			ExternalInterface.call("Camera", "1");
+		}
+		
+		private function onRobotClick( event:MouseEvent ):void
+		{
+			ExternalInterface.call("Camera", "2");
+		}
+		
+		private function onShipClick( event:MouseEvent ):void
+		{
+			ExternalInterface.call("Camera", "3");
+		}
+		
+		private function onRocketClick( event:MouseEvent ):void
+		{
+			ExternalInterface.call("Camera", "4");
+		}
+		
+		private function onTerrainClick( event:MouseEvent ):void
+		{
+			ExternalInterface.call("Camera", "5");
+		}
+		
 		
 	}
 
