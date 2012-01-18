@@ -25,7 +25,7 @@ void FancyTerrain::createObject(OgreBulletListener *bulletListener, size_t &mNum
 	mSightNode = this->mMainNode->createChildSceneNode ("fancyTerrainSightNode", sight);
 	mCameraNode = this->mMainNode->createChildSceneNode ("fancyTerrainCameraNode", cam);
 
-	this->addRigidBodyLadder(bulletListener, "LadderLadder", Vector3(375, 120 + 58, -80), Quaternion::IDENTITY, 0.01f, 0.01f, 100, mNumEntitiesInstanced);
+	this->addRigidBodyLadder(bulletListener, "LadderLadder", Vector3(375, 110 + 58, -80), Quaternion::IDENTITY, 0.01f, 0.01f, 100, mNumEntitiesInstanced);
 
 }
 
@@ -41,7 +41,7 @@ void FancyTerrain::addRigidBodyLadder(OgreBulletListener *bulletListener,
 {
 	Entity *ladderEntity = bulletListener->mBulletSceneMgr->createEntity( instanceName + StringConverter::toString(mNumEntitiesInstanced), "ladder.mesh");
 	ladderEntity->setQueryFlags (GEOMETRY_QUERY_MASK);
-	Vector3 size(15.0f, 108.0f, 1.5f);
+	Vector3 size(15.0f, 103.0f, 1.5f);
 
 	BoxCollisionShape* sceneCubeShape = new BoxCollisionShape(size);
 	
@@ -52,8 +52,8 @@ void FancyTerrain::addRigidBodyLadder(OgreBulletListener *bulletListener,
 	Ogre::SceneNode* ladderMainNode = bulletListener->mBulletSceneMgr->getRootSceneNode()->createChildSceneNode();
 	Ogre::SceneNode* ladderNode = ladderMainNode->createChildSceneNode();
 	ladderNode->attachObject(ladderEntity);		
-	ladderNode->translate(0, -size.y, 0);
-	ladderNode->setScale(0.8, 1, 0.8);
+	ladderNode->translate(0, -size.y - 10, 0);
+	ladderNode->setScale(0.8, 1.0, 0.8);
 	ladderRigidBody->setShape(ladderMainNode,  sceneCubeShape, bodyRestitution, bodyFriction, bodyMass, pos, q);
 	//ladderRigidBody->setDamping(10.0f, 10.0f);
 

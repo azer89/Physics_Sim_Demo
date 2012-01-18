@@ -46,10 +46,10 @@ Robot::Robot(void)
 	this->robotRotation = Quaternion(Math::Cos(degree/2), 0, Math::Sin(degree/2), 0);
 
 	// on land
-	/*this->robotPosition = Ogre::Vector3(370, 60, -300);
-	Ogre::Real degree = Ogre::Degree(0).valueRadians();
-	this->robotRotation = Quaternion(Math::Cos(degree/2), 0, Math::Sin(degree/2), 0);
-	this->activateRobot();*/
+	//this->robotPosition = Ogre::Vector3(370, 60, -300);
+	//Ogre::Real degree = Ogre::Degree(0).valueRadians();
+	//this->robotRotation = Quaternion(Math::Cos(degree/2), 0, Math::Sin(degree/2), 0);
+	//this->activateRobot();
 }
 
 //-------------------------------------------------------------------------------------
@@ -218,8 +218,6 @@ void Robot::updatePerFrame(Real elapsedTime)
 	btVector3 robotPos = this->mVehicle->getBulletVehicle()->getRigidBody()->getCenterOfMassPosition();
 	btVector3 shipLinearVelocity = ship->mVehicle->getBulletVehicle()->getRigidBody()->getLinearVelocity();
 	Ogre::Real dist = shipPos.distance(robotPos);
-	
-	//std::cout << this->robotNode->_getDerivedPosition() << "\n";
 
 	bool isGotTransfer = false;
 
