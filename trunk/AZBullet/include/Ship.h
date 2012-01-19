@@ -20,6 +20,7 @@ using namespace Ogre;
 using namespace OgreBulletCollisions;
 using namespace OgreBulletDynamics;
 
+// Ship on the ocean
 class Ship : public Character
 {
 private:	

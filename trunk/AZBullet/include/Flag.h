@@ -8,6 +8,7 @@
 
 using namespace Ogre;
 
+// Static cloth Animation
 class Flag
 {
 

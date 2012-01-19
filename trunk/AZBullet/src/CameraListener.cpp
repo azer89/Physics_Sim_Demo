@@ -57,7 +57,8 @@ bool CameraListener::frameStarted(const FrameEvent& evt)
 	}
 
 	// 3rd Person - Chase Camera
-	if (mKeyboard->isKeyDown (OIS::KC_F1)) {
+	if (mKeyboard->isKeyDown (OIS::KC_F1)) 
+	{
 		mMode = 0;
 		if (mChar)
 			static_cast<Vehicle *>(mChar)->setVisible(true);

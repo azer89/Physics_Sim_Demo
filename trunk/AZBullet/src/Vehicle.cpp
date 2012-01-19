@@ -7,8 +7,8 @@ static float gMaxEngineForce = 5000.f;
 static float gSteeringIncrement = 0.04f;
 static float gSteeringClamp = 0.2f;
 
-static float gWheelRadius = 0.55f;
-static float gWheelWidth = 0.45f;
+static float gWheelRadius = 0.50f;
+static float gWheelWidth = 0.40f;
 
 static float gWheelFriction = 1e30f; //1000; //1e30f;
 static float gSuspensionStiffness = 5.f;
@@ -64,7 +64,7 @@ void Vehicle::createObject(SceneManager* mSceneMgr,
 	mEngineForce = 0;
 	mSteering = 0;
 
-	const Ogre::Vector3 chassisShift(0, 1.4, 0);
+	const Ogre::Vector3 chassisShift(0, 1.2, 0);
 	float connectionHeight = 0.7f;
 
 	mChassis = mSceneMgr->createEntity( "chassis" + StringConverter::toString(mNumEntitiesInstanced++), "delorean.mesh");
@@ -86,11 +86,13 @@ void Vehicle::createObject(SceneManager* mSceneMgr,
 
 	mChassis->setQueryFlags (GEOMETRY_QUERY_MASK);
 	mChassis->setQueryFlags (1<<2);
-	mChassis->setCastShadows(false);
+	mChassis->setCastShadows(true);
 	
 	CompoundCollisionShape* compound = new CompoundCollisionShape();
 	BoxCollisionShape* chassisShape = new BoxCollisionShape(Ogre::Vector3(1.f, 0.75f, 2.1f));
+	BoxCollisionShape* chassisShape01 = new BoxCollisionShape(Ogre::Vector3(0.25f, 0.25f, 0.25f));
 	compound->addChildShape(chassisShape, chassisShift); 
+	compound->addChildShape(chassisShape01, chassisShift + Vector3(0, 0.8, 0));
 	
 	mCarChassis = new WheeledRigidBody("carChassis", mBulletWorld);
 
@@ -120,7 +122,7 @@ void Vehicle::createObject(SceneManager* mSceneMgr,
 		mWheels[i] = mSceneMgr->createEntity( "wheel" + StringConverter::toString(mNumEntitiesInstanced++), "wheel.mesh");
 		mWheels[i]->setQueryFlags (GEOMETRY_QUERY_MASK);
 		mWheels[i]->setQueryFlags (1<<2);
-		mWheels[i]->setCastShadows(false);
+		mWheels[i]->setCastShadows(true);
 
 		mWheelNodes[i] = mSceneMgr->getRootSceneNode ()->createChildSceneNode ();
 		mWheelNodes[i]->attachObject (mWheels[i]);
@@ -146,6 +148,12 @@ void Vehicle::createObject(SceneManager* mSceneMgr,
 		wheelDirectionCS0, wheelAxleCS,	gSuspensionRestLength,	gWheelRadius, false, gWheelFriction, gRollInfluence);
 }
 
+//------------------------------------------------------------------------------------
+Vector3 Vehicle::getObjectPosition()
+{
+	btVector3 pos = this->mVehicle->getBulletVehicle()->getRigidBody()->getCenterOfMassPosition();
+	return Vector3(pos.x(), pos.y(), pos.z());
+}
 
 //-------------------------------------------------------------------------------------
 // update per frame
@@ -182,7 +190,6 @@ void Vehicle::updatePerFrame(Real elapsedTime)
 		if (i < 2) mVehicle->setSteeringValue (mSteering, mWheelsSteerable[i]);
 		else mVehicle->setSteeringValue (-mSteering, mWheelsSteerable[i]);
 	}
-
 }
 
 //-------------------------------------------------------------------------------------

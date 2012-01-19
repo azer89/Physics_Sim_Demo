@@ -11,7 +11,7 @@ static float gWheelRadius = 0.5f;
 static float gWheelWidth = 0.4f;
 
 static float gWheelFriction = 1e30f; //1000; //1e30f;
-static float gSuspensionStiffness = 5.f;
+static float gSuspensionStiffness = 7.f;
 static float gSuspensionDamping = 2.3f;
 static float gSuspensionCompression = 4.4f;
 
@@ -128,8 +128,8 @@ void Robot::createObject(SceneManager* mSceneMgr,
 		this->robotPosition, 
 		this->robotRotation);
 	
-	mRobotChassis->setDamping(0.2, 0.001);		// ratio effect
-	mRobotChassis->disableDeactivation ();
+	mRobotChassis->setDamping(0.001, 0.001);		// ratio effect
+	mRobotChassis->disableDeactivation();
 
 	mTuning = new VehicleTuning( gSuspensionStiffness, gSuspensionCompression, gSuspensionDamping, gMaxSuspensionTravelCm, gFrictionSlip);
 
@@ -172,7 +172,6 @@ void Robot::createObject(SceneManager* mSceneMgr,
 		mWheels[i]->setQueryFlags (GEOMETRY_QUERY_MASK);
 		mWheels[i]->setQueryFlags (1<<2);
 		mWheels[i]->setCastShadows(false);
-
 		mWheelNodes[i] = mSceneMgr->getRootSceneNode ()->createChildSceneNode ();
 		mWheelNodes[i]->attachObject (mWheels[i]);*/
 	}
@@ -199,10 +198,22 @@ void Robot::createObject(SceneManager* mSceneMgr,
 	mVehicle->getBulletVehicle()->getRigidBody()->setLinearVelocity(btVector3(0, 0, 0));
 }
 
+//------------------------------------------------------------------------------------
+Vector3 Robot::getObjectPosition()
+{
+	btVector3 pos = this->mVehicle->getBulletVehicle()->getRigidBody()->getCenterOfMassPosition();
+	return Vector3(pos.x(), pos.y(), pos.z());
+}
+
 //-------------------------------------------------------------------------------------
 // update per frame
 void Robot::updatePerFrame(Real elapsedTime)
 {
+	//------------------------------------------------------------------------------------
+	bool isFalling = false;
+	btVector3 linVelo = this->mVehicle->getBulletVehicle()->getRigidBody()->getLinearVelocity();
+	if(linVelo.getY() < -10.5f || linVelo.getY() > 10.5f) isFalling = true;
+
 	//------------------------------------------------------------------------------------
 	if(isActive && blockerAniCounter <= blockerAni->getLength())
 	{
@@ -231,7 +242,10 @@ void Robot::updatePerFrame(Real elapsedTime)
 	//-------------------------------------------------------------------------------------
 
 	Ogre::Real animFactor = mVehicle->getBulletVehicle()->getCurrentSpeedKmHour() / 50.0f;
-	if((animFactor > 0.1f || animFactor < -0.1f) && !isGotTransfer)	ani->addTime(elapsedTime * animFactor);
+	if((animFactor > 0.1f || animFactor < -0.1f) && !isGotTransfer && !isFalling)	
+	{
+		ani->addTime(elapsedTime * animFactor);
+	}
 
 	// -----------------------------------------------------------------------------------
 

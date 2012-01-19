@@ -38,6 +38,7 @@ AZBullet::AZBullet(void):OgreBulletListener()
 	fancyTerrain = 0;
 	switchLever = 0;
 	flag = 0;
+	soundManager = 0;
 }
 
 //-------------------------------------------------------------------------------------
@@ -57,7 +58,8 @@ AZBullet::~AZBullet(void)
 	if (ship)			delete ship;
 	if (fancyTerrain)	delete fancyTerrain;
 	if (switchLever)	delete switchLever;
-	if( flag)			delete flag;
+	if (flag)			delete flag;
+	if (soundManager)	delete soundManager;
 }
 
 //-------------------------------------------------------------------------------------
@@ -83,9 +85,9 @@ void AZBullet::createScene(void)
 	//mHydrax->update(0.0f);
 	//mSceneMgr->setShadowTechnique(Ogre::SHADOWTYPE_TEXTURE_ADDITIVE);
 	
-#ifndef _DEBUG
+/*#ifndef _DEBUG
 	compSample->setCompositorEnabled("HDR", true);
-#endif	
+#endif*/	
 }
 
 //------------------------------------------------------------------------------------
@@ -140,12 +142,12 @@ void AZBullet::bulletInit()
 	//obs = new ObstacleForFun();
 	//obs->createObstacle(this);
 	
-	this->addStaticTrimesh("GroundsceneMesh",
+	RigidBody* terrainRigidBody = this->addStaticTrimesh("GroundsceneMesh",
 		"terrain_ground.mesh",
 		Ogre::Vector3(0, 0, 0), 
 		Quaternion::IDENTITY,
 		0.1f, 
-		0.8f);
+		0.8f, true);
 
 	rocket = new Rocket();
 	rocket->createObject(mSceneMgr);
@@ -155,10 +157,14 @@ void AZBullet::bulletInit()
 
 	fancyTerrain = new FancyTerrain();
 	fancyTerrain->createObject(this, this->mNumEntitiesInstanced);
-
+	fancyTerrain->terrainRigidBody = terrainRigidBody;
+	
 	createSimpleWater();
 	createHydraxSimulation();
+	
+#ifdef _DEBUG
 	this->toggleOceanSimulation();
+#endif
 
 	ship = new Ship();
 	ship->createObject(mSceneMgr, this->mBulletWorld, this->mNumEntitiesInstanced);
@@ -190,7 +196,7 @@ void AZBullet::bulletInit()
 	chars.push_back(fancyTerrain);	// 04
 	//chars.push_back(switchLever);	// 06
 
-	this->changeCameraPosition(0);	// change it to vehicle
+	this->changeCameraPosition(4);	// change it to terrain
 }
 
 //-------------------------------------------------------------------------------------
@@ -232,13 +238,31 @@ void AZBullet::createSimpleWater()
 //-------------------------------------------------------------------------------------
 bool AZBullet::frameRenderingQueued(const Ogre::FrameEvent& arg)
 {
+	//----------------------------------------------------------------------------------
+	Vector3 vPos = vehicle->getObjectPosition();
+	Vector3 rPos = robot->getObjectPosition();
+
+	//std::cout << vPos.y << "\n";
+	//std::cout << rPos.y << "\n";
+
+	if(vPos.y < 10.0f || rPos.y < 10.0f) 
+	{
+		menu->setGameOver();
+	}
+
+	//----------------------------------------------------------------------------------
 	if(!BaseApplication::frameRenderingQueued(arg)) { return false; }
 	Ogre::Real elapsedTime = arg.timeSinceLastFrame;
 
 	if(this->isHydraxEnabled) mHydrax->update(elapsedTime);
 
-	// step simulation -----------------------------------------------------------------	
-	mBulletWorld->stepSimulation(elapsedTime);	
+	// step simulation -----------------------------------------------------------------
+	Ogre::Real fps = mWindow->getAverageFPS();
+
+	int step = 1;
+	if(fps < 45.0f) step = 2;
+
+	mBulletWorld->stepSimulation(elapsedTime, step);	
 	
 	//this->repositionCamera();	
 
@@ -402,13 +426,15 @@ void AZBullet::toggleOceanSimulation()
 {
 	this->isHydraxEnabled = !this->isHydraxEnabled;
 	
-	if(this->isHydraxEnabled) 
+	if(this->isHydraxEnabled)	// hydrax activated
 	{
+		//mSceneMgr->setShadowTechnique(Ogre::SHADOWTYPE_NONE);
 		this->mHydrax->setVisible(true);
 		waterNode->setVisible(false);
 	}
-	else 
+	else					   // hydrax deactivated 
 	{
+		//mSceneMgr->setShadowTechnique(Ogre::SHADOWTYPE_TEXTURE_MODULATIVE);		
 		this->mHydrax->setVisible(false);
 		waterNode->setVisible(true);
 	}
@@ -419,6 +445,27 @@ void AZBullet::setWeather(int val)
 {
 	this->mCurrentSkyBox = val;
 	this->changeSkyBox();
+}
+
+//-------------------------------------------------------------------------------------
+void AZBullet::changeCompositor(int val)
+{
+	compSample->setCompositorEnabled("HDR", false);
+	compSample->setCompositorEnabled("Radial Blur", false);
+	compSample->setCompositorEnabled("Bloom", false);
+
+	if(val == 1)
+	{
+		compSample->setCompositorEnabled("HDR", true);
+	}
+	else if(val == 2)
+	{
+		compSample->setCompositorEnabled("Bloom", true);
+	}
+	else if(val == 3)
+	{
+		compSample->setCompositorEnabled("Radial Blur", true);
+	}
 }
 
 //-------------------------------------------------------------------------------------

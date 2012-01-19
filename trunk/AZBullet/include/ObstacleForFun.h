@@ -16,6 +16,7 @@ using namespace Ogre;
 using namespace OgreBulletCollisions;
 using namespace OgreBulletDynamics;
 
+// Just bunch of boxes
 class ObstacleForFun
 {
 

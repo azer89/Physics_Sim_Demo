@@ -23,6 +23,7 @@ using namespace Ogre;
 using namespace OgreBulletCollisions;
 using namespace OgreBulletDynamics;
 
+// Class for animated Robot
 class Robot : public Character
 {
 private:	
@@ -54,7 +55,6 @@ protected:
 	Ogre::AnimationState* blockerAni;
 	Ogre::Real blockerAniCounter;
 	bool isActive;
-	//bool collisionBetweenShip;
 	
 public:
 	Ship* ship;
@@ -74,6 +74,7 @@ public:
 		OgreBulletDynamics::DynamicsWorld *mBulletWorld,
 		size_t &mNumEntitiesInstanced);
 
+	Vector3 getObjectPosition();
 	void updatePerFrame(Real elapsedTime);
 	void keyPressed(const OIS::KeyEvent& arg);
 	void keyReleased(const OIS::KeyEvent& arg);

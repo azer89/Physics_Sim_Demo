@@ -8,6 +8,7 @@
 
 using namespace irrklang;
 
+// Handling sound using irrKlang library
 class SoundManager
 {
 protected:

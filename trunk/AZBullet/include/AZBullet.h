@@ -32,6 +32,7 @@ Filename:    AZBullet.h
 // forward definition
 class RayFlashInterface;
 
+// Main class which handles everything
 class AZBullet : public BaseApplication,  public OgreBulletListener
 {
 public:
@@ -50,6 +51,7 @@ public:
 	virtual bool frameRenderingQueued(const Ogre::FrameEvent& arg);
 
 	void changeCameraPosition(int val);	// point the camera to different object
+	void changeCompositor(int val);
 
 public:
 	 Ogre::Viewport* hViewPort;			// viewport from camera
