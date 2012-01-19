@@ -103,7 +103,7 @@ void Robot::createObject(SceneManager* mSceneMgr,
 	robotNode->rotate(Ogre::Vector3::UNIT_Y, Ogre::Radian(Ogre::Degree(-90).valueRadians()));
 	robotEntity->setQueryFlags (GEOMETRY_QUERY_MASK);
 	robotEntity->setQueryFlags (1<<2);
-	robotEntity->setCastShadows(false);
+	robotEntity->setCastShadows(true);
 
 	// set up sight node	
 	mSightNode = chassisNode->createChildSceneNode ("RobotSightNode", Vector3(0, 5, 0));
@@ -239,16 +239,16 @@ void Robot::updatePerFrame(Real elapsedTime)
 		mVehicle->getBulletVehicle()->getRigidBody()->setAngularVelocity(ship->mVehicle->getBulletVehicle()->getRigidBody()->getAngularVelocity());
 		isGotTransfer = true;
 	}
-	//-------------------------------------------------------------------------------------
 
+	//-------------------------------------------------------------------------------------
 	Ogre::Real animFactor = mVehicle->getBulletVehicle()->getCurrentSpeedKmHour() / 50.0f;
+
 	if((animFactor > 0.1f || animFactor < -0.1f) && !isGotTransfer && !isFalling)	
 	{
 		ani->addTime(elapsedTime * animFactor);
 	}
 
 	// -----------------------------------------------------------------------------------
-
 	// apply engine Force on relevant wheels
 	for (int i = mWheelsEngine[0]; i < mWheelsEngineCount; i++) 
 	{
