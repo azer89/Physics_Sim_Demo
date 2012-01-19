@@ -82,8 +82,8 @@ void AZBullet::createScene(void)
 	soundManager->createSound();
 	switchLever->soundManager = soundManager;
 
-	//mHydrax->update(0.0f);
-	//mSceneMgr->setShadowTechnique(Ogre::SHADOWTYPE_TEXTURE_ADDITIVE);
+	//mSceneMgr->setShadowTechnique(Ogre::SHADOWTYPE_TEXTURE_MODULATIVE);
+	//mSceneMgr->setShadowColour(ColourValue(0, 0, 0));
 	
 /*#ifndef _DEBUG
 	compSample->setCompositorEnabled("HDR", true);
@@ -112,7 +112,7 @@ void AZBullet::bulletInit()
 {
 	mBulletSceneMgr = mSceneMgr;	// OgreBulletListener's scene manager
 
-	mSceneMgr->setAmbientLight(ColourValue(1, 1, 1));
+	mSceneMgr->setAmbientLight(ColourValue(0.5, 0.5, 0.5));
 	mSceneMgr->setSkyBox(true, mSkyBoxes[mCurrentSkyBox], 99999*3, true);
 	mCamera->setNearClipDistance(5);
 	mCamera->setFarClipDistance(99999*6);
@@ -147,7 +147,7 @@ void AZBullet::bulletInit()
 		Ogre::Vector3(0, 0, 0), 
 		Quaternion::IDENTITY,
 		0.1f, 
-		0.8f, true);
+		0.8f, false);
 
 	rocket = new Rocket();
 	rocket->createObject(mSceneMgr);
@@ -223,7 +223,7 @@ void AZBullet::createSimpleWater()
 	Ogre::Plane plane01(Ogre::Vector3::UNIT_Y, 0);
 
 	Ogre::MeshManager::getSingleton().createPlane("ground", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
-		plane01, 1500, 1500, 20, 20, true, 1, 20, 20, Ogre::Vector3::UNIT_Z);
+		plane01, 3000, 3000, 20, 20, true, 1, 20, 20, Ogre::Vector3::UNIT_Z);
 
 	Ogre::Entity* entWater01 = mSceneMgr->createEntity("WaterPlane01", "ground");
 	waterNode = mSceneMgr->getRootSceneNode()->createChildSceneNode("Water", Ogre::Vector3(0, 45, 0));

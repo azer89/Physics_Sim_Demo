@@ -79,7 +79,7 @@ void Ship::createObject(SceneManager* mSceneMgr,
 	shipNode->translate(0, 45, 0);
 	shipEntity->setQueryFlags (GEOMETRY_QUERY_MASK);
 	shipEntity->setQueryFlags (1<<2);
-	shipEntity->setCastShadows(false);
+	shipEntity->setCastShadows(true);
 
 	// ----------------------------------------------------------------------------
 	ani = shipEntity->getAnimationState("wave");

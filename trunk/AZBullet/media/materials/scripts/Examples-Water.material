@@ -47,6 +47,9 @@ material Examples/Water2
 	{
 		pass
 		{
+			cull_hardware none
+			cull_software none
+		
 			scene_blend colour_blend
 			depth_write off
 

@@ -12,8 +12,7 @@ ObstacleForFun::~ObstacleForFun(void)
 
 void ObstacleForFun::createObject(OgreBulletListener *bulletListener, size_t &mNumEntitiesInstanced)
 {
-
-	for(int a = 0; a < 10; a++)	// vertical
+	for(int a = 0; a < 8; a++)	// vertical
 	{
 		for(int b = 0; b < 5; b++)	// horizontal
 		{
@@ -27,8 +26,28 @@ void ObstacleForFun::createObject(OgreBulletListener *bulletListener, size_t &mN
 				Ogre::Vector3::ZERO,									// node translation
 				Ogre::Vector3(2),										// scale
 				Ogre::Quaternion::IDENTITY,								// rotation
-				mNumEntitiesInstanced);									// number of instance
+				mNumEntitiesInstanced, 
+				2.5f);		
 		}
+	}
+
+	for(int a = 0; a < 3; a++)
+	{
+		for(int b = 0; b < 3; b++)
+		{
+			int idx = b - 1;
+
+			this->addRigidBody(
+				bulletListener,	
+				"crate.mesh",							
+				Ogre::Vector3(375 + (idx * 6.1), 90 + (a * 6.2), -95),
+				Ogre::Vector3(3, 3, 3),				
+				Ogre::Vector3::ZERO,			
+				Ogre::Vector3(2),					
+				Ogre::Quaternion::IDENTITY,						
+				mNumEntitiesInstanced,
+				10.0f);							
+		}							
 	}
 
 	for(int a = 0; a < 5; a++)
@@ -41,7 +60,7 @@ void ObstacleForFun::createObject(OgreBulletListener *bulletListener, size_t &mN
 			Ogre::Vector3::ZERO,									
 			Ogre::Vector3(1.3),										
 			Ogre::Quaternion::IDENTITY,								
-			mNumEntitiesInstanced);		
+			mNumEntitiesInstanced, 2.5f);		
 
 		this->addRigidBody(
 			bulletListener,	
@@ -51,7 +70,7 @@ void ObstacleForFun::createObject(OgreBulletListener *bulletListener, size_t &mN
 			Ogre::Vector3::ZERO,									
 			Ogre::Vector3(1.3),										
 			Ogre::Quaternion::IDENTITY,								
-			mNumEntitiesInstanced);									
+			mNumEntitiesInstanced, 2.5f);									
 	}
 
 #ifndef _DEBUG
@@ -70,7 +89,7 @@ void ObstacleForFun::createObject(OgreBulletListener *bulletListener, size_t &mN
 				Ogre::Vector3::ZERO,									
 				Ogre::Vector3(1.3),										
 				Ogre::Quaternion::IDENTITY,								
-				mNumEntitiesInstanced);									
+				mNumEntitiesInstanced, 2.5f);									
 		}
 	}
 
@@ -92,11 +111,11 @@ void ObstacleForFun::addRigidBody(
 							   const Ogre::Vector3 &translation,
 							   const Ogre::Vector3 &scale,
 							   const Ogre::Quaternion &q, 
-							   size_t &mNumEntitiesInstanced)
+							   size_t &mNumEntitiesInstanced,
+							   Ogre::Real bodyMass)
 {
 	Ogre::Real bodyRestitution = 0.5; 
 	Ogre::Real bodyFriction = 0.5;
-	Ogre::Real bodyMass = 2.5;
 
 	Entity *mEntity = bulletListener->mBulletSceneMgr->createEntity( "SwitchLever" + StringConverter::toString(mNumEntitiesInstanced), meshFile);
 	mEntity->setQueryFlags (GEOMETRY_QUERY_MASK);

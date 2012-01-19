@@ -29,7 +29,8 @@ protected:
 		const Ogre::Vector3 &translation,
 		const Ogre::Vector3 &scale,
 		const Ogre::Quaternion &q, 
-		size_t &mNumEntitiesInstanced);
+		size_t &mNumEntitiesInstanced,
+		Ogre::Real bodyMass);
 
 
 public:
