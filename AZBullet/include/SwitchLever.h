@@ -14,6 +14,7 @@
 
 using namespace Ogre;
 
+// To trigger some events
 class SwitchLever
 {
 

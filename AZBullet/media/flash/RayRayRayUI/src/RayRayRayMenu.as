@@ -37,6 +37,12 @@ package
 		private var oceanSimText:TextField;
 		private var oceanSimVal:Boolean;
 		
+		private var compOption:CompositorOption;
+		private var prevComp:PrevButton;
+		private var nextComp:NextButton;
+		private var compText:TextField;
+		private var compVal:int;
+		
 		private var weatherOption:WeatherOption;
 		private var prevWeather:PrevButton;
 		private var nextWeather:NextButton;
@@ -48,6 +54,8 @@ package
 			this.setButton();
 			this.setObjects();
 			oceanSimVal = true;
+			
+			this.compVal = 0;
 			ExternalInterface.addCallback("setFPS", setFPS);
 		}
 		
@@ -84,9 +92,14 @@ package
 			oceanSimOption.y = 110;
 			menu01.addChild(oceanSimOption);
 			
+			compOption = new CompositorOption();
+			compOption.x = 90;
+			compOption.y = 150;
+			menu01.addChild(compOption);
+			
 			exitButton = new ExitButton();
 			exitButton.x = 90;
-			exitButton.y = 150;
+			exitButton.y = 190;
 			exitButton.addEventListener(MouseEvent.CLICK, onExitClick, false, 0, true);
 			menu01.addChild(exitButton);
 			
@@ -186,6 +199,48 @@ package
 		{
 			toggleOceanSim();
 		}
+		
+		//------------------------------------------------------------------------------------
+		private function onPrevCompClick( event:MouseEvent ):void
+		{
+			changeCompositor( -1);
+		}
+		
+		private function onNextCompClick( event:MouseEvent ):void
+		{
+			changeCompositor(1);
+		}
+		
+		private function changeCompositor(val:int):void
+		{
+			compVal += val;
+			
+			if (compVal == -1) compVal = 3;
+			else if (compVal == 4) compVal = 0;
+			
+			if (compVal == 0) // no effect
+			{
+				compText.text = "NO EFFECT";
+				ExternalInterface.call("Compositor", "0");
+			}
+			else if (compVal == 1) // hdr
+			{
+				compText.text = "HDR";
+				ExternalInterface.call("Compositor", "1");
+			}
+			else if (compVal == 2) // bloom
+			{
+				compText.text = "BLOOM";
+				ExternalInterface.call("Compositor", "2");
+			}
+			else if (compVal == 3) // radial blur
+			{
+				compText.text = "RADIAL BLUR";
+				ExternalInterface.call("Compositor", "3");
+			}
+		}
+		
+		// --------------------------------------------------------------------------------------
 		
 		private function onPrevWeatherClick( event:MouseEvent ):void
 		{
@@ -293,6 +348,26 @@ package
 				{
 					prevWeather = (PrevButton)(child);
 					prevWeather.addEventListener(MouseEvent.CLICK, onPrevWeatherClick, false, 0, true);
+				}
+			}
+			
+			for (var d:int = 0; d < this.compOption.numChildren; d++ )
+			{
+				child = this.compOption.getChildAt(d);
+				
+				if (child.name == "compText")
+				{
+					compText = (TextField)(child);
+				}
+				else if (child.name == "nextComp")
+				{
+					nextComp = (NextButton)(child);
+					nextComp.addEventListener(MouseEvent.CLICK, onNextCompClick, false, 0, true);
+				}
+				else if (child.name == "prevComp")
+				{
+					prevComp = (PrevButton)(child);
+					prevComp.addEventListener(MouseEvent.CLICK, onPrevCompClick, false, 0, true);
 				}
 			}
 		}

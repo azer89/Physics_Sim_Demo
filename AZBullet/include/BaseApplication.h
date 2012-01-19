@@ -24,6 +24,7 @@ Filename:    BaseApplication.h
 #include "SdkTrays.h"
 #include "SdkCameraMan.h"
 
+// Base class for OGRE Application
 class BaseApplication : public Ogre::FrameListener, 
 	public Ogre::WindowEventListener, 
 	public OIS::KeyListener, 

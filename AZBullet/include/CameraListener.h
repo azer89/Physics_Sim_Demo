@@ -9,6 +9,7 @@
 
 using namespace Ogre;
 
+// Class which holds third-person-camera and current character
 class CameraListener : public ExampleFrameListener
 {
 public:

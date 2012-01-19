@@ -17,6 +17,7 @@ using namespace Ogre;
 using namespace OgreBulletCollisions;
 using namespace OgreBulletDynamics;
 
+// Fake class to focus on trimesh terrain
 class FancyTerrain : public Character
 {
 protected:
@@ -31,6 +32,7 @@ protected:
 
 public:
 	SceneNode *robotNode;
+	RigidBody* terrainRigidBody;
 
 	FancyTerrain::FancyTerrain(void);
 	virtual ~FancyTerrain(void);

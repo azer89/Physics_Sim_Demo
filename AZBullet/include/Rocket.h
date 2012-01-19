@@ -8,6 +8,7 @@
 
 using namespace Ogre;
 
+// Class of Saturn V
 class Rocket : public Character
 {
 protected:

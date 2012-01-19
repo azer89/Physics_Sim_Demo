@@ -42,9 +42,7 @@ enum QueryFlags
 
 //class OgreBulletApplication;
 
-/*
-The base Test class, is also able to listen for collisions and thus change the contact properties
-*/
+// The base Test class, is also able to listen for collisions and thus change the contact properties
 class OgreBulletListener 
 {
 public:
@@ -65,8 +63,7 @@ public:
     //virtual bool bulletFrameStarted(Ogre::Real elapsedTime);
     //virtual bool bulletFrameEnded(Ogre::Real elapsedTime);
     //bool checkIfEnoughPlaceToAddObject(float maxDist);
-    //void throwDynamicObject(BULLET_KEY_CODE key);
-    
+    //void throwDynamicObject(BULLET_KEY_CODE key);    
 
     //OgreBulletInputListener *getBulletInputListener(){return mInputListener;}
 
@@ -106,7 +103,6 @@ public:
         const Ogre::Real bodyRestitution, const Ogre::Real bodyFriction, 
         const Ogre::Real bodyMass);
 
-
     OgreBulletDynamics::RigidBody *addCone(const Ogre::String instanceName,
         const Ogre::Vector3 &pos, const Ogre::Quaternion &q, const Ogre::Vector3 &size,
         const Ogre::Real bodyRestitution, const Ogre::Real bodyFriction, 
@@ -122,8 +118,7 @@ public:
 
     OgreBulletDynamics::RigidBody *addStaticPlane( const Ogre::Real bodyRestitution, 
                                                    const Ogre::Real bodyFriction);
-    
-    
+        
     //void getDebugLines();
     //OgreBulletDynamics::RigidBody* getBodyUnderCursorUsingBullet(Ogre::Vector3 &intersectionPoint, Ogre::Ray &rayTo);
     //OgreBulletDynamics::RigidBody* getBodyUnderCursorUsingOgre(Ogre::Vector3 &intersectionPoint, Ogre::Ray &rayTo);

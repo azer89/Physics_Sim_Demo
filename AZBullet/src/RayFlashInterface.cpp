@@ -5,7 +5,7 @@
 //-------------------------------------------------------------------------------------
 RayFlashInterface::~RayFlashInterface(void)
 {
-	isMenuOpen = false;
+	
 }
 
 //-------------------------------------------------------------------------------------
@@ -20,6 +20,9 @@ void RayFlashInterface::setupHikari(void)
 {
 	using namespace Hikari;
 
+	isMenuOpen = false;
+	isGameOver = false;
+
 	hikariMgr = new HikariManager("..\\..\\media\\flash\\RayRayRayUI\\bin");
 
 	mainMenuControl = hikariMgr->createFlashOverlay("Menu", rayApp->hViewPort, 500, 300, Position(TopLeft));
@@ -27,21 +30,21 @@ void RayFlashInterface::setupHikari(void)
 	mainMenuControl->load("RayRayRayUI.swf");
 	mainMenuControl->setDraggable(false);
 	mainMenuControl->setTransparent(true, true);
+	mainMenuControl->hide();
 
 	mainMenuControl->bind("Exit", FlashDelegate(this, &RayFlashInterface::onExitClick));
 	mainMenuControl->bind("MenuState", FlashDelegate(this, &RayFlashInterface::onMenuStateChange));
 	mainMenuControl->bind("OceanSimToggle", FlashDelegate(this, &RayFlashInterface::onOceanSimToogle));
 	mainMenuControl->bind("WeatherOption", FlashDelegate(this, &RayFlashInterface::onWeatherOption));
 	mainMenuControl->bind("Camera", FlashDelegate(this, &RayFlashInterface::onCameraChangePosition));
-	//mainMenuControl->bind("Stop", FlashDelegate(this, &RayFlashInterface::onStopClick));	
+	mainMenuControl->bind("Compositor", FlashDelegate(this, &RayFlashInterface::onCompositorChange));	
 	//mainMenuControl->bind("Curve", FlashDelegate(this, &RayFlashInterface::onCurveChange));
 
-	//objectControls = hikariMgr->createFlashOverlay("OControl", rayApp->hViewPort, 300, 100, Position(TopLeft));
-	//objectControls->load("ObjectUI.swf");
-	//objectControls->setDraggable(false);
-	//objectControls->setTransparent(true, true);
-	//objectControls->hide();
-	//objectControls->bind("Height", FlashDelegate(this, &RayFlashInterface::onHeightChange));
+	objectControls = hikariMgr->createFlashOverlay("Tite", rayApp->hViewPort, 600, 538, Position(Center));
+	objectControls->load("SaturnVTitle.swf");
+	objectControls->setDraggable(false);
+	objectControls->setTransparent(true, true);
+	objectControls->bind("StartTitle", FlashDelegate(this, &RayFlashInterface::onStartTitle));
 }
 
 //-------------------------------------------------------------------------------------
@@ -55,6 +58,16 @@ void RayFlashInterface::showObjectControl(int xMPos, int yMPos, int height)
 
 	oCPos.x = xMPos;
 	oCPos.y = yMPos;
+}
+
+//-------------------------------------------------------------------------------------
+void RayFlashInterface::setGameOver()
+{
+	if(!isGameOver)
+	{
+		objectControls->callFunction("SetGameOver", Hikari::Args((int)0));
+		isGameOver = true;
+	}
 }
 
 //-------------------------------------------------------------------------------------
@@ -169,6 +182,32 @@ Hikari::FlashValue RayFlashInterface::onCameraChangePosition(Hikari::FlashContro
 }
 
 //-------------------------------------------------------------------------------------
+Hikari::FlashValue RayFlashInterface::onCompositorChange(Hikari::FlashControl* caller, const Hikari::Arguments& args)
+{
+	using namespace Hikari;
+	std::string text = args.at(0).getString(); 
+
+	if(text == "0")
+	{
+		this->rayApp->changeCompositor(0);
+	}
+	else if(text == "1")
+	{
+		this->rayApp->changeCompositor(1);
+	}
+	else if(text == "2")
+	{
+		this->rayApp->changeCompositor(2);
+	}
+	else if(text == "3")
+	{
+		this->rayApp->changeCompositor(3);
+	}
+
+	return FLASH_VOID;
+}
+
+//-------------------------------------------------------------------------------------
 Hikari::FlashValue RayFlashInterface::onMenuStateChange(Hikari::FlashControl* caller, const Hikari::Arguments& args)
 {
 	using namespace Hikari;
@@ -186,14 +225,12 @@ Hikari::FlashValue RayFlashInterface::onMenuStateChange(Hikari::FlashControl* ca
 	return FLASH_VOID;
 }
 
-/*
-Hikari::FlashValue RayFlashInterface::onHeightChange(Hikari::FlashControl* caller, const Hikari::Arguments& args)
+
+Hikari::FlashValue RayFlashInterface::onStartTitle(Hikari::FlashControl* caller, const Hikari::Arguments& args)
 {
 	using namespace Hikari;
-	std::string text = args.at(0).getString(); 
-	Ogre::Real temp = ::atof(text.c_str());
-	rayApp->setPoleHeight(temp);
+
+	mainMenuControl->show();
 
 	return FLASH_VOID;
 }
-*/

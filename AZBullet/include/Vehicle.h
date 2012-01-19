@@ -16,6 +16,7 @@ using namespace Ogre;
 using namespace OgreBulletCollisions;
 using namespace OgreBulletDynamics;
 
+// Car
 class Vehicle : public Character
 {
 public:
@@ -28,6 +29,7 @@ public:
 		Camera* mCamera);
 
 	void setVisible (bool visible);
+	Vector3 getObjectPosition();
 
 	virtual void updatePerFrame(Real elapsedTime);
 	virtual void keyPressed(const OIS::KeyEvent& arg);

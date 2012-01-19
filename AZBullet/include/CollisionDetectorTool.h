@@ -16,7 +16,7 @@ using namespace Ogre;
 using namespace OgreBulletCollisions;
 using namespace OgreBulletDynamics;
 
-// declaration of callback
+// declaration of callback --------------------------------------------------------
 struct btDrawingResult : public btCollisionWorld::ContactResultCallback
 {
 	short int collisionResult;
@@ -39,6 +39,7 @@ struct btDrawingResult : public btCollisionWorld::ContactResultCallback
 	}
 };
 
+// class to detect collision ------------------------------------------------------
 class CollisionDetectorTool
 {
 protected:

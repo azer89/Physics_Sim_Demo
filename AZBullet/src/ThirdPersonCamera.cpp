@@ -65,22 +65,30 @@ void ThirdPersonCamera::instantUpdate (Vector3 cameraPosition, Vector3 targetPos
 
 void ThirdPersonCamera::update (Real elapsedTime, Vector3 cameraPosition, Vector3 targetPosition) 
 {
+	// make the movement always on top
+	bool isOnTop = true;
+	if((cameraPosition.y - targetPosition.y) <= 2.0f) 
+	{
+		isOnTop = false;
+	}
+
 	// Handle movement
-	Vector3 displacement;
+	Vector3 displacement01 = (targetPosition - mTargetNode->getPosition());
+	displacement01.x *= mTightness.x;
+	displacement01.y *= mTightness.y;
+	displacement01.z *= mTightness.z;
 
-	displacement = (cameraPosition - mCameraNode->getPosition ());
+	Vector3 displacement02 = (cameraPosition - mCameraNode->getPosition());
+	displacement02.x *= mTightness.x;
+	displacement02.y *= mTightness.y;	
+	displacement02.z *= mTightness.z;
 
-	displacement.x *= mTightness.x;
-	displacement.y *= mTightness.y;
-	displacement.z *= mTightness.z;
+	if(!isOnTop) 
+	{
+		displacement01.y += 0.1;
+		displacement02.y += 0.1;
+	}
 
-	mCameraNode->translate(displacement);
-
-	displacement = (targetPosition - mTargetNode->getPosition ());
-
-	displacement.x *= mTightness.x;
-	displacement.y *= mTightness.y;
-	displacement.z *= mTightness.z;
-
-	mTargetNode->translate(displacement);
+	mTargetNode->translate(displacement01);
+	mCameraNode->translate(displacement02);
 }

@@ -26,8 +26,8 @@ conditions of the standard open source license.
 #include "OgreCompositorLogic.h"
 #include "OgreCompositorInstance.h"
 
-//The simple types of compositor logics will all do the same thing -
-//Attach a listener to the created compositor
+//The simple types of compositor logics will all do the same thing
+//Attach a listener to the created compositor----------------------------------------------------------------
 class ListenerFactoryLogic : public Ogre::CompositorLogic
 {
 public:
@@ -55,28 +55,13 @@ private:
 
 };
 
-////The compositor logic for the heat vision compositor
-//class HeatVisionLogic : public ListenerFactoryLogic
-//{
-//protected:
-//	/** @copydoc ListenerFactoryLogic::createListener */
-//	virtual Ogre::CompositorInstance::Listener* createListener(Ogre::CompositorInstance* instance);
-//};
 
-//The compositor logic for the hdr compositor
+//The compositor logic for the hdr compositor--------------------------------------------------------------
 class HDRLogic : public ListenerFactoryLogic
 {
 protected:
 	/** @copydoc ListenerFactoryLogic::createListener */
 	virtual Ogre::CompositorInstance::Listener* createListener(Ogre::CompositorInstance* instance);
 };
-
-////The compositor logic for the gaussian blur compositor
-//class GaussianBlurLogic : public ListenerFactoryLogic
-//{
-//protected:
-//	/** @copydoc ListenerFactoryLogic::createListener */
-//	virtual Ogre::CompositorInstance::Listener* createListener(Ogre::CompositorInstance* instance);
-//};
 
 #endif

@@ -15,6 +15,7 @@ FancyTerrain::~FancyTerrain(void)
 //-------------------------------------------------------------------------------------
 void FancyTerrain::createObject(OgreBulletListener *bulletListener, size_t &mNumEntitiesInstanced)
 {
+
 	this->mMainNode = bulletListener->mBulletSceneMgr->getRootSceneNode()->createChildSceneNode();
 	this->mMainNode->setPosition(Ogre::Vector3(0, 0, 0));
 

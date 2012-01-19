@@ -6,8 +6,10 @@
 
 #include "Hikari.h"
 
+// Forward declaration
 class AZBullet;
 
+// Main class for UI Interface
 class RayFlashInterface
 {
 
@@ -23,14 +25,16 @@ public:
 	void showObjectControl(int xMPos, int yMPos, int height);
 	void hideObjectControl();
 	bool isInsideMenu(int mouseX, int mouseY);
+	void setGameOver();
 
 	Hikari::HikariManager* hikariMgr;
 	//Hikari::HikariManager* objectHikariMgr;
 
 private:
 
+	bool isGameOver;
 	Hikari::FlashControl* mainMenuControl;
-	//Hikari::FlashControl* objectControls;
+	Hikari::FlashControl* objectControls;
 
 	AZBullet* rayApp;
 	bool isMenuOpen;
@@ -41,8 +45,9 @@ private:
 	Hikari::FlashValue onOceanSimToogle(Hikari::FlashControl* caller, const Hikari::Arguments& args);			// hydrax option
 	Hikari::FlashValue onWeatherOption(Hikari::FlashControl* caller, const Hikari::Arguments& args);			// weather option
 	Hikari::FlashValue onCameraChangePosition(Hikari::FlashControl* caller, const Hikari::Arguments& args);
+	Hikari::FlashValue onCompositorChange(Hikari::FlashControl* caller, const Hikari::Arguments& args);
 	
-	//Hikari::FlashValue onCurveChange(Hikari::FlashControl* caller, const Hikari::Arguments& args);			// event listener to change curve type	
+	Hikari::FlashValue onStartTitle(Hikari::FlashControl* caller, const Hikari::Arguments& args);			// event listener to change curve type	
 	//Hikari::FlashValue onHeightChange(Hikari::FlashControl* caller, const Hikari::Arguments& args);			// event listener to change pole's height
 };
 

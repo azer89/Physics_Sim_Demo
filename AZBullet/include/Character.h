@@ -15,6 +15,7 @@
 
 using namespace Ogre;
 
+// abstract class of animated character
 class Character 
 {
 

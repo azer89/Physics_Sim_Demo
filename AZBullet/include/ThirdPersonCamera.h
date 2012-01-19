@@ -9,13 +9,11 @@
 #ifndef __ThirdPersonCamera_h_
 #define __ThirdPersonCamera_h_
 
-//#include "Stdafx.h"
-//#include "ClassDefine.h"
-
 #include "Ogre.h"
 
 using namespace Ogre;
 
+// Class to create chase camera/third person shooter
 class ThirdPersonCamera
 {
 protected:

@@ -6,6 +6,7 @@
 
 using namespace Ogre;
 
+// Class to handle post processing effect
 class CompositorSample
 {
 public:
@@ -16,13 +17,10 @@ public:
 	void setCompositorEnabled(Ogre::String name, bool enabled);
 
 	void SetMotionBlur(bool enabled);
-	//bool frameRenderingQueued(const FrameEvent& evt);
 
 public:
 	Ogre::Camera* mCamera;
 	Ogre::Viewport* mViewport;
-	
-
 
 protected:
 	void setupView(void);
@@ -30,17 +28,9 @@ protected:
 	void setupScene(void);
 	void createEffects(void);
 	void createTextures(void);
-
 	void registerCompositors();
-	//void changePage(size_t pageNum);
 
 protected:
-	//SceneNode * mSpinny;
-	//StringVector mCompositorNames;
-	//size_t mActiveCompositorPage;
-	//size_t mNumCompositorPages;	
-
-	//String mDebugCompositorName;
 	TextureUnitState* mDebugTextureTUS;
 	bool isMotionBlurActive;
 };

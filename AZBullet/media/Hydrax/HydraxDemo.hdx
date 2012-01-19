@@ -24,7 +24,7 @@ Components=Sun|Foam|Depth|Smooth|Caustics|Underwater|UnderwaterReflections|Under
 
 #Foam parameters
 <float>FoamMaxDistance=7.5e+007
-<float>FoamScale=0.0075
+<float>FoamScale=0.01
 <float>FoamStart=0
 <float>FoamTransparency=1
 
@@ -32,7 +32,7 @@ Components=Sun|Foam|Depth|Smooth|Caustics|Underwater|UnderwaterReflections|Under
 <float>DepthLimit=90
 
 #Smooth transitions parameters
-<float>SmoothPower=5
+<float>SmoothPower=1
 
 #Caustics parameters
 <float>CausticsScale=135
@@ -43,8 +43,8 @@ Components=Sun|Foam|Depth|Smooth|Caustics|Underwater|UnderwaterReflections|Under
 <vector3>GodRaysExposure=0.76x2.46x2.29
 <float>GodRaysIntensity=0.015
 <float>GodRaysSpeed=5
-<int>GodRaysNumberOfRays=100
-<float>GodRaysRaysSize=0.03
+<int>GodRaysNumberOfRays=20
+<float>GodRaysRaysSize=0.05
 <bool>GodRaysIntersections=false
 
 #Rtt quality field(0x0 = Auto)
@@ -58,7 +58,7 @@ Components=Sun|Foam|Depth|Smooth|Caustics|Underwater|UnderwaterReflections|Under
 Module=SimpleGridVertex
 <float>PG_ChoopyStrength=3.75
 <bool>PG_ChoppyWaves=true
-<int>PG_Complexity=264
+<int>PG_Complexity=25
 <float>PG_Elevation=50
 <bool>PG_ForceRecalculateGeometry=false
 <bool>PG_Smooth=false
@@ -67,11 +67,11 @@ Module=SimpleGridVertex
 #Noise options
 Noise=Perlin
 
-<int>Perlin_Octaves=8
+<int>Perlin_Octaves=4
 <float>Perlin_Scale=0.085
 <float>Perlin_Falloff=0.49
-<float>Perlin_Animspeed=1.4
+<float>Perlin_Animspeed=1.0
 <float>Perlin_Timemulti=1.27
-<float>Perlin_GPU_Strength=10
+<float>Perlin_GPU_Strength=20
 <vector3>Perlin_GPU_LODParameters=0.5x50x150000
 
